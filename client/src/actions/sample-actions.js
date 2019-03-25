@@ -31,7 +31,6 @@ function getSampleInformationError(error) {
 export function getSampleInformation(storeName) {
 	return (dispatch) => {
 		dispatch(getSampleInformationRequest());
-		console.log('sample api calledin action file');
 
 		axios.get(`/api/sample`)
 			.then((response) => {

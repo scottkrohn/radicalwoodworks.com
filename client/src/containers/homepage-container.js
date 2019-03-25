@@ -15,7 +15,6 @@ class HomepageContainer extends Component {
 
 		return (
 			<div className="container">
-				<row>
 					<div className="col-xs-12">
 						<div className="text-center">
 							<h1>Radical Woodworks</h1>
@@ -23,7 +22,6 @@ class HomepageContainer extends Component {
 							<p><a href="https://www.etsy.com/shop/radicalwoodworks">Visit Our Etsy Shop</a></p>
 						</div>
 					</div>
-				</row>
 			</div>
 		);
 	};
