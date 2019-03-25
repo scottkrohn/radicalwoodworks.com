@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production PORT=3000 nodemon --exec babel-node server.js --ignore client",
-    "dev": "NODE_ENV=development PORT=3000 nodemon --exec babel-node server.js --ignore client",
+    "start": "NODE_ENV=production PORT=3002 nodemon --exec babel-node server.js --ignore client",
+    "dev": "NODE_ENV=development PORT=3002 nodemon --exec babel-node server.js --ignore client",
     "build": "webpack --config webpack.config.js"
   },
   "keywords": [],
