@@ -1,0 +1,10 @@
+.app-container {
+	width: 1000px;
+	margin: auto;
+}
+
+@media (max-width: 1000px) {
+	.app-container {
+		width: 100%;
+	}
+}
