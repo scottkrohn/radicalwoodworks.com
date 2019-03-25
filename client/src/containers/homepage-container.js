@@ -14,22 +14,16 @@ class HomepageContainer extends Component {
 		const repos = get(this.props, 'sample.info', []);
 
 		return (
-			<div>
-				<h3>I am the homepage container.</h3>
-				<h5>Here are Scott Krohn's github repos:</h5>
-				<table>
-					<thead>
-						<tr>
-							<th>Repo Name</th>
-						</tr>
-					</thead>
-					<tbody>
-						{repos.length > 0 &&
-							repos.map((repoInfo, index) => {
-								return <tr key={index}>{repoInfo.name}</tr>;
-							})}
-					</tbody>
-				</table>
+			<div className="container">
+				<row>
+					<div className="col-xs-12">
+						<div className="text-center">
+							<h1>Radical Woodworks</h1>
+							<h3>Under Construction</h3>
+							<p><a href="https://www.etsy.com/shop/radicalwoodworks">Visit Our Etsy Shop</a></p>
+						</div>
+					</div>
+				</row>
 			</div>
 		);
 	};
