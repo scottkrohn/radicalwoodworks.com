@@ -8,6 +8,7 @@ let connection;
 class Database {
 	constructor() {
 		if (!connection) {
+			console.log('CREATING DB');
 			connection = this._connectToDatabase();
 		}
 
@@ -16,6 +17,10 @@ class Database {
 
 	assign = (field, value) => {
 		this.fields[field] = value;
+	};
+
+	assignBoolean = (field, value) => {
+		this.fields[field] = (value) ? 1 : 0;
 	};
 
 	clear = () => {

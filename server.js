@@ -8,6 +8,28 @@ import webpackConfig from './webpack.config.js';
 const app = express();
 const env = app.get('env');
 
+// TEST CODE
+import Products from './server/classes/bli/products';
+import Product from './model/product';
+
+const productsBli = new Products();
+
+const product = new Product();
+product.setTitle('Chalkboard');
+product.setType('Chalkboard TYPE');
+product.setDescription('Chalkboard, yay');
+product.setCost(34.55);
+product.setPrice(99.99);
+product.setShippingPrice(19.99);
+product.setIncludeShippingInPrice(true);
+
+console.log(product.getValues());
+
+productsBli.createProduct(product.getValues(), () => {
+	console.log('donezo');
+});
+// TEST CODE
+
 // Include dev/prod independant routes.
 routes(app);
 
