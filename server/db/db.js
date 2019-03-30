@@ -8,7 +8,6 @@ let connection;
 class Database {
 	constructor() {
 		if (!connection) {
-			console.log('CREATING DB');
 			connection = this._connectToDatabase();
 		}
 
@@ -38,7 +37,6 @@ class Database {
 
 	delete = (tableName, whereClause, callback) => {
 		const sql = `DELETE FROM \`${tableName}\` ${whereClause}`;
-		console.log(sql);
 		this.query(sql, null, callback)
 	}
 
@@ -48,7 +46,12 @@ class Database {
 	};
 
 	selectAll = (tableName, whereClause, callback) => {
-		const sql = `SELECT * FROM \`${tableName}\` ${whereClause}`;
+		const sql = `SELECT * FROM \`${tableName}\``
+
+		if (whereClause) {
+			sql += ` ${whereClause}`;
+		}
+
 		this.query(sql, null, callback);
 	};
 
@@ -76,7 +79,7 @@ class Database {
 		connection = mysql.createConnection(DB_SETTINGS);
 		connection.connect((err) => {
 			if (err) {
-				console.log('Error connection to database.');
+				console.log('Error connecting to database.');
 			} else {
 				console.log('Successfully connected to database.');
 			}

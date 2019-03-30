@@ -1,7 +1,7 @@
-import sampleReducer from './sample-reducer';
+import ProductsReducer from './products-reducer';
 
 const rootReducer = {
-	sample: sampleReducer,
+	products: ProductsReducer,
 };
 
 export default rootReducer;

@@ -1,5 +1,7 @@
 import Database from '../../db/db';
 
+import DB from '../../constants/database-constants';
+
 class ProductsBLI {
 	constructor() {
 		this.db = new Database();
@@ -9,20 +11,24 @@ class ProductsBLI {
 		this.db.clear();
 
 		// TODO: Need data validation before saving to the DB.
-		this.db.assign('type', productData.type);
-		this.db.assign('title', productData.title);
-		this.db.assign('description', productData.description);
-		this.db.assign('cost', productData.cost);
-		this.db.assign('price', productData.price);
-		this.db.assign('shipping_price', productData.shippingPrice);
-		this.db.assignBoolean('include_shipping_in_price', productData.includeShippingInPrice);
+		this.db.assign(DB.tables.products.columns.type, productData.type);
+		this.db.assign(DB.tables.products.columns.title, productData.title);
+		this.db.assign(DB.tables.products.columns.description, productData.description);
+		this.db.assign(DB.tables.products.columns.cost, productData.cost);
+		this.db.assign(DB.tables.products.columns.price, productData.price);
+		this.db.assign(DB.tables.products.columns.shippingPrice, productData.shippingPrice);
+		this.db.assignBoolean(DB.tables.products.columns.includeShippingInPrice, productData.includeShippingInPrice);
 
 		this.db.insert('products', (error, result, fields) => {
-			console.log(result);
-			console.log(error);
 			if (typeof callback === 'function') {
-				callback();
+				callback(error, result, fields);
 			}
+		});
+	}
+
+	getProducts(callback) {
+		this.db.selectAll(DB.tables.products.name, null, (error, result, fields) => {
+				callback(error, result, fields);
 		});
 	}
 };

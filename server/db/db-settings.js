@@ -1,8 +1,8 @@
 const DB_SETTINGS = {
-	host: 'localhost',
+	host: 'nessie.cphrydrblrkd.us-west-1.rds.amazonaws.com',
 	user: 'radical',
 	password: 'radicalwoodworks',
-	database: 'radical',
+	database: 'radicalwoodworks',
 };
 
 export default DB_SETTINGS;

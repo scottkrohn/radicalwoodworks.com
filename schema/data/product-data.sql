@@ -1,0 +1,4 @@
+insert into `products` (`type`, `title`, `description`, `cost`, `price`, `shipping_price`, `include_shipping_in_price`) values ('CHALKBOARD', '24x36 Ebony Magnetic', 'Pretty Chalkboard', 34.43, 99.99, 20.00, 1);
+insert into `products` (`type`, `title`, `description`, `cost`, `price`, `shipping_price`, `include_shipping_in_price`) values ('CHALKBOARD', '36x48 Mahogany Magnetic', 'Awesome Board', 54.23, 199.99, 50.00, 1);
+insert into `products` (`type`, `title`, `description`, `cost`, `price`, `shipping_price`, `include_shipping_in_price`) values ('CHALKBOARD', '12x24 Whitewash Non-Magnetic', 'Small Chalkboard', 8.49, 39.99, 12.00, 0);
+insert into `products` (`type`, `title`, `description`, `cost`, `price`, `shipping_price`, `include_shipping_in_price`) values ('SCONCE', 'Sconce Set Ebony', 'Great for candles', 14.99, 59.00, 15.00, 0);
