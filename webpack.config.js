@@ -5,15 +5,16 @@ const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
 	mode: 'development',
-	entry: './client/src/index.js',
+	entry: './client/index.js',
 	output: {
 		path: path.join(__dirname, 'build'),
 		filename: 'bundle.js',
 	},
 	resolve: {
-		alias: {
-			react: path.resolve(__dirname, 'node_modules', 'react'),
-		},
+		modules: [
+			path.resolve(__dirname),
+			'node_modules',
+		],
 	},
 	module: {
 		rules: [
@@ -70,7 +71,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: 'client/src/index.html',
+			template: 'client/index.html',
 		}),
 		new LiveReloadPlugin(),
 	],

@@ -5,13 +5,13 @@ import { BrowserRouter } from 'react-router-dom';
 // Redux Imports 
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './reducers/root-reducer';
+import rootReducer from 'client/reducers/root-reducer';
 
 import thunk from 'redux-thunk';
 
-import '../../node_modules/jquery/dist/jquery.min.js';
-import '../../node_modules/bootstrap/dist/js/bootstrap.min.js';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'node_modules/jquery/dist/jquery.min.js';
+import 'node_modules/bootstrap/dist/js/bootstrap.min.js';
+import 'node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import App from './app';
 

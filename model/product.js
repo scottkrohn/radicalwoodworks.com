@@ -1,4 +1,4 @@
-import Model from './model';
+import Model from 'model/model';
 
 class Product extends Model {
 	constructor() {
@@ -10,8 +10,8 @@ class Product extends Model {
 			description: null,
 			cost: null,
 			price: null,
-			shippingPrice: null,
-			includeShippingInPrice: null,
+			shipping_price: null,
+			include_shipping_in_price: null,
 		};
 	}
 
@@ -30,11 +30,11 @@ class Product extends Model {
 	setPrice = (price) => {
 		this.data.price = price;
 	};
-	setShippingPrice = (shippingPrice) => {
-		this.data.shippingPrice = shippingPrice;
+	setShippingPrice = (shipping_price) => {
+		this.data.shipping_price = shipping_price;
 	};
-	setIncludeShippingInPrice = (includeShippingInPrice) => {
-		this.data.includeShippingInPrice = includeShippingInPrice;
+	setIncludeShippingInPrice = (include_shipping_in_price) => {
+		this.data.include_shipping_in_price = include_shipping_in_price;
 	};
 
 	getType = () => {
@@ -53,10 +53,10 @@ class Product extends Model {
 		return this.data.price;
 	};
 	getShippingPrice = () => {
-		return this.data.shippingPrice;
+		return this.data.shipping_price;
 	};
 	getIncludeShippingInPrice = () => {
-		return this.data.includeShippingInPrice;
+		return this.data.include_shipping_in_price;
 	};
 }
 

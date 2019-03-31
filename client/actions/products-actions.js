@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Constants
-import ACTIONS from '../constants/action-constants';
+import ACTIONS from 'client/constants/action-constants';
 
 export function getProducts() {
 	return (dispatch) => {

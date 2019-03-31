@@ -1,4 +1,4 @@
-import ACTIONS from '../constants/action-constants';
+import ACTIONS from 'client/constants/action-constants';
 
 const initialState = {};
 
