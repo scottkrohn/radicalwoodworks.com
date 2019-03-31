@@ -14,6 +14,7 @@ module.exports = {
 		modules: [
 			path.resolve(__dirname),
 			'node_modules',
+			'client',
 		],
 	},
 	module: {

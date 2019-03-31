@@ -1,60 +1,74 @@
 import React, { Component } from 'react';
+import { get } from 'lodash';
 
 // Components
 import { Menu } from 'antd';
-import NavLink from 'client/components/nav/nav-link';
+import NavLink from 'components/nav/nav-link';
 
 // Constants
-import NAV from 'client/constants/nav-constants';
+import NAV from 'constants/nav-constants';
 
 class NavBar extends Component {
 
 	constructor(props) {
-		console.log(NAV);
 		super(props);
 
+		const currentPage = this.getCurrentPageName();
+
 		this.state = {
-			current: 'home',
+			current: currentPage,
 		};
 	}
 
+	getCurrentPageName = () => {
+		let currentPage = NAV.pages.home.key;
+
+		const pathName = get(window, 'location.pathname', null);
+		if (pathName) {
+			const pathParts = pathName.split('/').filter((str) => (str));
+			if (pathParts.length) {
+				currentPage = get(pathParts, '[0]');
+			}
+		}
+
+		return currentPage;
+	}
+
 	handleClick = (e) => {
-		console.log('click ', e);
 		this.setState({
 			current: e.key,
 		});
 	}
 
 	render() {
-		console.log('render');
 		return (
 			<Menu
 				onClick={this.handleClick}
 				selectedKeys={[this.state.current]}
 				mode="horizontal"
 			>
-				<Menu.Item key="home">
+				<Menu.Item key={NAV.pages.home.key}>
 					<NavLink 
-						label="Home"
-						to="/"
+						label={NAV.pages.home.label}
+						to={`/${NAV.pages.home.path}`}
 					/>
 				</Menu.Item>
-				<Menu.Item key="products">
+				<Menu.Item key={NAV.pages.products.key}>
 					<NavLink 
-						label="About"
-						to="/about"
+						label={NAV.pages.products.label}
+						to={`/${NAV.pages.products.path}`}
 					/>
 				</Menu.Item>
-				<Menu.Item key="about">
+				<Menu.Item key={NAV.pages.about.key}>
 					<NavLink 
-						label="About"
-						to="/about"
+						label={NAV.pages.about.label}
+						to={`/${NAV.pages.about.path}`}
 					/>
 				</Menu.Item>
-				<Menu.Item key="contact">
+				<Menu.Item key={NAV.pages.contact.key}>
 					<NavLink 
-						label="Contact"
-						to="/contact"
+						label={NAV.pages.contact.label}
+						to={`/${NAV.pages.contact.path}`}
 					/>
 				</Menu.Item>
 			</Menu>

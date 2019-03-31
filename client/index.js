@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 // Redux Imports 
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from 'client/reducers/root-reducer';
+import rootReducer from 'reducers/root-reducer';
 
 import thunk from 'redux-thunk';
 

@@ -1,22 +1,22 @@
 const NAV = {
 	pages: {
 		home: {
-			name: 'home',
+			key: 'home',
 			label: 'Home',
-			path: 'home'
+			path: ''
 		},
 		about: {
-			name: 'about',
+			key: 'about',
 			label: 'About Us',
 			path: 'about'
 		},
 		contact: {
-			name: 'contact',
+			key: 'contact',
 			label: 'Contact',
 			path: 'contact'
 		},
 		products: {
-			name: 'products',
+			key: 'products',
 			label: 'Products',
 			path: 'products'
 		},

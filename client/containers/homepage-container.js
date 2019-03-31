@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { get, uniqueId } from 'lodash';
 
 // Actions
-import { getProducts } from 'client/actions/products-actions';
+import { getProducts } from 'actions/products-actions';
 
 // Selectors
-import { getProducts as getProductsSelector} from 'client/selectors/products-selectors';
+import { getProducts as getProductsSelector} from 'selectors/products-selectors';
 
 class HomepageContainer extends Component {
 

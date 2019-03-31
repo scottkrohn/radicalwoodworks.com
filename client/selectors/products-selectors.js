@@ -1,5 +1,6 @@
 import { get, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
+
 import Product from 'model/product'
 
 const getProductsFromState = (state) => state.products.products;
@@ -16,7 +17,6 @@ export const getProducts = createSelector(
 				productObjects.push(product);
 			});
 		}
-		console.log(productObjects);
 		return productObjects;
 	}
 );
