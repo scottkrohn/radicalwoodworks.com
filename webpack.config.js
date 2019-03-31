@@ -12,7 +12,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			react: path.resolve(__dirname, 'node_modules', 'react')
+			react: path.resolve(__dirname, 'node_modules', 'react'),
 		},
 	},
 	module: {
@@ -24,7 +24,7 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: ['@babel/env', '@babel/react']
+							presets: ['@babel/env', '@babel/react'],
 						},
 					},
 				],
@@ -35,7 +35,20 @@ module.exports = {
 			},
 			{
 				test: /\.less$/,
-				use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {loader: 'less-loader'}],
+				use: [
+					{
+						loader: 'style-loader',
+					},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'less-loader',
+						options: {
+							javascriptEnabled: true,
+						}
+					},
+				],
 			},
 			{
 				test: /\.(gif|svg|jpg|png)/,
@@ -43,14 +56,16 @@ module.exports = {
 			},
 			{
 				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-				use: [{
-					loader: 'file-loader',
-					options: {
-						name: '[name].[ext]',
-						outputPath: 'fonts/',
-					}
-				}]
-			}
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							outputPath: 'fonts/',
+						},
+					},
+				],
+			},
 		],
 	},
 	plugins: [
@@ -58,5 +73,5 @@ module.exports = {
 			template: 'client/src/index.html',
 		}),
 		new LiveReloadPlugin(),
-	]
+	],
 };

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Router from './router';
 
 // Styles
-import './app.css';
+import './app.less';						// Global app css
+import 'antd/dist/antd.less';	// Ant Design app less
 
 class App extends Component {
 	render = () => {
