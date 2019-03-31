@@ -27,7 +27,9 @@
     "webpack-livereload-plugin": "^2.1.1"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.1.0",
+    "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
