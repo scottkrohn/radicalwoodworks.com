@@ -1,25 +1,26 @@
-import Database from '../../db/db';
+import BaseBLI from './base';
 
+// Constants
 import DB from '../../constants/database-constants';
 
-class ProductsBLI {
+class ProductsBLI extends BaseBLI {
 	constructor() {
-		this.db = new Database();
+		super();
 	}
 
 	createProduct(productData, callback) {
 		this.db.clear();
 
 		// TODO: Need data validation before saving to the DB.
-		this.db.assign(DB.tables.products.columns.type, productData.type);
-		this.db.assign(DB.tables.products.columns.title, productData.title);
-		this.db.assign(DB.tables.products.columns.description, productData.description);
-		this.db.assign(DB.tables.products.columns.cost, productData.cost);
-		this.db.assign(DB.tables.products.columns.price, productData.price);
-		this.db.assign(DB.tables.products.columns.shippingPrice, productData.shippingPrice);
-		this.db.assignBoolean(DB.tables.products.columns.includeShippingInPrice, productData.includeShippingInPrice);
+		this.db.assign(DB.tables.products.columns.type, productData.getType());
+		this.db.assign(DB.tables.products.columns.title, productData.getTitle());
+		this.db.assign(DB.tables.products.columns.description, productData.getDescription());
+		this.db.assign(DB.tables.products.columns.cost, productData.getCost());
+		this.db.assign(DB.tables.products.columns.price, productData.getPrice());
+		this.db.assign(DB.tables.products.columns.shippingPrice, productData.getShippingPrice());
+		this.db.assignBoolean(DB.tables.products.columns.includeShippingInPrice, productData.getIncludeShippingInPrice());
 
-		this.db.insert('products', (error, result, fields) => {
+		this.db.insert(DB.tables.products.name, (error, result, fields) => {
 			if (typeof callback === 'function') {
 				callback(error, result, fields);
 			}

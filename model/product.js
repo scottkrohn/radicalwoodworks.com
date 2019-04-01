@@ -5,6 +5,7 @@ class Product extends Model {
 		super();
 
 		this.data = {
+			id: null,
 			type: null,
 			title: null,
 			description: null,
@@ -15,6 +16,9 @@ class Product extends Model {
 		};
 	}
 
+	setId = (id) => {
+		this.id = id;
+	};
 	setType = (type) => {
 		this.data.type = type;
 	};
@@ -37,6 +41,9 @@ class Product extends Model {
 		this.data.include_shipping_in_price = include_shipping_in_price;
 	};
 
+	getId = () => {
+		return this.data.id;
+	};
 	getType = () => {
 		return this.data.type;
 	};
