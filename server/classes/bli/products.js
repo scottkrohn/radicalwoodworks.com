@@ -29,7 +29,9 @@ class ProductsBLI extends BaseBLI {
 
 	getProducts(callback) {
 		this.db.selectAll(DB.tables.products.name, null, (error, result, fields) => {
+			if (typeof callback === 'function') {
 				callback(error, result, fields);
+			}
 		});
 	}
 };

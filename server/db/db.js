@@ -3,12 +3,12 @@ import mysql from 'mysql';
 // Constants
 import DB_SETTINGS from './db-settings';
 
-let connection;
+let connectionPool;
 
 class Database {
 	constructor() {
-		if (!connection) {
-			connection = this._connectToDatabase();
+		if (!connectionPool) {
+			connectionPool = this._connectToDatabase();
 		}
 
 		this.clear();
@@ -57,13 +57,13 @@ class Database {
 
 	query = (sqlString = '', values = null, callback) => {
 		if (values) {
-			connection.query(sqlString, values, (error, results, fields) => {
+			connectionPool.query(sqlString, values, (error, results, fields) => {
 				if (typeof callback === 'function') {
 					callback(error, results, fields);
 				}
 			});
 		} else {
-			connection.query(sqlString, (error, results, fields) => {
+			connectionPool.query(sqlString, (error, results, fields) => {
 				if (typeof callback === 'function') {
 					callback(error, results, fields);
 				}
@@ -76,16 +76,13 @@ class Database {
 	/*************************/
 
 	_connectToDatabase = () => {
-		connection = mysql.createConnection(DB_SETTINGS);
-		connection.connect((err) => {
-			if (err) {
-				console.log('Error connecting to database.');
-			} else {
-				console.log('Successfully connected to database.');
-			}
+		connectionPool = mysql.createPool(DB_SETTINGS);
+
+		connectionPool.on('error', (err) => {
+			console.log(`Lost connection to MySQL server with error: ${err}`);
 		});
 
-		return connection;
+		return connectionPool;
 	};
 
 	_getInsertSql = (tableName) => {
