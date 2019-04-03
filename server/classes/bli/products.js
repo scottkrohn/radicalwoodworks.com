@@ -8,10 +8,9 @@ class ProductsBLI extends BaseBLI {
 		super();
 	}
 
-	createProduct(productData, callback) {
+	createProduct(productData) {
 		this.db.clear();
 
-		// TODO: Need data validation before saving to the DB.
 		this.db.assign(DB.tables.products.columns.type, productData.getType());
 		this.db.assign(DB.tables.products.columns.title, productData.getTitle());
 		this.db.assign(DB.tables.products.columns.description, productData.getDescription());
@@ -20,19 +19,21 @@ class ProductsBLI extends BaseBLI {
 		this.db.assign(DB.tables.products.columns.shippingPrice, productData.getShippingPrice());
 		this.db.assignBoolean(DB.tables.products.columns.includeShippingInPrice, productData.getIncludeShippingInPrice());
 
-		this.db.insert(DB.tables.products.name, (error, result, fields) => {
-			if (typeof callback === 'function') {
-				callback(error, result, fields);
-			}
-		});
+		return this.db.insert(DB.tables.products.name);
 	}
 
-	getProducts(callback) {
-		this.db.selectAll(DB.tables.products.name, null, (error, result, fields) => {
-			if (typeof callback === 'function') {
-				callback(error, result, fields);
-			}
-		});
+	getProducts() {
+		return this.db.selectAll(DB.tables.products.name);
+	}
+
+	getProduct(productId) {
+		const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
+		return this.db.selectOne(DB.tables.products.name, whereClause);
+	}
+
+	deleteProduct(productId) {
+		const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
+		return this.db.delete(DB.tables.products.name, whereClause);
 	}
 };
 

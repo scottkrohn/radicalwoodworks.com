@@ -30,19 +30,20 @@ class Database {
 		return this.fields;
 	}
 
-	insert = (tableName, callback) => {
+	insert = (tableName) => {
 		const insertSql = this._getInsertSql(tableName);
-		this.query(insertSql, null, callback);
+		return this.query(insertSql);
 	}
 
-	delete = (tableName, whereClause, callback) => {
+	delete = (tableName, whereClause) => {
 		const sql = `DELETE FROM \`${tableName}\` ${whereClause}`;
-		this.query(sql, null, callback)
+		return this.query(sql)
 	}
 
-	selectOne = (tableName, whereClause, callback) => {
+	selectOne = (tableName, whereClause) => {
 		const sql = `SELECT * FROM \`${tableName}\` ${whereClause} LIMIT 1`;
-		this.query(sql, null, callback);
+		console.log(sql);
+		return this.query(sql);
 	};
 
 	selectAll = (tableName, whereClause, callback) => {
@@ -52,23 +53,18 @@ class Database {
 			sql += ` ${whereClause}`;
 		}
 
-		this.query(sql, null, callback);
+		return this.query(sql);
 	};
 
-	query = (sqlString = '', values = null, callback) => {
-		if (values) {
-			connectionPool.query(sqlString, values, (error, results, fields) => {
-				if (typeof callback === 'function') {
-					callback(error, results, fields);
-				}
-			});
-		} else {
+	query = (sqlString = '') => {
+		return new Promise((resolve, reject) => {
 			connectionPool.query(sqlString, (error, results, fields) => {
-				if (typeof callback === 'function') {
-					callback(error, results, fields);
+				if (error) { 
+					reject(error);
 				}
+				resolve(results);
 			});
-		}
+		});
 	};
 
 	/*************************/
