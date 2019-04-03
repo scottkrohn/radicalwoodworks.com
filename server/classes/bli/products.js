@@ -8,7 +8,7 @@ class ProductsBLI extends BaseBLI {
 		super();
 	}
 
-	createProduct(productData) {
+	createProduct = (productData) => {
 		this.db.clear();
 
 		this.db.assign(DB.tables.products.columns.type, productData.getType());
@@ -22,16 +22,18 @@ class ProductsBLI extends BaseBLI {
 		return this.db.insert(DB.tables.products.name);
 	}
 
-	getProducts() {
+	getProducts = () => {
 		return this.db.selectAll(DB.tables.products.name);
 	}
 
-	getProduct(productId) {
+	getProduct = (productId) => {
 		const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
+
+
 		return this.db.selectOne(DB.tables.products.name, whereClause);
 	}
 
-	deleteProduct(productId) {
+	deleteProduct = (productId) => {
 		const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
 		return this.db.delete(DB.tables.products.name, whereClause);
 	}
