@@ -1,5 +1,8 @@
 import BaseBLI from './base';
 
+// Models 
+import Image from '../../../model/image';
+
 // Constants
 import DB from '../../constants/database-constants';
 
@@ -46,6 +49,12 @@ class ImagesBLI extends BaseBLI {
 
 		return this.db.query(sql);
 	}
+
+	buildImageObject = (imageData) => {
+		const image = new Image();
+		image.setValues(imageData);
+		return image;
+	};
 }
 
 export default ImagesBLI;

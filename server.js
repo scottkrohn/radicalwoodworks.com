@@ -8,6 +8,10 @@ import webpackConfig from './webpack.config.js';
 const app = express();
 const env = app.get('env');
 
+import ProductsBLI from './server/classes/bli/products';
+const productsBli = new ProductsBLI();
+productsBli.getProduct(1);
+
 // Include dev/prod independant routes.
 routes(app);
 

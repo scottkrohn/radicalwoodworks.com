@@ -1,7 +1,11 @@
+import { get } from 'lodash';
+
 import BaseBLI from './base';
+import ImagesBLI from './images';
 
 // Constants
 import DB from '../../constants/database-constants';
+import Product from '../../../model/product';
 
 class ProductsBLI extends BaseBLI {
 	constructor() {
@@ -22,20 +26,55 @@ class ProductsBLI extends BaseBLI {
 		return this.db.insert(DB.tables.products.name);
 	}
 
-	getProducts = () => {
-		return this.db.selectAll(DB.tables.products.name);
+	getProducts = async () => {
+		const productRows = this.db.selectAll(DB.tables.products.name);
+
+		const imagesBli = new ImagesBLI();
+		const productObjects = [];
+
+		// TODO: Add function to images bli called 'getImagesForProducts' that will return a bunch of images for a bunch of proudcts, with a product ID identifying the images.
+		// TODO: Then I can add those images to the products here and return a bunch of proudct objects.
+		if(Array.isArray(productRows)) {
+			productRows.forEach((productRow) => {
+
+			});
+		}
+
 	}
 
-	getProduct = (productId) => {
+	getProduct = async (productId) => {
 		const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
 
+		const productRow = await this.db.selectOne(DB.tables.products.name, whereClause);
+		const productData = get(productRow, '[0]', {});
 
-		return this.db.selectOne(DB.tables.products.name, whereClause);
+		const imagesBli = new ImagesBLI();
+		const imageRows = await imagesBli.getImages(productId);
+
+		const product = this.buildProductObject(productData, imageRows);
+		return product;
 	}
 
 	deleteProduct = (productId) => {
 		const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
 		return this.db.delete(DB.tables.products.name, whereClause);
+	}
+
+	buildProductObject = (productData, images) => {
+		const product = new Product();
+		product.setValues(productData);
+
+		const imagesBli = new ImagesBLI();
+		const imageObjects = [];
+		if (Array.isArray(images)) {
+			images.forEach((image) => {
+				const imageObj = imagesBli.buildImageObject(image);
+				imageObjects.push(imageObj);
+			});
+		}
+
+		product.setImages(imageObjects);
+		return product;
 	}
 };
 

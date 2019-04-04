@@ -13,6 +13,7 @@ class Product extends Model {
 			price: null,
 			shipping_price: null,
 			include_shipping_in_price: null,
+			images: null,
 		};
 	}
 
@@ -40,6 +41,9 @@ class Product extends Model {
 	setIncludeShippingInPrice = (include_shipping_in_price) => {
 		this.data.include_shipping_in_price = include_shipping_in_price;
 	};
+	setImages = (images) => {
+		this.data.images = images;
+	}
 
 	getId = () => {
 		return this.data.id;
@@ -65,6 +69,9 @@ class Product extends Model {
 	getIncludeShippingInPrice = () => {
 		return this.data.include_shipping_in_price;
 	};
+	getImages = () => {
+		return this.data.images;
+	}
 }
 
 export default Product;
