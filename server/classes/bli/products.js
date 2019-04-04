@@ -26,20 +26,21 @@ class ProductsBLI extends BaseBLI {
 		return this.db.insert(DB.tables.products.name);
 	}
 
+	// TODO: Add a limit/offset to this function?
 	getProducts = async () => {
-		const productRows = this.db.selectAll(DB.tables.products.name);
-
+		const productRows = await this.db.selectAll(DB.tables.products.name);
+		const productIds = productRows.map((productRow) => (productRow.id));
 		const imagesBli = new ImagesBLI();
+
+		const images = await imagesBli.getImagesByProductIds(productIds);
+		
 		const productObjects = [];
-
-		// TODO: Add function to images bli called 'getImagesForProducts' that will return a bunch of images for a bunch of proudcts, with a product ID identifying the images.
-		// TODO: Then I can add those images to the products here and return a bunch of proudct objects.
-		if(Array.isArray(productRows)) {
-			productRows.forEach((productRow) => {
-
-			});
+		for (const productRow of productRows) {
+			const imagesForProduct = images.filter((image) => (image.product_id === productRow.id));
+			productObjects.push(this.buildProductObject(productRow, imagesForProduct));
 		}
 
+		return productObjects;
 	}
 
 	getProduct = async (productId) => {

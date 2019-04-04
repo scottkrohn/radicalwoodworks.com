@@ -33,6 +33,24 @@ class ImagesBLI extends BaseBLI {
 		return this.db.selectOne(DB.tables.images.name, whereClause);
 	}
 
+	getImagesByProductIds = (productIds) => {
+		const productIdsString = productIds.join(',');
+		const sql = `
+			SELECT
+				*
+			FROM
+				\`${DB.tables.images.name}\` i
+			INNER JOIN
+				\`${DB.tables.productImageMap.name}\` map
+			ON
+				map.image_id = i.id
+			AND
+				map.product_id in (${productIdsString})
+		`;
+
+		return this.db.query(sql);
+	}
+
 	getImages = (productId) => {
 		const sql = `
 			SELECT
@@ -46,7 +64,6 @@ class ImagesBLI extends BaseBLI {
 			AND
 				map.product_id = ${productId}
 		`;
-
 		return this.db.query(sql);
 	}
 

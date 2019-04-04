@@ -10,7 +10,11 @@ const env = app.get('env');
 
 import ProductsBLI from './server/classes/bli/products';
 const productsBli = new ProductsBLI();
-productsBli.getProduct(1);
+
+productsBli.getProducts().then((products) => {
+	console.log(JSON.stringify(products));
+});
+
 
 // Include dev/prod independant routes.
 routes(app);
