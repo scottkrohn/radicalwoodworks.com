@@ -14,6 +14,10 @@ class Product extends Model {
 			shipping_price: null,
 			include_shipping_in_price: null,
 		};
+
+		this.children = {
+			images: null,
+		};
 	}
 
 	setId = (id) => {
@@ -65,6 +69,16 @@ class Product extends Model {
 	getIncludeShippingInPrice = () => {
 		return this.data.include_shipping_in_price;
 	};
+
+	/* Children Getters & Setters */
+	/******************************/
+	setImages = (images) => {
+		this.children.images = images;
+	}
+
+	getImages = () => {
+		return this.children.images;
+	}
 }
 
 export default Product;

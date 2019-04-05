@@ -27,6 +27,7 @@ const DATABASE = {
 				productId: 'product_id',
 				imageId: 'image_id',
 				hidden: 'hidden',
+				isPrimary: 'is_primary',
 			},
 		},
 	},

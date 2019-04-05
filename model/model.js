@@ -3,10 +3,14 @@ import { has } from 'lodash';
 class Model {
 	constructor() {
 		this.data = {};
+		this.children = {};
 	}
 
 	getValues = () => {
-		return this.data;
+		return {
+			...this.data,
+			...this.children,
+		};
 	}
 
 	setValues = (values) => {

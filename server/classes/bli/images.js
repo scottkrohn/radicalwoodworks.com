@@ -1,5 +1,8 @@
 import BaseBLI from './base';
 
+// Models 
+import Image from '../../../model/image';
+
 // Constants
 import DB from '../../constants/database-constants';
 
@@ -16,11 +19,12 @@ class ImagesBLI extends BaseBLI {
 		return this.db.insert(DB.tables.images.name);
 	}
 
-	addProductImageMap = (productId, imageId) => {
+	addProductImageMap = (productId, image) => {
 		this.db.clear();
 		this.db.assign(DB.tables.productImageMap.columns.productId, productId);
-		this.db.assign(DB.tables.productImageMap.columns.imageId, imageId);
-		this.db.assign(DB.tables.productImageMap.columns.hidden, true);
+		this.db.assign(DB.tables.productImageMap.columns.imageId, image.getId());
+		this.db.assignBoolean(DB.tables.productImageMap.columns.hidden, image.getHidden());
+		this.db.assignBoolean(DB.tables.productImageMap.columns.isPrimary, image.getIsPrimary());
 
 		this.db.insert(DB.tables.productImageMap.name);
 	}
@@ -28,6 +32,24 @@ class ImagesBLI extends BaseBLI {
 	getImage = (imageId) => {
 		const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;
 		return this.db.selectOne(DB.tables.images.name, whereClause);
+	}
+
+	getImagesByProductIds = (productIds) => {
+		const productIdsString = productIds.join(',');
+		const sql = `
+			SELECT
+				*
+			FROM
+				\`${DB.tables.images.name}\` i
+			INNER JOIN
+				\`${DB.tables.productImageMap.name}\` map
+			ON
+				map.image_id = i.id
+			AND
+				map.product_id in (${productIdsString})
+		`;
+
+		return this.db.query(sql);
 	}
 
 	getImages = (productId) => {
@@ -43,9 +65,14 @@ class ImagesBLI extends BaseBLI {
 			AND
 				map.product_id = ${productId}
 		`;
-
 		return this.db.query(sql);
 	}
+
+	buildImageObject = (imageData) => {
+		const image = new Image();
+		image.setValues(imageData);
+		return image;
+	};
 }
 
 export default ImagesBLI;
