@@ -19,11 +19,12 @@ class ImagesBLI extends BaseBLI {
 		return this.db.insert(DB.tables.images.name);
 	}
 
-	addProductImageMap = (productId, imageId) => {
+	addProductImageMap = (productId, image) => {
 		this.db.clear();
 		this.db.assign(DB.tables.productImageMap.columns.productId, productId);
-		this.db.assign(DB.tables.productImageMap.columns.imageId, imageId);
-		this.db.assign(DB.tables.productImageMap.columns.hidden, true);
+		this.db.assign(DB.tables.productImageMap.columns.imageId, image.getId());
+		this.db.assignBoolean(DB.tables.productImageMap.columns.hidden, image.getHidden());
+		this.db.assignBoolean(DB.tables.productImageMap.columns.isPrimary, image.getIsPrimary());
 
 		this.db.insert(DB.tables.productImageMap.name);
 	}

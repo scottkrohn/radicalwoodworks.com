@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import { Icon } from 'antd';
 
 // Constants
@@ -22,10 +22,17 @@ class Product extends Component {
 		}
 
 		const images = product.getImages();
-		const firstImage = get(images, '[0]');
-		if (firstImage) {
-		}
-		return firstImage ? firstImage.getThumbUrl() : null;
+		let image = null;
+		if (!isEmpty(images)) {
+			image = images.find((image) => {return image.getIsPrimary()})
+
+			// Fallback to first image if nothing is marked primary.
+			if (!image) {
+				const image = get(images, '[0]', null);
+			}
+		} 
+
+		return image ? image.getThumbUrl() : null;
 	};
 
 	renderImage = () => {
@@ -49,7 +56,7 @@ class Product extends Component {
 			<div>
 				<a className="product-content" href="javascript:;">
 					{this.renderImage()}
-					<div>{this.props.product.getTitle()}</div>
+					<div className="product-title">{this.props.product.getTitle()}</div>
 				</a>
 			</div>
 		);
