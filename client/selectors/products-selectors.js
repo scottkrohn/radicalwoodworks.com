@@ -12,20 +12,23 @@ export const getProducts = createSelector(
 		const productObjects = [];
 
 		if (!isEmpty(products)) {
-			products.forEach((productArr) => {
+			products.forEach((productData) => {
 				const product = new Product();
-				product.setValues(productArr.data);
+				product.setValues(productData.data);
 
-				if (product.getImages()) {
-					const imagesObjects = [];
-					for (const imageArr of product.getImages()) {
-						const image = new Image();
-						image.setValues(imageArr.data);
-						imagesObjects.push(image);
+				// If the product has images then set them.
+				const images = get(productData, 'children.images');
+				if (images) {
+					const imageObjects = [];
+					for (const image of images) {
+						const imageObj = new Image();
+						imageObj.setValues(image.data);
+						imageObjects.push(imageObj);
 					}
 
-					product.setImages(imagesObjects);
+					product.setImages(imageObjects);
 				}
+
 				productObjects.push(product);
 			});
 		}

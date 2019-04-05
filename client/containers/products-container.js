@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { get, uniqueId } from 'lodash';
 
 // Components
-import Product from 'client/components/product/product';
+import ProductGrid from 'client/components/product/product-grid';
 
 // Actions
 import { getProducts } from 'actions/products-actions';
@@ -36,15 +36,7 @@ class ProductsContainer extends Component {
 				</div>
 
 				<div className="products-container">
-					{productsLoaded && this.props.products.map((product) => {
-						return (
-							<div key={uniqueId()}>
-								<Product 
-									product={product}
-								/>
-							</div>
-						);
-					})}
+					{productsLoaded && <ProductGrid products={this.props.products} />}
 				</div>
 			</div>
 		);

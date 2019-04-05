@@ -26,7 +26,7 @@ class ProductsBLI extends BaseBLI {
 		return this.db.insert(DB.tables.products.name);
 	}
 
-	// TODO: Add a limit/offset to this function?
+	// At some point add limit/offset to this function.
 	getProducts = async () => {
 		const productRows = await this.db.selectAll(DB.tables.products.name);
 		const productIds = productRows.map((productRow) => (productRow.id));
