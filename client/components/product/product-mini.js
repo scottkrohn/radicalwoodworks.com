@@ -24,7 +24,6 @@ class Product extends Component {
 		const images = product.getImages();
 		const firstImage = get(images, '[0]');
 		if (firstImage) {
-			console.log(firstImage);
 		}
 		return firstImage ? firstImage.getThumbUrl() : null;
 	};
