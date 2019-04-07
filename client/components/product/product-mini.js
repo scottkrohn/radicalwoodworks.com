@@ -7,6 +7,7 @@ import IMAGE from 'constants/image-constants';
 
 // Styles
 import 'components/product/product-mini.less';
+import NavLink from 'client/components/nav/nav-link';
 
 class Product extends Component {
 	constructor(props) {
@@ -24,15 +25,21 @@ class Product extends Component {
 		const images = product.getImages();
 		let image = null;
 		if (!isEmpty(images)) {
-			image = images.find((image) => {return image.getIsPrimary()})
+			image = images.find((image) => {
+				return image.getIsPrimary();
+			});
 
 			// Fallback to first image if nothing is marked primary.
 			if (!image) {
 				const image = get(images, '[0]', null);
 			}
-		} 
+		}
 
 		return image ? image.getThumbUrl() : null;
+	};
+
+	getPriceDisplay = () => {
+		return price.toFixed(2);
 	};
 
 	renderImage = () => {
@@ -51,14 +58,38 @@ class Product extends Component {
 		);
 	};
 
+	renderPrice = () => {
+		const product = get(this.props, 'product');
+
+		if (!product) {
+			return '';
+		}
+
+		const priceString = product.getPrice();
+		return <div className="price">${priceString}</div>;
+	};
+
+	renderTitle = () => {
+		const product = get(this.props, 'product');
+
+		if (!product) {
+			return '';
+		}
+
+
+		return <div className="product-title">{product.getTitle()}</div>;
+	};
+
 	render = () => {
+		const product = get(this.props, 'product');
+		const productPageLink = `/products/product/${product.getId()}`;
+
 		return (
-			<div>
-				<a className="product-content" href="javascript:;">
-					{this.renderImage()}
-					<div className="product-title">{this.props.product.getTitle()}</div>
-				</a>
-			</div>
+			<NavLink to={productPageLink} className="product-content">
+				{this.renderImage()}
+				{this.renderTitle()}
+				{this.renderPrice()}
+			</NavLink>
 		);
 	};
 }

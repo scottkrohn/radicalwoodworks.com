@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -74,6 +73,5 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: 'client/index.html',
 		}),
-		new LiveReloadPlugin(),
 	],
 };

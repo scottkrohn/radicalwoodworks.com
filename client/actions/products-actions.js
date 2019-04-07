@@ -3,18 +3,17 @@ import axios from 'axios';
 // Constants
 import ACTIONS from 'constants/action-constants';
 
-export function getProducts() {
+export const getProducts = () => {
 	return (dispatch) => {
 		dispatch(getProductsRequest());
 
 		axios.get(`/server/products`)
 			.then((response) => {
-
 				dispatch(getProductsSuccess(response.data));
 			})
 			.catch ((error) => {
 				dispatch(getProductsError());
-			})
+			});
 	};
 };
 
@@ -22,14 +21,14 @@ export function getProducts() {
 /* Action Creators */
 /*******************/
 
-function getProductsRequest() {
+const getProductsRequest = () => {
 	return {
 		type: ACTIONS.GET_PRODUCTS_REQUEST,
 		payload: {},
 	};
 }
 
-function getProductsSuccess(results) {
+const getProductsSuccess = (results) => {
 	return {
 		type: ACTIONS.GET_PRODUCTS_SUCCESS,
 		payload: {
@@ -38,7 +37,7 @@ function getProductsSuccess(results) {
 	};
 }
 
-function getProductsError(error) {
+const getProductsError = (error) => {
 	return {
 		type: ACTIONS.GET_PRODUCTS_ERROR,
 		payload: {

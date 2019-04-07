@@ -15,10 +15,11 @@ class NavLink extends PureComponent {
 
 	render = () => {
 		return (
-			<Link 
+			<Link className={this.props.className}
 				onClick={this.handleClick}
 				to={this.props.to}>
 				{this.props.label}
+				{this.props.children}
 			</Link>
 		);
 	}

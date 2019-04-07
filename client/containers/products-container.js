@@ -21,7 +21,8 @@ class ProductsContainer extends Component {
 	};
 
 	render = () => {
-		const productsLoaded = get(this.props, 'products.length');
+		const productsLength = get(this.props, 'products.length', 0);
+		const productsLoaded = (productsLength > 0);
 
 		return (
 			<div className="container">
