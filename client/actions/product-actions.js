@@ -13,7 +13,7 @@ export const getProduct = (productId) => {
 				dispatch(getProductSuccess(response.data));
 		})
 		.catch((error) => {
-				dispatch(getProductsError());
+				dispatch(getProductError());
 		});
 	}
 }
