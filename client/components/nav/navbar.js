@@ -8,6 +8,8 @@ import NavLink from 'components/nav/nav-link';
 // Constants
 import NAV from 'constants/nav-constants';
 
+import 'client/components/nav/navbar.less';
+
 class NavBar extends Component {
 
 	constructor(props) {
@@ -42,36 +44,38 @@ class NavBar extends Component {
 
 	render() {
 		return (
-			<Menu
-				onClick={this.handleClick}
-				selectedKeys={[this.state.current]}
-				mode="horizontal"
-			>
-				<Menu.Item key={NAV.pages.home.key}>
-					<NavLink 
-						label={NAV.pages.home.label}
-						to={`/${NAV.pages.home.path}`}
-					/>
-				</Menu.Item>
-				<Menu.Item key={NAV.pages.products.key}>
-					<NavLink 
-						label={NAV.pages.products.label}
-						to={`/${NAV.pages.products.path}`}
-					/>
-				</Menu.Item>
-				<Menu.Item key={NAV.pages.about.key}>
-					<NavLink 
-						label={NAV.pages.about.label}
-						to={`/${NAV.pages.about.path}`}
-					/>
-				</Menu.Item>
-				<Menu.Item key={NAV.pages.contact.key}>
-					<NavLink 
-						label={NAV.pages.contact.label}
-						to={`/${NAV.pages.contact.path}`}
-					/>
-				</Menu.Item>
-			</Menu>
+			<div className="nav-bar">
+				<Menu
+					onClick={this.handleClick}
+					selectedKeys={[this.state.current]}
+					mode="horizontal"
+				>
+					<Menu.Item key={NAV.pages.home.key}>
+						<NavLink 
+							label={NAV.pages.home.label}
+							to={`/${NAV.pages.home.path}`}
+						/>
+					</Menu.Item>
+					<Menu.Item key={NAV.pages.products.key}>
+						<NavLink 
+							label={NAV.pages.products.label}
+							to={`/${NAV.pages.products.path}`}
+						/>
+					</Menu.Item>
+					<Menu.Item key={NAV.pages.about.key}>
+						<NavLink 
+							label={NAV.pages.about.label}
+							to={`/${NAV.pages.about.path}`}
+						/>
+					</Menu.Item>
+					<Menu.Item key={NAV.pages.contact.key}>
+						<NavLink 
+							label={NAV.pages.contact.label}
+							to={`/${NAV.pages.contact.path}`}
+						/>
+					</Menu.Item>
+				</Menu>
+			</div>
 		);
 	}
 };

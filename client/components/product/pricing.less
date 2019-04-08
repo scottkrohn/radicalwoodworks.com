@@ -1,0 +1,35 @@
+@import '../../styles/variables.less';
+
+.pricing-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 500px;
+
+	.price {
+		text-align: center;		
+
+		.price-label {
+			font-weight: 500;
+			font-size: 20px;
+		}
+
+		.price-value {
+			font-weight: 700;
+			font-size: 25px;
+			color: @moneyGreen;
+		}
+	}
+
+	.shipping {
+		text-align: center;
+		font-weight: 500;
+		font-size: 15px;
+	}
+
+	.title {
+		text-align: center;
+		font-weight: 700;
+		font-size: 30px;
+	}
+}

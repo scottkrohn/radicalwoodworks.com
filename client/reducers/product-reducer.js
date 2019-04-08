@@ -7,22 +7,22 @@ const productReducer = (state = initialState, { type, payload }) => {
 	switch (type) {
 		case ACTIONS.GET_PRODUCT_REQUEST:
 			return {
+				...state,
 				loading: true,
 				error: false,
-				...state,
 			}
 		case ACTIONS.GET_PRODUCT_SUCCESS:
 			return {
-				...payload,
 				...state,
+				...payload,
 				loading: false,
 				error: false,
 			}
 		case ACTIONS.GET_PRODUCT_ERROR:
 			return {
+				...state,
 				loading: false,
 				error: true,
-				...state,
 			}
 		default:
 			return state;

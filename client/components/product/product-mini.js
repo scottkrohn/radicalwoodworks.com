@@ -85,11 +85,13 @@ class Product extends Component {
 		const productPageLink = `/products/product/${product.getId()}`;
 
 		return (
-			<NavLink to={productPageLink} className="product-content">
-				{this.renderImage()}
-				{this.renderTitle()}
-				{this.renderPrice()}
-			</NavLink>
+			<div className="product-mini-container">
+				<NavLink to={productPageLink} className="product-content">
+					{this.renderImage()}
+					{this.renderTitle()}
+					{this.renderPrice()}
+				</NavLink>
+			</div>
 		);
 	};
 }
