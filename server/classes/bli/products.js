@@ -22,6 +22,7 @@ class ProductsBLI extends BaseBLI {
 		this.db.assign(DB.tables.products.columns.price, productData.getPrice());
 		this.db.assign(DB.tables.products.columns.shippingPrice, productData.getShippingPrice());
 		this.db.assignBoolean(DB.tables.products.columns.includeShippingInPrice, productData.getIncludeShippingInPrice());
+		this.db.assign(DB.tables.products.columns.etsyUrl, productData.getEtsyUrl());
 
 		return this.db.insert(DB.tables.products.name);
 	}

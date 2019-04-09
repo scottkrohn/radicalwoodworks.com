@@ -13,6 +13,7 @@ class Product extends Model {
 			price: null,
 			shipping_price: null,
 			include_shipping_in_price: null,
+			etsy_url: null,
 		};
 
 		this.children = {
@@ -44,6 +45,9 @@ class Product extends Model {
 	setIncludeShippingInPrice = (include_shipping_in_price) => {
 		this.data.include_shipping_in_price = include_shipping_in_price;
 	};
+	setEtsyUrl = (etsy_url) => {
+		this.data.etsy_url = etsy_url;
+	}
 
 	getId = () => {
 		return this.data.id;
@@ -69,6 +73,9 @@ class Product extends Model {
 	getIncludeShippingInPrice = () => {
 		return this.data.include_shipping_in_price;
 	};
+	getEtsyUrl = () => {
+		return this.data.etsy_url;
+	}
 
 	/* Children Getters & Setters */
 	/******************************/

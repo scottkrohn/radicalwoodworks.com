@@ -11,6 +11,7 @@ const DATABASE = {
 				price: 'price',
 				shippingPrice: 'shipping_price',
 				includeShippingInPrice: 'include_shipping_in_price',
+				etsyUrl: 'etsy_url',
 			},
 		},
 		images: {
