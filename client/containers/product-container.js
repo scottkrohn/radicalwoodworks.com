@@ -9,8 +9,8 @@ import { getProduct } from 'client/actions/product-actions';
 import { getProduct as getProductSelector } from 'client/selectors/product-selectors';
 
 // Component
-import ImageCaroupsel from 'client/components/image-carousel/image-carousel';
 import ImagePricingSection from 'client/components/product/image-pricing-section';
+import Description from 'client/components/product/description';
 
 class ProductContainer extends Component {
 	constructor(props) {
@@ -18,7 +18,6 @@ class ProductContainer extends Component {
 	}
 
 	componentDidMount = () => {
-		console.log('mounted');
 		const productId = get(this.props, 'match.params.productId');
 		this.props.getProduct(productId);
 	};
@@ -30,6 +29,7 @@ class ProductContainer extends Component {
 		return (
 			<div className="product-container">
 				{productLoaded && <ImagePricingSection product={product} />}
+				{productLoaded && <Description product={product} />}
 			</div>
 		);
 	};

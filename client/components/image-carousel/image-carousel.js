@@ -32,7 +32,6 @@ class ImageCarousel extends Component {
 	};
 
 	onImageChange = (a, b, c) => {
-		console.log(a, b, c);
 	};
 
 	render = () => {
