@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
+import { Spin } from 'antd';
 
 // Actions
 import { getProduct } from 'client/actions/product-actions';
 
 // Selectors
-import { getProduct as getProductSelector } from 'client/selectors/product-selectors';
+import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
 
 // Component
 import ImagePricingSection from 'client/components/product/image-pricing-section';
-import Description from 'client/components/product/description';
+import ItemInfo from 'client/components/product/item-info';
 
 class ProductContainer extends Component {
 	constructor(props) {
@@ -27,10 +28,12 @@ class ProductContainer extends Component {
 		const productLoaded = !isEmpty(product);
 
 		return (
-			<div className="product-container">
-				{productLoaded && <ImagePricingSection product={product} />}
-				{productLoaded && <Description product={product} />}
-			</div>
+			<Spin spinning={this.props.loading} size="large">
+				<div className="product-container">
+					{productLoaded && <ImagePricingSection product={product} />}
+					{productLoaded && <ItemInfo product={product} />}
+				</div>
+			</Spin>
 		);
 	};
 }
@@ -38,6 +41,7 @@ class ProductContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		product: getProductSelector(state),
+		loading: getLoading(state),
 	};
 };
 

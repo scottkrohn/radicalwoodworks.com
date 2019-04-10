@@ -5,6 +5,7 @@ import Product from 'model/product';
 import Image from 'model/image';
 
 const getProductFromState = (state) => state.product.product;
+export const getLoading = (state) => state.product.loading;
 
 export const getProduct = createSelector(
 	[getProductFromState],
@@ -34,3 +35,5 @@ export const getProduct = createSelector(
 		return productObject;
 	},
 );
+
+

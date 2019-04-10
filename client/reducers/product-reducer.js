@@ -1,7 +1,9 @@
 
 import ACTIONS from 'constants/action-constants';
 
-const initialState = {};
+const initialState = {
+	loading: true,
+};
 
 const productReducer = (state = initialState, { type, payload }) => {
 	switch (type) {

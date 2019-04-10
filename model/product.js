@@ -14,6 +14,10 @@ class Product extends Model {
 			shipping_price: null,
 			include_shipping_in_price: null,
 			etsy_url: null,
+			length: null,
+			width: null,
+			frame_width: null,
+			default_color: null,
 		};
 
 		this.children = {
@@ -47,6 +51,18 @@ class Product extends Model {
 	};
 	setEtsyUrl = (etsy_url) => {
 		this.data.etsy_url = etsy_url;
+	};
+	setLength = (length) => {
+		this.data.length = parseFloat(length);
+	}
+	setWidth = (width) => {
+		this.data.width = parseFloat(width);
+	}
+	setFrameWidth = (frame_width) => {
+		this.data.frame_width = parseFloat(frame_width);
+	}
+	setDefaultColor = (default_color) => {
+		this.data.default_color = default_color;
 	}
 
 	getId = () => {
@@ -75,17 +91,29 @@ class Product extends Model {
 	};
 	getEtsyUrl = () => {
 		return this.data.etsy_url;
+	};
+	getLength = () => {
+		return this.data.length;
+	}
+	getWidth = () => {
+		return this.data.width;
+	}
+	getFrameWidth = () => {
+		return this.data.frame_width;
+	}
+	getDefaultColor = () => {
+		return this.data.default_color;
 	}
 
 	/* Children Getters & Setters */
 	/******************************/
 	setImages = (images) => {
 		this.children.images = images;
-	}
+	};
 
 	getImages = () => {
 		return this.children.images;
-	}
+	};
 }
 
 export default Product;
