@@ -1,7 +1,7 @@
 import mysql from 'mysql';
-
-// Constants
-import DB_SETTINGS from './db-settings';
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
 
 let connectionPool;
 
@@ -71,7 +71,9 @@ class Database {
 	/*************************/
 
 	_connectToDatabase = () => {
-		connectionPool = mysql.createPool(DB_SETTINGS);
+		const configPath = path.join(__dirname, '../../config/config.yaml');
+		const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+		connectionPool = mysql.createPool(config);
 
 		connectionPool.on('error', (err) => {
 			console.log(`Lost connection to MySQL server with error: ${err}`);
