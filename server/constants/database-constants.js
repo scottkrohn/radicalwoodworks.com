@@ -31,6 +31,16 @@ const DATABASE = {
 				isPrimary: 'is_primary',
 			},
 		},
+		content: {
+			name: 'content',
+			columns: {
+				id: 'id',
+				type: 'type',
+				content: 'content',
+				createdTs: 'created_ts',
+				updatedTs: 'updated_ts',
+			}
+		}
 	},
 };
 

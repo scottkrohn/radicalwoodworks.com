@@ -73,6 +73,7 @@ class Database {
 	_connectToDatabase = () => {
 		const configPath = path.join(__dirname, '../../config/config.yaml');
 		const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+		console.log(config);
 		connectionPool = mysql.createPool(config);
 
 		connectionPool.on('error', (err) => {
@@ -92,7 +93,7 @@ class Database {
 			const valuesSeparator = (valuesStr !== '') ? ', ': '';
 
 			fieldStr += `${fieldSeparator}\`${field}\``;
-			valuesStr += `${valuesSeparator}\'${this.fields[field]}\'`;
+			valuesStr += `${valuesSeparator}\"${this.fields[field]}\"`;
 		}
 
 		const sql = `INSERT INTO \`${tableName}\` (${fieldStr}) values (${valuesStr})`;
