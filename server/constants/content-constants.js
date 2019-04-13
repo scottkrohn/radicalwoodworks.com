@@ -1,5 +1,9 @@
 const CONTENT = {
-	types: {
+	category: {
+		about: 'ABOUT',
+		policy: 'POLICY',
+	},
+	type: {
 		shipping: 'SHIPPING',
 		return: 'RETURN',
 		about: 'ABOUT',

@@ -1,15 +1,33 @@
 import BaseBLI from './base';
+import { isEmpty } from 'lodash';
 
 import DB from '../../constants/database-constants';
+import Content from '../../../model/content';
 
 class ContentBLI extends BaseBLI {
 	constructor() {
 		super();
 	}
 
-	getContent = (contentType) => {
+	getContent = async (contentType) => {
 		const whereClause = `WHERE ${DB.tables.content.columns.type} = '${contentType}'`;
-		return this.db.selectOne(DB.tables.content.name, whereClause);
+		const contentRow = await this.db.selectOne(DB.tables.content.name, whereClause);
+		const contentObject = this.buildContentObject(contentRow);
+		return contentObject;
+	}
+
+	getAllContent = async (category = null) => {
+		const whereClause = (category) ? `WHERE ${DB.tables.content.columns.category} = '${category}'` : '';
+		const contentRows = await this.db.selectAll(DB.tables.content.name, whereClause);
+		console.log(contentRows);
+
+		const contentObjects = [];
+		for (const contentRow of contentRows) {
+			const contentObject = this.buildContentObject(contentRow);
+			contentObjects.push(contentObject);
+		}
+
+		return contentObjects;
 	}
 
 	createContent = (content) => {
@@ -26,6 +44,13 @@ class ContentBLI extends BaseBLI {
 	updateContent = (content) => {
 
 	}
+
+	buildContentObject = (contentData) => {
+		const content = new Content();
+		content.setValues(contentData);
+		return content;
+	}
 }
+
 
 export default ContentBLI;

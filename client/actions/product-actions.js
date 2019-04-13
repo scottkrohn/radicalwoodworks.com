@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 // Constants
@@ -41,8 +40,6 @@ const getProductSuccess = (results) => {
 const getProductError = (error) => {
 	return {
 		type: ACTIONS.GET_PRODUCT_ERROR,
-		payload: {
-			error,
-		},
+		payload: error,
 	};
 }

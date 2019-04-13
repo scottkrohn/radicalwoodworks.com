@@ -45,8 +45,8 @@ class Database {
 		return this.query(sql);
 	};
 
-	selectAll = (tableName, whereClause, callback) => {
-		const sql = `SELECT * FROM \`${tableName}\``
+	selectAll = (tableName, whereClause) => {
+		let sql = `SELECT * FROM \`${tableName}\``
 
 		if (whereClause) {
 			sql += ` ${whereClause}`;

@@ -36,6 +36,7 @@ const DATABASE = {
 			columns: {
 				id: 'id',
 				type: 'type',
+				category: 'category',
 				content: 'content',
 				createdTs: 'created_ts',
 				updatedTs: 'updated_ts',

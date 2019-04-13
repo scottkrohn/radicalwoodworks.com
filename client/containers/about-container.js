@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Actions
+import { getAllContent } from 'client/actions/content-actions';
+
 class AboutContainer extends Component {
 
 	constructor(props) {
 		super(props);
+	}
+
+	componentDidMount = () => {
+		this.props.getAllContent('ABOUT');
+		console.log(this.props.content);
 	}
 
 	render = () => {
@@ -26,7 +34,9 @@ class AboutContainer extends Component {
 
 const mapStateToProps = (state) => state;
 
-const mapActionsToProps = {};
+const mapActionsToProps = {
+	getAllContent: getAllContent,
+};
 
 export default connect(
 	mapStateToProps,
