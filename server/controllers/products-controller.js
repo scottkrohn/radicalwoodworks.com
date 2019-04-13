@@ -6,8 +6,6 @@ import REQUEST from '../constants/request-constants';
 module.exports = (req, res, next) => {
 	const productsBli = new ProductsBLI();
 
-	console.log('in products controller');
-
 	if (req.method === REQUEST.method.get) {
 		const productId = req.params.productId;
 		if (productId) {

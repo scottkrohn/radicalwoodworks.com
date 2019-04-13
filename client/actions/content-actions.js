@@ -9,7 +9,6 @@ export const getAllContent = (category) => {
 
         axios.get(`/server/content/content/${category}`)
             .then((response) => {
-                console.log(response);
                 dispatch(getContentSuccess(response));
             })
             .catch((error) => {
@@ -32,7 +31,9 @@ const getContentRequest = () => {
 const getContentSuccess = (results) => {
     return {
         type:ACTIONS.GET_CONTENT_SUCCESS,
-        payload: results,
+        payload: {
+            content: results,
+        },
     };
 }
 
