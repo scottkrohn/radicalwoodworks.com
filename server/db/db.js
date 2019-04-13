@@ -73,7 +73,6 @@ class Database {
 	_connectToDatabase = () => {
 		const configPath = path.join(__dirname, '../../config/config.yaml');
 		const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
-		console.log(config);
 		connectionPool = mysql.createPool(config);
 
 		connectionPool.on('error', (err) => {

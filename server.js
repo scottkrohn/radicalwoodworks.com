@@ -11,11 +11,6 @@ const env = app.get('env');
 // Include dev/prod independant routes.
 routes(app);
 
-policyBli.getContent(CONTENT.types.about).then((result) => {
-	console.log(result);
-})
-
-
 if (env === 'production') {
 	// Serve static output from webpack for production.
 	app.use(express.static(path.join(__dirname, 'build')));
