@@ -12,29 +12,17 @@ const env = app.get('env');
 routes(app);
 
 
-// TODO: MOVE TO CONFIG FOR PASSWORDS
-// import nodemailer from 'nodemailer';
+// TEST CODE
+import Contact from './server/classes/bli/contact';
+const contact = new Contact();
+import ContactModel from './model/contact';
+const contactEmail = new ContactModel();
+contactEmail.setFrom('krohndesigns@gmail.com');
+contactEmail.setTo('radicalwoodworks@yahoo.com');
+contactEmail.setSubject('test subject magoo');
+contactEmail.setHtml('I am a test email!');
 
-// const transporter = nodemailer.createTransport({
-// 	service: 'gmail',
-// 	host: 'smtp.gmail.com',
-// 	auth: {
-// 	}
-// });
-
-// const mailOptions = {
-// 	from: 'krohndesigns@gmail.com', // sender address
-// 	to: 'skrohn86@gmail.com', // list of receivers
-// 	subject: 'Subject of your email', // Subject line
-// 	html: '<p>Your html here</p>'// plain text body
-//   };
-
-//   transporter.sendMail(mailOptions, function (err, info) {
-// 	if(err)
-// 	  console.log(err)
-// 	else
-// 	  console.log(info);
-//  });
+contact.sendEmail(contactEmail);
 
 if (env === 'production') {
 	// Serve static output from webpack for production.
