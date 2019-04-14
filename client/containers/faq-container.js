@@ -8,44 +8,34 @@ import { getAllContent } from 'client/actions/content-actions';
 // Selectors
 import { getAllContent as getAllContentObjects } from 'client/selectors/content-selector';
 
-// Constants
-import IMAGE from 'client/constants/image-constants';
-
-class AboutContainer extends Component {
-
-	constructor(props) {
-		super(props);
-	}
+class FaqContainer extends Component {
+    constructor(props) {
+        super(props);
+    }
 
 	componentDidMount = () => {
-		this.props.getAllContent('ABOUT');
-	}
+		this.props.getAllContent('POLICY');
+    }
 
 	renderContent = () => {
 		return (
 			<div>
 				{this.props.content.map((contentElement) => {
 					return (<div key={uniqueId()}>
-						<div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }} />
+						<div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }}></div>
 					</div>);
 				})}
 			</div>
 		);
 	}
 
-	render = () => {
-		return (
-			<div className="container">
-				<div className="col-xs-12">
-					<div className="text-center">
-						<h1>Radical Woodworks</h1>
-						<img src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} height={300} width={300} />
-						{this.renderContent()}
-					</div>
-				</div>
-			</div>
-		);
-	};
+    render = () => {
+        return (
+             <div>
+                 {this.renderContent()}
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -55,10 +45,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionsToProps = {
-	getAllContent: getAllContent,
+    getAllContent: getAllContent
 };
 
 export default connect(
 	mapStateToProps,
 	mapActionsToProps,
-)(AboutContainer);
+)(FaqContainer);

@@ -20,6 +20,11 @@ const NAV = {
 			label: 'Products',
 			path: 'products'
 		},
+		faq: {
+			key: 'faq',
+			label: 'FAQ',
+			path: 'faq'
+		},
 	}
 };
 

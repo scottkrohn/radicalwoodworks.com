@@ -7,6 +7,7 @@ import ProductsContainer from 'containers/products-container';
 import AboutContainer from 'containers/about-container';
 import ContactContainer from 'containers/contact-container';
 import ProductContainer from 'containers/product-container';
+import FaqContainer from 'containers/faq-container';
 
 
 const Router = () => (
@@ -15,6 +16,7 @@ const Router = () => (
 		<Route exact path='/' component={HomepageContainer}/>
 		<Route exact path='/about' component={AboutContainer}/>
 		<Route exact path='/contact' component={ContactContainer}/>
+		<Route exact path='/faq' component={FaqContainer}/>
 
 		// Product Pages
 		<Route exact path='/products' component={ProductsContainer}/>
