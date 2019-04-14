@@ -74,6 +74,12 @@ class NavBar extends Component {
 							to={`/${NAV.pages.contact.path}`}
 						/>
 					</Menu.Item>
+					<Menu.Item key={NAV.pages.faq.key}>
+						<NavLink
+							label={NAV.pages.faq.label}
+							to={`/${NAV.pages.faq.path}`}
+						/>
+					</Menu.Item>
 				</Menu>
 			</div>
 		);
