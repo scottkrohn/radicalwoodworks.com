@@ -11,6 +11,31 @@ const env = app.get('env');
 // Include dev/prod independant routes.
 routes(app);
 
+
+// TODO: MOVE TO CONFIG FOR PASSWORDS
+// import nodemailer from 'nodemailer';
+
+// const transporter = nodemailer.createTransport({
+// 	service: 'gmail',
+// 	host: 'smtp.gmail.com',
+// 	auth: {
+// 	}
+// });
+
+// const mailOptions = {
+// 	from: 'krohndesigns@gmail.com', // sender address
+// 	to: 'skrohn86@gmail.com', // list of receivers
+// 	subject: 'Subject of your email', // Subject line
+// 	html: '<p>Your html here</p>'// plain text body
+//   };
+
+//   transporter.sendMail(mailOptions, function (err, info) {
+// 	if(err)
+// 	  console.log(err)
+// 	else
+// 	  console.log(info);
+//  });
+
 if (env === 'production') {
 	// Serve static output from webpack for production.
 	app.use(express.static(path.join(__dirname, 'build')));

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Components
+import ContactForm from 'client/components/contact/contact-form';
+
 class ContactContainer extends Component {
 
 	constructor(props) {
@@ -19,6 +22,7 @@ class ContactContainer extends Component {
 						</p>
 					</div>
 				</div>
+				<ContactForm />
 			</div>
 		);
 	};
