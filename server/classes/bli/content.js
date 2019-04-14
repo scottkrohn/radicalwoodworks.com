@@ -19,7 +19,6 @@ class ContentBLI extends BaseBLI {
 	getAllContent = async (category = null) => {
 		const whereClause = (category) ? `WHERE ${DB.tables.content.columns.category} = '${category}'` : '';
 		const contentRows = await this.db.selectAll(DB.tables.content.name, whereClause);
-		console.log(contentRows);
 
 		const contentObjects = [];
 		for (const contentRow of contentRows) {
