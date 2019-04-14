@@ -8,6 +8,9 @@ import { getAllContent } from 'client/actions/content-actions';
 // Selectors
 import { getAllContent as getAllContentObjects } from 'client/selectors/content-selector';
 
+// Constants
+import IMAGE from 'client/constants/image-constants';
+
 class AboutContainer extends Component {
 
 	constructor(props) {
@@ -23,7 +26,7 @@ class AboutContainer extends Component {
 			<div>
 				{this.props.content.map((contentElement) => {
 					return (<div key={uniqueId()}>
-						{contentElement.getContent()}
+						<div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }} />
 					</div>);
 				})}
 			</div>
@@ -36,10 +39,7 @@ class AboutContainer extends Component {
 				<div className="col-xs-12">
 					<div className="text-center">
 						<h1>Radical Woodworks</h1>
-						<h3>About Us Under Construction</h3>
-						<p>
-							<a href="https://www.etsy.com/shop/radicalwoodworks">Visit Our Etsy Shop</a>
-						</p>
+						<img src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} height={300} width={300} />
 						{this.renderContent()}
 					</div>
 				</div>
