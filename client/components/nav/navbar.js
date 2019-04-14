@@ -54,30 +54,35 @@ class NavBar extends Component {
 						<NavLink 
 							label={NAV.pages.home.label}
 							to={`/${NAV.pages.home.path}`}
+							className="nav-link"
 						/>
 					</Menu.Item>
 					<Menu.Item key={NAV.pages.products.key}>
 						<NavLink 
 							label={NAV.pages.products.label}
 							to={`/${NAV.pages.products.path}`}
+							className="nav-link"
 						/>
 					</Menu.Item>
 					<Menu.Item key={NAV.pages.about.key}>
 						<NavLink 
 							label={NAV.pages.about.label}
 							to={`/${NAV.pages.about.path}`}
+							className="nav-link"
 						/>
 					</Menu.Item>
 					<Menu.Item key={NAV.pages.contact.key}>
 						<NavLink 
 							label={NAV.pages.contact.label}
 							to={`/${NAV.pages.contact.path}`}
+							className="nav-link"
 						/>
 					</Menu.Item>
 					<Menu.Item key={NAV.pages.faq.key}>
 						<NavLink
 							label={NAV.pages.faq.label}
 							to={`/${NAV.pages.faq.path}`}
+							className="nav-link"
 						/>
 					</Menu.Item>
 				</Menu>

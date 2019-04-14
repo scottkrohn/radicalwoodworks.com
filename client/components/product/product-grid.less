@@ -1,3 +1,5 @@
+@import '../../styles/variables.less';
+
 .product-grid {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -7,4 +9,26 @@
 .product-cell {
 	display: flex;
 	justify-content: center;
+}
+
+@media (max-width: @medium) {
+	.product-grid {
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 10px;
+	}
+
+}
+
+@media (max-width: @small) {
+	.product-grid {
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 10px;
+	}
+}
+
+@media (max-width: @mobile) {
+	.product-grid {
+		grid-template-columns: repeat(1, 1fr);
+		grid-gap: 10px;
+	}
 }
