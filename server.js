@@ -7,21 +7,14 @@ import webpackConfig from "./webpack.config.js";
 
 const app = express();
 const env = app.get("env");
+var bodyParser = require('body-parser');
+
+// Apply Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Include dev/prod independant routes.
 routes(app);
-
-// TEST CODE
-import Contact from "./server/classes/bli/contact";
-const contact = new Contact();
-import ContactModel from "./model/contact";
-const contactEmail = new ContactModel();
-contactEmail.setFrom("krohndesigns@gmail.com");
-contactEmail.setTo("radicalwoodworks@yahoo.com");
-contactEmail.setSubject("test subject magoo");
-contactEmail.setHtml("I am a test email!");
-
-contact.sendEmail(contactEmail);
 
 if (env === "production") {
   // Serve static output from webpack for production.

@@ -4,10 +4,17 @@ import { connect } from 'react-redux';
 // Components
 import ContactForm from 'client/components/contact/contact-form';
 
+// Actions
+import { sendContact } from 'client/actions/contact-actions';
+
 class ContactContainer extends Component {
 
 	constructor(props) {
 		super(props);
+	}
+
+	handleSendContact = (contact) => {
+		this.props.sendContact(contact);
 	}
 
 	render = () => {
@@ -18,7 +25,9 @@ class ContactContainer extends Component {
 						<h3>Contact Us Radical Woodworks</h3>
 					</div>
 				</div>
-				<ContactForm />
+				<ContactForm
+					handleSendContact={this.handleSendContact}
+				/>
 			</div>
 		);
 	};
@@ -26,7 +35,9 @@ class ContactContainer extends Component {
 
 const mapStateToProps = (state) => state;
 
-const mapActionsToProps = {};
+const mapActionsToProps = {
+	sendContact,
+};
 
 export default connect(
 	mapStateToProps,

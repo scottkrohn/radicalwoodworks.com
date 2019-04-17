@@ -8,7 +8,7 @@ class ContactBLI {
     constructor() {
     }
 
-    sendEmail = (contact) => {
+    sendEmail = async (contact) => {
 
         const mailOptions = {
             from: contact.getFrom(),
@@ -17,15 +17,8 @@ class ContactBLI {
             subject: contact.getSubject(),
         };
 
-        // TODO: Return a promise from sending mail
-        const transporter = this._getTransporter();
-        transporter.sendMail(mailOptions, (err, info) => {
-            if(err) {
-                console.log(err);
-            } else {
-                console.log(info);
-            }
-        });
+				const transporter = this._getTransporter();
+				return transporter.sendMail(mailOptions);
     }
 
     _getTransporter = () => {

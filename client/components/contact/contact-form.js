@@ -7,15 +7,38 @@ import "client/components/contact/contact-form.less";
 import { Form, Input } from "antd";
 import { Button } from "node_modules/antd/lib/index";
 
+// Models
+import Contact from 'model/contact';
+import contactContainer from "client/containers/contact-container";
+
 class ContactForm extends Component {
   constructor(props) {
     super(props);
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit clicked");
-  };
+		e.preventDefault();
+		this.props.form.validateFields((err, values) => {
+			if (err) {
+				console.log(err);
+			} else {
+				this.sendMessage(values);
+			}
+		})
+	};
+
+	sendMessage = (values) => {
+		const message = `FROM ${values.name} - ${values.email} <br><br> ${values.message}`;
+
+		const contact = new Contact();
+		// contact.setTo('radicalwoodworks@yahoo.com');
+		contact.setTo('skrohn86@gmail.com');
+		contact.setSubject(values.subject);
+		contact.setFrom(values.email);
+		contact.setHtml(message);
+
+		this.props.handleSendContact(contact);
+	}
 
   render = () => {
     const formItemLayout = {
@@ -40,8 +63,6 @@ class ContactForm extends Component {
 
     const { getFieldDecorator } = this.props.form;
 
-		console.log(getFieldDecorator);
-		
     return (
       <div className="contact-container">
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
@@ -54,19 +75,40 @@ class ContactForm extends Component {
                 },
                 {
                   required: true,
-                  message: "Please input your E-mail!",
+                  message: "Please input your E-mail",
                 },
               ],
             })(<Input />)}
           </Form.Item>
           <Form.Item label="Name">
-            <Input />
+            {getFieldDecorator("name", {
+              rules: [
+                {
+                  required: true,
+                  message: "Please input your name.",
+                },
+              ],
+            })(<Input />)}
           </Form.Item>
           <Form.Item label="Subject">
-            <Input />
+            {getFieldDecorator("subject", {
+              rules: [
+                {
+                  required: true,
+                  message: "Please input a subject.",
+                },
+              ],
+            })(<Input />)}
           </Form.Item>
           <Form.Item label="Message">
-            <Input.TextArea rows={5} />
+            {getFieldDecorator("message", {
+              rules: [
+                {
+                  required: true,
+                  message: "Please input a message.",
+                },
+              ],
+            })(<Input.TextArea rows={5} />)}
           </Form.Item>
           <Form.Item {...submitLayout}>
             <Button type="primary" htmlType="submit" className="contact-submit-button">

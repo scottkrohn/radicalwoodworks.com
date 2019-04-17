@@ -10,5 +10,8 @@ router.route('/products')
 router.route('/content/content/:contentType')
 	.all(require('../controllers/content-controller'));
 
+router.route('/contact/send')
+	.all(require('../controllers/contact-controller'));
+
 
 module.exports = router;
