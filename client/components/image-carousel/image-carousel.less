@@ -1,7 +1,13 @@
 @import '../../styles/variables.less';
 
 .image-carousel-container {
-	width: 500px;
+	width: 90%;
+}
+
+@media (max-width: @small) {
+	.image-carousel-container {
+		width: 100%;
+	}
 }
 
 .ant-carousel {

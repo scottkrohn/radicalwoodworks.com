@@ -42,14 +42,18 @@ class ItemInfo extends Component {
 	render = () => {
 		this.renderItemDetails();
 		return (
-			<div className="item-info-container">
-				<div className="description">
-					<h3 className="description-header">Item Description</h3>
-					<div dangerouslySetInnerHTML={{ __html: this.props.product.getDescription() }} />
-				</div>
-				<div className="item-details">
-					<h3 className="item-details-header">Details</h3>
-					{this.renderItemDetails()}
+			<div className="container">
+				<div className="col-xs-12">
+						<div className="item-info-container">
+							<div className="description">
+								<h3 className="description-header">Item Description</h3>
+								<div dangerouslySetInnerHTML={{ __html: this.props.product.getDescription() }} />
+							</div>
+							<div className="item-details">
+								<h3 className="item-details-header">Details</h3>
+								{this.renderItemDetails()}
+							</div>
+						</div>
 				</div>
 			</div>
 		);
