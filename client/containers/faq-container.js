@@ -1,54 +1,56 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { uniqueId } from 'lodash';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { uniqueId } from "lodash";
 
 // Actions
-import { getAllContent } from 'client/actions/content-actions';
+import { getAllContent } from "client/actions/content-actions";
 
 // Selectors
-import { getAllContent as getAllContentObjects } from 'client/selectors/content-selector';
+import { getAllContent as getAllContentObjects } from "client/selectors/content-selector";
 
 class FaqContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-	componentDidMount = () => {
-		this.props.getAllContent('POLICY');
-    }
+  componentDidMount = () => {
+    this.props.getAllContent("POLICY");
+  };
 
-	renderContent = () => {
-		return (
-			<div>
-				{this.props.content.map((contentElement) => {
-					return (<div key={uniqueId()}>
-						<div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }}></div>
-					</div>);
-				})}
-			</div>
-		);
-	}
-
-    render = () => {
-        return (
-             <div>
-                 {this.renderContent()}
+  renderContent = () => {
+    return (
+      <div>
+        {this.props.content.map((contentElement) => {
+          return (
+            <div key={uniqueId()}>
+              <div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }} />
             </div>
-        );
-    }
+          );
+        })}
+      </div>
+    );
+  };
+
+  render = () => {
+    return (
+      <div class="container">
+        <div class="col-xs-12">{this.renderContent()}</div>
+      </div>
+    );
+  };
 }
 
 const mapStateToProps = (state) => {
-	return {
-		content: getAllContentObjects(state),
-	};
+  return {
+    content: getAllContentObjects(state),
+  };
 };
 
 const mapActionsToProps = {
-    getAllContent: getAllContent
+  getAllContent: getAllContent,
 };
 
 export default connect(
-	mapStateToProps,
-	mapActionsToProps,
+  mapStateToProps,
+  mapActionsToProps,
 )(FaqContainer);

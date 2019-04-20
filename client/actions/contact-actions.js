@@ -5,17 +5,25 @@ import ACTIONS from 'constants/action-constants';
 
 export const sendContact = (contact) => {
 	return (dispatch) => {
-		console.log('doing contact action');
-		dispatch(sendContentRequest());
+		dispatch(sendContactRequest());
 
-		axios.post(`/server/contact/send`, {
-			contact: contact.getValues(),
-		}).then((response) => {
-				console.log(response);
-			})
-			.catch((err) => {
+		return new Promise((resolve, reject) => {
+			axios.post(`/server/contact/send`, {
+				contact: contact.getValues(),
+			}).then((response) => {
+					if (response.status === 200) {
+						dispatch(sendContactSuccess(response));
+						resolve(response);
+					} else {
+						throw response;
+					}
 
-			});
+				})
+				.catch((err) => {
+					dispatch(sendContactError(err));
+					reject(err);
+				});
+		});
 	}
 }
 
@@ -24,14 +32,14 @@ export const sendContact = (contact) => {
 /* Action Creators */
 /*******************/
 
-const sendContentRequest = () => {
+const sendContactRequest = () => {
     return {
         type: ACTIONS.SEND_CONTACT_REQUEST,
         payload: {},
     };
 }
 
-const sendContentSuccess = (results) => {
+const sendContactSuccess = (results) => {
     return {
         type:ACTIONS.SEND_CONTACT_SUCCESS,
         payload: {
@@ -40,7 +48,7 @@ const sendContentSuccess = (results) => {
     };
 }
 
-const sendContentError = (error) => {
+const sendContactError = (error) => {
     return {
         type: ACTIONS.SEND_CONTACT_ERROR,
         payload: error,

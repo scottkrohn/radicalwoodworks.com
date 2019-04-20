@@ -39,7 +39,7 @@ class AboutContainer extends Component {
 				<div className="col-xs-12">
 					<div className="text-center">
 						<h1>Radical Woodworks</h1>
-						<img src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} height={300} width={300} />
+						<img src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} height={400} width={400} />
 						{this.renderContent()}
 					</div>
 				</div>

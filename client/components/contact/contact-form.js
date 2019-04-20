@@ -13,15 +13,13 @@ import contactContainer from "client/containers/contact-container";
 
 class ContactForm extends Component {
   constructor(props) {
-    super(props);
+		super(props);
   }
 
   handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
-			if (err) {
-				console.log(err);
-			} else {
+			if (!err) {
 				this.sendMessage(values);
 			}
 		})
@@ -31,8 +29,7 @@ class ContactForm extends Component {
 		const message = `FROM ${values.name} - ${values.email} <br><br> ${values.message}`;
 
 		const contact = new Contact();
-		// contact.setTo('radicalwoodworks@yahoo.com');
-		contact.setTo('skrohn86@gmail.com');
+		contact.setTo('radicalwoodworks@yahoo.com');
 		contact.setSubject(values.subject);
 		contact.setFrom(values.email);
 		contact.setHtml(message);
@@ -40,15 +37,15 @@ class ContactForm extends Component {
 		this.props.handleSendContact(contact);
 	}
 
-  render = () => {
+	renderContactForm = () => {
     const formItemLayout = {
       labelCol: {
-        xs: { span: 24 },
-        sm: { span: 3 },
+        md: { span: 24 },
+        lg: { span: 3 },
       },
       wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
+        md: { span: 24 },
+        lg: { span: 16 },
       },
       layout: "vertical",
       labelAlign: "left",
@@ -64,60 +61,94 @@ class ContactForm extends Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <div className="contact-container">
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-          <Form.Item label="E-Mail">
-            {getFieldDecorator("email", {
-              rules: [
-                {
-                  type: "email",
-                  message: "The input is not valid E-mail!",
-                },
-                {
-                  required: true,
-                  message: "Please input your E-mail",
-                },
-              ],
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Name">
-            {getFieldDecorator("name", {
-              rules: [
-                {
-                  required: true,
-                  message: "Please input your name.",
-                },
-              ],
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Subject">
-            {getFieldDecorator("subject", {
-              rules: [
-                {
-                  required: true,
-                  message: "Please input a subject.",
-                },
-              ],
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Message">
-            {getFieldDecorator("message", {
-              rules: [
-                {
-                  required: true,
-                  message: "Please input a message.",
-                },
-              ],
-            })(<Input.TextArea rows={5} />)}
-          </Form.Item>
-          <Form.Item {...submitLayout}>
-            <Button type="primary" htmlType="submit" className="contact-submit-button">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+			<Form {...formItemLayout} onSubmit={this.handleSubmit}>
+				<Form.Item label="E-Mail">
+					{getFieldDecorator("email", {
+						rules: [
+							{
+								type: "email",
+								message: "The input is not valid E-mail!",
+							},
+							{
+								required: true,
+								message: "Please input your E-mail",
+							},
+						],
+					})(<Input />)}
+				</Form.Item>
+				<Form.Item label="Name">
+					{getFieldDecorator("name", {
+						rules: [
+							{
+								required: true,
+								message: "Please input your name.",
+							},
+						],
+					})(<Input />)}
+				</Form.Item>
+				<Form.Item label="Subject">
+					{getFieldDecorator("subject", {
+						rules: [
+							{
+								required: true,
+								message: "Please input a subject.",
+							},
+						],
+					})(<Input />)}
+				</Form.Item>
+				<Form.Item label="Message">
+					{getFieldDecorator("message", {
+						rules: [
+							{
+								required: true,
+								message: "Please input a message.",
+							},
+						],
+					})(<Input.TextArea rows={5} />)}
+				</Form.Item>
+				<Form.Item {...submitLayout}>
+					<Button type="primary" htmlType="submit" className="contact-submit-button">
+						Submit
+					</Button>
+				</Form.Item>
+			</Form>
     );
+	}
+
+	renderSuccess = () => {
+		return (
+			<div>
+				<h3>Message sent!</h3>
+			</div>
+		);
+	}
+
+	renderError = () => {
+		return (
+			<div>
+				<h3>An error occured, please try again later.</h3>
+			</div>
+		);
+	}
+
+	renderCurrentView = () => {
+		let currentView = this.renderContactForm();
+
+		if (this.props.error) {
+			currentView = this.renderError();
+		} else if (this.props.sent) {
+			currentView = this.renderSuccess();
+		}
+
+		return currentView;
+	}
+
+  render = () => {
+		return (
+			<div className="contact-container">
+				{this.renderCurrentView()}
+			</div>
+		);
   };
 }
 
