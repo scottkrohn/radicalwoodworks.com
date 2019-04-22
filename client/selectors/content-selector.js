@@ -4,6 +4,7 @@ import { isEmpty, get } from "lodash";
 import Content from "model/content";
 
 const getAllContentFromState = (state) => state.content.content;
+export const getLoading = (state) => state.content.loading;
 
 export const getAllContent = createSelector(
   [getAllContentFromState],

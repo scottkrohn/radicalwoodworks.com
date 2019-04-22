@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { uniqueId } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 // Actions
 import { getAllContent } from 'client/actions/content-actions';
 
 // Selectors
-import { getAllContent as getAllContentObjects } from 'client/selectors/content-selector';
+import { getAllContent as getAllContentObjects, getLoading } from 'client/selectors/content-selector';
 
-// Constants
-import IMAGE from 'client/constants/image-constants';
+// Components
+import AboutUsInfo from 'client/components/about-us/about-us-info';
+import { Spin } from 'antd';
 
 class AboutContainer extends Component {
 
@@ -21,27 +22,18 @@ class AboutContainer extends Component {
 		this.props.getAllContent('ABOUT');
 	}
 
-	renderContent = () => {
-		return (
-			<div>
-				{this.props.content.map((contentElement) => {
-					return (<div key={uniqueId()}>
-						<div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }} />
-					</div>);
-				})}
-			</div>
-		);
-	}
-
 	render = () => {
+		const content = get(this.props, 'content', null);
+
 		return (
 			<div className="container">
 				<div className="col-xs-12">
+				<Spin spinning={this.props.loading}>
 					<div className="text-center">
 						<h1>Radical Woodworks</h1>
-						<img src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} height={400} width={400} />
-						{this.renderContent()}
+						{this.props.content && <AboutUsInfo content={content} /> }
 					</div>
+				</Spin>
 				</div>
 			</div>
 		);
@@ -51,6 +43,7 @@ class AboutContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		content: getAllContentObjects(state),
+		loading: getLoading(state),
 	};
 };
 
