@@ -25,20 +25,15 @@ class ProductsContainer extends Component {
 		const productsLoaded = (productsLength > 0);
 
 		return (
-			<div className="container">
-				<div className="col-xs-12">
+			<div className="container-fluid">
+				<div className="col-12">
 					<div className="text-center">
-						<h1>Radical Woodworks</h1>
-						<h3>Products Under Construction</h3>
-						<p>
-							<a href="https://www.etsy.com/shop/radicalwoodworks">Visit Our Etsy Shop</a>
-						</p>
+						<h1>Radical Woodworks Products</h1>
 					</div>
 				</div>
 
-				<div className="products-container">
-					{productsLoaded && <ProductGrid products={this.props.products} />}
-				</div>
+				{productsLoaded && <ProductGrid products={this.props.products} />}
+
 			</div>
 		);
 	};
