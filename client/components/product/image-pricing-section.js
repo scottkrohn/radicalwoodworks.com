@@ -16,16 +16,12 @@ class ImagePricingSection extends Component {
     const images = this.props.product.getImages();
 
     return (
-      <div className="container">
-        <div className="col-xs-12">
-          <div className="image-pricing-container">
-            <div className="section">
-              <ImageCarousel images={images} />
-            </div>
-            <div className="section">
-              <Pricing product={this.props.product} />
-            </div>
-          </div>
+      <div className="row">
+        <div className="col-lg-6 col-md-12">
+          <ImageCarousel images={images} />
+        </div>
+        <div className="col-lg-6 col-md-12 pricing">
+          <Pricing product={this.props.product} />
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import { get, uniqueId } from 'lodash';
 import PropTypes from 'prop-types';
 
 // Components
-import { Carousel } from 'antd';
+import { Icon, Carousel } from 'antd';
 
 // Constants
 import IMAGES from 'client/constants/image-constants';
@@ -15,6 +15,8 @@ import Product from 'model/product';
 class ImageCarousel extends Component {
 	constructor(props) {
 		super(props);
+
+		this.carouselRef = React.createRef();
 	}
 
 	getImageThumbUrls = () => {
@@ -31,14 +33,21 @@ class ImageCarousel extends Component {
 		return imageUrls;
 	};
 
-	onImageChange = (a, b, c) => {
-	};
+	onPrev = () => {
+		this.carouselRef.prev();
+	}
+
+	onNext = () => {
+		this.carouselRef.next();
+	}
 
 	render = () => {
 		const imageThumbUrls = this.getImageThumbUrls();
 		return (
 			<div className="image-carousel-container">
-				<Carousel afterChange={this.onImageChange}>
+				<Icon className="button button-prev" theme="filled" type="left-circle" onClick={this.onPrev} />
+				<Icon className="button button-next" theme="filled" type="right-circle" onClick={this.onNext} />
+				<Carousel ref={(node) => (this.carouselRef = node)} >
 					{imageThumbUrls.map((imageUrl) => {
 						return (
 							<div className="image-container" key={uniqueId()}>
@@ -47,6 +56,8 @@ class ImageCarousel extends Component {
 						);
 					})}
 				</Carousel>
+
+
 			</div>
 		);
 	};

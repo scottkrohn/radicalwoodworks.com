@@ -28,12 +28,12 @@ class ProductContainer extends Component {
 		const productLoaded = !isEmpty(product);
 
 		return (
-			<Spin spinning={this.props.loading} size="large">
-				<div className="product-container">
+			<div className="container-fluid">
+				<Spin spinning={this.props.loading} size="large">
 					{productLoaded && <ImagePricingSection product={product} />}
 					{productLoaded && <ItemInfo product={product} />}
-				</div>
-			</Spin>
+				</Spin>
+			</div>
 		);
 	};
 }
