@@ -11,12 +11,12 @@
 
 		.price-label {
 			font-weight: 500;
-			font-size: 20px;
+			font-size: 1.5em;
 		}
 
 		.price-value {
 			font-weight: 700;
-			font-size: 25px;
+			font-size: 2.3em;
 			color: @moneyGreen;
 		}
 	}
@@ -24,13 +24,13 @@
 	.shipping {
 		text-align: center;
 		font-weight: 500;
-		font-size: 15px;
+		font-size: 1.2em;
 	}
 
 	.title {
 		text-align: center;
 		font-weight: 700;
-		font-size: 30px;
+		font-size: 2em;
 	}
 
 	.add-to-cart {
@@ -49,5 +49,11 @@
 
 	.add-to-cart-image {
 		width: 90px;
+	}
+
+	@media (max-width: 992px) {
+		.shipping {
+			font-size: 1.5em;
+		}
 	}
 }

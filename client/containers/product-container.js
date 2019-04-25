@@ -31,6 +31,7 @@ class ProductContainer extends Component {
 			<div className="container-fluid">
 				<Spin spinning={this.props.loading} size="large">
 					{productLoaded && <ImagePricingSection product={product} />}
+					<hr />
 					{productLoaded && <ItemInfo product={product} />}
 				</Spin>
 			</div>
