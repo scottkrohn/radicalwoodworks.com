@@ -4,12 +4,13 @@ import { get, uniqueId } from 'lodash';
 
 // Components
 import ProductGrid from 'client/components/product/product-grid';
+import { Spin } from 'antd';
 
 // Actions
 import { getProducts } from 'actions/products-actions';
 
 // Selectors
-import { getProducts as getProductsSelector} from 'selectors/products-selectors';
+import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
 class ProductsContainer extends Component {
 
 	constructor(props) {
@@ -26,14 +27,16 @@ class ProductsContainer extends Component {
 
 		return (
 			<div className="container-fluid">
-				<div className="col-12">
-					<div className="text-center">
-						<h1>Radical Woodworks Products</h1>
+				<Spin spinning={this.props.loading} size="large">
+					<div className="col-12">
+						<div className="text-center">
+							<h1>Radical Woodworks Products</h1>
+						</div>
 					</div>
-				</div>
 
-				{productsLoaded && <ProductGrid products={this.props.products} />}
+					{productsLoaded && <ProductGrid products={this.props.products} />}
 
+				</Spin>
 			</div>
 		);
 	};
@@ -42,6 +45,7 @@ class ProductsContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		products: getProductsSelector(state),
+		loading: getLoading(state),
 	};
 };
 
