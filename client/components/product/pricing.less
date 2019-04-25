@@ -4,7 +4,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 500px;
 
 	.price {
 		text-align: center;		
@@ -42,18 +41,41 @@
 		margin-right: 10px;
     font-weight: 600;
     text-transform: uppercase;
-		font-size: 25px;
+		font-size: 2em;
 		vertical-align: middle;
 		color: @black;
 	}
 
 	.add-to-cart-image {
-		width: 90px;
+		width: 110px;
 	}
 
 	@media (max-width: 992px) {
+		.title {
+			font-size: 3em;
+		}
+
 		.shipping {
-			font-size: 1.5em;
+			font-size: 2.5em;
+		}
+
+		.price {
+			.price-label {
+				font-size: 3em;
+			}
+
+			.price-value {
+				font-size: 3.5em;
+			}
+		}
+
+		.add-to-cart-label {
+			font-size: 3em;
+			margin-right: 20px;
+		}
+
+		.add-to-cart-image {
+			width: 150px;
 		}
 	}
 }
