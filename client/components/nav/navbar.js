@@ -58,7 +58,7 @@ class NavBar extends Component {
           selectedKeys={[this.state.current]}
           mode="horizontal"
         >
-					<Menu.Item onClick={this.toggleHamburger} key="test">
+					<Menu.Item className="hide-desktop" onClick={this.toggleHamburger} key="test">
 						<FontAwesomeIcon className="hamburger-button" icon={faBars} />
 					</Menu.Item>
           <Menu.Item className="hide-mobile" key={NAV.pages.home.key}>
