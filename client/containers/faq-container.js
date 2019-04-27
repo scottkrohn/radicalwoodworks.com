@@ -33,8 +33,8 @@ class FaqContainer extends Component {
 
   render = () => {
     return (
-      <div class="container">
-        <div class="col-xs-12">{this.renderContent()}</div>
+      <div className="container">
+        <div className="col-xs-12">{this.renderContent()}</div>
       </div>
     );
   };

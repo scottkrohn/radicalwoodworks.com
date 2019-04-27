@@ -1,11 +1,39 @@
 @import "../../styles/variables.less";
 
 .nav-bar {
-  margin-bottom: 25px;
+	margin-bottom: 25px;
+
 }
 
-@media (max-width: @medium) {
-  .nav-link {
-    font-size: 30px;
-  }
+.hamburger-button {
+	font-size: 35px;
+	margin-top: 15px;
+}
+
+.hamburger-link {
+	color: @black;
+}
+
+.nav-dropdown-list {
+	list-style-type: none;
+
+	li {
+		margin: 10px 0;
+		font-size: 3.8em;
+		color: @black;
+	}
+}
+
+.hide-desktop{
+	display: none !important;
+}
+
+@media (max-width: 992px) {
+	.hide-mobile {
+		display: none !important;
+	}
+
+	.hide-desktop{
+		display: inline-block !important;
+	}
 }
