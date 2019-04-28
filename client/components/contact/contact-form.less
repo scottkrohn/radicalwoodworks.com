@@ -1,3 +1,36 @@
 .contact-container {
 	text-align: center;
 }
+
+.form-label {
+	font-size: 1.3em;
+}
+
+
+:global {
+	.ant-input-lg {
+		height: 100px;
+	}
+}
+
+.contact-submit-button {
+	width: 100%;
+}
+
+@media (max-width: 992px) {
+	.form-label {
+		font-size: 2.5em;
+	}
+
+	#contact_form {
+		&_name, &_email, &_subject {
+			height: 60px;
+			font-size: 2.5em;
+		}
+
+		&_message {
+			font-size: 2.5em;
+		}
+	}
+}
+

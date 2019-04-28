@@ -58,11 +58,16 @@ class ContactForm extends Component {
       },
     };
 
-    const { getFieldDecorator } = this.props.form;
+		const { getFieldDecorator } = this.props.form;
+		const Label = (props) => {
+			return (
+				<span className="form-label">{props.label}</span>
+			);
+		};
 
     return (
 			<Form {...formItemLayout} onSubmit={this.handleSubmit}>
-				<Form.Item label="E-Mail">
+				<Form.Item label={<Label label="E-Mail" />}>
 					{getFieldDecorator("email", {
 						rules: [
 							{
@@ -74,9 +79,9 @@ class ContactForm extends Component {
 								message: "Please input your E-mail",
 							},
 						],
-					})(<Input />)}
+					})(<Input size="large"/>)}
 				</Form.Item>
-				<Form.Item label="Name">
+				<Form.Item label={<Label label="Name" />}>
 					{getFieldDecorator("name", {
 						rules: [
 							{
@@ -84,9 +89,9 @@ class ContactForm extends Component {
 								message: "Please input your name.",
 							},
 						],
-					})(<Input />)}
+					})(<Input size="large"/>)}
 				</Form.Item>
-				<Form.Item label="Subject">
+				<Form.Item label={<Label label="Subject" />}>
 					{getFieldDecorator("subject", {
 						rules: [
 							{
@@ -94,9 +99,9 @@ class ContactForm extends Component {
 								message: "Please input a subject.",
 							},
 						],
-					})(<Input />)}
+					})(<Input size="large"/>)}
 				</Form.Item>
-				<Form.Item label="Message">
+				<Form.Item label={<Label label="Message" />}>
 					{getFieldDecorator("message", {
 						rules: [
 							{
@@ -104,7 +109,7 @@ class ContactForm extends Component {
 								message: "Please input a message.",
 							},
 						],
-					})(<Input.TextArea rows={5} />)}
+					})(<Input.TextArea rows={8} />)}
 				</Form.Item>
 				<Form.Item {...submitLayout}>
 					<Button type="primary" htmlType="submit" className="contact-submit-button">

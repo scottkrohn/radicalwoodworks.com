@@ -8,6 +8,9 @@ import { getAllContent } from "client/actions/content-actions";
 // Selectors
 import { getAllContent as getAllContentObjects } from "client/selectors/content-selector";
 
+// Components
+import Content from 'client/components/content/content';
+
 class FaqContainer extends Component {
   constructor(props) {
     super(props);
@@ -17,24 +20,23 @@ class FaqContainer extends Component {
     this.props.getAllContent("POLICY");
   };
 
-  renderContent = () => {
-    return (
-      <div>
-        {this.props.content.map((contentElement) => {
-          return (
-            <div key={uniqueId()}>
-              <div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }} />
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
   render = () => {
     return (
       <div className="container">
-        <div className="col-xs-12">{this.renderContent()}</div>
+				<div className="row">
+					<div className="col-12">
+					<div className="text-center">
+						<h1>Radical Woodworks Products</h1>
+					</div>
+					{this.props.content.map((contentElement) => {
+						return (
+							<div key={uniqueId()}>
+								<Content content={contentElement.getContent()} />
+							</div>
+						);
+					})}
+					</div>
+				</div>
       </div>
     );
   };
