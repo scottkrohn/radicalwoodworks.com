@@ -1,20 +1,36 @@
 import express from "express";
+import session from "express-session";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import path from "path";
 import routes from "./server/routes/routes";
 import webpackConfig from "./webpack.config.js";
+import passport from "passport";
+import passportConfig from './server/config/passport';
+import { getConfig } from './server/config/protected';
 
 const app = express();
 const env = app.get("env");
-var bodyParser = require('body-parser');
+var bodyParser = require("body-parser");
 
 // Apply Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(session({
+	secret: getConfig('passportSecret'),
+	resave: true,
+	saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Setup Passport
+passportConfig(passport);
+
 // Include dev/prod independant routes.
-routes(app);
+routes(app, passport);
 
 if (env === "production") {
   // Serve static output from webpack for production.

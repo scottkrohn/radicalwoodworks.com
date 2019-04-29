@@ -14,6 +14,10 @@ class Database {
 		this.clear();
 	}
 
+	escape = (string) => {
+		return connectionPool.escape(string);
+	}
+
 	assign = (field, value) => {
 		this.fields[field] = value;
 	};
@@ -42,6 +46,8 @@ class Database {
 
 	selectOne = (tableName, whereClause) => {
 		const sql = `SELECT * FROM \`${tableName}\` ${whereClause} LIMIT 1`;
+
+		console.log(sql);
 		return this.query(sql);
 	};
 
@@ -61,7 +67,7 @@ class Database {
 				if (error) { 
 					reject(error);
 				}
-				resolve(results);
+				resolve(results, error);
 			});
 		});
 	};

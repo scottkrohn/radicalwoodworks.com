@@ -14,4 +14,12 @@ router.route('/contact/send')
 	.all(require('../controllers/contact-controller'));
 
 
+/* Authentication Routes
+/***********************/
+router.route('/signup')
+	.post(require('../controllers/signup-controller'));
+
+router.route('/login')
+	.post(require('../controllers/login-controller'));
+
 module.exports = router;
