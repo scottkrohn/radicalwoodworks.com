@@ -1,6 +1,6 @@
 import BaseBLI from './base';
 
-// Models 
+// Models
 import Image from '../../../model/image';
 
 // Constants

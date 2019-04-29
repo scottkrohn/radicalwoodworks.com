@@ -9,6 +9,6 @@ const CONTENT = {
 		about: 'ABOUT',
 		payment: 'PAYMENT',
 	},
-}
+};
 
 export default CONTENT;

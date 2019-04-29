@@ -1,7 +1,7 @@
 import { get, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 
-import Product from 'model/product'
+import Product from 'model/product';
 import Image from 'model/image';
 
 const getProductsFromState = (state) => state.products.products;

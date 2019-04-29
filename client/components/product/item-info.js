@@ -43,21 +43,21 @@ class ItemInfo extends Component {
 		this.renderItemDetails();
 		return (
 			<div className="row">
-					<div className="col-lg-9 col-md-12 text-center text-lg-left">
-						<div className="description">
-							<h3 className="description-header">Item Description</h3>
-							<div dangerouslySetInnerHTML={{ __html: this.props.product.getDescription() }} />
-						</div>
+				<div className="col-lg-9 col-md-12 text-center text-lg-left">
+					<div className="description">
+						<h3 className="description-header">Item Description</h3>
+						<div dangerouslySetInnerHTML={{ __html: this.props.product.getDescription() }} />
 					</div>
-					<div className="col-lg-3 col-md-12 text-center text-lg-left">
-						<div className="hide-desktop">
-							<hr/>
-						</div>
-						<div className="item-details">
-							<h3 className="item-details-header">Details</h3>
-							{this.renderItemDetails()}
-						</div>
+				</div>
+				<div className="col-lg-3 col-md-12 text-center text-lg-left">
+					<div className="hide-desktop">
+						<hr />
 					</div>
+					<div className="item-details">
+						<h3 className="item-details-header">Details</h3>
+						{this.renderItemDetails()}
+					</div>
+				</div>
 			</div>
 		);
 	};

@@ -5,38 +5,38 @@ import yaml from 'js-yaml';
 
 class ContactBLI {
 
-    constructor() {
-    }
+	constructor() {
+	}
 
-    sendEmail = async (contact) => {
+	sendEmail = async (contact) => {
 
-        const mailOptions = {
-            from: contact.getFrom(),
-            to: contact.getTo(),
-            html: contact.getHtml(),
-            subject: contact.getSubject(),
-        };
+		const mailOptions = {
+			from: contact.getFrom(),
+			to: contact.getTo(),
+			html: contact.getHtml(),
+			subject: contact.getSubject(),
+		};
 
-				const transporter = this._getTransporter();
-				return transporter.sendMail(mailOptions);
-    }
+		const transporter = this._getTransporter();
+		return transporter.sendMail(mailOptions);
+	}
 
-    _getTransporter = () => {
+	_getTransporter = () => {
 
-        const configPath = path.join(__dirname, '../../../config/config.yaml');
-        const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+		const configPath = path.join(__dirname, '../../../config/config.yaml');
+		const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
 
-        const transportOptions = {
-            host: config.emailHost,
-            auth: {
-                user: config.emailUser,
-                pass: config.emailPassword,
-            },
-        };
+		const transportOptions = {
+			host: config.emailHost,
+			auth: {
+				user: config.emailUser,
+				pass: config.emailPassword,
+			},
+		};
 
-        const transporter = nodemailer.createTransport(transportOptions);
-        return transporter;
-    }
+		const transporter = nodemailer.createTransport(transportOptions);
+		return transporter;
+	}
 }
 
 export default ContactBLI;

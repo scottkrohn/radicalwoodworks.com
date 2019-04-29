@@ -5,7 +5,7 @@ const REQUEST = {
 		patch: 'PATCH',
 		post: 'POST',
 		put: 'PUT',
-	}
+	},
 };
 
 export default REQUEST;
