@@ -37,7 +37,7 @@ class Database {
 
 	delete = (tableName, whereClause) => {
 		const sql = `DELETE FROM \`${tableName}\` ${whereClause}`;
-		return this.query(sql)
+		return this.query(sql);
 	}
 
 	selectOne = (tableName, whereClause) => {
@@ -46,7 +46,7 @@ class Database {
 	};
 
 	selectAll = (tableName, whereClause) => {
-		let sql = `SELECT * FROM \`${tableName}\``
+		let sql = `SELECT * FROM \`${tableName}\``;
 
 		if (whereClause) {
 			sql += ` ${whereClause}`;
@@ -58,7 +58,7 @@ class Database {
 	query = (sqlString = '') => {
 		return new Promise((resolve, reject) => {
 			connectionPool.query(sqlString, (error, results, fields) => {
-				if (error) { 
+				if (error) {
 					reject(error);
 				}
 				resolve(results);
@@ -88,8 +88,8 @@ class Database {
 
 
 		for (let field in this.fields) {
-			const fieldSeparator = (fieldStr !== '') ? ', ': '';
-			const valuesSeparator = (valuesStr !== '') ? ', ': '';
+			const fieldSeparator = (fieldStr !== '') ? ', ' : '';
+			const valuesSeparator = (valuesStr !== '') ? ', ' : '';
 
 			fieldStr += `${fieldSeparator}\`${field}\``;
 			valuesStr += `${valuesSeparator}\"${this.fields[field]}\"`;

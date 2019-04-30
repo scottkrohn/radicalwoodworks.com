@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 // Components
 import { Spin } from 'antd';
@@ -35,6 +35,6 @@ Spinner.propTypes = {
 	delay: PropTypes.number,
 	size: PropTypes.string,
 	tip: PropTypes.string,
-}
+};
 
 export default Spinner;

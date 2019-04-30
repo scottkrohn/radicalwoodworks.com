@@ -1,28 +1,28 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 // Styles
-import "client/components/contact/contact-form.less";
+import 'client/components/contact/contact-form.less';
 
 // Components
-import { Form, Input } from "antd";
-import { Button } from "node_modules/antd/lib/index";
+import { Form, Input } from 'antd';
+import { Button } from 'node_modules/antd/lib/index';
 
 // Models
 import Contact from 'model/contact';
-import contactContainer from "client/containers/contact-container";
+import contactContainer from 'client/containers/contact-container';
 
 class ContactForm extends Component {
-  constructor(props) {
+	constructor(props) {
 		super(props);
-  }
+	}
 
-  handleSubmit = (e) => {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				this.sendMessage(values);
 			}
-		})
+		});
 	};
 
 	sendMessage = (values) => {
@@ -38,25 +38,25 @@ class ContactForm extends Component {
 	}
 
 	renderContactForm = () => {
-    const formItemLayout = {
-      labelCol: {
-        md: { span: 24 },
-        lg: { span: 3 },
-      },
-      wrapperCol: {
-        md: { span: 24 },
-        lg: { span: 16 },
-      },
-      layout: "vertical",
-      labelAlign: "left",
-    };
+		const formItemLayout = {
+			labelCol: {
+				md: { span: 24 },
+				lg: { span: 3 },
+			},
+			wrapperCol: {
+				md: { span: 24 },
+				lg: { span: 16 },
+			},
+			layout: 'vertical',
+			labelAlign: 'left',
+		};
 
-    const submitLayout = {
-      wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 16, offset: 3 },
-      },
-    };
+		const submitLayout = {
+			wrapperCol: {
+				xs: { span: 24, offset: 0 },
+				sm: { span: 16, offset: 3 },
+			},
+		};
 
 		const { getFieldDecorator } = this.props.form;
 		const Label = (props) => {
@@ -65,48 +65,48 @@ class ContactForm extends Component {
 			);
 		};
 
-    return (
+		return (
 			<Form {...formItemLayout} onSubmit={this.handleSubmit}>
 				<Form.Item label={<Label label="E-Mail" />}>
-					{getFieldDecorator("email", {
+					{getFieldDecorator('email', {
 						rules: [
 							{
-								type: "email",
-								message: "The input is not valid E-mail!",
+								type: 'email',
+								message: 'The input is not valid E-mail!',
 							},
 							{
 								required: true,
-								message: "Please input your E-mail",
+								message: 'Please input your E-mail',
 							},
 						],
-					})(<Input size="large"/>)}
+					})(<Input size="large" />)}
 				</Form.Item>
 				<Form.Item label={<Label label="Name" />}>
-					{getFieldDecorator("name", {
+					{getFieldDecorator('name', {
 						rules: [
 							{
 								required: true,
-								message: "Please input your name.",
+								message: 'Please input your name.',
 							},
 						],
-					})(<Input size="large"/>)}
+					})(<Input size="large" />)}
 				</Form.Item>
 				<Form.Item label={<Label label="Subject" />}>
-					{getFieldDecorator("subject", {
+					{getFieldDecorator('subject', {
 						rules: [
 							{
 								required: true,
-								message: "Please input a subject.",
+								message: 'Please input a subject.',
 							},
 						],
-					})(<Input size="large"/>)}
+					})(<Input size="large" />)}
 				</Form.Item>
 				<Form.Item label={<Label label="Message" />}>
-					{getFieldDecorator("message", {
+					{getFieldDecorator('message', {
 						rules: [
 							{
 								required: true,
-								message: "Please input a message.",
+								message: 'Please input a message.',
 							},
 						],
 					})(<Input.TextArea rows={8} />)}
@@ -117,7 +117,7 @@ class ContactForm extends Component {
 					</Button>
 				</Form.Item>
 			</Form>
-    );
+		);
 	}
 
 	renderSuccess = () => {
@@ -148,13 +148,13 @@ class ContactForm extends Component {
 		return currentView;
 	}
 
-  render = () => {
+	render = () => {
 		return (
 			<div className="contact-container">
 				{this.renderCurrentView()}
 			</div>
 		);
-  };
+	};
 }
 
-export default Form.create({ name: "contact_form" })(ContactForm);
+export default Form.create({ name: 'contact_form' })(ContactForm);

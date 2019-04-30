@@ -3,29 +3,29 @@ const NAV = {
 		home: {
 			key: 'home',
 			label: 'Home',
-			path: ''
+			path: '',
 		},
 		about: {
 			key: 'about',
 			label: 'About Us',
-			path: 'about'
+			path: 'about',
 		},
 		contact: {
 			key: 'contact',
 			label: 'Contact',
-			path: 'contact'
+			path: 'contact',
 		},
 		products: {
 			key: 'products',
 			label: 'Products',
-			path: 'products'
+			path: 'products',
 		},
 		faq: {
 			key: 'faq',
 			label: 'FAQ',
-			path: 'faq'
+			path: 'faq',
 		},
-	}
+	},
 };
 
 export default NAV;

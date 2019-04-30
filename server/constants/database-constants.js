@@ -40,8 +40,8 @@ const DATABASE = {
 				content: 'content',
 				createdTs: 'created_ts',
 				updatedTs: 'updated_ts',
-			}
-		}
+			},
+		},
 	},
 };
 

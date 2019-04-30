@@ -24,7 +24,7 @@ class HomepageContainer extends Component {
 	};
 }
 
-const mapStateToProps = (state) => state; 
+const mapStateToProps = (state) => state;
 
 const mapActionsToProps = {};
 
