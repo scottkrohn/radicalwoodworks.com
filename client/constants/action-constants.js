@@ -18,6 +18,16 @@ const ACTIONS = {
 	SEND_CONTACT_REQUEST: 'contact:sendContactRequest',
 	SEND_CONTACT_SUCCESS: 'contact:sendContactSuccess',
 	SEND_CONTACT_ERROR: 'contact:sendContactError',
+
+	// Login Actions
+	SEND_LOGIN_REQUEST: 'login:sendLoginRequest',
+	SEND_LOGIN_SUCCESS: 'login:sendLoginSuccess',
+	SEND_LOGIN_ERROR: 'login:sendLoginError',
+
+	// Auth Actions
+	SEND_AUTH_REQUEST: 'auth:sendAuthRequest',
+	SEND_AUTH_SUCCESS: 'auth:sendAuthSuccess',
+	SEND_AUTH_ERROR: 'auth:sendAuthError',
 };
 
 export default ACTIONS;

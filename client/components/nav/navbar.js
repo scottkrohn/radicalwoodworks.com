@@ -91,6 +91,12 @@ class NavBar extends Component {
 							to={`/${NAV.pages.faq.path}`}
 						/>
 					</Menu.Item>
+					<Menu.Item className="hide-mobile" key={NAV.pages.admin.key}>
+						<NavLink
+							label={NAV.pages.admin.label}
+							to={`/${NAV.pages.admin.path}`}
+						/>
+					</Menu.Item>
 				</Menu>
 
 				<Drawer

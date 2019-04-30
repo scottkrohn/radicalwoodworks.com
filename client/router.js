@@ -8,6 +8,7 @@ import AboutContainer from 'containers/about-container';
 import ContactContainer from 'containers/contact-container';
 import ProductContainer from 'containers/product-container';
 import FaqContainer from 'containers/faq-container';
+import AdminContainer from 'containers/admin-container';
 
 
 const Router = () => (
@@ -17,8 +18,9 @@ const Router = () => (
 		<Route exact path='/about' component={AboutContainer}/>
 		<Route exact path='/contact' component={ContactContainer}/>
 		<Route exact path='/faq' component={FaqContainer}/>
+		<Route exact path='/admin' component={AdminContainer}/>
 
-		// Product Pages
+		{/* Product Pages */}
 		<Route exact path='/products' component={ProductsContainer}/>
 		<Route exact path='/products/product/:productId' component={ProductContainer}/>
 	</Switch>

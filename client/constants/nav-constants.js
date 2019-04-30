@@ -25,6 +25,11 @@ const NAV = {
 			label: 'FAQ',
 			path: 'faq',
 		},
+		admin: {
+			key: 'admin',
+			label: 'Admin',
+			path: 'admin',
+		},
 	},
 };
 
