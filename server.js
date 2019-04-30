@@ -6,8 +6,8 @@ import path from 'path';
 import routes from './server/routes/routes';
 import webpackConfig from './webpack.config.js';
 import passport from 'passport';
-import passportConfig from './server/config/passport';
-import { getConfig } from './server/config/protected';
+import passportConfig from './server/lib/passport';
+import { getConfig } from './server/lib/protected';
 
 const app = express();
 const env = app.get('env');
