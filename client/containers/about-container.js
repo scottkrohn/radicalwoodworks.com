@@ -28,12 +28,12 @@ class AboutContainer extends Component {
 		return (
 			<div className="container">
 				<div className="col-xs-12">
-				<Spin spinning={this.props.loading}>
-					<div className="text-center">
-						<h1>Radical Woodworks</h1>
-						{this.props.content && <AboutUsInfo content={content} /> }
-					</div>
-				</Spin>
+					<Spin spinning={this.props.loading}>
+						<div className="text-center">
+							<h1>Radical Woodworks</h1>
+							{this.props.content && <AboutUsInfo content={content} />}
+						</div>
+					</Spin>
 				</div>
 			</div>
 		);

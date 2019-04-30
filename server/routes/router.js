@@ -13,7 +13,6 @@ router.route('/content/content/:contentType')
 router.route('/contact/send')
 	.all(require('../controllers/contact-controller'));
 
-
 /* Authentication Routes
 /***********************/
 router.route('/signup')

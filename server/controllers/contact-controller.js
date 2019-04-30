@@ -1,11 +1,11 @@
-import ContactBLI from "../classes/bli/contact";
-import REQUEST from "../constants/request-constants";
-import Contact from "../../model/contact";
+import ContactBLI from '../classes/bli/contact';
+import REQUEST from '../constants/request-constants';
+import Contact from '../../model/contact';
 
 module.exports = (req, res, next) => {
 	const contactBli = new ContactBLI();
 
-  if (req.method === REQUEST.method.post) {
+	if (req.method === REQUEST.method.post) {
 		const body = req.body;
 
 		const contact = new Contact();
@@ -16,6 +16,6 @@ module.exports = (req, res, next) => {
 			} else {
 				res.status(200).send(info);
 			}
-		}); 
-  }
+		});
+	}
 };

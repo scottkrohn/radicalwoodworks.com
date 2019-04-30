@@ -1,47 +1,47 @@
-import React, { Component } from "react";
-import { get } from "lodash";
+import React, { Component } from 'react';
+import { get } from 'lodash';
 
 // Components
-import { Menu, Drawer } from "antd";
-import NavLink from "components/nav/nav-link";
+import { Menu, Drawer } from 'antd';
+import NavLink from 'components/nav/nav-link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 // Constants
-import NAV from "constants/nav-constants";
+import NAV from 'constants/nav-constants';
 
-import "client/components/nav/navbar.less";
+import 'client/components/nav/navbar.less';
 
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    const currentPage = this.getCurrentPageName();
+		const currentPage = this.getCurrentPageName();
 
-    this.state = {
+		this.state = {
 			current: currentPage,
 			drawerOpen: false,
-    };
-  }
+		};
+	}
 
-  getCurrentPageName = () => {
-    let currentPage = NAV.pages.home.key;
+	getCurrentPageName = () => {
+		let currentPage = NAV.pages.home.key;
 
-    const pathName = get(window, "location.pathname", null);
-    if (pathName) {
-      const pathParts = pathName.split("/").filter((str) => str);
-      if (pathParts.length) {
-        currentPage = get(pathParts, "[0]");
-      }
-    }
+		const pathName = get(window, 'location.pathname', null);
+		if (pathName) {
+			const pathParts = pathName.split('/').filter((str) => str);
+			if (pathParts.length) {
+				currentPage = get(pathParts, '[0]');
+			}
+		}
 
-    return currentPage;
-  };
+		return currentPage;
+	};
 
-  handleClick = (e) => {
-    this.setState({
-      current: e.key,
-    });
+	handleClick = (e) => {
+		this.setState({
+			current: e.key,
+		});
 	};
 
 	toggleHamburger = () => {
@@ -50,56 +50,56 @@ class NavBar extends Component {
 		});
 	}
 
-  render() {
-    return (
-      <div className="nav-bar">
-        <Menu
-          onClick={this.handleClick}
-          selectedKeys={[this.state.current]}
-          mode="horizontal"
-        >
+	render() {
+		return (
+			<div className="nav-bar">
+				<Menu
+					onClick={this.handleClick}
+					selectedKeys={[this.state.current]}
+					mode="horizontal"
+				>
 					<Menu.Item className="hide-desktop" onClick={this.toggleHamburger} key="test">
 						<FontAwesomeIcon className="hamburger-button" icon={faBars} />
 					</Menu.Item>
-          <Menu.Item className="hide-mobile" key={NAV.pages.home.key}>
-            <NavLink
-              label={NAV.pages.home.label}
-              to={`/${NAV.pages.home.path}`}
-            />
-          </Menu.Item>
-          <Menu.Item className="hide-mobile" key={NAV.pages.products.key}>
-            <NavLink
-              label={NAV.pages.products.label}
-              to={`/${NAV.pages.products.path}`}
-            />
-          </Menu.Item>
-          <Menu.Item className="hide-mobile" key={NAV.pages.about.key}>
-            <NavLink
-              label={NAV.pages.about.label}
-              to={`/${NAV.pages.about.path}`}
-            />
-          </Menu.Item>
-          <Menu.Item className="hide-mobile" key={NAV.pages.contact.key}>
-            <NavLink
-              label={NAV.pages.contact.label}
-              to={`/${NAV.pages.contact.path}`}
-            />
-          </Menu.Item>
-          <Menu.Item className="hide-mobile" key={NAV.pages.faq.key}>
-            <NavLink
-              label={NAV.pages.faq.label}
-              to={`/${NAV.pages.faq.path}`}
-            />
-          </Menu.Item>
-        </Menu>
+					<Menu.Item className="hide-mobile" key={NAV.pages.home.key}>
+						<NavLink
+							label={NAV.pages.home.label}
+							to={`/${NAV.pages.home.path}`}
+						/>
+					</Menu.Item>
+					<Menu.Item className="hide-mobile" key={NAV.pages.products.key}>
+						<NavLink
+							label={NAV.pages.products.label}
+							to={`/${NAV.pages.products.path}`}
+						/>
+					</Menu.Item>
+					<Menu.Item className="hide-mobile" key={NAV.pages.about.key}>
+						<NavLink
+							label={NAV.pages.about.label}
+							to={`/${NAV.pages.about.path}`}
+						/>
+					</Menu.Item>
+					<Menu.Item className="hide-mobile" key={NAV.pages.contact.key}>
+						<NavLink
+							label={NAV.pages.contact.label}
+							to={`/${NAV.pages.contact.path}`}
+						/>
+					</Menu.Item>
+					<Menu.Item className="hide-mobile" key={NAV.pages.faq.key}>
+						<NavLink
+							label={NAV.pages.faq.label}
+							to={`/${NAV.pages.faq.path}`}
+						/>
+					</Menu.Item>
+				</Menu>
 
 				<Drawer
-          placement="top"
-          closable={true}
-          onClose={this.toggleHamburger}
+					placement="top"
+					closable={true}
+					onClose={this.toggleHamburger}
 					visible={this.state.drawerOpen}
 					height={500}
-        >
+				>
 					<ul className="nav-dropdown-list">
 						<li onClick={this.toggleHamburger}>
 							<NavLink
@@ -109,11 +109,11 @@ class NavBar extends Component {
 							/>
 						</li>
 						<li onClick={this.toggleHamburger}>
-            <NavLink
-              label={NAV.pages.products.label}
-              to={`/${NAV.pages.products.path}`}
-							className="hamburger-link"
-            />
+							<NavLink
+								label={NAV.pages.products.label}
+								to={`/${NAV.pages.products.path}`}
+								className="hamburger-link"
+							/>
 						</li>
 						<li onClick={this.toggleHamburger}>
 							<NavLink
@@ -137,10 +137,10 @@ class NavBar extends Component {
 							/>
 						</li>
 					</ul>
-        </Drawer>
-      </div>
-    );
-  }
+				</Drawer>
+			</div>
+		);
+	}
 }
 
 export default NavBar;

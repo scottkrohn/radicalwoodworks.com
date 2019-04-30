@@ -4,6 +4,6 @@ class BaseBLI {
 	constructor() {
 		this.db = new Database();
 	}
-};
+}
 
 export default BaseBLI;

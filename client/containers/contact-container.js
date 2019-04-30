@@ -16,7 +16,7 @@ class ContactContainer extends Component {
 		this.state = {
 			sent: false,
 			error: false,
-		}
+		};
 	}
 
 	handleSendContact = (contact) => {
@@ -30,11 +30,11 @@ class ContactContainer extends Component {
 				}
 			})
 			.catch((err) => {
-					this.setState({
-						sent: false,
-						error: true,
-					});
-			})
+				this.setState({
+					sent: false,
+					error: true,
+				});
+			});
 	}
 
 	renderContactForm = () => {
@@ -50,7 +50,7 @@ class ContactContainer extends Component {
 
 	render = () => {
 		return (
-			<Spin 
+			<Spin
 				spinning={this.props.contact.sending}
 				size="large"
 			>
