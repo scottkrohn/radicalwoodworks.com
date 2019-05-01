@@ -2,6 +2,7 @@ import PassportLocal from 'passport-local';
 import Database from '../db/db';
 import DB from '../constants/database-constants';
 import bcrypt from 'bcrypt-nodejs';
+import EXCEPTIONS from '../../constants/exceptions';
 
 export default (passport) => {
 	const db = new Database();
@@ -30,7 +31,7 @@ export default (passport) => {
 
 				// Check if the user already exists with this username. If so we won't create a new user.
 				db.selectOne(DB.tables.admin_users.name, whereClause)
-					.then((result, error) => {
+					.then((result) => {
 						if (result.length) {
 							return done(null, false);
 						} else {
@@ -70,8 +71,6 @@ export default (passport) => {
 			(req, username, password, done) => {
 				const whereClause = `WHERE ${DB.tables.admin_users.columns.username} = ${db.escape(username)}`;
 
-				console.log('login in passportjs');
-
 				db.selectOne(DB.tables.admin_users.name, whereClause).then((result, error) => {
 					if (error) {
 						return done(error);
@@ -79,15 +78,22 @@ export default (passport) => {
 
 					if (!result.length) {
 						// No User Found
-						return done(error);
+						return done(null, false, EXCEPTIONS.noUserFound);
 					}
 
-					if (!bcrypt.compareSync(password, result[0].password)) {
+					const user = result[0];
+
+					if (!bcrypt.compareSync(password, user.password)) {
 						// Incorrect password
-						return done(null, false);
+						return done(null, false, EXCEPTIONS.invalidPassword);
 					}
 
-					return done(null, result[0]);
+					const userResponse = {
+						username: user.username,
+						userId: user.id,
+					};
+
+					return done(null, userResponse);
 				});
 			}
 		)

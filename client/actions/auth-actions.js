@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
+import { get } from 'lodash';
 
 import ACTIONS from 'constants/action-constants';
 
@@ -18,10 +19,19 @@ export const login = (username, password) => {
 			},
 		};
 
-		console.log(qs.stringify(postBody));
+		return new Promise((resolve, reject) => {
+			axios.post('/auth/login', qs.stringify(postBody), config)
+				.then((response) => {
+					const token = get(response, 'data.token');
 
-		axios.post('/auth/login', qs.stringify(postBody), config).then((result) => {
-			console.log(result);
+					dispatch(loginSuccess(token));
+					resolve(token);
+				})
+				.catch((error) => {
+					const errorCode = get(error, 'response.data.code');
+					dispatch(loginError(errorCode));
+					reject({code: errorCode});
+				});
 		});
 	};
 };
@@ -37,17 +47,19 @@ const loginRequest = () => {
 	};
 };
 
-const loginSuccess = () => {
+const loginSuccess = (token) => {
 	return {
 		type: ACTIONS.SEND_LOGIN_SUCCESS,
-		payload: {},
+		payload: {
+			token,
+		},
 	};
 };
-const loginError = (error) => {
+const loginError = (errorCode) => {
 	return {
 		type: ACTIONS.SEND_LOGIN_ERROR,
 		payload: {
-			error,
+			errorCode,
 		},
 	};
 };

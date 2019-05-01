@@ -1,21 +1,12 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// Actions
-import { login } from 'client/actions/auth-actions';
-
-// Selectors
-
-// Component
-
-class ProductContainer extends Component {
+class AdminContainer extends Component {
 	constructor(props) {
 		super(props);
 	}
 
 	componentDidMount = () => {
-		this.props.login('skrohn86', 'Refinnej77!');
 	};
 
 	render = () => {
@@ -33,10 +24,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionsToProps = {
-	login,
 };
 
 export default connect(
 	mapStateToProps,
 	mapActionsToProps,
-)(ProductContainer);
+)(AdminContainer);

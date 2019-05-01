@@ -10,7 +10,6 @@ export const getProducts = () => {
 		return new Promise((resolve, reject) => {
 			axios.get('/server/products')
 				.then((response) => {
-					console.log(response);
 					if (response.status === 200) {
 						dispatch(getProductsSuccess(response.data));
 						resolve(response);

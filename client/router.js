@@ -9,6 +9,7 @@ import ContactContainer from 'containers/contact-container';
 import ProductContainer from 'containers/product-container';
 import FaqContainer from 'containers/faq-container';
 import AdminContainer from 'containers/admin-container';
+import LoginContainer from 'containers/login-container';
 
 
 const Router = () => (
@@ -19,6 +20,7 @@ const Router = () => (
 		<Route exact path='/contact' component={ContactContainer}/>
 		<Route exact path='/faq' component={FaqContainer}/>
 		<Route exact path='/admin' component={AdminContainer}/>
+		<Route exact path='/login' component={LoginContainer}/>
 
 		{/* Product Pages */}
 		<Route exact path='/products' component={ProductsContainer}/>

@@ -19,8 +19,9 @@ router.route('/signup')
 	.post(require('../controllers/signup-controller'));
 
 router.route('/login')
-	.post(require('../controllers/login-controller'), (req, res, next) => {
-		console.log(req.isAuthenticated());
+	.post(require('../controllers/login-controller'), (req, res) => {
+		console.log('hello');
+		console.log(req.user);
 	});
 
 module.exports = router;

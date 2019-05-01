@@ -1,4 +1,3 @@
-import passport from 'passport';
 import ProductsBLI from '../classes/bli/products';
 
 // Constants
@@ -6,8 +5,6 @@ import REQUEST from '../constants/request-constants';
 
 module.exports = (req, res, next) => {
 	const productsBli = new ProductsBLI();
-
-	console.log(req.isAuthenticated());
 
 	if (req.method === REQUEST.method.get) {
 		const productId = req.params.productId;

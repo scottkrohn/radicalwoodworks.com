@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { get } from 'lodash';
+import Cookie from 'js-cookie';
+import { connect } from 'react-redux';
 
 // Components
 import { Menu, Drawer } from 'antd';
@@ -51,6 +53,8 @@ class NavBar extends Component {
 	}
 
 	render() {
+		const isLoggedIn = !!Cookie.get('utoken');
+
 		return (
 			<div className="nav-bar">
 				<Menu
@@ -91,12 +95,21 @@ class NavBar extends Component {
 							to={`/${NAV.pages.faq.path}`}
 						/>
 					</Menu.Item>
-					<Menu.Item className="hide-mobile" key={NAV.pages.admin.key}>
-						<NavLink
-							label={NAV.pages.admin.label}
-							to={`/${NAV.pages.admin.path}`}
-						/>
-					</Menu.Item>
+					{isLoggedIn ? (
+						<Menu.Item className="hide-mobile right-link" key={NAV.pages.admin.key}>
+							<NavLink
+								label={NAV.pages.admin.label}
+								to={`/${NAV.pages.admin.path}`}
+							/>
+						</Menu.Item>
+					) : (
+						<Menu.Item className="hide-mobile right-link" key={NAV.pages.login.key}>
+							<NavLink
+								label={NAV.pages.login.label}
+								to={`/${NAV.pages.login.path}`}
+							/>
+						</Menu.Item>
+					)}
 				</Menu>
 
 				<Drawer
@@ -149,4 +162,15 @@ class NavBar extends Component {
 	}
 }
 
-export default NavBar;
+const mapStateToProps = (state) => {
+	return {
+		auth: state.auth,
+	};
+};
+
+const mapActionsToProps = {};
+
+export default connect(
+	mapStateToProps,
+	mapActionsToProps,
+)(NavBar);

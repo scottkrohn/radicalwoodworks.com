@@ -1,14 +1,23 @@
 import passport from 'passport';
 import REQUEST from '../constants/request-constants';
+import EXCEPTIONS from '../../constants/exceptions';
+import jwt from 'jsonwebtoken';
+import { getConfig } from '../../lib/protected';
 
 module.exports = (req, res, next) => {
 	if (req.method === REQUEST.method.post) {
-		passport.authenticate('local-login', {
-			successRedirect: '/profile', // redirect to the secure profile section
-			failureRedirect: '/signup', // redirect back to the signup page if there is an error
-			failureFlash: false, // allow flash messages
-		})(req, res, next);
+		passport.authenticate('local-login', {}, (err, user, info) => {
+			if (err) {
+				res.status(500).send(EXCEPTIONS.internalError);
+				return;
+			} else if (!user) {
+				res.status(401).send(info);
+				return;
+			}
 
-		next();
+			// Successful login, let's send the user back to the front end.
+			const token = jwt.sign(user, getConfig('jwtSecret'));
+			res.send({token});
+		})(req, res, next);
 	}
 };
