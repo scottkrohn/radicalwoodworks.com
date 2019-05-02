@@ -1,5 +1,7 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
+import Cookie from 'js-cookie';
+import PropTypes from 'prop-types';
 
 // Containers
 import HomepageContainer from 'containers/homepage-container';
@@ -11,7 +13,6 @@ import FaqContainer from 'containers/faq-container';
 import AdminContainer from 'containers/admin-container';
 import LoginContainer from 'containers/login-container';
 
-
 const Router = () => (
 	<Switch>
 
@@ -19,13 +20,26 @@ const Router = () => (
 		<Route exact path='/about' component={AboutContainer}/>
 		<Route exact path='/contact' component={ContactContainer}/>
 		<Route exact path='/faq' component={FaqContainer}/>
-		<Route exact path='/admin' component={AdminContainer}/>
 		<Route exact path='/login' component={LoginContainer}/>
-
-		{/* Product Pages */}
 		<Route exact path='/products' component={ProductsContainer}/>
 		<Route exact path='/products/product/:productId' component={ProductContainer}/>
+
+		{/* Protected Routes */}
+		<ProtectedRoute exact path='/admin' component={AdminContainer}/>
 	</Switch>
 );
+
+const ProtectedRoute = ({component: Component, ...args}) => {
+	return (
+		<Route {...args} render={(props) => {
+			const isLoggedIn = !!Cookie.get('utoken');
+			return (isLoggedIn ? <Component {...props} /> : <Redirect to='/login' />);
+		}} />
+	);
+};
+
+ProtectedRoute.propTypes = {
+	component: PropTypes.func,
+};
 
 export default Router;

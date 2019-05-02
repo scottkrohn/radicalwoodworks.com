@@ -46,8 +46,6 @@ class Database {
 
 	selectOne = (tableName, whereClause) => {
 		const sql = `SELECT * FROM \`${tableName}\` ${whereClause} LIMIT 1`;
-
-		console.log(sql);
 		return this.query(sql);
 	};
 

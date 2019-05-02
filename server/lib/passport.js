@@ -85,7 +85,8 @@ export default (passport) => {
 
 					if (!bcrypt.compareSync(password, user.password)) {
 						// Incorrect password
-						return done(null, false, EXCEPTIONS.invalidPassword);
+						console.log(`${user.username} failed to log in, invalid password.`);
+						return done(null, false, EXCEPTIONS.invalidCredentials);
 					}
 
 					const userResponse = {
@@ -93,6 +94,7 @@ export default (passport) => {
 						userId: user.id,
 					};
 
+					console.log(`${user.username} successfully logged in!`);
 					return done(null, userResponse);
 				});
 			}

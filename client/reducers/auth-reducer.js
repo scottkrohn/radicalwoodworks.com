@@ -2,6 +2,7 @@ import ACTIONS from 'constants/action-constants';
 
 const initialState = {
 	token: null,
+	loggedIn: false,
 };
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -11,13 +12,15 @@ const authReducer = (state = initialState, { type, payload }) => {
 			...state,
 			sending: true,
 			error: false,
+			loggedIn: false,
 		};
 	case ACTIONS.SEND_LOGIN_ERROR:
 		return {
 			...state,
 			...payload,
 			sending: true,
-			error: false,
+			error: true,
+			loggedIn: false,
 		};
 	case ACTIONS.SEND_LOGIN_SUCCESS:
 		return {
@@ -25,6 +28,7 @@ const authReducer = (state = initialState, { type, payload }) => {
 			...payload,
 			sending: false,
 			error: false,
+			loggedIn: true,
 		};
 	default: 
 		return state;

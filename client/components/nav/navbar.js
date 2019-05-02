@@ -53,7 +53,7 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const isLoggedIn = !!Cookie.get('utoken');
+		const isLoggedIn = !!Cookie.get('utoken') || this.props.auth.loggedIn;
 
 		return (
 			<div className="nav-bar">
@@ -117,7 +117,7 @@ class NavBar extends Component {
 					closable={true}
 					onClose={this.toggleHamburger}
 					visible={this.state.drawerOpen}
-					height={500}
+					height={600}
 				>
 					<ul className="nav-dropdown-list">
 						<li onClick={this.toggleHamburger}>
@@ -155,6 +155,21 @@ class NavBar extends Component {
 								className="hamburger-link"
 							/>
 						</li>
+						{isLoggedIn ? (
+							<li onClick={this.toggleHamburger}>
+								<NavLink
+									label={NAV.pages.admin.label}
+									to={`/${NAV.pages.admin.path}`}
+								/>
+							</li>
+						) : (
+							<li onClick={this.toggleHamburger}>
+								<NavLink
+									label={NAV.pages.login.label}
+									to={`/${NAV.pages.login.path}`}
+								/>
+							</li>
+						)}
 					</ul>
 				</Drawer>
 			</div>

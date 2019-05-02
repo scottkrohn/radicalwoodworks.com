@@ -12,8 +12,10 @@ class AdminContainer extends Component {
 	render = () => {
 
 		return (
-			<div>
-				Admin Page.
+			<div className="container-fluid">
+				<div className="text-center">
+					<h1>Radical Woodworks Admin Panel</h1>
+				</div>
 			</div>
 		);
 	};
