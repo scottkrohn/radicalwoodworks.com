@@ -6,7 +6,6 @@ import REQUEST from '../constants/request-constants';
 
 module.exports = (req, res, next) => {
 	const productsBli = new ProductsBLI();
-	console.log("Logged in: ", req.isAuthenticated());
 
 	if (req.method === REQUEST.method.get) {
 		const productId = req.params.productId;

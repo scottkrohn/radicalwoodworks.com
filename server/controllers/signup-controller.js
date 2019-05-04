@@ -1,4 +1,4 @@
-import passport from "passport";
+import passport from 'passport';
 
 // Constants
 import REQUEST from '../constants/request-constants';
@@ -11,4 +11,4 @@ module.exports = (req, res, next) => {
 			failureFlash : false // allow flash messages
 		})(req, res, next);
 	}
-}
+};

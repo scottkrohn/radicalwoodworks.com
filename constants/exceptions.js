@@ -15,6 +15,10 @@ const EXCEPTIONS = {
 		code: 1002,
 		message: 'Internal server error',
 	},
+	notLoggedIn: {
+		code: 1003,
+		message: 'You\'re not logged in',
+	},
 };
 
 EXCEPTIONS.getMessageForErrorCode = (code) => {

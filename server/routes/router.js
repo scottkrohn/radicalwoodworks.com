@@ -15,13 +15,16 @@ router.route('/contact/send')
 
 /* Authentication Routes
 /***********************/
-router.route('/signup')
-	.post(require('../controllers/signup-controller'));
+// router.route('/signup')
+// 	.post(require('../controllers/signup-controller'));
 
 router.route('/login')
 	.post(require('../controllers/auth-controller'));
 
 router.route('/logout')
 	.put(require('../controllers/auth-controller'));
+
+router.route('/verify')
+	.all(require('../controllers/admin-controller'));
 
 module.exports = router;
