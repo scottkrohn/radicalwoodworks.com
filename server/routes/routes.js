@@ -1,7 +1,8 @@
-var apiRoutes = require('./api-router');
+var router = require('./router');
 
-
-module.exports = function (app) {
-	app.use('/api', apiRoutes);
-	app.use('/server', apiRoutes);
+module.exports = function(app, passport) {
+	app.use('/api', router);
+	app.use('/server', router);
+	app.use('/auth', router);
+	app.use('/admin', router);
 };

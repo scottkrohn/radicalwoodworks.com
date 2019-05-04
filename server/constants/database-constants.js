@@ -42,6 +42,14 @@ const DATABASE = {
 				updatedTs: 'updated_ts',
 			},
 		},
+		admin_users: {
+			name: 'admin_users',
+			columns: {
+				id: 'id',
+				username: 'username',
+				password: 'password',
+			},
+		},
 	},
 };
 
