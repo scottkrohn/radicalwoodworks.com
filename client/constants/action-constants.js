@@ -18,6 +18,21 @@ const ACTIONS = {
 	SEND_CONTACT_REQUEST: 'contact:sendContactRequest',
 	SEND_CONTACT_SUCCESS: 'contact:sendContactSuccess',
 	SEND_CONTACT_ERROR: 'contact:sendContactError',
+
+	// Login Actions
+	SEND_LOGIN_REQUEST: 'login:sendLoginRequest',
+	SEND_LOGIN_SUCCESS: 'login:sendLoginSuccess',
+	SEND_LOGIN_ERROR: 'login:sendLoginError',
+
+	// Logout Actions
+	SEND_LOGOUT_REQUEST: 'logout:sendLogoutRequest',
+	SEND_LOGOUT_SUCCESS: 'logout:sendLogoutSuccess',
+	SEND_LOGOUT_ERROR: 'logout:sendLogoutError',
+
+	// Auth Actions
+	SEND_AUTH_REQUEST: 'auth:sendAuthRequest',
+	SEND_AUTH_SUCCESS: 'auth:sendAuthSuccess',
+	SEND_AUTH_ERROR: 'auth:sendAuthError',
 };
 
 export default ACTIONS;

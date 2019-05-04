@@ -1,4 +1,5 @@
 import ProductsBLI from '../classes/bli/products';
+import passport from 'passport';
 
 // Constants
 import REQUEST from '../constants/request-constants';
@@ -9,15 +10,15 @@ module.exports = (req, res, next) => {
 	if (req.method === REQUEST.method.get) {
 		const productId = req.params.productId;
 		if (productId) {
-			productsBli.getProduct(productId)
+			productsBli
+				.getProduct(productId)
 				.then((result) => {
 					res.send(result);
 				})
-				.catch((error) => {
-
-				});
+				.catch((error) => {});
 		} else {
-			productsBli.getProducts()
+			productsBli
+				.getProducts()
 				.then((result) => {
 					res.send(result);
 				})
