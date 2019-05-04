@@ -12,7 +12,7 @@ export const getProducts = createSelector(
 	(products) => {
 		const productObjects = [];
 
-		if (!isEmpty(products) & Array.isArray(products)) {
+		if (!isEmpty(products)) {
 			products.forEach((productData) => {
 				const product = new Product();
 				product.setValues(productData.data);

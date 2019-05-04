@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
+import { get, uniqueId } from 'lodash';
 
 // Components
 import ProductGrid from 'client/components/product/product-grid';

@@ -14,10 +14,6 @@ class Database {
 		this.clear();
 	}
 
-	escape = (string) => {
-		return connectionPool.escape(string);
-	}
-
 	assign = (field, value) => {
 		this.fields[field] = value;
 	};
@@ -65,7 +61,7 @@ class Database {
 				if (error) {
 					reject(error);
 				}
-				resolve(results, error);
+				resolve(results);
 			});
 		});
 	};

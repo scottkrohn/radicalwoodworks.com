@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { get } from 'lodash';
-import Cookie from 'js-cookie';
-import { connect } from 'react-redux';
 
 // Components
 import { Menu, Drawer } from 'antd';
@@ -9,13 +7,9 @@ import NavLink from 'components/nav/nav-link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-// Actions
-import { logout } from 'client/actions/auth-actions';
-
 // Constants
 import NAV from 'constants/nav-constants';
 
-// Styles
 import 'client/components/nav/navbar.less';
 
 class NavBar extends Component {
@@ -50,11 +44,6 @@ class NavBar extends Component {
 		});
 	};
 
-	logout = () => {
-		Cookie.remove('utoken');
-		this.props.logout();
-	}
-
 	toggleHamburger = () => {
 		this.setState({
 			drawerOpen: !this.state.drawerOpen,
@@ -62,8 +51,6 @@ class NavBar extends Component {
 	}
 
 	render() {
-		const isLoggedIn = !!Cookie.get('utoken') || this.props.auth.loggedIn;
-
 		return (
 			<div className="nav-bar">
 				<Menu
@@ -104,30 +91,6 @@ class NavBar extends Component {
 							to={`/${NAV.pages.faq.path}`}
 						/>
 					</Menu.Item>
-					{isLoggedIn ? (
-						<Menu.Item className="hide-mobile right-link" key={NAV.pages.admin.key}>
-							<NavLink
-								label={NAV.pages.admin.label}
-								to={`/${NAV.pages.admin.path}`}
-							/>
-						</Menu.Item>
-					) : (
-						<Menu.Item className="hide-mobile right-link" key={NAV.pages.login.key}>
-							<NavLink
-								label={NAV.pages.login.label}
-								to={`/${NAV.pages.login.path}`}
-							/>
-						</Menu.Item>
-					)}
-					{isLoggedIn && (
-						<Menu.Item className="hide-mobile right-link" key={NAV.pages.logout.key}>
-							<NavLink
-								label={NAV.pages.logout.label}
-								to={`/${NAV.pages.logout.path}`}
-								onClick={this.logout}
-							/>
-						</Menu.Item>
-					)}
 				</Menu>
 
 				<Drawer
@@ -135,7 +98,7 @@ class NavBar extends Component {
 					closable={true}
 					onClose={this.toggleHamburger}
 					visible={this.state.drawerOpen}
-					height={(isLoggedIn ? 700 : 600)}
+					height={500}
 				>
 					<ul className="nav-dropdown-list">
 						<li onClick={this.toggleHamburger}>
@@ -173,33 +136,6 @@ class NavBar extends Component {
 								className="hamburger-link"
 							/>
 						</li>
-						{isLoggedIn ? (
-							<li onClick={this.toggleHamburger}>
-								<NavLink
-									label={NAV.pages.admin.label}
-									to={`/${NAV.pages.admin.path}`}
-									className="hamburger-link"
-								/>
-							</li>
-						) : (
-							<li onClick={this.toggleHamburger}>
-								<NavLink
-									label={NAV.pages.login.label}
-									to={`/${NAV.pages.login.path}`}
-									className="hamburger-link"
-								/>
-							</li>
-						)}
-						{isLoggedIn && (
-							<li onClick={this.toggleHamburger}>
-								<NavLink
-									label={NAV.pages.logout.label}
-									to={`/${NAV.pages.logout.path}`}
-									onClick={this.logout}
-									className="hamburger-link"
-								/>
-							</li>
-						)}
 					</ul>
 				</Drawer>
 			</div>
@@ -207,17 +143,4 @@ class NavBar extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		auth: state.auth,
-	};
-};
-
-const mapActionsToProps = {
-	logout,
-};
-
-export default connect(
-	mapStateToProps,
-	mapActionsToProps,
-)(NavBar);
+export default NavBar;
