@@ -36,6 +36,11 @@ class LoginContainer extends Component {
 				this.setState({
 					error: true,
 					errorCode: error.code,
+				}, () => {
+					this.setState({
+						error: false,
+						errorCode: null,
+					});
 				});
 
 				return false;
