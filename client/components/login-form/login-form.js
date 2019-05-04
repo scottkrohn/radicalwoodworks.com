@@ -8,6 +8,9 @@ import { Form, Input, Button, notification} from 'antd';
 // Constants
 import EXCEPTIONS from 'constants/exceptions';
 
+// Styles
+import 'client/components/login-form/login-form.less';
+
 class LoginForm extends Component {
 	constructor(props) {
 		super(props);

@@ -54,16 +54,17 @@ class LoginContainer extends Component {
 
 		return (
 			<div className="container-fluid">
-				<div className="text-center">
-					<h1>Radical Woodworks Login</h1>
+				<div className="col-xs-12">
+					<div className="text-center">
+						<h1>Radical Woodworks Login</h1>
+					</div>
+
+					<LoginForm
+						handleLogin={this.handleLogin}
+						error={this.state.error}
+						errorCode={this.state.errorCode}
+					/>
 				</div>
-
-				<LoginForm
-					handleLogin={this.handleLogin}
-					error={this.state.error}
-					errorCode={this.state.errorCode}
-				/>
-
 			</div>
 		);
 	};

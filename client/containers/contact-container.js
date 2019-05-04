@@ -54,7 +54,7 @@ class ContactContainer extends Component {
 				spinning={this.props.contact.sending}
 				size="large"
 			>
-				<div className="container">
+				<div className="container-fluid">
 					<div className="col-xs-12">
 						<div className="text-center">
 							<h3>Contact Us Radical Woodworks</h3>
