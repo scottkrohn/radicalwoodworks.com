@@ -4,10 +4,12 @@ import React, { Component } from 'react';
 import 'client/components/contact/contact-form.less';
 
 // Components
-import { Form, Input, Button } from 'antd';
+import { Form, Input } from 'antd';
+import { Button } from 'node_modules/antd/lib/index';
 
 // Models
 import Contact from 'model/contact';
+import contactContainer from 'client/containers/contact-container';
 
 class ContactForm extends Component {
 	constructor(props) {
