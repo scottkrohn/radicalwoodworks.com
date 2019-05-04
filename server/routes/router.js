@@ -19,6 +19,9 @@ router.route('/signup')
 	.post(require('../controllers/signup-controller'));
 
 router.route('/login')
-	.post(require('../controllers/login-controller'));
+	.post(require('../controllers/auth-controller'));
+
+router.route('/logout')
+	.put(require('../controllers/auth-controller'));
 
 module.exports = router;

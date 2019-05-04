@@ -25,7 +25,7 @@ class LoginContainer extends Component {
 	handleLogin = (username, password) => {
 		this.props.login(username, password)
 			.then((token) => {
-				Cookie.set('utoken', token);
+				Cookie.set('utoken', token, {expires: 7});
 				this.setState({
 					redirectToAdmin: true,
 				});

@@ -91,7 +91,7 @@ export default (passport) => {
 
 					const userResponse = {
 						username: user.username,
-						userId: user.id,
+						id: user.id,
 					};
 
 					console.log(`${user.username} successfully logged in!`);

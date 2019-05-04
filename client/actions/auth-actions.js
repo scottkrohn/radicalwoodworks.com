@@ -23,13 +23,31 @@ export const login = (username, password) => {
 			axios.post('/auth/login', qs.stringify(postBody), config)
 				.then((response) => {
 					const token = get(response, 'data.token');
-
 					dispatch(loginSuccess(token));
 					resolve(token);
 				})
 				.catch((error) => {
 					const errorCode = get(error, 'response.data.code');
 					dispatch(loginError(errorCode));
+					reject({code: errorCode});
+				});
+		});
+	};
+};
+
+export const logout = () => {
+	return (dispatch) => {
+		dispatch(logoutRequest());
+
+		return new Promise((resolve, reject) => {
+			axios.put('/auth/logout', {})
+				.then((response) => {
+					dispatch(logoutSuccess());
+					resolve();
+				})
+				.catch((error) => {
+					const errorCode = get(error, 'response.data.code');
+					dispatch(logoutError(errorCode));
 					reject({code: errorCode});
 				});
 		});
@@ -58,6 +76,28 @@ const loginSuccess = (token) => {
 const loginError = (errorCode) => {
 	return {
 		type: ACTIONS.SEND_LOGIN_ERROR,
+		payload: {
+			errorCode,
+		},
+	};
+};
+
+const logoutRequest = () => {
+	return {
+		type: ACTIONS.SEND_LOGOUT_REQUEST,
+		payload: {},
+	};
+};
+
+const logoutSuccess = () => {
+	return {
+		type: ACTIONS.SEND_LOGOUT_SUCCESS,
+		payload: {},
+	};
+};
+const logoutError = (errorCode) => {
+	return {
+		type: ACTIONS.SEND_LOGOUT_ERROR,
 		payload: {
 			errorCode,
 		},

@@ -24,6 +24,11 @@ const ACTIONS = {
 	SEND_LOGIN_SUCCESS: 'login:sendLoginSuccess',
 	SEND_LOGIN_ERROR: 'login:sendLoginError',
 
+	// Logout Actions
+	SEND_LOGOUT_REQUEST: 'logout:sendLogoutRequest',
+	SEND_LOGOUT_SUCCESS: 'logout:sendLogoutSuccess',
+	SEND_LOGOUT_ERROR: 'logout:sendLogoutError',
+
 	// Auth Actions
 	SEND_AUTH_REQUEST: 'auth:sendAuthRequest',
 	SEND_AUTH_SUCCESS: 'auth:sendAuthSuccess',

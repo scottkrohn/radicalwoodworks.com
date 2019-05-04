@@ -30,6 +30,11 @@ const NAV = {
 			label: 'Login',
 			path: 'login',
 		},
+		logout: {
+			key: 'logout',
+			label: 'Logout',
+			path: '',
+		},
 		admin: {
 			key: 'admin',
 			label: 'Admin',

@@ -30,6 +30,29 @@ const authReducer = (state = initialState, { type, payload }) => {
 			error: false,
 			loggedIn: true,
 		};
+	case ACTIONS.SEND_LOGOUT_REQUEST:
+		return {
+			...state,
+			sending: true,
+			error: false,
+			loggedIn: true,
+		};
+	case ACTIONS.SEND_LOGOUT_ERROR:
+		return {
+			...state,
+			...payload,
+			sending: true,
+			error: true,
+			loggedIn: true,
+		};
+	case ACTIONS.SEND_LOGOUT_SUCCESS:
+		return {
+			...state,
+			...payload,
+			sending: false,
+			error: false,
+			loggedIn: false,
+		};
 	default: 
 		return state;
 	}
