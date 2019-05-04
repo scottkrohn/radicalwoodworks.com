@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Cookie from 'js-cookie';
 
 import { connect } from 'react-redux';
 
@@ -10,7 +9,6 @@ export const withValidation = (WrappedComponent) => {
 		}
 
 		redirectToHome = () => {
-			Cookie.remove('utoken');
 			window.location = '/';
 		}
 
