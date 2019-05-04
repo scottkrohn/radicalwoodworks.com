@@ -10,15 +10,14 @@ import { login } from 'client/actions/auth-actions';
 import LoginForm from 'client/components/login-form/login-form';
 import { Redirect } from 'react-router-dom';
 
-// Constants
-import EXCEPTIONS from 'constants/exceptions';
-
 class LoginContainer extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			redirectToAdmin: false,
+			error: false,
+			errorCode: null,
 		};
 	}
 
@@ -29,9 +28,17 @@ class LoginContainer extends Component {
 				this.setState({
 					redirectToAdmin: true,
 				});
+
+				return true;
 			})
 			.catch((error) => {
 				Cookie.remove('utoken');
+				this.setState({
+					error: true,
+					errorCode: error.code,
+				});
+
+				return false;
 			});
 	}
 
@@ -47,7 +54,11 @@ class LoginContainer extends Component {
 					<h1>Radical Woodworks Login</h1>
 				</div>
 
-				<LoginForm handleLogin={this.handleLogin} />
+				<LoginForm
+					handleLogin={this.handleLogin}
+					error={this.state.error}
+					errorCode={this.state.errorCode}
+				/>
 
 			</div>
 		);

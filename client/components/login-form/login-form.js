@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
 // Components
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, notification} from 'antd';
+
+// Constants
+import EXCEPTIONS from 'constants/exceptions';
 
 class LoginForm extends Component {
 	constructor(props) {
 		super(props);
+	}
+
+	componentDidUpdate = (prevProps, prevState) => {
+		const loginError = get(this.props, 'error');
+		if (loginError) {
+			this.renderLoginError();
+		}
 	}
 
 	handleSubmit = (e) => {
@@ -15,6 +26,15 @@ class LoginForm extends Component {
 			if (!err) {
 				this.props.handleLogin(values.username, values.password);
 			}
+		});
+	}
+
+	renderLoginError = () => {
+		const errorMessage = EXCEPTIONS.getMessageForErrorCode(this.props.errorCode);
+
+		notification.error({
+			message: 'Login Error',
+			description: errorMessage,
 		});
 	}
 
