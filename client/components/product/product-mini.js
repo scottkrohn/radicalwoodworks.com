@@ -38,10 +38,6 @@ class Product extends Component {
 		return image ? image.getThumbUrl() : null;
 	};
 
-	getPriceDisplay = () => {
-		return price.toFixed(2);
-	};
-
 	renderImage = () => {
 		const imageUrl = this.getMainImageUrl();
 

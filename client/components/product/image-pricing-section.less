@@ -1,4 +1,26 @@
+@import '../../styles/variables.less';
+
 .pricing {
+	display: flex;
+	justify-content: center;
+}
+
+.no-image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid @gray 1px;
+	background: @light-gray;
+	border-radius: 3px;
+	width: 300px;
+	height: 300px;
+
+	.no-image-icon {
+		font-size: 20px;
+	}
+}
+
+.image-section-no-images {
 	display: flex;
 	justify-content: center;
 }
@@ -8,4 +30,5 @@
 		margin-top: 25px;
 		margin-bottom: 20px;
 	}
+
 }
