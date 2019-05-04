@@ -26,9 +26,11 @@ class NavLink extends PureComponent {
 }
 
 NavLink.propTypes = {
+	className: PropTypes.string,
 	label: PropTypes.string,
 	onClick: PropTypes.func,
 	to: PropTypes.string,
+	children: PropTypes.array,
 };
 
 export default NavLink;
