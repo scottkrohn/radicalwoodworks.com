@@ -17,9 +17,28 @@
 	width: 100%;
 }
 
+@media (min-width: 993px) {
+
+	.contact-form-container {
+		.ant-form-vertical .ant-form-item {
+			display: flex;
+			justify-content: center;
+		}
+	}
+}
+
 @media (max-width: 992px) {
 	.form-label {
 		font-size: 2.5em;
+	}
+
+	#submit-contact-form {
+		height: 80px;
+		margin-top: 50px;
+
+		span {
+			font-size: 2.5em;
+		}
 	}
 
 	#contact_form {

@@ -51,8 +51,8 @@ class ContactForm extends Component {
 
 		const submitLayout = {
 			wrapperCol: {
-				xs: { span: 24, offset: 0 },
-				sm: { span: 16, offset: 3 },
+				md: { span: 24, offset: 0 },
+				lg: { span: 16, offset: 3 },
 			},
 		};
 
@@ -64,57 +64,59 @@ class ContactForm extends Component {
 		};
 
 		return (
-			<Form {...formItemLayout} onSubmit={this.handleSubmit}>
-				<Form.Item label={<Label label="E-Mail" />}>
-					{getFieldDecorator('email', {
-						rules: [
-							{
-								type: 'email',
-								message: 'The input is not valid E-mail!',
-							},
-							{
-								required: true,
-								message: 'Please input your E-mail',
-							},
-						],
-					})(<Input size="large" />)}
-				</Form.Item>
-				<Form.Item label={<Label label="Name" />}>
-					{getFieldDecorator('name', {
-						rules: [
-							{
-								required: true,
-								message: 'Please input your name.',
-							},
-						],
-					})(<Input size="large" />)}
-				</Form.Item>
-				<Form.Item label={<Label label="Subject" />}>
-					{getFieldDecorator('subject', {
-						rules: [
-							{
-								required: true,
-								message: 'Please input a subject.',
-							},
-						],
-					})(<Input size="large" />)}
-				</Form.Item>
-				<Form.Item label={<Label label="Message" />}>
-					{getFieldDecorator('message', {
-						rules: [
-							{
-								required: true,
-								message: 'Please input a message.',
-							},
-						],
-					})(<Input.TextArea rows={8} />)}
-				</Form.Item>
-				<Form.Item {...submitLayout}>
-					<Button type="primary" htmlType="submit" className="contact-submit-button">
-						Submit
-					</Button>
-				</Form.Item>
-			</Form>
+			<div className="contact-form-container">
+				<Form {...formItemLayout} onSubmit={this.handleSubmit}>
+					<Form.Item label={<Label label="E-Mail" />}>
+						{getFieldDecorator('email', {
+							rules: [
+								{
+									type: 'email',
+									message: 'The input is not valid E-mail!',
+								},
+								{
+									required: true,
+									message: 'Please input your E-mail',
+								},
+							],
+						})(<Input size="large" />)}
+					</Form.Item>
+					<Form.Item label={<Label label="Name" />}>
+						{getFieldDecorator('name', {
+							rules: [
+								{
+									required: true,
+									message: 'Please input your name.',
+								},
+							],
+						})(<Input size="large" />)}
+					</Form.Item>
+					<Form.Item label={<Label label="Subject" />}>
+						{getFieldDecorator('subject', {
+							rules: [
+								{
+									required: true,
+									message: 'Please input a subject.',
+								},
+							],
+						})(<Input size="large" />)}
+					</Form.Item>
+					<Form.Item label={<Label label="Message" />}>
+						{getFieldDecorator('message', {
+							rules: [
+								{
+									required: true,
+									message: 'Please input a message.',
+								},
+							],
+						})(<Input.TextArea rows={8} />)}
+					</Form.Item>
+					<Form.Item {...submitLayout}>
+						<Button id="submit-contact-form" type="primary" htmlType="submit" className="contact-submit-button">
+							Submit
+						</Button>
+					</Form.Item>
+				</Form>
+			</div>
 		);
 	}
 

@@ -65,39 +65,41 @@ class LoginForm extends Component {
 
 		const submitLayout = {
 			wrapperCol: {
-				xs: { span: 24, offset: 0 },
-				sm: { span: 16, offset: 3 },
+				md: { span: 24, offset: 0 },
+				lg: { span: 16, offset: 3 },
 			},
 		};
 
 		return (
-			<Form {...formItemLayout} onSubmit={this.handleSubmit}>
-				<Form.Item label={<Label label="Username" />}>
-					{getFieldDecorator('username', {
-						rules: [
-							{
-								required: true,
-								message: 'Username is required',
-							},
-						],
-					})(<Input size="large" />)}
-				</Form.Item>
-				<Form.Item label={<Label label="Password" />}>
-					{getFieldDecorator('password', {
-						rules: [
-							{
-								required: true,
-								message: 'Password is required',
-							},
-						],
-					})(<Input size="large" type="password"/>)}
-				</Form.Item>
-				<Form.Item {...submitLayout}>
-					<Button type="primary" htmlType="submit" className="contact-submit-button">
-						Submit
-					</Button>
-				</Form.Item>
-			</Form>
+			<div className="login-form-container">
+				<Form {...formItemLayout} onSubmit={this.handleSubmit}>
+					<Form.Item label={<Label label="Username" />}>
+						{getFieldDecorator('username', {
+							rules: [
+								{
+									required: true,
+									message: 'Username is required',
+								},
+							],
+						})(<Input size="large" />)}
+					</Form.Item>
+					<Form.Item label={<Label label="Password" />}>
+						{getFieldDecorator('password', {
+							rules: [
+								{
+									required: true,
+									message: 'Password is required',
+								},
+							],
+						})(<Input size="large" type="password"/>)}
+					</Form.Item>
+					<Form.Item {...submitLayout}>
+						<Button id="submit-login-form" type="primary" htmlType="submit" className="contact-submit-button">
+							Submit
+						</Button>
+					</Form.Item>
+				</Form>
+			</div>
 		);
 	};
 }
