@@ -21,7 +21,7 @@ module.exports = {
 	rules: {
 		"react/prop-types": [1],
 		"comma-dangle": ["warn", "always-multiline"],
-		"indent": ["warn", "tab"],
+		"indent": ["warn", 4],
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"],

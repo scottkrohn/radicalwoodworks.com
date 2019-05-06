@@ -12,47 +12,47 @@ import { getAllContent as getAllContentObjects } from 'client/selectors/content-
 import Content from 'client/components/content/content';
 
 class FaqContainer extends Component {
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
 	componentDidMount = () => {
-		this.props.getAllContent('POLICY');
+	    this.props.getAllContent('POLICY');
 	};
 
 	render = () => {
-		return (
-			<div className="container">
-				<div className="row">
-					<div className="col-12">
-						<div className="text-center">
-							<h1>Radical Woodworks Products</h1>
-						</div>
-						{this.props.content.map((contentElement) => {
-							return (
-								<div key={uniqueId()}>
-									<Content content={contentElement.getContent()} />
-								</div>
-							);
-						})}
-					</div>
-				</div>
-			</div>
-		);
+	    return (
+	        <div className="container">
+	            <div className="row">
+	                <div className="col-12">
+	                    <div className="text-center">
+	                        <h1>Radical Woodworks Products</h1>
+	                    </div>
+	                    {this.props.content.map((contentElement) => {
+	                        return (
+	                            <div key={uniqueId()}>
+	                                <Content content={contentElement.getContent()} />
+	                            </div>
+	                        );
+	                    })}
+	                </div>
+	            </div>
+	        </div>
+	    );
 	};
 }
 
 const mapStateToProps = (state) => {
-	return {
-		content: getAllContentObjects(state),
-	};
+    return {
+        content: getAllContentObjects(state),
+    };
 };
 
 const mapActionsToProps = {
-	getAllContent: getAllContent,
+    getAllContent: getAllContent,
 };
 
 export default connect(
-	mapStateToProps,
-	mapActionsToProps,
+    mapStateToProps,
+    mapActionsToProps,
 )(FaqContainer);

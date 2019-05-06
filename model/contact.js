@@ -1,49 +1,49 @@
-import Model from "./model";
+import Model from './model';
 
 class Contact extends Model {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.data = {
-      from: null,
-      to: null,
-      html: null,
-      subject: null,
-    };
-  }
+        this.data = {
+            from: null,
+            to: null,
+            html: null,
+            subject: null,
+        };
+    }
 
   // Setters
   setFrom = (from) => {
-    this.data.from = from;
+      this.data.from = from;
   };
 
   setTo = (to) => {
-    this.data.to = to;
+      this.data.to = to;
   };
 
   setHtml = (html) => {
-    this.data.html = html;
+      this.data.html = html;
   };
 
   setSubject = (subject) => {
-    this.data.subject = subject;
+      this.data.subject = subject;
   };
 
   // Getters
   getFrom = () => {
-    return this.data.from;
+      return this.data.from;
   };
 
   getTo = () => {
-    return this.data.to;
+      return this.data.to;
   };
 
   getHtml = () => {
-    return this.data.html;
+      return this.data.html;
   };
 
   getSubject = () => {
-    return this.data.subject;
+      return this.data.subject;
   };
 }
 

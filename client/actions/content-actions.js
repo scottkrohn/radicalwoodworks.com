@@ -4,17 +4,17 @@ import axios from 'axios';
 import ACTIONS from 'constants/action-constants';
 
 export const getAllContent = (category) => {
-	return (dispatch) => {
-		dispatch(getContentRequest());
+    return (dispatch) => {
+        dispatch(getContentRequest());
 
-		axios.get(`/server/content/content/${category}`)
-			.then((response) => {
-				dispatch(getContentSuccess(response));
-			})
-			.catch((error) => {
-				dispatch(getContentError(error));
-			});
-	};
+        axios.get(`/server/content/content/${category}`)
+            .then((response) => {
+                dispatch(getContentSuccess(response));
+            })
+            .catch((error) => {
+                dispatch(getContentError(error));
+            });
+    };
 };
 
 /*******************/
@@ -22,24 +22,24 @@ export const getAllContent = (category) => {
 /*******************/
 
 const getContentRequest = () => {
-	return {
-		type: ACTIONS.GET_CONTENT_REQUEST,
-		payload: {},
-	};
+    return {
+        type: ACTIONS.GET_CONTENT_REQUEST,
+        payload: {},
+    };
 };
 
 const getContentSuccess = (results) => {
-	return {
-		type: ACTIONS.GET_CONTENT_SUCCESS,
-		payload: {
-			content: results,
-		},
-	};
+    return {
+        type: ACTIONS.GET_CONTENT_SUCCESS,
+        payload: {
+            content: results,
+        },
+    };
 };
 
 const getContentError = (error) => {
-	return {
-		type: ACTIONS.GET_CONTENT_ERROR,
-		payload: error,
-	};
+    return {
+        type: ACTIONS.GET_CONTENT_ERROR,
+        payload: error,
+    };
 };
