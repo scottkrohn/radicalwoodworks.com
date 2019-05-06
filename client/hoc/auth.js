@@ -9,17 +9,17 @@ export const withValidation = (WrappedComponent) => {
             super(props);
         }
 
-		redirectToHome = () => {
-		    Cookie.remove('utoken');
-		    window.location = '/';
-		}
+        redirectToHome = () => {
+            Cookie.remove('utoken');
+            window.location = '/';
+        };
 
-		render = () => {
-		    const functions = {
-		        redirectToHome: this.redirectToHome,
-		    };
+        render = () => {
+            const functions = {
+                redirectToHome: this.redirectToHome,
+            };
 
-		    return <WrappedComponent {...this.props} {...functions} />;
-		}
+            return <WrappedComponent {...this.props} {...functions} />;
+        };
     };
 };
