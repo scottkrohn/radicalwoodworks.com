@@ -8,31 +8,31 @@ const getProductsFromState = (state) => state.products.products;
 export const getLoading = (state) => state.products.loading;
 
 export const getProducts = createSelector(
-	[getProductsFromState],
-	(products) => {
-		const productObjects = [];
+    [getProductsFromState],
+    (products) => {
+        const productObjects = [];
 
-		if (!isEmpty(products) & Array.isArray(products)) {
-			products.forEach((productData) => {
-				const product = new Product();
-				product.setValues(productData.data);
+        if (!isEmpty(products) & Array.isArray(products)) {
+            products.forEach((productData) => {
+                const product = new Product();
+                product.setValues(productData.data);
 
-				// If the product has images then set them.
-				const images = get(productData, 'children.images');
-				if (images) {
-					const imageObjects = [];
-					for (const image of images) {
-						const imageObj = new Image();
-						imageObj.setValues(image.data);
-						imageObjects.push(imageObj);
-					}
+                // If the product has images then set them.
+                const images = get(productData, 'children.images');
+                if (images) {
+                    const imageObjects = [];
+                    for (const image of images) {
+                        const imageObj = new Image();
+                        imageObj.setValues(image.data);
+                        imageObjects.push(imageObj);
+                    }
 
-					product.setImages(imageObjects);
-				}
+                    product.setImages(imageObjects);
+                }
 
-				productObjects.push(product);
-			});
-		}
-		return productObjects;
-	}
+                productObjects.push(product);
+            });
+        }
+        return productObjects;
+    }
 );

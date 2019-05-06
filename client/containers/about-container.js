@@ -14,44 +14,44 @@ import { Spin } from 'antd';
 
 class AboutContainer extends Component {
 
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
 	componentDidMount = () => {
-		this.props.getAllContent('ABOUT');
+	    this.props.getAllContent('ABOUT');
 	}
 
 	render = () => {
-		const content = get(this.props, 'content', null);
+	    const content = get(this.props, 'content', null);
 
-		return (
-			<div className="container">
-				<div className="col-xs-12">
-					<Spin spinning={this.props.loading}>
-						<div className="text-center">
-							<h1>Radical Woodworks</h1>
-							{this.props.content && <AboutUsInfo content={content} />}
-						</div>
-					</Spin>
-				</div>
-			</div>
-		);
+	    return (
+	        <div className="container">
+	            <div className="col-xs-12">
+	                <Spin spinning={this.props.loading}>
+	                    <div className="text-center">
+	                        <h1>Radical Woodworks</h1>
+	                        {this.props.content && <AboutUsInfo content={content} />}
+	                    </div>
+	                </Spin>
+	            </div>
+	        </div>
+	    );
 	};
 }
 
 const mapStateToProps = (state) => {
-	return {
-		content: getAllContentObjects(state),
-		loading: getLoading(state),
-	};
+    return {
+        content: getAllContentObjects(state),
+        loading: getLoading(state),
+    };
 };
 
 const mapActionsToProps = {
-	getAllContent: getAllContent,
+    getAllContent: getAllContent,
 };
 
 export default connect(
-	mapStateToProps,
-	mapActionsToProps,
+    mapStateToProps,
+    mapActionsToProps,
 )(AboutContainer);

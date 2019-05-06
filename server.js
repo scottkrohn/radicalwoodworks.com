@@ -18,11 +18,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
-	session({
-		secret: getConfig('passportSecret'),
-		resave: true,
-		saveUninitialized: true,
-	})
+    session({
+        secret: getConfig('passportSecret'),
+        resave: true,
+        saveUninitialized: true,
+    })
 );
 
 app.use(passport.initialize());
@@ -35,23 +35,23 @@ passportConfig(passport);
 routes(app, passport);
 
 if (env === 'production') {
-	// Serve static output from webpack for production.
-	app.use(express.static(path.join(__dirname, 'build')));
+    // Serve static output from webpack for production.
+    app.use(express.static(path.join(__dirname, 'build')));
 
-	app.get('*', function(req, res) {
-		res.sendFile(path.resolve(__dirname + '/build/index.html'));
-	});
+    app.get('*', function(req, res) {
+        res.sendFile(path.resolve(__dirname + '/build/index.html'));
+    });
 } else {
-	// Serve react code with webpack for development.
-	app.use(webpackMiddleware(webpack(webpackConfig)));
+    // Serve react code with webpack for development.
+    app.use(webpackMiddleware(webpack(webpackConfig)));
 
-	app.get('*', function(req, res) {
-		res.sendFile(path.resolve(__dirname + '/build/index.html'));
-	});
+    app.get('*', function(req, res) {
+        res.sendFile(path.resolve(__dirname + '/build/index.html'));
+    });
 }
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-	console.log(`Server running and listening on port ${port}`);
+    console.log(`Server running and listening on port ${port}`);
 });

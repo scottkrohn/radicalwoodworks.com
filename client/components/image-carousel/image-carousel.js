@@ -13,58 +13,58 @@ import 'client/components/image-carousel/image-carousel.less';
 import Product from 'model/product';
 
 class ImageCarousel extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.carouselRef = React.createRef();
-	}
+        this.carouselRef = React.createRef();
+    }
 
 	getImageThumbUrls = () => {
-		const images = get(this.props, 'images', null);
-		const imageUrls = [];
+	    const images = get(this.props, 'images', null);
+	    const imageUrls = [];
 
-		if (images) {
-			for (const image of images) {
-				const fullUrl = IMAGES.getFullUrl(image.getThumbUrl());
-				imageUrls.push(fullUrl);
-			}
-		}
+	    if (images) {
+	        for (const image of images) {
+	            const fullUrl = IMAGES.getFullUrl(image.getThumbUrl());
+	            imageUrls.push(fullUrl);
+	        }
+	    }
 
-		return imageUrls;
+	    return imageUrls;
 	};
 
 	onPrev = () => {
-		this.carouselRef.prev();
+	    this.carouselRef.prev();
 	}
 
 	onNext = () => {
-		this.carouselRef.next();
+	    this.carouselRef.next();
 	}
 
 	render = () => {
-		const imageThumbUrls = this.getImageThumbUrls();
-		return (
-			<div className="image-carousel-container">
-				<Icon className="button button-prev" theme="filled" type="left-circle" onClick={this.onPrev} />
-				<Icon className="button button-next" theme="filled" type="right-circle" onClick={this.onNext} />
-				<Carousel ref={(node) => (this.carouselRef = node)} >
-					{imageThumbUrls.map((imageUrl) => {
-						return (
-							<div className="image-container" key={uniqueId()}>
-								<img className="image" src={imageUrl} />
-							</div>
-						);
-					})}
-				</Carousel>
+	    const imageThumbUrls = this.getImageThumbUrls();
+	    return (
+	        <div className="image-carousel-container">
+	            <Icon className="button button-prev" theme="filled" type="left-circle" onClick={this.onPrev} />
+	            <Icon className="button button-next" theme="filled" type="right-circle" onClick={this.onNext} />
+	            <Carousel ref={(node) => (this.carouselRef = node)} >
+	                {imageThumbUrls.map((imageUrl) => {
+	                    return (
+	                        <div className="image-container" key={uniqueId()}>
+	                            <img className="image" src={imageUrl} />
+	                        </div>
+	                    );
+	                })}
+	            </Carousel>
 
 
-			</div>
-		);
+	        </div>
+	    );
 	};
 }
 
 ImageCarousel.propTypes = {
-	product: PropTypes.instanceOf(Product),
+    product: PropTypes.instanceOf(Product),
 };
 
 export default ImageCarousel;

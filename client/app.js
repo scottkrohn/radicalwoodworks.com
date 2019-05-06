@@ -10,12 +10,12 @@ import 'antd/dist/antd.less';	// Ant Design app less
 
 class App extends Component {
 	render = () => {
-		return (
-			<div className="app-container">
-				<NavBar />
-				<Router />
-			</div>
-		);
+	    return (
+	        <div className="app-container">
+	            <NavBar />
+	            <Router />
+	        </div>
+	    );
 	}
 }
 
