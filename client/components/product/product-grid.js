@@ -12,22 +12,22 @@ class ProductGrid extends PureComponent {
         super(props);
     }
 
-	render = () => {
-	    const hasProducts = get(this.props, 'products');
+    render = () => {
+        const hasProducts = get(this.props, 'products');
 
-	    return (
-	        <div className="product-grid">
-	            {hasProducts &&
-					this.props.products.map((product) => {
-					    return (
-					        <div className="product-cell" key={uniqueId()}>
-					            <ProductMini product={product} />
-					        </div>
-					    );
-					})}
-	        </div>
-	    );
-	};
+        return (
+            <div className="product-grid">
+                {hasProducts &&
+                    this.props.products.map((product) => {
+                        return (
+                            <div className="product-cell" key={uniqueId()}>
+                                <ProductMini product={product} />
+                            </div>
+                        );
+                    })}
+            </div>
+        );
+    };
 }
 
 export default ProductGrid;

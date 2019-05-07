@@ -7,13 +7,17 @@ export const getAllContent = (category) => {
     return (dispatch) => {
         dispatch(getContentRequest());
 
-        axios.get(`/server/content/content/${category}`)
-            .then((response) => {
-                dispatch(getContentSuccess(response));
-            })
-            .catch((error) => {
-                dispatch(getContentError(error));
-            });
+        return new Promise((resolve, reject) => {
+            axios.get(`/server/content/content/${category}`)
+                .then((response) => {
+                    dispatch(getContentSuccess(response));
+                    resolve();
+                })
+                .catch((error) => {
+                    dispatch(getContentError(error));
+                    reject()
+                });
+        });
     };
 };
 

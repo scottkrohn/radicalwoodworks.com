@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import 'typeface-roboto';
+import 'react-quill/dist/quill.snow.css';
 
 // Redux Imports
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
