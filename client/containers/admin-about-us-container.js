@@ -53,6 +53,7 @@ class AdminAboutUs extends Component {
     };
 
     handleSave = () => {
+        console.log('Saving!');
     }
 
     render = () => {
