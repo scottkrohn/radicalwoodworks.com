@@ -14,94 +14,114 @@ class Database {
         this.clear();
     }
 
-	escape = (string) => {
-	    return connectionPool.escape(string);
-	}
+    escape = (string) => {
+        return connectionPool.escape(string);
+    };
 
-	assign = (field, value) => {
-	    this.fields[field] = value;
-	};
+    assign = (field, value) => {
+        this.fields[field] = value;
+    };
 
-	assignBoolean = (field, value) => {
-	    this.fields[field] = (value) ? 1 : 0;
-	};
+    assignStr = (field, value) => {
+        const escapedString = value.replace(/'/g, "\\'");
+        this.fields[field] = `'${escapedString}'`;
+    }
 
-	clear = () => {
-	    this.fields = {};
-	}
+    assignBoolean = (field, value) => {
+        this.fields[field] = value ? 1 : 0;
+    };
 
-	getFields = () => {
-	    return this.fields;
-	}
+    clear = () => {
+        this.fields = {};
+    };
 
-	insert = (tableName) => {
-	    const insertSql = this._getInsertSql(tableName);
-	    return this.query(insertSql);
-	}
+    getFields = () => {
+        return this.fields;
+    };
 
-	delete = (tableName, whereClause) => {
-	    const sql = `DELETE FROM \`${tableName}\` ${whereClause}`;
-	    return this.query(sql);
-	}
+    insert = (tableName) => {
+        const insertSql = this._getInsertSql(tableName);
+        return this.query(insertSql);
+    };
 
-	selectOne = (tableName, whereClause) => {
-	    const sql = `SELECT * FROM \`${tableName}\` ${whereClause} LIMIT 1`;
-	    return this.query(sql);
-	};
+    update = (tableName, whereClause) => {
+        const updateSql = this._getUpdateSql(tableName, whereClause);
+        return this.query(updateSql);
+    }
 
-	selectAll = (tableName, whereClause) => {
-	    let sql = `SELECT * FROM \`${tableName}\``;
+    delete = (tableName, whereClause) => {
+        const sql = `DELETE FROM \`${tableName}\` ${whereClause}`;
+        return this.query(sql);
+    };
 
-	    if (whereClause) {
-	        sql += ` ${whereClause}`;
-	    }
+    selectOne = (tableName, whereClause) => {
+        const sql = `SELECT * FROM \`${tableName}\` ${whereClause} LIMIT 1`;
+        return this.query(sql);
+    };
 
-	    return this.query(sql);
-	};
+    selectAll = (tableName, whereClause) => {
+        let sql = `SELECT * FROM \`${tableName}\``;
 
-	query = (sqlString = '') => {
-	    return new Promise((resolve, reject) => {
-	        connectionPool.query(sqlString, (error, results, fields) => {
-	            if (error) {
-	                reject(error);
-	            }
-	            resolve(results, error);
-	        });
-	    });
-	};
+        if (whereClause) {
+            sql += ` ${whereClause}`;
+        }
 
-	/*************************/
-	/* Private-ish Functions */
-	/*************************/
+        return this.query(sql);
+    };
 
-	_connectToDatabase = () => {
-	    const configPath = path.join(__dirname, '../../config/config.yaml');
-	    const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
-	    connectionPool = mysql.createPool(config);
+    query = (sqlString = '') => {
+        return new Promise((resolve, reject) => {
+            connectionPool.query(sqlString, (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results, error);
+            });
+        });
+    };
 
-	    connectionPool.on('error', (err) => {
-	        console.log(`Lost connection to MySQL server with error: ${err}`);
-	    });
+    /*************************/
+    /* Private-ish Functions */
+    /*************************/
 
-	    return connectionPool;
-	};
+    _connectToDatabase = () => {
+        const configPath = path.join(__dirname, '../../config/config.yaml');
+        const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+        connectionPool = mysql.createPool(config);
 
-	_getInsertSql = (tableName) => {
-	    let fieldStr = '';
-	    let valuesStr = '';
+        connectionPool.on('error', (err) => {
+            console.log(`Lost connection to MySQL server with error: ${err}`);
+        });
 
+        return connectionPool;
+    };
 
-	    for (let field in this.fields) {
-	        const fieldSeparator = (fieldStr !== '') ? ', ' : '';
-	        const valuesSeparator = (valuesStr !== '') ? ', ' : '';
+    _getInsertSql = (tableName) => {
+        let fieldStr = '';
+        let valuesStr = '';
 
-	        fieldStr += `${fieldSeparator}\`${field}\``;
-	        valuesStr += `${valuesSeparator}\"${this.fields[field]}\"`;
-	    }
+        for (let field in this.fields) {
+            const fieldSeparator = fieldStr !== '' ? ', ' : '';
+            const valuesSeparator = valuesStr !== '' ? ', ' : '';
 
-	    const sql = `INSERT INTO \`${tableName}\` (${fieldStr}) values (${valuesStr})`;
-	    return sql;
-	}
+            fieldStr += `${fieldSeparator}\`${field}\``;
+            valuesStr += `${valuesSeparator}${this.fields[field]}`;
+        }
+
+        const sql = `INSERT INTO \`${tableName}\` (${fieldStr}) values (${valuesStr})`;
+        return sql;
+    };
+
+    _getUpdateSql = (tableName, whereClause) => {
+        let updates = '';
+        for (const field in this.fields) {
+            const separatorChar = (updates !== '') ? ', ' : '';
+            updates += `${separatorChar}\`${field}\` = ${this.fields[field]}`;
+        }
+
+        const sql = `UPDATE ${tableName} SET ${updates} ${whereClause}`;
+        return sql;
+    }
 }
 
 export default Database;

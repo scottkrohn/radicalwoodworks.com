@@ -12,26 +12,28 @@ class AboutUsInfo extends PureComponent {
         super(props);
     }
 
-	renderContent = () => {
-	    return (
-	        <div className="about-us-content">
-	            {this.props.content.map((contentElement) => {
-	                return (<div key={uniqueId()}>
-	                    <div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }} />
-	                </div>);
-	            })}
-	        </div>
-	    );
-	}
+    renderContent = () => {
+        return (
+            <div className="about-us-content">
+                {this.props.content.map((contentElement) => {
+                    return (
+                        <div key={uniqueId()}>
+                            <div dangerouslySetInnerHTML={{ __html: contentElement.getContent() }} />
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    };
 
-	render = () => {
-	    return (
-	        <div className="about-us-container">
-	            <img className="about-us-image" src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} />
-	            {this.renderContent()}
-	        </div>
-	    );
-	}
+    render = () => {
+        return (
+            <div className="about-us-container">
+                <img className="about-us-image" src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} />
+                {this.renderContent()}
+            </div>
+        );
+    };
 }
 
 export default AboutUsInfo;

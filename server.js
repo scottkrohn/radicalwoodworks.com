@@ -32,13 +32,16 @@ app.use(passport.session());
 passportConfig(passport);
 
 // Include dev/prod independant routes.
-routes(app, passport);
+routes(app);
 
 if (env === 'production') {
     // Serve static output from webpack for production.
     app.use(express.static(path.join(__dirname, 'build')));
 
     app.get('*', function(req, res) {
+        if (req && req.headers) {
+            console.log(req.headers.referer);
+        }
         res.sendFile(path.resolve(__dirname + '/build/index.html'));
     });
 } else {

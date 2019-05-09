@@ -13,31 +13,30 @@ import AboutUsInfo from 'client/components/about-us/about-us-info';
 import { Spin } from 'antd';
 
 class AboutContainer extends Component {
-
     constructor(props) {
         super(props);
     }
 
-	componentDidMount = () => {
-	    this.props.getAllContent('ABOUT');
-	}
+    componentDidMount = () => {
+        this.props.getAllContent('ABOUT');
+    };
 
-	render = () => {
-	    const content = get(this.props, 'content', null);
+    render = () => {
+        const content = get(this.props, 'content', null);
 
-	    return (
-	        <div className="container">
-	            <div className="col-xs-12">
-	                <Spin spinning={this.props.loading}>
-	                    <div className="text-center">
-	                        <h1>Radical Woodworks</h1>
-	                        {this.props.content && <AboutUsInfo content={content} />}
-	                    </div>
-	                </Spin>
-	            </div>
-	        </div>
-	    );
-	};
+        return (
+            <div className="container">
+                <div className="col-xs-12">
+                    <Spin spinning={this.props.loading}>
+                        <div className="text-center">
+                            <h1>Radical Woodworks</h1>
+                            {this.props.content && <AboutUsInfo content={content} />}
+                        </div>
+                    </Spin>
+                </div>
+            </div>
+        );
+    };
 }
 
 const mapStateToProps = (state) => {
@@ -53,5 +52,5 @@ const mapActionsToProps = {
 
 export default connect(
     mapStateToProps,
-    mapActionsToProps,
+    mapActionsToProps
 )(AboutContainer);

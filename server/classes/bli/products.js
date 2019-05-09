@@ -12,72 +12,75 @@ class ProductsBLI extends BaseBLI {
         super();
     }
 
-	createProduct = (productData) => {
-	    this.db.clear();
+    createProduct = (productData) => {
+        this.db.clear();
 
-	    this.db.assign(DB.tables.products.columns.type, productData.getType());
-	    this.db.assign(DB.tables.products.columns.title, productData.getTitle());
-	    this.db.assign(DB.tables.products.columns.description, productData.getDescription());
-	    this.db.assign(DB.tables.products.columns.cost, productData.getCost());
-	    this.db.assign(DB.tables.products.columns.price, productData.getPrice());
-	    this.db.assign(DB.tables.products.columns.shippingPrice, productData.getShippingPrice());
-	    this.db.assignBoolean(DB.tables.products.columns.includeShippingInPrice, productData.getIncludeShippingInPrice());
-	    this.db.assign(DB.tables.products.columns.etsyUrl, productData.getEtsyUrl());
+        this.db.assignStr(DB.tables.products.columns.type, productData.getType());
+        this.db.assignStr(DB.tables.products.columns.title, productData.getTitle());
+        this.db.assignStr(DB.tables.products.columns.description, productData.getDescription());
+        this.db.assign(DB.tables.products.columns.cost, productData.getCost());
+        this.db.assign(DB.tables.products.columns.price, productData.getPrice());
+        this.db.assign(DB.tables.products.columns.shippingPrice, productData.getShippingPrice());
+        this.db.assignBoolean(
+            DB.tables.products.columns.includeShippingInPrice,
+            productData.getIncludeShippingInPrice()
+        );
+        this.db.assign(DB.tables.products.columns.etsyUrl, productData.getEtsyUrl());
 
-	    return this.db.insert(DB.tables.products.name);
-	};
+        return this.db.insert(DB.tables.products.name);
+    };
 
-	// At some point add limit/offset to this function.
-	getProducts = async () => {
-	    const productRows = await this.db.selectAll(DB.tables.products.name);
-	    const productIds = productRows.map((productRow) => productRow.id);
-	    const imagesBli = new ImagesBLI();
+    // At some point add limit/offset to this function.
+    getProducts = async () => {
+        const productRows = await this.db.selectAll(DB.tables.products.name);
+        const productIds = productRows.map((productRow) => productRow.id);
+        const imagesBli = new ImagesBLI();
 
-	    const images = await imagesBli.getImagesByProductIds(productIds);
+        const images = await imagesBli.getImagesByProductIds(productIds);
 
-	    const productObjects = [];
-	    for (const productRow of productRows) {
-	        const imagesForProduct = images.filter((image) => image.product_id === productRow.id);
-	        productObjects.push(this.buildProductObject(productRow, imagesForProduct));
-	    }
+        const productObjects = [];
+        for (const productRow of productRows) {
+            const imagesForProduct = images.filter((image) => image.product_id === productRow.id);
+            productObjects.push(this.buildProductObject(productRow, imagesForProduct));
+        }
 
-	    return productObjects;
-	};
+        return productObjects;
+    };
 
-	getProduct = async (productId) => {
-	    const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
+    getProduct = async (productId) => {
+        const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
 
-	    const productRow = await this.db.selectOne(DB.tables.products.name, whereClause);
-	    const productData = get(productRow, '[0]', {});
+        const productRow = await this.db.selectOne(DB.tables.products.name, whereClause);
+        const productData = get(productRow, '[0]', {});
 
-	    const imagesBli = new ImagesBLI();
-	    const imageRows = await imagesBli.getImages(productId);
+        const imagesBli = new ImagesBLI();
+        const imageRows = await imagesBli.getImages(productId);
 
-	    const product = this.buildProductObject(productData, imageRows);
-	    return product;
-	};
+        const product = this.buildProductObject(productData, imageRows);
+        return product;
+    };
 
-	deleteProduct = (productId) => {
-	    const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
-	    return this.db.delete(DB.tables.products.name, whereClause);
-	};
+    deleteProduct = (productId) => {
+        const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
+        return this.db.delete(DB.tables.products.name, whereClause);
+    };
 
-	buildProductObject = (productData, images) => {
-	    const product = new Product();
-	    product.setValues(productData);
+    buildProductObject = (productData, images) => {
+        const product = new Product();
+        product.setValues(productData);
 
-	    const imagesBli = new ImagesBLI();
-	    const imageObjects = [];
-	    if (Array.isArray(images)) {
-	        images.forEach((image) => {
-	            const imageObj = imagesBli.buildImageObject(image);
-	            imageObjects.push(imageObj);
-	        });
-	    }
+        const imagesBli = new ImagesBLI();
+        const imageObjects = [];
+        if (Array.isArray(images)) {
+            images.forEach((image) => {
+                const imageObj = imagesBli.buildImageObject(image);
+                imageObjects.push(imageObj);
+            });
+        }
 
-	    product.setImages(imageObjects);
-	    return product;
-	};
+        product.setImages(imageObjects);
+        return product;
+    };
 }
 
 export default ProductsBLI;

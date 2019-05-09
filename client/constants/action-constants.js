@@ -14,6 +14,10 @@ const ACTIONS = {
     GET_CONTENT_SUCCESS: 'content:getContentSuccess',
     GET_CONTENT_ERROR: 'content:getContentError',
 
+    UPDATE_CONTENT_REQUEST: 'content:updateContentRequest',
+    UPDATE_CONTENT_SUCCESS:'content:updateContentSuccess',
+    UPDATE_CONTENT_ERROR: 'content:updateContentError',
+
     // Contact Actions
     SEND_CONTACT_REQUEST: 'contact:sendContactRequest',
     SEND_CONTACT_SUCCESS: 'contact:sendContactSuccess',

@@ -9,12 +9,14 @@ const initialState = {
 const contentReducer = (state = initialState, { type, payload }) => {
     switch (type) {
     case ACTIONS.GET_CONTENT_REQUEST:
+    case ACTIONS.UPDATE_CONTENT_REQUEST:
         return {
             ...state,
             loading: true,
             error: false,
         };
     case ACTIONS.GET_CONTENT_SUCCESS:
+    case ACTIONS.UPDATE_CONTENT_SUCCESS:
         return {
             ...state,
             ...payload,
@@ -22,6 +24,7 @@ const contentReducer = (state = initialState, { type, payload }) => {
             error: false,
         };
     case ACTIONS.GET_CONTENT_ERROR:
+    case ACTIONS.UPDATE_CONTENT_ERROR:
         return {
             ...state,
             loading: false,

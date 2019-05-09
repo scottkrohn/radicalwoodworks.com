@@ -9,47 +9,53 @@ class ContentBLI extends BaseBLI {
         super();
     }
 
-	getContent = async (contentType) => {
-	    const whereClause = `WHERE ${DB.tables.content.columns.type} = '${contentType}'`;
-	    const contentRow = await this.db.selectOne(DB.tables.content.name, whereClause);
-	    const contentObject = this.buildContentObject(contentRow);
-	    return contentObject;
-	}
+    getContent = async (contentType) => {
+        const whereClause = `WHERE ${DB.tables.content.columns.type} = '${contentType}'`;
+        const contentRow = await this.db.selectOne(DB.tables.content.name, whereClause);
+        const contentObject = this.buildContentObject(contentRow);
+        return contentObject;
+    };
 
-	getAllContent = async (category = null) => {
-	    const whereClause = (category) ? `WHERE ${DB.tables.content.columns.category} = '${category}'` : '';
-	    const contentRows = await this.db.selectAll(DB.tables.content.name, whereClause);
+    getAllContent = async (category = null) => {
+        const whereClause = category ? `WHERE ${DB.tables.content.columns.category} = '${category}'` : '';
+        const contentRows = await this.db.selectAll(DB.tables.content.name, whereClause);
 
-	    const contentObjects = [];
-	    for (const contentRow of contentRows) {
-	        const contentObject = this.buildContentObject(contentRow);
-	        contentObjects.push(contentObject);
-	    }
+        const contentObjects = [];
+        for (const contentRow of contentRows) {
+            const contentObject = this.buildContentObject(contentRow);
+            contentObjects.push(contentObject);
+        }
 
-	    return contentObjects;
-	}
+        return contentObjects;
+    };
 
-	createContent = (content) => {
-	    this.db.clear();
+    createContent = (content) => {
+        this.db.clear();
 
-	    this.db.assign(DB.tables.content.columns.type, content.getType());
-	    this.db.assign(DB.tables.content.columns.content, content.getContent());
-	    this.db.assign(DB.tables.content.columns.createdTs, content.getCreatedTs());
-	    this.db.assign(DB.tables.content.columns.updatedTs, content.getUpdatedTs());
+        this.db.assignStr(DB.tables.content.columns.type, content.getType());
+        this.db.assignStr(DB.tables.content.columns.content, content.getContent());
+        this.db.assign(DB.tables.content.columns.createdTs, content.getCreatedTs());
+        this.db.assign(DB.tables.content.columns.updatedTs, content.getUpdatedTs());
 
-	    return this.db.insert(DB.tables.content.name);
-	}
+        return this.db.insert(DB.tables.content.name);
+    };
 
-	updateContent = (content) => {
+    updateContent = (content) => {
+        this.db.clear();
 
-	}
+        this.db.assign(DB.tables.content.columns.updatedTs, content.getUpdatedTs());
+        this.db.assignStr(DB.tables.content.columns.type, content.getType());
+        this.db.assignStr(DB.tables.content.columns.content, content.getContent());
 
-	buildContentObject = (contentData) => {
-	    const content = new Content();
-	    content.setValues(contentData);
-	    return content;
-	}
+        const whereClause = `WHERE \`${DB.tables.content.columns.id}\` = ${content.getId()}`;
+        return this.db.update(DB.tables.content.name, whereClause);
+    };
+
+    buildContentObject = (contentData) => {
+        const content = new Content();
+        content.setValues(contentData);
+        return content;
+    };
 }
-
 
 export default ContentBLI;

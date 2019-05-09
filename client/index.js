@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import 'typeface-roboto';
+import 'react-quill/dist/quill.snow.css';
 
 // Redux Imports
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
@@ -16,9 +18,9 @@ import 'node_modules/bootstrap/dist/css/bootstrap.min.css';
 import App from './app';
 
 const composeEnhancers =
-	(typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
-	    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-	    : compose;
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+        : compose;
 
 const allStoreEnhancers = composeEnhancers(applyMiddleware(thunk));
 

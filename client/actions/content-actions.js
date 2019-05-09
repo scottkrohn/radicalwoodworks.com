@@ -7,13 +7,39 @@ export const getAllContent = (category) => {
     return (dispatch) => {
         dispatch(getContentRequest());
 
-        axios.get(`/server/content/content/${category}`)
-            .then((response) => {
-                dispatch(getContentSuccess(response));
-            })
-            .catch((error) => {
-                dispatch(getContentError(error));
-            });
+        return new Promise((resolve, reject) => {
+            axios.get(`/server/content/${category}`)
+                .then((response) => {
+                    dispatch(getContentSuccess(response));
+                    resolve();
+                })
+                .catch((error) => {
+                    dispatch(getContentError(error));
+                    reject();
+                });
+        });
+    };
+};
+
+export const updateContent = (content) => {
+    return (dispatch) => {
+        dispatch(updateContentRequest());
+
+        return new Promise((resolve, reject) => {
+            axios.put('/server/content/update', content.getValues())
+                .then((response) => {
+                    if (response.status === 200) {
+                        dispatch(updateContentSuccess());
+                        resolve();
+                    } else {
+                        throw new Error();
+                    }
+                })
+                .catch((error) => {
+                    dispatch(updateContentError(error));
+                    reject();
+                });
+        });
     };
 };
 
@@ -40,6 +66,27 @@ const getContentSuccess = (results) => {
 const getContentError = (error) => {
     return {
         type: ACTIONS.GET_CONTENT_ERROR,
+        payload: error,
+    };
+};
+
+const updateContentRequest = () => {
+    return {
+        type: ACTIONS.UPDATE_CONTENT_REQUEST,
+        payload: {},
+    };
+};
+
+const updateContentSuccess = () => {
+    return {
+        type: ACTIONS.UPDATE_CONTENT_SUCCESS,
+        payload: {},
+    };
+};
+
+const updateContentError = (error) => {
+    return {
+        type: ACTIONS.UPDATE_CONTENT_ERROR,
         payload: error,
     };
 };
