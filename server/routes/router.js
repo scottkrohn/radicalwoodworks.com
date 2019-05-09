@@ -1,20 +1,28 @@
 const express = require('express');
 const router = express.Router();
 
+// Products Routes
 router.route('/products/product/:productId')
     .all(require('../controllers/products-controller'));
 
+// Product Routes
 router.route('/products')
     .all(require('../controllers/products-controller'));
 
-router.route('/content/content/:contentType')
+// Content Routes
+router.route('/content/:contentType')
     .all(require('../controllers/content-controller'));
 
+router.route('/content/update')
+    .put(require('../controllers/content-controller'));
+
+// Contact Routes
 router.route('/contact/send')
     .all(require('../controllers/contact-controller'));
 
 /* Authentication Routes
 /***********************/
+
 // router.route('/signup')
 // 	.post(require('../controllers/signup-controller'));
 

@@ -32,7 +32,7 @@ app.use(passport.session());
 passportConfig(passport);
 
 // Include dev/prod independant routes.
-routes(app, passport);
+routes(app);
 
 if (env === 'production') {
     // Serve static output from webpack for production.
