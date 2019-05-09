@@ -39,6 +39,9 @@ if (env === 'production') {
     app.use(express.static(path.join(__dirname, 'build')));
 
     app.get('*', function(req, res) {
+        if (req && req.headers) {
+            console.log(req.headers.referer);
+        }
         res.sendFile(path.resolve(__dirname + '/build/index.html'));
     });
 } else {

@@ -33,7 +33,6 @@ const Router = () => (
         <ProtectedRoute exact path="/admin" component={AdminContainer} />
         <ProtectedRoute exact path="/admin-about" component={AdminAboutUsContainer} />
 
-
         {/* 404 Route */}
         <Route component={NotFoundContainer} />
     </Switch>
