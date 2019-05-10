@@ -6,7 +6,7 @@ import { Icon } from 'antd';
 import IMAGE from 'constants/image-constants';
 
 // Styles
-import 'components/product/product-mini.less';
+import styles from 'components/product/product-mini.less';
 import NavLink from 'client/components/nav/nav-link';
 
 class Product extends Component {
@@ -44,10 +44,10 @@ class Product extends Component {
         return (
             <div>
                 {imageUrl ? (
-                    <img className="product-image" src={IMAGE.getFullUrl(imageUrl)} />
+                    <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
                 ) : (
-                    <div className="no-image">
-                        <Icon className="no-image-icon" type="picture" />
+                    <div className={styles.NoImage}>
+                        <Icon className={styles.NoImageIcon} type="picture" />
                     </div>
                 )}
             </div>
@@ -62,7 +62,7 @@ class Product extends Component {
         }
 
         const priceString = product.getPrice();
-        return <div className="price">${priceString}</div>;
+        return <div className={styles.Price}>${priceString}</div>;
     };
 
     renderTitle = () => {
@@ -72,7 +72,7 @@ class Product extends Component {
             return '';
         }
 
-        return <div className="product-title">{product.getTitle()}</div>;
+        return <div className={styles.ProductTitle}>{product.getTitle()}</div>;
     };
 
     render = () => {
@@ -80,8 +80,8 @@ class Product extends Component {
         const productPageLink = `/products/product/${product.getId()}`;
 
         return (
-            <div className="product-mini-container">
-                <NavLink to={productPageLink} className="product-content">
+            <div className={styles.ProductMiniContainer}>
+                <NavLink to={productPageLink} className={styles.ProductContent}>
                     {this.renderImage()}
                     {this.renderTitle()}
                     {this.renderPrice()}

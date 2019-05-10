@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import 'client/components/grid/grid.less';
+import styles from 'client/components/grid/grid.less';
 
 class Grid extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class Grid extends Component {
 
     render = () => {
         return (
-            <div className="grid-container">
+            <div className={styles.GridContainer}>
                 {this.props.children}
             </div>
         );

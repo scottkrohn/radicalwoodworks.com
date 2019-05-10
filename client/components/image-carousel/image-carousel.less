@@ -1,79 +1,77 @@
 @import "../../styles/variables.less";
 
-.image-container {
+.ImageContainer {
 	display: flex !important;
 	justify-content: center;
 }
 
-.ant-carousel {
-  overflow: hidden;
-  background: gray;
-  height: 400px;
-  width: 100%;
-}
-
-@media (max-width: 992px) {
-	.ant-carousel {
-		height: 600px;
-	}
-}
-
-.ant-carousel {
-	background: transparent;
-}
-
-.ant-carousel .slick-slider,
-.slick-list,
-.slick-track {
-  height: 100%;
-
-  .slick-list .slick-slide {
-    div {
-      height: 100%;
+:global {
+    .ant-carousel {
+    overflow: hidden;
+    background: gray;
+    height: 400px;
+    width: 100%;
     }
-  }
+
+    @media (max-width: 992px) {
+        .ant-carousel {
+            height: 600px;
+        }
+    }
+
+    .ant-carousel {
+        background: transparent;
+    }
+
+    .ant-carousel .slick-slider,
+    .slick-list,
+    .slick-track {
+    height: 100%;
+
+    .slick-list .slick-slide {
+        div {
+        height: 100%;
+        }
+    }
+    }
 }
 
-.image {
+.Image {
 	height: 100%;
 	max-width: 100%;
   border: solid @gray 1px;
   margin: auto;
 }
 
-.button {
+.Button {
 	cursor: pointer;
 	font-size: 3em;
 	position: absolute;
 	top: ~"calc(100%/2 - 10px)";
 	z-index: 10;
 
-	&-prev{
+	&Prev{
 		left: 5px;
 	}
 
-	&-next {
+	&Next {
 		right: 5px;
 	}
 }
 
 @media (max-width: 992px) {
-	.button {
+	.Button {
 		cursor: pointer;
 		font-size: 6em;
 		position: absolute;
 		top: ~"calc(100%/2 - 10px)";
 		z-index: 10;
 
-		.anticon {
-			color:red;
-		}
-
-		&-prev{
+		&Prev{
 			left: 15px;
 		}
 
-		&-next {
+		&Next {
 			right: 15px;
 		}
 	}

@@ -1,7 +1,7 @@
 @import '../../styles/variables.less';
 
-.product-mini-container {
-	.product-content {
+.ProductMiniContainer {
+	.ProductContent {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -9,25 +9,25 @@
 		color: inherit;
 	}
 
-	.price {
+	.Price {
 		font-weight: 500;
 		color: @moneyGreen;
 		font-size: 1.2em;
 	}
 
-	.product-title {
+	.ProductTitle {
 		text-align: center;
 		font-size: 1.2em;
 	}
 
-	.product-image {
+	.ProductImage {
 		height: 300px;
 		width: 300px;
 		border: solid @gray 1px;
 		border-radius: 3px;
 	}
 
-	.no-image {
+	.NoImage {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -37,18 +37,18 @@
 		width: 300px;
 		height: 300px;
 
-		.no-image-icon {
+		.NoImageIcon {
 			font-size: 20px;
 		}
 	}
 
 	@media (max-width: 1175px) {
-		.no-image, .product-image {
+		.NoImage, .ProductImage {
 			width: 400px;
 			height: 400px;
 		}
 
-		.price, .product-title {
+		.Price, .ProductTitle {
 			font-size: 2.2em;
 		}
 	}

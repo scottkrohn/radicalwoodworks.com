@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { get, uniqueId } from 'lodash';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 // Components
 import { Icon, Carousel } from 'antd';
@@ -9,7 +10,7 @@ import { Icon, Carousel } from 'antd';
 import IMAGES from 'client/constants/image-constants';
 
 // Styles
-import 'client/components/image-carousel/image-carousel.less';
+import styles from 'client/components/image-carousel/image-carousel.less';
 import Product from 'model/product';
 
 class ImageCarousel extends Component {
@@ -19,48 +20,49 @@ class ImageCarousel extends Component {
         this.carouselRef = React.createRef();
     }
 
-	getImageThumbUrls = () => {
-	    const images = get(this.props, 'images', null);
-	    const imageUrls = [];
+    getImageThumbUrls = () => {
+        const images = get(this.props, 'images', null);
+        const imageUrls = [];
 
-	    if (images) {
-	        for (const image of images) {
-	            const fullUrl = IMAGES.getFullUrl(image.getThumbUrl());
-	            imageUrls.push(fullUrl);
-	        }
-	    }
+        if (images) {
+            for (const image of images) {
+                const fullUrl = IMAGES.getFullUrl(image.getThumbUrl());
+                imageUrls.push(fullUrl);
+            }
+        }
 
-	    return imageUrls;
-	};
+        return imageUrls;
+    };
 
-	onPrev = () => {
-	    this.carouselRef.prev();
-	}
+    onPrev = () => {
+        this.carouselRef.prev();
+    };
 
-	onNext = () => {
-	    this.carouselRef.next();
-	}
+    onNext = () => {
+        this.carouselRef.next();
+    };
 
-	render = () => {
-	    const imageThumbUrls = this.getImageThumbUrls();
-	    return (
-	        <div className="image-carousel-container">
-	            <Icon className="button button-prev" theme="filled" type="left-circle" onClick={this.onPrev} />
-	            <Icon className="button button-next" theme="filled" type="right-circle" onClick={this.onNext} />
-	            <Carousel ref={(node) => (this.carouselRef = node)} >
-	                {imageThumbUrls.map((imageUrl) => {
-	                    return (
-	                        <div className="image-container" key={uniqueId()}>
-	                            <img className="image" src={imageUrl} />
-	                        </div>
-	                    );
-	                })}
-	            </Carousel>
+    render = () => {
+        const imageThumbUrls = this.getImageThumbUrls();
+        const prevButtonClasses = classnames(styles.Button, styles.ButtonPrev);
+        const nextButtonClasses = classnames(styles.Button, styles.ButtonNext);
 
-
-	        </div>
-	    );
-	};
+        return (
+            <div>
+                <Icon className={prevButtonClasses} theme="filled" type="left-circle" onClick={this.onPrev} />
+                <Icon className={nextButtonClasses} theme="filled" type="right-circle" onClick={this.onNext} />
+                <Carousel ref={(node) => (this.carouselRef = node)}>
+                    {imageThumbUrls.map((imageUrl) => {
+                        return (
+                            <div className={styles.ImageContainer} key={uniqueId()}>
+                                <img className={styles.Image} src={imageUrl} />
+                            </div>
+                        );
+                    })}
+                </Carousel>
+            </div>
+        );
+    };
 }
 
 ImageCarousel.propTypes = {

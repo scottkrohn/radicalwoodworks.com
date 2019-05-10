@@ -1,31 +1,43 @@
 @media (min-width: 993px) {
+  .LoginFormContainer {
+    :global {
+      .ant-form-vertical .ant-form-item {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
 
-	.login-form-container {
-		.ant-form-vertical .ant-form-item {
-			display: flex;
-			justify-content: center;
-		}
-	}
+.LoginSubmitButton {
+  width: 100%;
+}
+
+.FormLabel {
+  font-size: 1.3em;
 }
 
 @media (max-width: 992px) {
-	.form-label {
-		font-size: 2.5em;
-	}
+  .FormLabel {
+    font-size: 2.5em;
+  }
 
-	#submit-login-form {
-		height: 80px;
-		margin-top: 50px;
+  :global {
+    #submit-login-form {
+      height: 80px;
+      margin-top: 50px;
 
-		span {
-			font-size: 2.5em;
-		}
-	}
+      span {
+        font-size: 2.5em;
+      }
+    }
 
-	#login_form {
-		&_username, &_password{
-			height: 80px;
-			font-size: 2.5em;
-		}
-	}
+    #login_form {
+      &_username,
+      &_password {
+        height: 80px;
+        font-size: 2.5em;
+      }
+    }
+  }
 }

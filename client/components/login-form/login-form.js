@@ -9,7 +9,7 @@ import { Form, Input, Button, notification } from 'antd';
 import EXCEPTIONS from 'constants/exceptions';
 
 // Styles
-import 'client/components/login-form/login-form.less';
+import styles from 'client/components/login-form/login-form.less';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -58,7 +58,7 @@ class LoginForm extends Component {
         };
 
         const Label = (props) => {
-            return <span className="form-label">{props.label}</span>;
+            return <span className={styles.FormLabel}>{props.label}</span>;
         };
 
         const submitLayout = {
@@ -69,7 +69,7 @@ class LoginForm extends Component {
         };
 
         return (
-            <div className="login-form-container">
+            <div className={styles.LoginFormContainer}>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                     <Form.Item label={<Label label="Username" />}>
                         {getFieldDecorator('username', {
@@ -96,7 +96,7 @@ class LoginForm extends Component {
                             id="submit-login-form"
                             type="primary"
                             htmlType="submit"
-                            className="contact-submit-button"
+                            className={styles.LoginSubmitButton}
                         >
                             Submit
                         </Button>

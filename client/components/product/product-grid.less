@@ -1,32 +1,32 @@
 @import '../../styles/variables.less';
 
-.product-grid {
+.ProductGrid {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
 }
 
-.product-cell {
+.ProductCell {
 	display: flex;
 	justify-content: center;
 }
 
 @media (max-width: 1446px) {
-	.product-grid {
+	.ProductGrid {
 		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 10px;
 	}
 }
 
 @media (max-width: 1175px) {
-	.product-grid {
+	.ProductGrid {
 		grid-template-columns: repeat(2, 1fr);
 		grid-gap: 10px;
 	}
 }
 
 @media (max-width: 840px) {
-	.product-grid {
+	.ProductGrid {
 		grid-template-columns: repeat(1, 1fr);
 		grid-gap: 10px;
 	}

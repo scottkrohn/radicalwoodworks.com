@@ -5,7 +5,7 @@ import { get, uniqueId } from 'lodash';
 import ProductMini from 'client/components/product/product-mini';
 
 // Styles
-import 'client/components/product/product-grid.less';
+import styles from 'client/components/product/product-grid.less';
 
 class ProductGrid extends PureComponent {
     constructor(props) {
@@ -16,11 +16,11 @@ class ProductGrid extends PureComponent {
         const hasProducts = get(this.props, 'products');
 
         return (
-            <div className="product-grid">
+            <div className={styles.ProductGrid}>
                 {hasProducts &&
                     this.props.products.map((product) => {
                         return (
-                            <div className="product-cell" key={uniqueId()}>
+                            <div className={styles.ProductCell} key={uniqueId()}>
                                 <ProductMini product={product} />
                             </div>
                         );

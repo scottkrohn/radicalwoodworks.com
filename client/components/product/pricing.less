@@ -1,43 +1,43 @@
 @import '../../styles/variables.less';
 
-.pricing-container {
+.PricingContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 
-	.price {
+	.Price {
 		text-align: center;		
 
-		.price-label {
+		.PriceLabel {
 			font-weight: 500;
 			font-size: 1.5em;
 		}
 
-		.price-value {
+		.PriceValue {
 			font-weight: 700;
 			font-size: 2.3em;
 			color: @moneyGreen;
 		}
 	}
 
-	.shipping {
+	.Shipping {
 		text-align: center;
 		font-weight: 500;
 		font-size: 1.2em;
 	}
 
-	.title {
+	.Title {
 		text-align: center;
 		font-weight: 700;
 		font-size: 2em;
 	}
 
-	.add-to-cart {
+	.AddToCart {
 		text-align: center;
 		margin-top: 50px;
 	}
 
-	.add-to-cart-label {
+	.AddToCartLabel {
 		margin-right: 10px;
     font-weight: 600;
     text-transform: uppercase;
@@ -46,35 +46,35 @@
 		color: @black;
 	}
 
-	.add-to-cart-image {
+	.AddToCartImage {
 		width: 110px;
 	}
 
 	@media (max-width: 992px) {
-		.title {
+		.Title {
 			font-size: 3em;
 		}
 
-		.shipping {
+		.Shipping {
 			font-size: 2.5em;
 		}
 
-		.price {
-			.price-label {
+		.Price {
+			.PriceLabel {
 				font-size: 3em;
 			}
 
-			.price-value {
+			.PriceValue {
 				font-size: 3.5em;
 			}
 		}
 
-		.add-to-cart-label {
+		.AddToCartLabel {
 			font-size: 3em;
 			margin-right: 20px;
 		}
 
-		.add-to-cart-image {
+		.AddToCartImage {
 			width: 150px;
 		}
 	}

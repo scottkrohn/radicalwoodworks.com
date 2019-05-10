@@ -1,54 +1,58 @@
-.contact-container {
-	text-align: center;
+.ContactContainer {
+  text-align: center;
 }
 
-.form-label {
-	font-size: 1.3em;
+.FormLabel {
+  font-size: 1.3em;
 }
-
 
 :global {
-	.ant-input-lg {
-		height: 100px;
-	}
+  .ant-input-lg {
+    height: 100px;
+  }
 }
 
-.contact-submit-button {
-	width: 100%;
+.ContactSubmitButton {
+  width: 100%;
 }
 
 @media (min-width: 993px) {
-
-	.contact-form-container {
-		.ant-form-vertical .ant-form-item {
-			display: flex;
-			justify-content: center;
-		}
-	}
+  .ContactFormContainer {
+    :global {
+      .ant-form-vertical .ant-form-item {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
 }
 
 @media (max-width: 992px) {
-	.form-label {
-		font-size: 2.5em;
-	}
+  .FormLabel {
+    font-size: 2.5em;
+  }
 
-	#submit-contact-form {
-		height: 80px;
-		margin-top: 50px;
+  :global {
+    #submit-contact-form {
+      height: 80px;
+      margin-top: 50px;
 
-		span {
-			font-size: 2.5em;
-		}
-	}
+      span {
+        font-size: 2.5em;
+      }
+    }
 
-	#contact_form {
-		&_name, &_email, &_subject {
-			height: 80px;
-			font-size: 2.5em;
-		}
+    #contact_form {
+      &_name,
+      &_email,
+      &_subject {
+        height: 80px;
+        font-size: 2.5em;
+      }
 
-		&_message {
-			font-size: 2.5em;
-		}
-	}
+      &_message {
+        font-size: 2.5em;
+      }
+    }
+  }
 }

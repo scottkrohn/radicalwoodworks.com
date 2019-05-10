@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import 'client/components/product/pricing.less';
+import styles from 'client/components/product/pricing.less';
 import Product from 'model/product';
 
 // Constants
@@ -12,48 +12,48 @@ class Pricing extends Component {
         super(props);
     }
 
-	getPriceValue = () => {
-	    const priceValue = this.props.product.getPrice().toFixed(2);
-	    return `$${priceValue}`;
-	};
+    getPriceValue = () => {
+        const priceValue = this.props.product.getPrice().toFixed(2);
+        return `$${priceValue}`;
+    };
 
-	getShippingValue = () => {
-	    const shippingValue = this.props.product.getShippingPrice();
-	    return shippingValue > 0 ? `$${shippingValue.toFixed(2)}` : 'Free';
-	};
+    getShippingValue = () => {
+        const shippingValue = this.props.product.getShippingPrice();
+        return shippingValue > 0 ? `$${shippingValue.toFixed(2)}` : 'Free';
+    };
 
-	getAddToCartButton = () => {
-	    const etsyUrl = this.props.product.getEtsyUrl() || 'https://www.etsy.com/shop/radicalwoodworks/';
-	    const addToCartButton = IMAGE.getFullUrl(IMAGE.imagePaths.etsyLogo);
+    getAddToCartButton = () => {
+        const etsyUrl = this.props.product.getEtsyUrl() || 'https://www.etsy.com/shop/radicalwoodworks/';
+        const addToCartButton = IMAGE.getFullUrl(IMAGE.imagePaths.etsyLogo);
 
-	    return (
-	        <a href={etsyUrl} target="_blank">
-	            <span className="add-to-cart-label">Buy on</span>
-	            <img src={addToCartButton} className="add-to-cart-image" />
-	        </a>
-	    );
-	};
+        return (
+            <a href={etsyUrl} target="_blank" rel="noopener noreferrer">
+                <span className={styles.AddToCartLabel}>Buy on</span>
+                <img src={addToCartButton} className={styles.AddToCartImage} />
+            </a>
+        );
+    };
 
-	render = () => {
-	    return (
-	        <div className="pricing-container">
-	            <div className="title">
-	                <span>{this.props.product.getTitle()}</span>
-	            </div>
-	            <div className="price">
-	                <span className="price-label">Price: </span>
-	                <span className="price-value">{this.getPriceValue()}</span>
-	            </div>
-	            <div className="shipping">
-	                <span className="shipping-label">Shipping: </span>
-	                <span className="shipping-value">{this.getShippingValue()}</span>
-	            </div>
-	            <div className="add-to-cart">
-	                <span className="add-cart-button">{this.getAddToCartButton()}</span>
-	            </div>
-	        </div>
-	    );
-	};
+    render = () => {
+        return (
+            <div className={styles.PricingContainer}>
+                <div className={styles.Title}>
+                    <span>{this.props.product.getTitle()}</span>
+                </div>
+                <div className={styles.Price}>
+                    <span className={styles.PriceLabel}>Price: </span>
+                    <span className={styles.PriceValue}>{this.getPriceValue()}</span>
+                </div>
+                <div className={styles.Shipping}>
+                    <span className={styles.ShippingLabel}>Shipping: </span>
+                    <span className={styles.ShippingValue}>{this.getShippingValue()}</span>
+                </div>
+                <div className={styles.AddToCart}>
+                    <span>{this.getAddToCartButton()}</span>
+                </div>
+            </div>
+        );
+    };
 }
 
 Pricing.propTypes = {

@@ -16,30 +16,30 @@ class FaqContainer extends Component {
         super(props);
     }
 
-	componentDidMount = () => {
-	    this.props.getAllContent('POLICY');
-	};
+    componentDidMount = () => {
+        this.props.getAllContent('POLICY');
+    };
 
-	render = () => {
-	    return (
-	        <div className="container">
-	            <div className="row">
-	                <div className="col-12">
-	                    <div className="text-center">
-	                        <h1>Radical Woodworks Products</h1>
-	                    </div>
-	                    {this.props.content.map((contentElement) => {
-	                        return (
-	                            <div key={uniqueId()}>
-	                                <Content content={contentElement.getContent()} />
-	                            </div>
-	                        );
-	                    })}
-	                </div>
-	            </div>
-	        </div>
-	    );
-	};
+    render = () => {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="text-center">
+                            <h1>Radical Woodworks Products</h1>
+                        </div>
+                        {this.props.content.map((contentElement) => {
+                            return (
+                                <div key={uniqueId()}>
+                                    <Content content={contentElement.getContent()} />
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        );
+    };
 }
 
 const mapStateToProps = (state) => {
@@ -54,5 +54,5 @@ const mapActionsToProps = {
 
 export default connect(
     mapStateToProps,
-    mapActionsToProps,
+    mapActionsToProps
 )(FaqContainer);

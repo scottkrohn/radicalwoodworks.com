@@ -5,7 +5,7 @@ import { uniqueId } from 'lodash';
 import IMAGE from 'client/constants/image-constants';
 
 // Styles
-import 'client/components/about-us/about-us-info.less';
+import styles from 'client/components/about-us/about-us-info.less';
 
 class AboutUsInfo extends PureComponent {
     constructor(props) {
@@ -14,7 +14,7 @@ class AboutUsInfo extends PureComponent {
 
     renderContent = () => {
         return (
-            <div className="about-us-content">
+            <div className={styles.AboutUsContent}>
                 {this.props.content.map((contentElement) => {
                     return (
                         <div key={uniqueId()}>
@@ -28,8 +28,8 @@ class AboutUsInfo extends PureComponent {
 
     render = () => {
         return (
-            <div className="about-us-container">
-                <img className="about-us-image" src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} />
+            <div className={styles.AboutUsContainer}>
+                <img className={styles.AboutUsImage} src={IMAGE.getFullUrl(IMAGE.images.aboutUs.family)} />
                 {this.renderContent()}
             </div>
         );

@@ -6,7 +6,7 @@ import NavBar from './components/nav/navbar';
 
 // Styles
 import './app.less'; // Global app css
-import 'antd/dist/antd.less'; // Ant Design app less
+import 'antd/dist/antd.css'; // Ant Design app less
 
 class App extends Component {
     render = () => {
