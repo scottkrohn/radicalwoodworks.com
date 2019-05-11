@@ -5,7 +5,7 @@ import { get } from 'lodash';
 
 // Components
 import ReactQuill from 'react-quill';
-import Button from '@material-ui/core/Button';
+import Button from 'client/components/base/button/button';
 import Snackbar from '@material-ui/core/Snackbar';
 import Spinner from 'client/components/spinner/spinner';
 
@@ -90,7 +90,7 @@ class AdminAboutUs extends Component {
                 <Spinner spinning={this.props.loading}>
                     <ReactQuill value={this.state.text} onChange={this.onEditorChange} />
                     <br />
-                    <Button onClick={this.handleSave} color="primary" variant="contained">
+                    <Button onClick={this.handleSave} color="save" variant="contained">
                         Save!
                     </Button>
                 </Spinner>

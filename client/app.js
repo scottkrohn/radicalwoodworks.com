@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
+// Components
 import Router from './router';
-
 import NavBar from './components/nav/navbar';
 
 // Styles
