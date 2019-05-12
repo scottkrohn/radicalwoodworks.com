@@ -25,6 +25,7 @@ class AdminFaqContainer extends Component {
 
         this.state = {
             selectedContent: null,
+            showNotification: false,
             notificationMessage: '',
         };
     }

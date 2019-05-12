@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 // Components
 import ReactQuill from 'react-quill';
@@ -14,6 +15,7 @@ class ContentEditor extends PureComponent {
 
         this.state = {
             text: '',
+            showPreview: false,
         };
     }
 
@@ -31,6 +33,12 @@ class ContentEditor extends PureComponent {
         }
     };
 
+    togglePreview = () => {
+        this.setState({
+            showPreview: !this.state.showPreview,
+        });
+    };
+
     onEditorChange = (value) => {
         this.setState({
             text: value,
@@ -38,21 +46,50 @@ class ContentEditor extends PureComponent {
     };
 
     render = () => {
+        const previewClasses = classNames({
+            [styles.Preview]: true,
+            [this.props.previewClassName]: !!this.props.previewClassName,
+        });
+
+        const previewVerb = this.state.showPreview ? 'Hide' : 'Show';
+
         return (
             <div className={styles.ContentEditorContainer}>
-                <h5 className={styles.Header}>{this.props.content.getType()} POLICY</h5>
+                <h5 className={styles.Header}>{this.props.content.getType()}</h5>
                 <ReactQuill
                     value={this.state.text}
                     onChange={this.onEditorChange}
                 />
-                <Button
-                    onClick={() => this.props.handleSave(this.props.content, this.state.text)}
-                    color="save"
-                    variant="contained"
-                    className={styles.Button}
-                >
-                    Save!
-                </Button>
+
+                <div className={styles.Buttons}>
+                    <div className="offset-4 col-4">
+                        <Button
+                            onClick={() => this.props.handleSave(this.props.content, this.state.text)}
+                            color="save"
+                            variant="contained"
+                            className={styles.Button}
+                        >
+                            Save!
+                        </Button>
+                    </div>
+                    <div className="col-4 text-right pr-0">
+                        <Button
+                            onClick={this.togglePreview}
+                            color="primary"
+                            slim
+                            variant="contained"
+                            className={styles.PreviewButton}
+                        >
+                            {previewVerb} Preview
+                        </Button>
+                    </div>
+                </div>
+
+                {this.state.showPreview && (
+                    <div className={previewClasses}>
+                        <div dangerouslySetInnerHTML={{ __html: this.state.text }} />
+                    </div>
+                )}
             </div>
         );
     };
@@ -60,7 +97,9 @@ class ContentEditor extends PureComponent {
 
 ContentEditor.propTypes = {
     content: PropTypes.object,
-    handleSave:PropTypes.func,
+    handleSave: PropTypes.func,
+    showPreview: PropTypes.bool,
+    previewClassName: PropTypes.string,
 };
 
 export default ContentEditor;

@@ -8,6 +8,7 @@ import ReactQuill from 'react-quill';
 import Button from 'client/components/base/button/button';
 import Snackbar from '@material-ui/core/Snackbar';
 import Spinner from 'client/components/spinner/spinner';
+import ContentEditor from 'client/components/content-editor/content-editor';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -24,7 +25,6 @@ class AdminAboutUs extends Component {
         super(props);
 
         this.state = {
-            text: '',
             showNotification: false,
             notificationMessage: '',
             showPreview: false,
@@ -51,19 +51,12 @@ class AdminAboutUs extends Component {
         })();
     };
 
-    onEditorChange = (value) => {
-        this.setState({
-            text: value,
-        });
-    };
-
-    handleSave = () => {
-        const aboutUsContent = get(this.props, 'content.0');
-        aboutUsContent.setContent(this.state.text);
+    handleSave = (content, text) => {
+        content.setContent(text);
 
         (async () => {
             try {
-                await this.props.updateContent(aboutUsContent);
+                await this.props.updateContent(content);
                 this.handleShowNotification('Successfully saved!');
             } catch (error) {
                 this.handleShowNotification('There was an error while saving!');
@@ -91,32 +84,21 @@ class AdminAboutUs extends Component {
     };
 
     render = () => {
+        const aboutUsContent = get(this.props, 'content.0');
+
         return (
             <div className="container-fluid text-center">
                 <h2>Edit About Us</h2>
                 <Spinner spinning={this.props.loading}>
-                    <ReactQuill
-                        value={this.state.text}
-                        onChange={this.onEditorChange}
-                    />
+                    {aboutUsContent && (
+                        <ContentEditor
+                            handleSave={this.handleSave}
+                            content={aboutUsContent}
+                        />
+                    )}
                 </Spinner>
-                <Button
-                    onClick={this.handleSave}
-                    color="save"
-                    variant="contained"
-                >
-                    Save!
-                </Button>
 
                 <div className="mt-3">
-                    <Button
-                        onClick={this.togglePreview}
-                        color="primary"
-                        slim
-                        variant="contained"
-                    >
-                        Show Preview
-                    </Button>
                     {this.state.showPreview && (
                         <div className="mt-3">
                             <div dangerouslySetInnerHTML={{ __html: this.state.text }} />
