@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import classnames from 'classnames';
 
 // Styles
-import 'client/components/spinner/spinner.less';
+import styles from 'client/components/spinner/spinner.less';
 
 class Spinner extends PureComponent {
     constructor(props) {
@@ -14,12 +14,12 @@ class Spinner extends PureComponent {
 
     render = () => {
         const dimmerClasses = classnames({
-            ['dimmable']: this.props.spinning,
+            [styles.Dimmable]: this.props.spinning,
         });
 
         return (
-            <div className="spinner-container">
-                {this.props.spinning && <CircularProgress className="spinner" />}
+            <div className={styles.SpinnerContainer}>
+                {this.props.spinning && <CircularProgress className={styles.Spinner} />}
                 <div className={dimmerClasses}>
                     {this.props.children}
                 </div>

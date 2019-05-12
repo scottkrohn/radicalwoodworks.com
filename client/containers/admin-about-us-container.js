@@ -11,7 +11,7 @@ import Spinner from 'client/components/spinner/spinner';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
-import { getAllContent, updateContent} from 'client/actions/content-actions';
+import { getAllContent, updateContent } from 'client/actions/content-actions';
 
 // Selectors
 import { getAllContent as getAllContentObjects, getLoading } from 'client/selectors/content-selector';
@@ -27,6 +27,7 @@ class AdminAboutUs extends Component {
             text: '',
             showNotification: false,
             notificationMessage: '',
+            showPreview: false,
         };
     }
 
@@ -68,20 +69,26 @@ class AdminAboutUs extends Component {
                 this.handleShowNotification('There was an error while saving!');
             }
         })();
-    }
+    };
+
+    togglePreview = () => {
+        this.setState({
+            showPreview: !this.state.showPreview,
+        });
+    };
 
     handleShowNotification = (message) => {
         this.setState({
             showNotification: true,
             notificationMessage: message,
         });
-    }
+    };
 
     handleHideNotification = () => {
         this.setState({
             showNotification: false,
         });
-    }
+    };
 
     render = () => {
         return (
@@ -89,14 +96,24 @@ class AdminAboutUs extends Component {
                 <h2>Edit About Us</h2>
                 <Spinner spinning={this.props.loading}>
                     <ReactQuill value={this.state.text} onChange={this.onEditorChange} />
-                    <br />
-                    <Button onClick={this.handleSave} color="save" variant="contained">
-                        Save!
-                    </Button>
                 </Spinner>
+                <Button onClick={this.handleSave} color="save" variant="contained">
+                    Save!
+                </Button>
+
+                <div className="mt-3">
+                    <Button onClick={this.togglePreview} color="primary" slim variant="contained">
+                        Show Preview
+                    </Button>
+                    {this.state.showPreview && (
+                        <div className="mt-3">
+                            <div dangerouslySetInnerHTML={{ __html: this.state.text }} />
+                        </div>
+                    )}
+                </div>
 
                 <Snackbar
-                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                     open={this.state.showNotification}
                     autoHideDuration={3000}
                     onClose={this.handleHideNotification}
