@@ -61,12 +61,6 @@ class AdminContainer extends Component {
                             buttonHref="/admin-products"
                         />
                         <AdminSection
-                            title="Edit Policies"
-                            text="Click here to edit or delete policies"
-                            buttonText="Edit Policies"
-                            buttonHref="/admin-policies"
-                        />
-                        <AdminSection
                             title="Edit About Us"
                             text="Click here to edit the About Us page"
                             buttonText="Edit About Us"

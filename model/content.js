@@ -10,6 +10,7 @@ class Content extends Model {
             content: null,
             created_ts: null,
             updated_ts: null,
+            category: null,
         };
     }
 
@@ -34,6 +35,11 @@ class Content extends Model {
         this.data.updated_ts = updated_ts;
     };
 
+    setCategory = (category) => {
+        this.data.category = category;
+    }
+
+
     // Getters
     getId = () => {
         return this.data.id;
@@ -54,6 +60,11 @@ class Content extends Model {
     getUpdatedTs = () => {
         return this.data.updated_ts;
     };
+
+    getCategory = () => {
+        return this.data.category;
+    }
+
 }
 
 export default Content;

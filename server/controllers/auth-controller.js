@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import { getConfig } from '../../lib/protected';
 
 module.exports = (req, res, next) => {
-
     if (req.method === REQUEST.method.post) {
         passport.authenticate('local-login', (err, user, info) => {
             if (err) {

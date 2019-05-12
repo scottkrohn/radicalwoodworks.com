@@ -5,6 +5,7 @@ import ACTIONS from 'constants/action-constants';
 
 export const getAllContent = (category) => {
     return (dispatch) => {
+        dispatch(clearContent());
         dispatch(getContentRequest());
 
         return new Promise((resolve, reject) => {
@@ -88,5 +89,14 @@ const updateContentError = (error) => {
     return {
         type: ACTIONS.UPDATE_CONTENT_ERROR,
         payload: error,
+    };
+};
+
+const clearContent = () => {
+    return {
+        type: ACTIONS.CLEAR_CONTENT,
+        payload: {
+            content: [],
+        },
     };
 };

@@ -1,4 +1,3 @@
-
 import ACTIONS from 'constants/action-constants';
 
 const initialState = {
@@ -29,6 +28,13 @@ const contentReducer = (state = initialState, { type, payload }) => {
             ...state,
             loading: false,
             error: true,
+        };
+    case ACTIONS.CLEAR_CONTENT:
+        return {
+            ...state,
+            ...payload,
+            loading: false,
+            error: false,
         };
     default:
         return state;

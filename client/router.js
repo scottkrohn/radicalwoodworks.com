@@ -15,6 +15,7 @@ import LoginContainer from 'containers/login-container';
 // Protected Containers
 import AdminContainer from 'containers/admin-container';
 import AdminAboutUsContainer from 'containers/admin-about-us-container';
+import AdminFaqContainer from 'containers/admin-faq-container';
 
 // 404 Container
 import NotFoundContainer from 'containers/not-found-container';
@@ -32,6 +33,7 @@ const Router = () => (
         {/* Protected Routes */}
         <ProtectedRoute exact path="/admin" component={AdminContainer} />
         <ProtectedRoute exact path="/admin-about" component={AdminAboutUsContainer} />
+        <ProtectedRoute exact path="/admin-faq" component={AdminFaqContainer} />
 
         {/* 404 Route */}
         <Route component={NotFoundContainer} />

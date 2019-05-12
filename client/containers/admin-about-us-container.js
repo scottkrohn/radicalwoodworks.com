@@ -31,12 +31,6 @@ class AdminAboutUs extends Component {
         };
     }
 
-    onEditorChange = (value) => {
-        this.setState({
-            text: value,
-        });
-    };
-
     componentDidMount = () => {
         (async () => {
             try {
@@ -55,6 +49,12 @@ class AdminAboutUs extends Component {
                 });
             }
         })();
+    };
+
+    onEditorChange = (value) => {
+        this.setState({
+            text: value,
+        });
     };
 
     handleSave = () => {
@@ -95,14 +95,26 @@ class AdminAboutUs extends Component {
             <div className="container-fluid text-center">
                 <h2>Edit About Us</h2>
                 <Spinner spinning={this.props.loading}>
-                    <ReactQuill value={this.state.text} onChange={this.onEditorChange} />
+                    <ReactQuill
+                        value={this.state.text}
+                        onChange={this.onEditorChange}
+                    />
                 </Spinner>
-                <Button onClick={this.handleSave} color="save" variant="contained">
+                <Button
+                    onClick={this.handleSave}
+                    color="save"
+                    variant="contained"
+                >
                     Save!
                 </Button>
 
                 <div className="mt-3">
-                    <Button onClick={this.togglePreview} color="primary" slim variant="contained">
+                    <Button
+                        onClick={this.togglePreview}
+                        color="primary"
+                        slim
+                        variant="contained"
+                    >
                         Show Preview
                     </Button>
                     {this.state.showPreview && (

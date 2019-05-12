@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
+// Components
+import NavLink from 'client/components/nav/nav-link';
 
 class NotFoundContainer extends Component {
     constructor(props) {
@@ -10,11 +12,13 @@ class NotFoundContainer extends Component {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <h3>Uh oh, you're not supposed to be here. You should probably go back home.</h3>
+                    <div className="col-12 text-center">
+                        <h4>Uh oh, you're not supposed to be here. You should probably go back <NavLink label="home" to="/" />.</h4>
+                    </div>
                 </div>
             </div>
         );
-    }
+    };
 }
 
 export default NotFoundContainer;

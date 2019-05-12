@@ -13,6 +13,7 @@ const ACTIONS = {
     GET_CONTENT_REQUEST: 'content:getContentRequest',
     GET_CONTENT_SUCCESS: 'content:getContentSuccess',
     GET_CONTENT_ERROR: 'content:getContentError',
+    CLEAR_CONTENT: 'content:clearContent',
 
     UPDATE_CONTENT_REQUEST: 'content:updateContentRequest',
     UPDATE_CONTENT_SUCCESS:'content:updateContentSuccess',
