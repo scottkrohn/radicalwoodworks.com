@@ -29,10 +29,20 @@ const styles = {
     slim: {
         height: 30,
     },
+    grow: {
+        ['flex-grow']: 1,
+    },
+    '@media (max-width: 992px)': {
+        common: {
+            width: '100%',
+            'font-size': '2.3em',
+            height: 100,
+        },
+    },
 };
 
 const ButtonBase = (props) => {
-    const { slim, children, classes, className, color, ...other } = props;
+    const { slim, grow, children, classes, className, color, ...other } = props;
 
     const buttonClasses = classnames({
         [classes.common]: true,
@@ -40,6 +50,7 @@ const ButtonBase = (props) => {
         [className]: true,
         [classes.root]: true,
         [classes.slim]: slim,
+        [classes.grow]: grow,
     });
 
     return (

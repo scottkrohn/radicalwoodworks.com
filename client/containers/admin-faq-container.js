@@ -7,6 +7,7 @@ import { get } from 'lodash';
 import Spinner from 'client/components/spinner/spinner';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from 'client/components/base/button/button';
+import Grid from 'client/components/grid/grid';
 
 // Actions
 import { getAllContent, updateContent } from 'client/actions/content-actions';
@@ -91,7 +92,7 @@ class AdminFaqContainer extends Component {
             <div className="container-fluid text-center">
                 <Spinner spinning={this.props.loading}>
                     <h2>Edit FAQ</h2>
-                    <div>
+                    <Grid>
                         {policyContent.length > 0 &&
                             policyContent.map((contentObj) => {
                                 return (
@@ -101,12 +102,13 @@ class AdminFaqContainer extends Component {
                                         color="primary"
                                         className="mt-4 ml-3 mr-3"
                                         onClick={() => this.handleEditorChange(contentObj)}
+                                        grow
                                     >
                                         EDIT {contentObj.getType()}
                                     </Button>
                                 );
                             })}
-                    </div>
+                    </Grid>
 
                     <div className="mt-4">
                         {this.state.selectedContent && (

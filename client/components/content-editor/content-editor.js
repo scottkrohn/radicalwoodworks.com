@@ -62,7 +62,7 @@ class ContentEditor extends PureComponent {
                 />
 
                 <div className={styles.Buttons}>
-                    <div className="offset-4 col-4">
+                    <div className="offset-lg-4 offset-md-0 col-lg-4 col-md-6">
                         <Button
                             onClick={() => this.props.handleSave(this.props.content, this.state.text)}
                             color="save"
@@ -72,7 +72,7 @@ class ContentEditor extends PureComponent {
                             Save!
                         </Button>
                     </div>
-                    <div className="col-4 text-right pr-0">
+                    <div className="col-lg-4 col-md-6 text-right pr-0">
                         <Button
                             onClick={this.togglePreview}
                             color="primary"
