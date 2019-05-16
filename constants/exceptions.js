@@ -19,6 +19,10 @@ const EXCEPTIONS = {
         code: 1003,
         message: 'You\'re not logged in',
     },
+    routeNotFound: {
+        code: 1004,
+        message: 'Invalid Route',
+    },
 };
 
 EXCEPTIONS.getMessageForErrorCode = (code) => {

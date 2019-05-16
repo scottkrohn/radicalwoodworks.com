@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, isNull } from 'lodash';
 
 import BaseBLI from './base';
 import ImagesBLI from './images';
@@ -12,22 +12,21 @@ class ProductsBLI extends BaseBLI {
         super();
     }
 
-    createProduct = (productData) => {
-        this.db.clear();
+    createProduct = (product) => {
+        if (this._assignProductValues(product)) {
+            return this.db.insert(DB.tables.products.name);
+        }
 
-        this.db.assignStr(DB.tables.products.columns.type, productData.getType());
-        this.db.assignStr(DB.tables.products.columns.title, productData.getTitle());
-        this.db.assignStr(DB.tables.products.columns.description, productData.getDescription());
-        this.db.assign(DB.tables.products.columns.cost, productData.getCost());
-        this.db.assign(DB.tables.products.columns.price, productData.getPrice());
-        this.db.assign(DB.tables.products.columns.shippingPrice, productData.getShippingPrice());
-        this.db.assignBoolean(
-            DB.tables.products.columns.includeShippingInPrice,
-            productData.getIncludeShippingInPrice()
-        );
-        this.db.assign(DB.tables.products.columns.etsyUrl, productData.getEtsyUrl());
+        return Promise.reject('No values updated');
+    };
 
-        return this.db.insert(DB.tables.products.name);
+    updateProduct = (product) => {
+        if (this._assignProductValues(product, true)) {
+            const whereClause = `WHERE \`${DB.tables.products.columns.id}\`  = ${product.getId()}`;
+            return this.db.update(DB.tables.products.name, whereClause);
+        }
+
+        return Promise.reject('No values updated');
     };
 
     // At some point add limit/offset to this function.
@@ -80,6 +79,54 @@ class ProductsBLI extends BaseBLI {
 
         product.setImages(imageObjects);
         return product;
+    };
+
+    _assignProductValues = (product, ignoreNull = true) => {
+        this.db.clear();
+
+        const productDatabaseMapping = DB.getProductDatabaseFieldsMapping(product);
+        const fields = Object.keys(productDatabaseMapping);
+
+        let fieldsAssigned = false;
+        for (const field of fields) {
+            // Ignore the primary key.
+            if (field === DB.tables.products.columns.id) {
+                continue;
+            }
+
+            if (ignoreNull && isNull(productDatabaseMapping[field])) {
+                continue;
+            }
+
+            const productColumns = DB.tables.products.columns;
+            switch (field) {
+                case productColumns.type:
+                case productColumns.title:
+                case productColumns.description:
+                case productColumns.defaultColor:
+                case productColumns.etsyUrl:
+                    this.db.assignStr(field, productDatabaseMapping[field]);
+                    fieldsAssigned = true;
+                    break;
+
+                case productColumns.cost:
+                case productColumns.price:
+                case productColumns.shippingPrice:
+                case productColumns.width:
+                case productColumns.length:
+                case productColumns.frameWidth:
+                    this.db.assign(field, productDatabaseMapping[field]);
+                    fieldsAssigned = true;
+                    break;
+
+                case productColumns.includeShippingInPrice:
+                    this.db.assignBoolean(field, productDatabaseMapping[field]);
+                    fieldsAssigned = true;
+                    break;
+            }
+        }
+
+        return fieldsAssigned;
     };
 }
 

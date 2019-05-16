@@ -1,5 +1,4 @@
 import ProductsBLI from '../classes/bli/products';
-import passport from 'passport';
 
 // Constants
 import REQUEST from '../constants/request-constants';
@@ -23,7 +22,7 @@ module.exports = (req, res, next) => {
                     res.send(result);
                 })
                 .catch((error) => {
-                    //TODO: Do something with the error.
+                    res.status(500).send(error);
                 });
         }
     }

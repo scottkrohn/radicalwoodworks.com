@@ -3,11 +3,17 @@ const router = express.Router();
 
 // Products Routes
 router.route('/products/product/:productId')
-    .all(require('../controllers/products-controller'));
+    .get(require('../controllers/products-controller'));
 
 // Product Routes
 router.route('/products')
-    .all(require('../controllers/products-controller'));
+    .get(require('../controllers/products-controller'));
+
+router.route('/products/create')
+    .post(require('../controllers/product-controller'))
+
+router.route('/products/update')
+    .put(require('../controllers/product-controller'))
 
 // Content Routes
 router.route('/content/:contentType')
