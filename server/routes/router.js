@@ -29,11 +29,6 @@ router.route('/content/update')
 router.route('/contact/send')
     .all(require('../controllers/contact-controller'));
 
-
-
-// router.post('/image/upload', upload.single('image'), function(req, res, next) {
-//     res.send('Successfully uploaded ' + req.files.length + ' files!')
-// })
 router.route('/image/upload')
     .post(require('../controllers/upload-controller'));
 

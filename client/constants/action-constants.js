@@ -38,6 +38,11 @@ const ACTIONS = {
     SEND_AUTH_REQUEST: 'auth:sendAuthRequest',
     SEND_AUTH_SUCCESS: 'auth:sendAuthSuccess',
     SEND_AUTH_ERROR: 'auth:sendAuthError',
+
+    // Image Actions
+    UPLOAD_IMAGE_REQUEST: 'image:uploadImageRequest',
+    UPLOAD_IMAGE_SUCCESS: 'image:uploadImageSuccess',
+    UPLOAD_IMAGE_ERROR: 'image:uploadImageError',
 };
 
 export default ACTIONS;

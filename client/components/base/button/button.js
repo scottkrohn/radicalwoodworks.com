@@ -67,6 +67,7 @@ ButtonBase.propTypes = {
     variant: PropTypes.string,
     color: PropTypes.string,
     slim: PropTypes.bool,
+    grow: PropTypes.bool,
 };
 
 export default withStyles(styles)(ButtonBase);

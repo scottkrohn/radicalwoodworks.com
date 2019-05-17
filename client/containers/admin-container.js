@@ -22,9 +22,7 @@ class AdminContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-        };
+        this.state = {};
     }
 
     componentDidMount = () => {
@@ -35,14 +33,14 @@ class AdminContainer extends Component {
 
     handleClick = (sectionId) => {
         switch (sectionId) {
-        case sectionIds.editProducts:
-            break;
-        case sectionIds.editPolicies:
-            break;
-        case sectionIds.editAboutUs:
-            break;
-        case sectionIds.editFaq:
-            break;
+            case sectionIds.editProducts:
+                break;
+            case sectionIds.editPolicies:
+                break;
+            case sectionIds.editAboutUs:
+                break;
+            case sectionIds.editFaq:
+                break;
         }
     };
 
