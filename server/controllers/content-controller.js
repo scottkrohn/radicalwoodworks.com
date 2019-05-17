@@ -1,3 +1,4 @@
+import EXCEPTIONS from '../../constants/exceptions';
 import ContentBLI from '../classes/bli/content';
 import REQUEST from '../constants/request-constants';
 import Content from '../../model/content';
@@ -18,6 +19,11 @@ module.exports = (req, res, next) => {
                 .catch((error) => { });
         }
     } else if (req.method === REQUEST.method.put) {
+        if (!req.isAuthenticated()) {
+            res.status(403).send(EXCEPTIONS.unauthorized);
+            return;
+        };
+
         const content = new Content();
         content.setValues(req.body);
 

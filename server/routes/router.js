@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+const upload = require('../lib/image-upload');
+import REQUEST from '../constants/request-constants';
+
 // Products Routes
 router.route('/products/product/:productId')
     .get(require('../controllers/products-controller'));
@@ -25,6 +28,14 @@ router.route('/content/update')
 // Contact Routes
 router.route('/contact/send')
     .all(require('../controllers/contact-controller'));
+
+
+
+// router.post('/image/upload', upload.single('image'), function(req, res, next) {
+//     res.send('Successfully uploaded ' + req.files.length + ' files!')
+// })
+router.route('/image/upload')
+    .post(require('../controllers/upload-controller'));
 
 /* Authentication Routes
 /***********************/
