@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
     if (req.method === REQUEST.method.post) {
         singleUpload(req, res, (err) => {
             if (err) {
-                res.status(500).send(err);
+                res.status(500).send();
                 return;
             }
 
