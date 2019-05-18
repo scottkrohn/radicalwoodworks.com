@@ -1,20 +1,23 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 // Components
-import Button from 'client/components/base/button/button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 // Actions
 import { uploadImage } from 'client/actions/upload-actions';
+
+// Styles
+import styles from 'client/components/image-upload/image-upload.less';
 
 class ImageUpload extends PureComponent {
     constructor(props) {
         super(props);
 
-        this.state = {
-            imageUrl: null,
-        };
+        this.inputRef = React.createRef();
     }
 
     onImageUpload = (e) => {
@@ -22,37 +25,65 @@ class ImageUpload extends PureComponent {
         const file = files[0];
 
         this.props.uploadImage(file).then((result) => {
-            this.setState({
-                imageUrl: result.imageUrl,
-            });
+            if (typeof this.props.onImageUploadSuccess === 'function') {
+                this.props.onImageUploadSuccess(result.imageUrl);
+            }
         });
     };
 
-    render = () => {
-        return (
-            <div>
-                <Button
-                    variant="contained"
-                    color="primary"
-                >
-                    <input
-                        onChange={this.onImageUpload}
-                        type="file"
-                    />
-                </Button>
+    handleImageUploadClick = () => {
+        this.inputRef.current.click();
+    };
 
-                {this.state.imageUrl && (
-                    <div>
-                        <img src={this.state.imageUrl} />
-                    </div>
-                )}
+    renderInputButton = () => {
+        let inputButton = null;
+
+        if (this.props.type === 'box') {
+            inputButton = (
+                <div className={styles.FileInputBox}>
+                    <FontAwesomeIcon
+                        className={styles.FileInputPlus}
+                        icon={faPlus}
+                    />
+                </div>
+            );
+        } else {
+            inputButton = this.props.children;
+        }
+
+        return inputButton;
+    };
+
+    render = () => {
+
+        const wrapperClasses = classNames({
+            [styles.ChildrenWrapper]: true,
+            [this.props.className]: !!this.props.className,
+        });
+
+        return (
+            <div
+                onClick={this.handleImageUploadClick}
+                className={wrapperClasses}
+            >
+                <input
+                    className={styles.HiddenInput}
+                    onChange={this.onImageUpload}
+                    ref={this.inputRef}
+                    type="file"
+                />
+                {this.renderInputButton()}
             </div>
         );
     };
 }
 
 ImageUpload.propTypes = {
-    handleImageUpload: PropTypes.func,
+    uploadImage: PropTypes.func,
+    onImageUploadSuccess: PropTypes.func,
+    children: PropTypes.node,
+    type: PropTypes.string,
+    className: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
