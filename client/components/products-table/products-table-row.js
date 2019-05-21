@@ -24,7 +24,7 @@ class ProductsTableRow extends PureComponent {
                 <TableCell>${this.props.product.getShippingPrice().toFixed(2)}</TableCell>
                 <TableCell>{this.props.product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</TableCell>
                 <TableCell>
-                    <NavLink to="/admin-product-container">
+                    <NavLink to={`/admin-product/${this.props.product.getId()}`}>
                         <FontAwesomeIcon
                             icon={faEdit}
                             className={styles.ActionIcon}

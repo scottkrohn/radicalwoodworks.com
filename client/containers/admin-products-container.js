@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 // TODO: Move this to the PRODUCT page, not the PRODUCTS page.
 // TODO: This page should load a table of products to display for editing.
-import ImageUpload from 'client/components/image-upload/image-upload';
 import ProductsTable from 'client/components/products-table/products-table';
 import Spinner from 'client/components/spinner/spinner';
 import Dialog from '@material-ui/core/Dialog';
@@ -51,8 +50,6 @@ class AdminProductsContainer extends Component {
         })();
     };
 
-    onImageUpload = (url) => {
-    };
 
     handleDeleteAction = (confirmed) => {
         if (confirmed) {
@@ -112,10 +109,6 @@ class AdminProductsContainer extends Component {
 
                 <Spinner spinning={loading}>
                     Admin Products.
-                    <ImageUpload
-                        type="box"
-                        onImageUploadSuccess={this.onImageUpload}
-                    />
                     <ProductsTable
                         handleDeleteProduct={this.handleDeleteProduct}
                         products={this.props.products}

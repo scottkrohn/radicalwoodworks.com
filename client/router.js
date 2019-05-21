@@ -17,6 +17,7 @@ import AdminContainer from 'containers/admin-container';
 import AdminAboutUsContainer from 'containers/admin-about-us-container';
 import AdminFaqContainer from 'containers/admin-faq-container';
 import AdminProductsContainer from 'client/containers/admin-products-container';
+import AdminProductContainer from 'client/containers/admin-product-container';
 
 // 404 Container
 import NotFoundContainer from 'containers/not-found-container';
@@ -79,6 +80,11 @@ const Router = () => (
             exact
             path="/admin-products"
             component={AdminProductsContainer}
+        />
+        <ProtectedRoute
+            exact
+            path="/admin-product/:productId"
+            component={AdminProductContainer}
         />
 
         {/* 404 Route */}
