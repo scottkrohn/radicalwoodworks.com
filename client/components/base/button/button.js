@@ -54,7 +54,10 @@ const ButtonBase = (props) => {
     });
 
     return (
-        <Button className={buttonClasses} {...other}>
+        <Button
+            className={buttonClasses}
+            {...other}
+        >
             {children}
         </Button>
     );
@@ -67,6 +70,7 @@ ButtonBase.propTypes = {
     variant: PropTypes.string,
     color: PropTypes.string,
     slim: PropTypes.bool,
+    grow: PropTypes.bool,
 };
 
 export default withStyles(styles)(ButtonBase);

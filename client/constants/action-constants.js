@@ -9,6 +9,10 @@ const ACTIONS = {
     GET_PRODUCT_SUCCESS: 'product:getProductSuccess',
     GET_PRODUCT_ERROR: 'product:getProductError',
 
+    DELETE_PRODUCT_REQUEST: 'product:deleteProductRequest',
+    DELETE_PRODUCT_SUCCESS: 'product:deleteProductSuccess',
+    DELETE_PRODUCT_ERROR: 'product:deleteProductError',
+
     // Content Actions
     GET_CONTENT_REQUEST: 'content:getContentRequest',
     GET_CONTENT_SUCCESS: 'content:getContentSuccess',
@@ -38,6 +42,11 @@ const ACTIONS = {
     SEND_AUTH_REQUEST: 'auth:sendAuthRequest',
     SEND_AUTH_SUCCESS: 'auth:sendAuthSuccess',
     SEND_AUTH_ERROR: 'auth:sendAuthError',
+
+    // Image Actions
+    UPLOAD_IMAGE_REQUEST: 'image:uploadImageRequest',
+    UPLOAD_IMAGE_SUCCESS: 'image:uploadImageSuccess',
+    UPLOAD_IMAGE_ERROR: 'image:uploadImageError',
 };
 
 export default ACTIONS;

@@ -8,6 +8,7 @@ import Spinner from 'client/components/spinner/spinner';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from 'client/components/base/button/button';
 import Grid from 'client/components/grid/grid';
+import ContentEditor from 'client/components/content-editor/content-editor';
 
 // Actions
 import { getAllContent, updateContent } from 'client/actions/content-actions';
@@ -18,7 +19,6 @@ import { getAllContent as getAllContentObjects, getLoading } from 'client/select
 
 // HOC
 import { withValidation } from 'client/hoc/auth';
-import ContentEditor from 'client/components/content-editor/content-editor';
 
 class AdminFaqContainer extends Component {
     constructor(props) {

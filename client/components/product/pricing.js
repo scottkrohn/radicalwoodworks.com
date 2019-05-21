@@ -27,9 +27,16 @@ class Pricing extends Component {
         const addToCartButton = IMAGE.getFullUrl(IMAGE.imagePaths.etsyLogo);
 
         return (
-            <a href={etsyUrl} target="_blank" rel="noopener noreferrer">
+            <a
+                href={etsyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <span className={styles.AddToCartLabel}>Buy on</span>
-                <img src={addToCartButton} className={styles.AddToCartImage} />
+                <img
+                    src={addToCartButton}
+                    className={styles.AddToCartImage}
+                />
             </a>
         );
     };

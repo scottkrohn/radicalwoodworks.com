@@ -5,6 +5,6 @@ module.exports = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.send();
     } else {
-        res.status(401).send(EXCEPTIONS.notLoggedIn);
+        res.status(401).send(EXCEPTIONS.unauthorized);
     }
 };

@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 // Products Routes
-router.route('/products/product/:productId')
-    .get(require('../controllers/products-controller'));
+router.route('/products/:productId')
+    .get(require('../controllers/products-controller'))
+    .delete(require('../controllers/product-controller'));
 
 // Product Routes
 router.route('/products')
@@ -25,6 +26,9 @@ router.route('/content/update')
 // Contact Routes
 router.route('/contact/send')
     .all(require('../controllers/contact-controller'));
+
+router.route('/image/upload')
+    .post(require('../controllers/upload-controller'));
 
 /* Authentication Routes
 /***********************/

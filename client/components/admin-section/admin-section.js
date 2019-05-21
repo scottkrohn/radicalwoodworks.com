@@ -27,7 +27,11 @@ class AdminSection extends Component {
                 <div className={styles.TextContainer}>{this.props.text}</div>
                 <div className={styles.ButtonContainer}>
                     <NavLink to={this.props.buttonHref}>
-                        <Button variant="contained" color="primary" onClick={this.handleButtonClick}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleButtonClick}
+                        >
                             {this.props.buttonText}
                         </Button>
                     </NavLink>
