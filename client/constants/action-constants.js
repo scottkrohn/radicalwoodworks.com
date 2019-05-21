@@ -9,6 +9,10 @@ const ACTIONS = {
     GET_PRODUCT_SUCCESS: 'product:getProductSuccess',
     GET_PRODUCT_ERROR: 'product:getProductError',
 
+    DELETE_PRODUCT_REQUEST: 'product:deleteProductRequest',
+    DELETE_PRODUCT_SUCCESS: 'product:deleteProductSuccess',
+    DELETE_PRODUCT_ERROR: 'product:deleteProductError',
+
     // Content Actions
     GET_CONTENT_REQUEST: 'content:getContentRequest',
     GET_CONTENT_SUCCESS: 'content:getContentSuccess',

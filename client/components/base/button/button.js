@@ -54,7 +54,10 @@ const ButtonBase = (props) => {
     });
 
     return (
-        <Button className={buttonClasses} {...other}>
+        <Button
+            className={buttonClasses}
+            {...other}
+        >
             {children}
         </Button>
     );

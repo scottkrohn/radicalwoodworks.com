@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     if (!req.isAuthenticated()) {
         res.status(403).send(EXCEPTIONS.unauthorized);
         return;
-    };
+    }
 
     if (req.method === REQUEST.method.post) {
         singleUpload(req, res, (err) => {

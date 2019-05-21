@@ -24,7 +24,6 @@ export const uploadImage = (file) => {
                 config,
                 data: formData,
             }).then((result) => {
-                console.log(result);
                 resolve(result.data);
             })
             .catch((error) => {

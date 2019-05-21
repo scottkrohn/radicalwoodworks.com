@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const upload = require('../lib/image-upload');
-import REQUEST from '../constants/request-constants';
-
 // Products Routes
-router.route('/products/product/:productId')
-    .get(require('../controllers/products-controller'));
+router.route('/products/:productId')
+    .get(require('../controllers/products-controller'))
+    .delete(require('../controllers/product-controller'));
 
 // Product Routes
 router.route('/products')

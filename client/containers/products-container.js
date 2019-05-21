@@ -12,34 +12,35 @@ import { getProducts } from 'actions/products-actions';
 // Selectors
 import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
 class ProductsContainer extends Component {
-
     constructor(props) {
         super(props);
     }
 
-	componentDidMount = () => {
-	    this.props.getProducts();
-	};
+    componentDidMount = () => {
+        this.props.getProducts();
+    };
 
-	render = () => {
-	    const productsLength = get(this.props, 'products.length', 0);
-	    const productsLoaded = (productsLength > 0);
+    render = () => {
+        const productsLength = get(this.props, 'products.length', 0);
+        const productsLoaded = productsLength > 0;
 
-	    return (
-	        <div className="container-fluid">
-	            <Spin spinning={this.props.loading} size="large">
-	                <div className="col-12">
-	                    <div className="text-center">
-	                        <h1>Radical Woodworks Products</h1>
-	                    </div>
-	                </div>
+        return (
+            <div className="container-fluid">
+                <Spin
+                    spinning={this.props.loading}
+                    size="large"
+                >
+                    <div className="col-12">
+                        <div className="text-center">
+                            <h1>Radical Woodworks Products</h1>
+                        </div>
+                    </div>
 
-	                {productsLoaded && <ProductGrid products={this.props.products} />}
-
-	            </Spin>
-	        </div>
-	    );
-	};
+                    {productsLoaded && <ProductGrid products={this.props.products} />}
+                </Spin>
+            </div>
+        );
+    };
 }
 
 const mapStateToProps = (state) => {
@@ -55,5 +56,5 @@ const mapActionsToProps = {
 
 export default connect(
     mapStateToProps,
-    mapActionsToProps,
+    mapActionsToProps
 )(ProductsContainer);
