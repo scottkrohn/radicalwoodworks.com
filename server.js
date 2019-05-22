@@ -40,7 +40,7 @@ if (env === 'production') {
 
     app.get('*', function(req, res) {
         if (req && req.headers) {
-            console.log(req.headers.referer);
+            console.log(req.headers);
         }
         res.sendFile(path.resolve(__dirname + '/build/index.html'));
     });

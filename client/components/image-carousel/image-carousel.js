@@ -48,14 +48,30 @@ class ImageCarousel extends Component {
         const nextButtonClasses = classnames(styles.Button, styles.ButtonNext);
 
         return (
-            <div>
-                <Icon className={prevButtonClasses} theme="filled" type="left-circle" onClick={this.onPrev} />
-                <Icon className={nextButtonClasses} theme="filled" type="right-circle" onClick={this.onNext} />
+            <div className={styles.CarouselContainer}>
+                <Icon
+                    className={prevButtonClasses}
+                    theme="filled"
+                    type="left-circle"
+                    onClick={this.onPrev}
+                />
+                <Icon
+                    className={nextButtonClasses}
+                    theme="filled"
+                    type="right-circle"
+                    onClick={this.onNext}
+                />
                 <Carousel ref={(node) => (this.carouselRef = node)}>
                     {imageThumbUrls.map((imageUrl) => {
                         return (
-                            <div className={styles.ImageContainer} key={uniqueId()}>
-                                <img className={styles.Image} src={imageUrl} />
+                            <div
+                                className={styles.ImageContainer}
+                                key={uniqueId()}
+                            >
+                                <img
+                                    className={styles.Image}
+                                    src={imageUrl}
+                                />
                             </div>
                         );
                     })}

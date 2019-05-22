@@ -24,9 +24,9 @@ class ImageUpload extends PureComponent {
         const files = Array.from(e.target.files);
         const file = files[0];
 
-        this.props.uploadImage(file).then((result) => {
+        this.props.uploadImage(file, this.props.productId).then((result) => {
             if (typeof this.props.onImageUploadSuccess === 'function') {
-                this.props.onImageUploadSuccess(result.imageUrl);
+                this.props.onImageUploadSuccess(result);
             }
         });
     };
@@ -55,7 +55,6 @@ class ImageUpload extends PureComponent {
     };
 
     render = () => {
-
         const wrapperClasses = classNames({
             [styles.ChildrenWrapper]: true,
             [this.props.className]: !!this.props.className,
@@ -84,6 +83,7 @@ ImageUpload.propTypes = {
     children: PropTypes.node,
     type: PropTypes.string,
     className: PropTypes.string,
+    productId: PropTypes.number,
 };
 
 const mapStateToProps = (state) => {

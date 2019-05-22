@@ -1,78 +1,82 @@
 @import "../../styles/variables.less";
 
-.ImageContainer {
-	display: flex !important;
-	justify-content: center;
-}
+.CarouselContainer {
+    position: relative;
 
-:global {
+  .ImageContainer {
+    display: flex !important;
+    justify-content: center;
+  }
+
+  :global {
     .ant-carousel {
-    overflow: hidden;
-    background: gray;
-    height: 400px;
-    width: 100%;
+      overflow: hidden;
+      background: gray;
+      height: 400px;
+      width: 100%;
     }
 
     @media (max-width: 992px) {
-        .ant-carousel {
-            height: 600px;
-        }
+      .ant-carousel {
+        height: 600px;
+      }
     }
 
     .ant-carousel {
-        background: transparent;
+      background: transparent;
     }
 
     .ant-carousel .slick-slider,
     .slick-list,
     .slick-track {
-    height: 100%;
+      height: 100%;
 
-    .slick-list .slick-slide {
+      .slick-list .slick-slide {
         div {
-        height: 100%;
+          height: 100%;
         }
+      }
     }
+  }
+
+  .Image {
+    height: 100%;
+    max-width: 100%;
+    border: solid @gray 1px;
+    margin: auto;
+  }
+
+  .Button {
+    cursor: pointer;
+    font-size: 3em;
+    position: absolute;
+    top: ~"calc(100%/2 - 10px)";
+    z-index: 10;
+
+    &Prev {
+      left: 5px;
     }
-}
 
-.Image {
-	height: 100%;
-	max-width: 100%;
-  border: solid @gray 1px;
-  margin: auto;
-}
+    &Next {
+      right: 5px;
+    }
+  }
 
-.Button {
-	cursor: pointer;
-	font-size: 3em;
-	position: absolute;
-	top: ~"calc(100%/2 - 10px)";
-	z-index: 10;
+  @media (max-width: 992px) {
+    .Button {
+      cursor: pointer;
+      font-size: 6em;
+      position: absolute;
+      top: ~"calc(100%/2 - 10px)";
+      z-index: 10;
 
-	&Prev{
-		left: 5px;
-	}
+      &Prev {
+        left: 15px;
+      }
 
-	&Next {
-		right: 5px;
-	}
-}
-
-@media (max-width: 992px) {
-	.Button {
-		cursor: pointer;
-		font-size: 6em;
-		position: absolute;
-		top: ~"calc(100%/2 - 10px)";
-		z-index: 10;
-
-		&Prev{
-			left: 15px;
-		}
-
-		&Next {
-			right: 15px;
-		}
-	}
+      &Next {
+        right: 15px;
+      }
+    }
+  }
 }

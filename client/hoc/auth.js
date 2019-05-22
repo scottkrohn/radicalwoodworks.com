@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Cookie from 'js-cookie';
 
-import { connect } from 'react-redux';
-
 export const withValidation = (WrappedComponent) => {
     return class Validation extends Component {
         constructor(props) {

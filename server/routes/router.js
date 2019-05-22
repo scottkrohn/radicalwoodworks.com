@@ -16,6 +16,9 @@ router.route('/products/create')
 router.route('/products/update')
     .put(require('../controllers/product-controller'))
 
+router.route('/products/image/:productId')
+    .post(require('../controllers/product-image-upload-controller'));
+
 // Content Routes
 router.route('/content/:contentType')
     .all(require('../controllers/content-controller'));
@@ -27,8 +30,6 @@ router.route('/content/update')
 router.route('/contact/send')
     .all(require('../controllers/contact-controller'));
 
-router.route('/image/upload')
-    .post(require('../controllers/upload-controller'));
 
 /* Authentication Routes
 /***********************/

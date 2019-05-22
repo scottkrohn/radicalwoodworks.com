@@ -5,16 +5,23 @@ import ACTIONS from 'constants/action-constants';
 
 export const getProduct = (productId) => {
     return (dispatch) => {
-        dispatch(getProductRequest());
+        return new Promise((resolve, reject) => {
+            dispatch(getProductRequest());
 
-        axios
-            .get(`/server/products/${productId}`)
-            .then((response) => {
-                dispatch(getProductSuccess(response.data));
-            })
-            .catch((error) => {
-                dispatch(getProductError(error));
-            });
+            if (!productId) {
+                reject();
+            }
+
+            axios.get(`/server/products/${productId}`)
+                .then((response) => {
+                    dispatch(getProductSuccess(response.data));
+                    resolve();
+                })
+                .catch((error) => {
+                    dispatch(getProductError(error));
+                    reject();
+                });
+        });
     };
 };
 
@@ -23,7 +30,8 @@ export const deleteProduct = (productId) => {
         dispatch(deleteProductRequest());
 
         return new Promise((resolve, reject) => {
-            axios.delete(`/server/products/${productId}`)
+            axios
+                .delete(`/server/products/${productId}`)
                 .then((response) => {
                     dispatch(deleteProductSuccess());
                     resolve(response);

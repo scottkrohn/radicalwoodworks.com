@@ -3,6 +3,7 @@ import ProductReducer from 'client/reducers/product-reducer';
 import ContentReducer from 'client/reducers/content-reducer';
 import ContactReducer from 'client/reducers/contact-reducer';
 import AuthReducer from 'client/reducers/auth-reducer';
+import ImageUploadReducer from 'client/reducers/image-upload-reducer';
 
 const rootReducer = {
     products: ProductsReducer,
@@ -10,6 +11,7 @@ const rootReducer = {
     content: ContentReducer,
     contact: ContactReducer,
     auth: AuthReducer,
+    upload: ImageUploadReducer,
 };
 
 export default rootReducer;

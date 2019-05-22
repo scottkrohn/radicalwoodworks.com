@@ -4,9 +4,9 @@ import axios from 'axios';
 import ACTIONS from 'constants/action-constants';
 import { Route53Resolver } from 'node_modules/aws-sdk/index';
 
-export const uploadImage = (file) => {
+export const uploadImage = (file, productId) => {
     return (dispatch) => {
-        dispatch(uploadProductRequest());
+        dispatch(uploadImageRequest());
 
         return new Promise((resolve, reject) => {
             const formData = new FormData();
@@ -14,21 +14,24 @@ export const uploadImage = (file) => {
 
             const config = {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
                 },
             };
 
             axios({
-                url: '/server/image/upload',
+                url: `/server/products/image/${productId}`,
                 method: 'post',
                 config,
                 data: formData,
-            }).then((result) => {
-                resolve(result.data);
             })
-            .catch((error) => {
-                // TODO: something with the error
-            });
+                .then((result) => {
+                    dispatch(uploadImageSuccess());
+                    resolve(result.data);
+                })
+                .catch((error) => {
+                    // TODO: something with the error
+                    dispatch(uploadImageError());
+                });
         });
     };
 };
@@ -37,23 +40,32 @@ export const uploadImage = (file) => {
 /* Action Creators */
 /*******************/
 
-const uploadProductRequest = () => {
+const uploadImageRequest = () => {
     return {
         type: ACTIONS.UPLOAD_IMAGE_REQUEST,
-        payload: {},
+        payload: {
+            uploading: true,
+            error: false,
+        },
     };
 };
 
-const uploadProductSuccess = () => {
+const uploadImageSuccess = () => {
     return {
         type: ACTIONS.UPLOAD_IMAGE_SUCCESS,
-        payload: {},
+        payload: {
+            uploading: false,
+            error: false,
+        },
     };
 };
 
-const uploadProductError = () => {
+const uploadImageError = () => {
     return {
         type: ACTIONS.UPLOAD_IMAGE_ERROR,
-        payload: {},
+        payload: {
+            uploading: false,
+            error: true,
+        },
     };
 };

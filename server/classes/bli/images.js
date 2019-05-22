@@ -1,4 +1,5 @@
 import BaseBLI from './base';
+import { get } from 'lodash';
 
 // Models
 import Image from '../../../model/image';
@@ -9,6 +10,35 @@ import DB from '../../constants/database-constants';
 class ImagesBLI extends BaseBLI {
     constructor() {
         super();
+    }
+
+    createImageWithMapping = (url, isPrimary, productId) => {
+        const filename = this.getImagePathFromUrl(url);
+
+        const imageData = {
+            thumb_url: filename,
+            main_url: filename,
+            is_primary: isPrimary,
+        };
+
+        const image = this.buildImageObject(imageData);
+
+        return (async () => {
+            try {
+                const createImageResult = await this.createImage(image);
+                const imageId = get(createImageResult, 'insertId', null);
+
+                if (!imageId) {
+                    throw new Error('Error creating image: ', image);
+                }
+
+                image.setId(imageId);
+                await this.addProductImageMap(productId, image);
+                return image;
+            } catch (error) {
+                throw new Error(error);
+            }
+        })();
     }
 
     createImage = (image) => {
@@ -72,6 +102,11 @@ class ImagesBLI extends BaseBLI {
         const image = new Image();
         image.setValues(imageData);
         return image;
+    };
+
+    getImagePathFromUrl = (url) => {
+        const filename = url.substring(url.lastIndexOf('/') + 1);
+        return filename;
     };
 }
 
