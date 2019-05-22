@@ -172,7 +172,7 @@ class AdminProductContainer extends Component {
                                 onClick={this.handleSave}
                                 variant="contained"
                                 color="save"
-                                grow
+                                fullWidth
                             >
                                 Save
                             </Button>

@@ -31,7 +31,9 @@ const styles = {
     },
     grow: {
         ['flex-grow']: 1,
-        width: '100%',
+    },
+    fullWidth: {
+        ['width']: '100%',
     },
     '@media (max-width: 992px)': {
         common: {
@@ -44,7 +46,7 @@ const styles = {
 };
 
 const ButtonBase = (props) => {
-    const { slim, grow, children, classes, className, color, ...other } = props;
+    const { slim, grow, fullWidth, children, classes, className, color, ...other } = props;
 
     const buttonClasses = classnames({
         [classes.common]: true,
@@ -53,6 +55,7 @@ const ButtonBase = (props) => {
         [classes.root]: true,
         [classes.slim]: slim,
         [classes.grow]: grow,
+        [classes.fullWidth]: fullWidth,
     });
 
     return (
@@ -73,6 +76,7 @@ ButtonBase.propTypes = {
     color: PropTypes.string,
     slim: PropTypes.bool,
     grow: PropTypes.bool,
+    fullWidth: PropTypes.bool,
 };
 
 export default withStyles(styles)(ButtonBase);
