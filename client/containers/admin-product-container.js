@@ -164,11 +164,15 @@ class AdminProductContainer extends Component {
             <div className="container-fluid">
                 <Spinner spinning={loading}>
                     <div className="row">
+                        <div className="col-12 text-center">
+                            <h3>Edit Product</h3>
+                        </div>
                         <div className="offset-md-10 col-xs-12 col-md-2 mb-4">
                             <Button
                                 onClick={this.handleSave}
                                 variant="contained"
                                 color="save"
+                                grow
                             >
                                 Save
                             </Button>

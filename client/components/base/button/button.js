@@ -31,6 +31,7 @@ const styles = {
     },
     grow: {
         ['flex-grow']: 1,
+        width: '100%',
     },
     '@media (max-width: 992px)': {
         common: {
@@ -39,6 +40,7 @@ const styles = {
             height: 100,
         },
     },
+
 };
 
 const ButtonBase = (props) => {
