@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
+import { get, isNull, isEmpty } from 'lodash';
 
 // Components
 import EditImages from 'client/components/edit-images/edit-images';
+import EditProductDetails from 'client/components/edit-product-details/edit-product-details';
+import EditDescription from 'client/components/edit-description/edit-description';
 import Spinner from 'client/components/spinner/spinner';
 import Snackbar from '@material-ui/core/Snackbar';
+import Button from 'client/components/base/button/button';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -26,6 +29,21 @@ class AdminProductContainer extends Component {
         this.state = {
             showNotification: false,
             notificationMessage: '',
+
+            updatedProduct: {
+                description: null,
+                title: null,
+                price: null,
+                shipping: null,
+                includeShippingInPrice: null,
+                length: null,
+                width: null,
+                defaultColor: null,
+                frameWidth: null,
+                etsyUrl: null,
+                cost: null,
+                type: null,
+            },
         };
     }
 
@@ -42,10 +60,10 @@ class AdminProductContainer extends Component {
         })();
     };
 
-    onImageUpload = (url) => {
+    onImageUpload = (image) => {
         const productId = get(this.props, 'match.params.productId');
         this.props.getProduct(productId);
-        this.handleShowNotification('test message');
+        this.handleShowNotification('Image successfully uploaded!');
     };
 
     handleShowNotification = (message) => {
@@ -61,17 +79,128 @@ class AdminProductContainer extends Component {
         });
     };
 
+    handleDescriptionChange = (value) => {
+        this.setState({
+            updatedProduct: {
+                ...this.state.updatedProduct,
+                description: value,
+            },
+        });
+    }
+
+    handleSave = () => {
+        console.log('Saving: ', this.state.updatedProduct);
+    }
+
+    handleInputChange = (name) => (event) => {
+        this.setState({
+            updatedProduct: {
+                ...this.state.updatedProduct,
+                [name]: event.target.value,
+            },
+        });
+    }
+
+    getProductInformation = () => {
+        const updatedProduct = this.state.updatedProduct;
+        const productLoaded = !isEmpty(this.props.product);
+
+        const origDescription = productLoaded ? this.props.product.getDescription() : '';
+        const description = isNull(updatedProduct.description) ? origDescription : updatedProduct.description;
+
+        const origTitle = productLoaded ? this.props.product.getTitle() : '';
+        const title = isNull(updatedProduct.title) ? origTitle : updatedProduct.title;
+
+        const origPrice = productLoaded ? this.props.product.getPrice() : '';
+        const price = isNull(updatedProduct.price) ? origPrice : updatedProduct.price;
+
+        const origType = productLoaded ? this.props.product.getType() : '';
+        const type = isNull(updatedProduct.type) ? origType : updatedProduct.type;
+
+        const origCost = productLoaded ? this.props.product.getCost() : '';
+        const cost = isNull(updatedProduct.cost) ? origCost : updatedProduct.cost;
+
+        const origShipping= productLoaded ? this.props.product.getShippingPrice() : '';
+        const shipping = isNull(updatedProduct.shipping ) ? origShipping : updatedProduct.shipping;
+
+        const origEtsyUrl= productLoaded ? this.props.product.getEtsyUrl() : '';
+        const etsyUrl = isNull(updatedProduct.etsyUrl) ? origEtsyUrl : updatedProduct.etsyUrl;
+
+        const origLength = productLoaded ? this.props.product.getLength() : '';
+        const length = isNull(updatedProduct.length) ? origLength : updatedProduct.length;
+
+        const origWidth = productLoaded ? this.props.product.getWidth() : '';
+        const width = isNull(updatedProduct.width ) ? origWidth : updatedProduct.width ;
+
+        const origFrameWidth = productLoaded ? this.props.product.getFrameWidth () : '';
+        const frameWidth = isNull(updatedProduct.frameWidth) ? origFrameWidth : updatedProduct.frameWidth;
+
+        const origIncludeShippingInPrice = productLoaded ? this.props.product.getIncludeShippingInPrice() : '';
+        const includeShippingInPrice = isNull(updatedProduct.includeShippingInPrice) ? origIncludeShippingInPrice : updatedProduct.includeShippingInPrice;
+
+        return {
+            description,
+            title,
+            price,
+            type,
+            cost,
+            shipping,
+            etsyUrl,
+            length,
+            width,
+            frameWidth,
+            includeShippingInPrice,
+        };
+
+    }
+
     render = () => {
         const loading = this.props.productLoading || this.props.uploadingImage;
+
+        const productInfo = this.getProductInformation();
+        const productLoaded = !isEmpty(this.props.product);
 
         return (
             <div className="container-fluid">
                 <Spinner spinning={loading}>
-                    <div className="col-xs-12 col-md-6">
-                        <EditImages
-                            product={this.props.product}
-                            onImageUpload={this.onImageUpload}
-                        />
+                    <div className="row">
+                        <div className="offset-md-10 col-xs-12 col-md-2 mb-4">
+                            <Button
+                                onClick={this.handleSave}
+                                variant="contained"
+                                color="save"
+                            >
+                                Save
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xs-12 col-md-6">
+                            <EditImages
+                                product={this.props.product}
+                                onImageUpload={this.onImageUpload}
+                            />
+                        </div>
+
+                        {productLoaded && (
+                            <div className="col-xs-12 col-md-6">
+                                <EditProductDetails
+                                    onChange={this.handleInputChange}
+                                    {...productInfo}
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    <hr />
+
+                    <div className="row">
+                        <div className="col-12">
+                            <EditDescription
+                                onChange={this.handleDescriptionChange}
+                                description={productInfo.description}
+                            />
+                        </div>
                     </div>
 
                     <Snackbar

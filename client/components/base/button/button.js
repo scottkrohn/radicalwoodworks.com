@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
     common: {
-        borderRadius: 3,
+        borderRadius: 5,
         border: 0,
         color: 'white',
         height: 48,
@@ -18,7 +18,7 @@ const styles = {
         },
     },
     primary: {
-        background: 'linear-gradient(45deg, #42adf4 30%, #96d6ff 90%)',
+        background: 'linear-gradient(45deg, #42adf4 30%, #3ca2e5 90%)',
     },
     save: {
         background: 'linear-gradient(45deg, #75ea98 30%, #6dc689 90%)',

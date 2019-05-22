@@ -1,5 +1,6 @@
 
 import ACTIONS from 'constants/action-constants';
+import Product from 'model/product';
 
 const initialState = {
     loading: true,

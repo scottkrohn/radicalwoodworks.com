@@ -15,11 +15,11 @@ class EditImages extends PureComponent {
         super(props);
     }
 
-    onImageUpload = (imageUrl) => {
+    onImageUpload = (image) => {
         if (typeof this.props.onImageUpload === 'function') {
-            this.props.onImageUpload(imageUrl);
+            this.props.onImageUpload(image);
         }
-    };
+    }
 
     render = () => {
         const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
