@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { get } from 'lodash';
 
 // Components
-import ImageUpload from 'client/components/image-upload/image-upload';
+import EditImages from 'client/components/edit-images/edit-images';
+import Spinner from 'client/components/spinner/spinner';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -28,7 +30,11 @@ class AdminProductContainer extends Component {
                 await this.props.verifyLogin();
             } catch (error) {
                 this.props.redirectToHome();
-            }
+						}
+
+						const productId = get(this.props, 'match.params.productId');
+						await this.props.getProduct(productId);
+
         })();
     };
 
@@ -40,10 +46,11 @@ class AdminProductContainer extends Component {
         return (
             <div className="container-fluid">
                 Admin Product Container
-                <ImageUpload
-                    type="box"
-                    onImageUploadSuccess={this.onImageUpload}
-                />
+
+								<EditImages
+									product={this.props.product}
+									onImageUpload={this.onImageUpload}	
+								/>
             </div>
         );
     };
@@ -51,7 +58,8 @@ class AdminProductContainer extends Component {
 
 AdminProductContainer.propTypes = {
     verifyLogin: PropTypes.func,
-    redirectToHome: PropTypes.func,
+		redirectToHome: PropTypes.func,
+		product: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
@@ -62,7 +70,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionsToProps = {
-    verifyLogin,
+		verifyLogin,
+		getProduct,
 };
 
 export default connect(
