@@ -14,11 +14,12 @@ import styles from 'client/components/edit-product-details/edit-product-details.
 class EditPricingTitle extends PureComponent {
   constructor(props) {
     super(props);
-  } 
+  }
 
   render = () => {
     return (
       <div className={styles.EditProductDetailsContainer}>
+        <div className={styles.SectionHeader}>Product Info</div>
         <TextField
           id="title"
           className={styles.Input}
@@ -28,6 +29,63 @@ class EditPricingTitle extends PureComponent {
           variant="outlined"
         />
 
+        <TextField
+          id="etsyUrl"
+          className={styles.Input}
+          label="Etsy URL"
+          value={this.props.etsyUrl}
+          onChange={this.props.onChange('etsyUrl')}
+          variant="outlined"
+        />
+
+        <div className={styles.Row}>
+          <FormControl className={styles.Select}>
+            <InputLabel htmlFor="select-type">Product Type</InputLabel>
+            <Select
+              value={this.props.type}
+              onChange={this.props.onChange('type')}
+              inputProps={{
+                name: 'type',
+                id: 'type-select',
+              }}
+            >
+              <MenuItem value="SCONCE">Sconce</MenuItem>
+              <MenuItem value="CHALKBOARD">Chalkboard</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl className={styles.Select}>
+            <InputLabel htmlFor="select-defaultColor">Default Color</InputLabel>
+            <Select
+              value={this.props.defaultColor}
+              onChange={this.props.onChange('defaultColor')}
+              inputProps={{
+                name: 'defaultColor',
+                id: 'type-defaultColor',
+              }}
+            >
+              <MenuItem value={'EBONY'}>Ebony</MenuItem>
+              <MenuItem value={'CHERRY'}>Cherry</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl className={styles.Select}>
+            <InputLabel htmlFor="select-includeShippingInPrice">Include Shipping In Price</InputLabel>
+            <Select
+              value={this.props.includeShippingInPrice}
+              onChange={this.props.onChange('includeShippingInPrice')}
+              inputProps={{
+                name: 'includeShippingInPrice',
+                id: 'type-includeShippingInPrice',
+              }}
+            >
+              <MenuItem value={1}>Yes</MenuItem>
+              <MenuItem value={0}>No</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+        <div className={styles.SectionHeader}>Pricing</div>
         <div className={styles.Row}>
           <TextField
             id="price"
@@ -58,15 +116,7 @@ class EditPricingTitle extends PureComponent {
           />
         </div>
 
-        <TextField
-          id="etsyUrl"
-          className={styles.Input}
-          label="Etsy URL"
-          value={this.props.etsyUrl}
-          onChange={this.props.onChange('etsyUrl')}
-          variant="outlined"
-        />
-
+        <div className={styles.SectionHeader}>Dimensions</div>
         <div className={styles.Row}>
           <TextField
             id="length"
@@ -96,44 +146,9 @@ class EditPricingTitle extends PureComponent {
             variant="outlined"
           />
         </div>
-
-        <div className={styles.Row}>
-          <FormControl className={styles.Select}>
-            <InputLabel htmlFor="select-type">Product Type</InputLabel>
-              <Select
-                value={this.props.type}
-                onChange={this.props.onChange('type')}
-                inputProps={{
-                  name: 'type',
-                  id: 'type-select',
-                }}
-              >
-            <MenuItem value="SCONCE">Sconce</MenuItem>
-            <MenuItem value="CHALKBOARD">Chalkboard</MenuItem>
-          </Select>
-
-          </FormControl>
-
-          <FormControl className={styles.Select}>
-            <InputLabel htmlFor="select-includeShippingInPrice">Include Shipping In Price</InputLabel>
-              <Select
-                value={this.props.includeShippingInPrice}
-                onChange={this.props.onChange('includeShippingInPrice')}
-                inputProps={{
-                  name: 'includeShippingInPrice',
-                  id: 'type-includeShippingInPrice',
-                }}
-              >
-              <MenuItem value={1}>Yes</MenuItem>
-              <MenuItem value={0}>No</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-
-
       </div>
-    ); 
-  }
+    );
+  };
 }
 
 EditPricingTitle.propTypes = {
@@ -146,6 +161,7 @@ EditPricingTitle.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   length: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   frameWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  defaultColor: PropTypes.string,
   etsyUrl: PropTypes.string,
   type: PropTypes.string,
 };

@@ -14,43 +14,43 @@ import ImagePricingSection from 'client/components/product/image-pricing-section
 import ItemInfo from 'client/components/product/item-info';
 
 class ProductContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount = () => {
-        const productId = get(this.props, 'match.params.productId');
-        this.props.getProduct(productId);
-    };
+  componentDidMount = () => {
+    const productId = get(this.props, 'match.params.productId');
+    this.props.getProduct(productId);
+  };
 
-    render = () => {
-        const product = get(this.props, 'product', null);
-        const productLoaded = !isEmpty(product);
+  render = () => {
+    const product = get(this.props, 'product', null);
+    const productLoaded = !isEmpty(product);
 
-        return (
-            <div className="container-fluid">
-                <Spin spinning={this.props.loading} size="large">
-                    {productLoaded && <ImagePricingSection product={product} />}
-                    <hr />
-                    {productLoaded && <ItemInfo product={product} />}
-                </Spin>
-            </div>
-        );
-    };
+    return (
+      <div className="container-fluid">
+        <Spin spinning={this.props.loading} size="large">
+          {productLoaded && <ImagePricingSection product={product} />}
+          <hr />
+          {productLoaded && <ItemInfo product={product} />}
+        </Spin>
+      </div>
+    );
+  };
 }
 
 const mapStateToProps = (state) => {
-    return {
-        product: getProductSelector(state),
-        loading: getLoading(state),
-    };
+  return {
+    product: getProductSelector(state),
+    loading: getLoading(state),
+  };
 };
 
 const mapActionsToProps = {
-    getProduct,
+  getProduct,
 };
 
 export default connect(
-    mapStateToProps,
-    mapActionsToProps
+  mapStateToProps,
+  mapActionsToProps
 )(ProductContainer);
