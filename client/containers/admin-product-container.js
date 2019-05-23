@@ -9,7 +9,7 @@ import EditProductDetails from 'client/components/edit-product-details/edit-prod
 import EditDescription from 'client/components/edit-description/edit-description';
 import Spinner from 'client/components/spinner/spinner';
 import Snackbar from '@material-ui/core/Snackbar';
-import Button from 'client/components/base/button/button';
+import PageHeader from 'client/components/page-header/page-header';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -169,16 +169,12 @@ class AdminProductContainer extends Component {
       <div className="container-fluid">
         <Spinner spinning={loading}>
           <div className="row">
-            <div className="col-12 text-center">
-              <h3>Edit Product</h3>
-            </div>
-            <div className="offset-lg-10 col-md-12 col-lg-2 mb-4">
-              <Button
-                onClick={this.handleSave} variant="contained"
-                color="save" fullWidth
-              >
-                Save
-              </Button>
+            <div className="col-12">
+            <PageHeader
+              headerText="Edit Product"
+              buttonText="Save"
+              onButtonClick={this.handleSave}
+            />
             </div>
           </div>
           <div className="row">
