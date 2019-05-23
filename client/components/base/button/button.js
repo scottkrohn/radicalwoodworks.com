@@ -39,7 +39,7 @@ const styles = {
     common: {
       width: '100%',
       'font-size': '2.3em',
-      height: 100,
+      height: 75,
     },
   },
 };

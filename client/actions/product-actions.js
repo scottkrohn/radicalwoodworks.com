@@ -12,7 +12,8 @@ export const getProduct = (productId) => {
                 reject();
             }
 
-            axios.get(`/server/products/${productId}`)
+            axios
+                .get(`/server/products/${productId}`)
                 .then((response) => {
                     dispatch(getProductSuccess(response.data));
                     resolve();
@@ -44,9 +45,52 @@ export const deleteProduct = (productId) => {
     };
 };
 
+export const updateProduct = (product) => {
+    return (dispatch) => {
+        dispatch(updateProductRequest());
+        const body = {
+            data: product.getValues(),
+        };
+
+        return new Promise((resolve, reject) => {
+            axios
+                .put('/server/products/update', body)
+                .then((response) => {
+                    dispatch(updateProductSuccess());
+                    resolve();
+                })
+                .catch((error) => {
+                    dispatch(updateProductError());
+                    reject();
+                });
+        });
+    };
+};
+
 /*******************/
 /* Action Creators */
 /*******************/
+
+const updateProductRequest = () => {
+    return {
+        type: ACTIONS.UPDATE_PRODUCT_REQUEST,
+        payload: {},
+    };
+};
+
+const updateProductSuccess = (  ) => {
+    return {
+        type: ACTIONS.UPDATE_PRODUCT_SUCCESS,
+        payload: {},
+    };
+};
+
+const updateProductError = (error) => {
+    return {
+        type: ACTIONS.UPDATE_PRODUCT_ERROR,
+        payload: error,
+    };
+};
 
 const getProductRequest = () => {
     return {

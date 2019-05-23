@@ -24,7 +24,7 @@ class EditPricingTitle extends PureComponent {
           id="title"
           className={styles.Input}
           label="Title"
-          value={this.props.title}
+          value={this.props.title || ''}
           onChange={this.props.onChange('title')}
           variant="outlined"
         />
@@ -33,7 +33,7 @@ class EditPricingTitle extends PureComponent {
           id="etsyUrl"
           className={styles.Input}
           label="Etsy URL"
-          value={this.props.etsyUrl}
+          value={this.props.etsyUrl || ''}
           onChange={this.props.onChange('etsyUrl')}
           variant="outlined"
         />
@@ -42,7 +42,7 @@ class EditPricingTitle extends PureComponent {
           <FormControl className={styles.Select}>
             <InputLabel htmlFor="select-type">Product Type</InputLabel>
             <Select
-              value={this.props.type}
+              value={this.props.type || 'CHALKBOARD'}
               onChange={this.props.onChange('type')}
               inputProps={{
                 name: 'type',
@@ -57,7 +57,7 @@ class EditPricingTitle extends PureComponent {
           <FormControl className={styles.Select}>
             <InputLabel htmlFor="select-defaultColor">Default Color</InputLabel>
             <Select
-              value={this.props.defaultColor}
+              value={this.props.defaultColor || 'EBONY'}
               onChange={this.props.onChange('defaultColor')}
               inputProps={{
                 name: 'defaultColor',
@@ -72,7 +72,7 @@ class EditPricingTitle extends PureComponent {
           <FormControl className={styles.Select}>
             <InputLabel htmlFor="select-includeShippingInPrice">Include Shipping In Price</InputLabel>
             <Select
-              value={this.props.includeShippingInPrice}
+              value={this.props.includeShippingInPrice || 0}
               onChange={this.props.onChange('includeShippingInPrice')}
               inputProps={{
                 name: 'includeShippingInPrice',
@@ -92,7 +92,7 @@ class EditPricingTitle extends PureComponent {
             className={styles.Input}
             label="Price"
             type="number"
-            value={parseFloat(this.props.price)}
+            value={this.props.price ? parseFloat(this.props.price) : ''}
             onChange={this.props.onChange('price')}
             variant="outlined"
           />
@@ -101,7 +101,7 @@ class EditPricingTitle extends PureComponent {
             className={styles.Input}
             label="Cost"
             type="number"
-            value={parseFloat(this.props.cost)}
+            value={this.props.cost ? parseFloat(this.props.cost) : ''}
             onChange={this.props.onChange('cost')}
             variant="outlined"
           />
@@ -110,7 +110,7 @@ class EditPricingTitle extends PureComponent {
             className={styles.Input}
             label="Shipping"
             type="number"
-            value={parseFloat(this.props.shipping)}
+            value={this.props.shipping ? parseFloat(this.props.shipping) : ''}
             onChange={this.props.onChange('shipping')}
             variant="outlined"
           />
@@ -123,7 +123,7 @@ class EditPricingTitle extends PureComponent {
             className={styles.Input}
             label="Length"
             type="number"
-            value={this.props.length}
+            value={this.props.length || ''}
             onChange={this.props.onChange('length')}
             variant="outlined"
           />
@@ -132,7 +132,7 @@ class EditPricingTitle extends PureComponent {
             className={styles.Input}
             label="Width"
             type="number"
-            value={this.props.width}
+            value={this.props.width || ''}
             onChange={this.props.onChange('width')}
             variant="outlined"
           />
@@ -141,7 +141,7 @@ class EditPricingTitle extends PureComponent {
             className={styles.Input}
             label="Frame Width"
             type="number"
-            value={this.props.frameWidth}
+            value={this.props.frameWidth || ''}
             onChange={this.props.onChange('frameWidth')}
             variant="outlined"
           />

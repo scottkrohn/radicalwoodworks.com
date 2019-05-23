@@ -1,4 +1,5 @@
 import Model from './model';
+import { isNull } from 'lodash';
 
 class Product extends Model {
     constructor() {
@@ -53,13 +54,13 @@ class Product extends Model {
         this.data.etsy_url = etsy_url;
     };
     setLength = (length) => {
-        this.data.length = parseFloat(length);
+        this.data.length = isNull(length) ? null : parseFloat(length);
     };
     setWidth = (width) => {
-        this.data.width = parseFloat(width);
+        this.data.width = isNull(width) ? null : parseFloat(length);
     };
     setFrameWidth = (frame_width) => {
-        this.data.frame_width = parseFloat(frame_width);
+        this.data.frame_width = isNull(frame_width) ? null : parseFloat(length);
     };
     setDefaultColor = (default_color) => {
         this.data.default_color = default_color;

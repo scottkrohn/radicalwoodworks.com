@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { get, isNull, isEmpty } from 'lodash';
+import { cloneDeep, get, isNull, isEmpty } from 'lodash';
 
 // Components
 import EditImages from 'client/components/edit-images/edit-images';
@@ -13,7 +13,7 @@ import PageHeader from 'client/components/page-header/page-header';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
-import { getProduct } from 'client/actions/product-actions';
+import { getProduct, updateProduct } from 'client/actions/product-actions';
 
 // Selectors
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
@@ -29,6 +29,7 @@ class AdminProductContainer extends Component {
     this.state = {
       showNotification: false,
       notificationMessage: '',
+      loading: false,
 
       updatedProduct: {
         description: null,
@@ -89,7 +90,43 @@ class AdminProductContainer extends Component {
   };
 
   handleSave = () => {
-    console.log('Saving: ', this.state.updatedProduct);
+    const updatedProductObj = cloneDeep(this.props.product);
+    const updatedProductData = get(this.state, 'updatedProduct', {});
+
+    updatedProductObj.setShippingPrice(updatedProductData.shipping);
+    updatedProductObj.setPrice(updatedProductData.price);
+    updatedProductObj.setCost(updatedProductData.cost);
+
+    updatedProductObj.setDescription(updatedProductData.description);
+    updatedProductObj.setTitle(updatedProductData.title);
+    updatedProductObj.setIncludeShippingInPrice(updatedProductData.includeShippingInPrice);
+
+    updatedProductObj.setLength(updatedProductData.length);
+    updatedProductObj.setWidth(updatedProductData.width);
+    updatedProductObj.setDefaultColor(updatedProductData.defaultColor);
+
+    updatedProductObj.setFrameWidth(updatedProductData.frameWidth);
+    updatedProductObj.setEtsyUrl(updatedProductData.etsyUrl);
+    updatedProductObj.setType(updatedProductData.type);
+
+    this.setState({
+      loading: true,
+    }, () => {
+      (async () => {
+        try {
+          await this.props.updateProduct(updatedProductObj);
+
+          const productId = get(this.props, 'match.params.productId');
+          await this.props.getProduct(productId);
+
+          this.setState({
+            loading: false,
+          });
+        } catch (error) {
+          // TODO: HAndle error
+        }
+      })();
+    });
   };
 
   handleInputChange = (name) => (event) => {
@@ -160,7 +197,7 @@ class AdminProductContainer extends Component {
   };
 
   render = () => {
-    const loading = this.props.productLoading || this.props.uploadingImage;
+    const loading = this.state.loading || this.props.productLoading || this.props.uploadingImage;
 
     const productInfo = this.getProductInformation();
     const productLoaded = !isEmpty(this.props.product);
@@ -217,6 +254,7 @@ AdminProductContainer.propTypes = {
   product: PropTypes.object,
   productLoading: PropTypes.bool,
   uploadingImage: PropTypes.bool,
+  updateProduct: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -230,6 +268,7 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = {
   verifyLogin,
   getProduct,
+  updateProduct,
 };
 
 export default connect(

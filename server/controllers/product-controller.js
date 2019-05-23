@@ -33,6 +33,8 @@ module.exports = (req, res, next) => {
             return;
         }
 
+        console.log(product);
+
         productsBli.updateProduct(product)
             .then((result) => {
                 res.send(product.getValues());

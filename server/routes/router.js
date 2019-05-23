@@ -11,10 +11,10 @@ router.route('/products')
     .get(require('../controllers/products-controller'));
 
 router.route('/products/create')
-    .post(require('../controllers/product-controller'))
+    .post(require('../controllers/product-controller'));
 
 router.route('/products/update')
-    .put(require('../controllers/product-controller'))
+    .put(require('../controllers/product-controller'));
 
 router.route('/products/image/:productId')
     .post(require('../controllers/product-image-upload-controller'));
