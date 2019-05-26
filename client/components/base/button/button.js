@@ -21,7 +21,7 @@ const styles = {
     background: 'linear-gradient(45deg, #42adf4 30%, #3ca2e5 90%)',
   },
   save: {
-    background: 'linear-gradient(45deg, #75ea98 30%, #6dc689 90%)',
+    background: 'linear-gradient(45deg, #75ea98 30%, #72d891 90%)',
   },
   cancel: {
     background: 'linear-gradient(45deg, #cc9090 30%, #a87272 90%)',
@@ -45,10 +45,10 @@ const styles = {
 };
 
 const ButtonBase = (props) => {
-  const { slim, grow, fullWidth, children, classes, className, color, ...other } = props;
+  const { textOnly, slim, grow, fullWidth, children, classes, className, color, ...other } = props;
 
   const buttonClasses = classnames({
-    [classes.common]: true,
+    [classes.common]: !textOnly,
     [classes[color]]: true,
     [className]: true,
     [classes.root]: true,

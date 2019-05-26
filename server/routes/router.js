@@ -3,32 +3,36 @@ const router = express.Router();
 
 // Products Routes
 router.route('/products/:productId')
-    .get(require('../controllers/products-controller'))
-    .delete(require('../controllers/product-controller'));
+  .get(require('../controllers/products-controller'))
+  .delete(require('../controllers/product-controller'));
 
 // Product Routes
 router.route('/products')
-    .get(require('../controllers/products-controller'));
+  .get(require('../controllers/products-controller'));
 
 router.route('/products/create')
-    .post(require('../controllers/product-controller'));
+  .post(require('../controllers/product-controller'));
 
 router.route('/products/update')
-    .put(require('../controllers/product-controller'));
+  .put(require('../controllers/product-controller'));
 
 router.route('/products/image/:productId')
-    .post(require('../controllers/product-image-upload-controller'));
+  .post(require('../controllers/product-image-upload-controller'));
+
+// Image Routes
+router.route('/images/:imageId')
+  .delete(require('../controllers/images-controller'));
 
 // Content Routes
 router.route('/content/:contentType')
-    .all(require('../controllers/content-controller'));
+  .all(require('../controllers/content-controller'));
 
 router.route('/content/update')
-    .put(require('../controllers/content-controller'));
+  .put(require('../controllers/content-controller'));
 
 // Contact Routes
 router.route('/contact/send')
-    .all(require('../controllers/contact-controller'));
+  .all(require('../controllers/contact-controller'));
 
 
 /* Authentication Routes
@@ -38,12 +42,12 @@ router.route('/contact/send')
 // 	.post(require('../controllers/signup-controller'));
 
 router.route('/login')
-    .post(require('../controllers/auth-controller'));
+  .post(require('../controllers/auth-controller'));
 
 router.route('/logout')
-    .put(require('../controllers/auth-controller'));
+  .put(require('../controllers/auth-controller'));
 
 router.route('/verify')
-    .all(require('../controllers/admin-controller'));
+  .all(require('../controllers/admin-controller'));
 
 module.exports = router;

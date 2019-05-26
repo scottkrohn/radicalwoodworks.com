@@ -16,43 +16,49 @@ class EditImages extends PureComponent {
     super(props);
   }
 
-    onImageUpload = (image) => {
-      if (typeof this.props.onImageUpload === 'function') {
-        this.props.onImageUpload(image);
-      }
-    };
+  onImageUpload = (image) => {
+    if (typeof this.props.onImageUpload === 'function') {
+      this.props.onImageUpload(image);
+    }
+  };
 
-    render = () => {
-      const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
-      const productId = !isEmpty(this.props.product) ? this.props.product.getId() : null;
+  render = () => {
+    const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
+    const productId = !isEmpty(this.props.product) ? this.props.product.getId() : null;
 
-      return (
-        <div className={styles.EditImagesContainer}>
-          <div className={styles.CarouselContainer}>
-            <ImageCarousel images={images} />
-          </div>
-          <div className={styles.ImageUploadContainer}>
-            <ImageUpload
-              onImageUploadSuccess={this.onImageUpload}
-              productId={productId}
-            >
-              <Button
-                variant="contained"
-                slim
-                color="primary"
-              >
-                            Add Image
-              </Button>
-            </ImageUpload>
-          </div>
+    return (
+      <div className={styles.EditImagesContainer}>
+        <div className={styles.CarouselContainer}>
+          <ImageCarousel
+            images={images}
+            onDelete={this.props.onImageDelete}
+            onSetPrimary={this.props.onSetPrimary}
+          />
         </div>
-      );
-    };
+        <div className={styles.ImageUploadContainer}>
+          <ImageUpload
+            onImageUploadSuccess={this.onImageUpload}
+            productId={productId}
+          >
+            <Button
+              variant="contained"
+              slim
+              color="primary"
+            >
+              Add Image
+            </Button>
+          </ImageUpload>
+        </div>
+      </div>
+    );
+  };
 }
 
 EditImages.propTypes = {
   product: PropTypes.object,
   onImageUpload: PropTypes.func,
+  onImageDelete: PropTypes.func,
+  onSetPrimary: PropTypes.func,
 };
 
 export default EditImages;

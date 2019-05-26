@@ -8,65 +8,85 @@ import Image from '../../../model/image';
 import DB from '../../constants/database-constants';
 
 class ImagesBLI extends BaseBLI {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    createImageWithMapping = (url, isPrimary, productId) => {
-        const filename = this.getImagePathFromUrl(url);
+  createImageWithMapping = (url, isPrimary, productId) => {
+    const filename = this.getImagePathFromUrl(url);
 
-        const imageData = {
-            thumb_url: filename,
-            main_url: filename,
-            is_primary: isPrimary,
-        };
-
-        const image = this.buildImageObject(imageData);
-
-        return (async () => {
-            try {
-                const createImageResult = await this.createImage(image);
-                const imageId = get(createImageResult, 'insertId', null);
-
-                if (!imageId) {
-                    throw new Error('Error creating image: ', image);
-                }
-
-                image.setId(imageId);
-                await this.addProductImageMap(productId, image);
-                return image;
-            } catch (error) {
-                throw new Error(error);
-            }
-        })();
-    }
-
-    createImage = (image) => {
-        this.db.clear();
-        this.db.assignStr(DB.tables.images.columns.thumbUrl, image.getThumbUrl());
-        this.db.assignStr(DB.tables.images.columns.mainUrl, image.getMainUrl());
-
-        return this.db.insert(DB.tables.images.name);
+    const imageData = {
+      thumb_url: filename,
+      main_url: filename,
+      is_primary: isPrimary,
     };
 
-    addProductImageMap = (productId, image) => {
-        this.db.clear();
-        this.db.assign(DB.tables.productImageMap.columns.productId, productId);
-        this.db.assign(DB.tables.productImageMap.columns.imageId, image.getId());
-        this.db.assignBoolean(DB.tables.productImageMap.columns.hidden, image.getHidden());
-        this.db.assignBoolean(DB.tables.productImageMap.columns.isPrimary, image.getIsPrimary());
+    const image = this.buildImageObject(imageData);
 
-        this.db.insert(DB.tables.productImageMap.name);
-    };
+    return (async () => {
+      try {
+        const createImageResult = await this.createImage(image);
+        const imageId = get(createImageResult, 'insertId', null);
 
-    getImage = (imageId) => {
-        const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;
-        return this.db.selectOne(DB.tables.images.name, whereClause);
-    };
+        if (!imageId) {
+          throw new Error('Error creating image: ', image);
+        }
 
-    getImagesByProductIds = (productIds) => {
-        const productIdsString = productIds.join(',');
-        const sql = `
+        image.setId(imageId);
+        await this.addProductImageMap(productId, image);
+        return image;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })();
+  };
+
+  createImage = (image) => {
+    this.db.clear();
+    this.db.assignStr(DB.tables.images.columns.thumbUrl, image.getThumbUrl());
+    this.db.assignStr(DB.tables.images.columns.mainUrl, image.getMainUrl());
+
+    return this.db.insert(DB.tables.images.name);
+  };
+
+  addProductImageMap = (productId, image) => {
+    this.db.clear();
+    this.db.assign(DB.tables.productImageMap.columns.productId, productId);
+    this.db.assign(DB.tables.productImageMap.columns.imageId, image.getId());
+    this.db.assignBoolean(DB.tables.productImageMap.columns.hidden, image.getHidden());
+    this.db.assignBoolean(DB.tables.productImageMap.columns.isPrimary, image.getIsPrimary());
+
+    this.db.insert(DB.tables.productImageMap.name);
+  };
+
+  deleteImage = (imageId) => {
+    return (async () => {
+      try {
+        const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;  
+        const deleteImagePromise = this.db.delete(DB.tables.images.name, whereClause);
+        const deleteMappingPromise = this.deleteProductImageMap(imageId);
+
+        await deleteImagePromise;
+        await deleteMappingPromise;
+      } catch (error) {
+        throw new Error('Error occured while deleting image: ', error);
+      }
+    })();
+  }
+
+  deleteProductImageMap = (imageId) => {
+    const whereClause = `WHERE ${DB.tables.productImageMap.columns.imageId} = ${imageId}`;
+    return this.db.delete(DB.tables.productImageMap.name, whereClause);
+  }
+
+  getImage = (imageId) => {
+    const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;
+    return this.db.selectOne(DB.tables.images.name, whereClause);
+  };
+
+  getImagesByProductIds = (productIds) => {
+    const productIdsString = productIds.join(',');
+    const sql = `
 			SELECT
 				*
 			FROM
@@ -79,11 +99,11 @@ class ImagesBLI extends BaseBLI {
 				map.product_id in (${productIdsString})
 		`;
 
-        return this.db.query(sql);
-    };
+    return this.db.query(sql);
+  };
 
-    getImages = (productId) => {
-        const sql = `
+  getImages = (productId) => {
+    const sql = `
 			SELECT
 				*
 			FROM
@@ -95,19 +115,19 @@ class ImagesBLI extends BaseBLI {
 			AND
 				map.product_id = ${productId}
 		`;
-        return this.db.query(sql);
-    };
+    return this.db.query(sql);
+  };
 
-    buildImageObject = (imageData) => {
-        const image = new Image();
-        image.setValues(imageData);
-        return image;
-    };
+  buildImageObject = (imageData) => {
+    const image = new Image();
+    image.setValues(imageData);
+    return image;
+  };
 
-    getImagePathFromUrl = (url) => {
-        const filename = url.substring(url.lastIndexOf('/') + 1);
-        return filename;
-    };
+  getImagePathFromUrl = (url) => {
+    const filename = url.substring(url.lastIndexOf('/') + 1);
+    return filename;
+  };
 }
 
 export default ImagesBLI;

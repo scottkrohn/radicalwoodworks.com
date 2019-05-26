@@ -25,7 +25,7 @@ module.exports = {
         'no-console': ['warn'],
         'no-unused-vars': ['warn'],
         'react/jsx-first-prop-new-line': [1, 'multiline'],
-        'react/jsx-max-props-per-line': [1, { maximum: 1 }],
+        'react/jsx-max-props-per-line': [1, { maximum: 2 }],
         'react/jsx-closing-bracket-location': 1,
     },
 };

@@ -1,56 +1,37 @@
-@import "../../styles/variables.less";
+@import '../../styles/variables.less';
 
 .CarouselContainer {
-    position: relative;
+  position: relative;
 
   .ImageContainer {
     display: flex !important;
     justify-content: center;
   }
 
-  :global {
-    .ant-carousel {
-      overflow: hidden;
-      background: gray;
-      height: 400px;
-      width: 100%;
-    }
-
-    @media (max-width: 992px) {
-      .ant-carousel {
-        height: 600px;
-      }
-    }
-
-    .ant-carousel {
-      background: transparent;
-    }
-
-    .ant-carousel .slick-slider,
-    .slick-list,
-    .slick-track {
-      height: 100%;
-
-      .slick-list .slick-slide {
-        div {
-          height: 100%;
-        }
-      }
-    }
-  }
-
-  .Image {
+  .ImageActionsWrapper {
     height: 100%;
     max-width: 100%;
-    border: solid @gray 1px;
-    margin: auto;
+    position: relative;
+
+    .Image {
+      height: 100%;
+      max-width: 100%;
+      border: solid @gray 1px;
+      margin: auto;
+    }
+
+    .Actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
 
   .Button {
     cursor: pointer;
     font-size: 3em;
     position: absolute;
-    top: ~"calc(100%/2 - 10px)";
+    top: ~'calc(100%/2 - 10px)';
     z-index: 10;
 
     &Prev {
@@ -67,7 +48,7 @@
       cursor: pointer;
       font-size: 6em;
       position: absolute;
-      top: ~"calc(100%/2 - 10px)";
+      top: ~'calc(100%/2 - 10px)';
       z-index: 10;
 
       &Prev {
@@ -76,6 +57,37 @@
 
       &Next {
         right: 15px;
+      }
+    }
+  }
+}
+
+:global {
+  .ant-carousel {
+    overflow: hidden;
+    background: gray;
+    height: 400px;
+    width: 100%;
+  }
+
+  @media (max-width: 992px) {
+    .ant-carousel {
+      height: 600px;
+    }
+  }
+
+  .ant-carousel {
+    background: transparent;
+  }
+
+  .ant-carousel .slick-slider,
+  .slick-list,
+  .slick-track {
+    height: 100%;
+
+    .slick-list .slick-slide {
+      div {
+        height: 100%;
       }
     }
   }

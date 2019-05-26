@@ -14,6 +14,7 @@ import PageHeader from 'client/components/page-header/page-header';
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
 import { getProduct, updateProduct } from 'client/actions/product-actions';
+import { deleteImage } from 'client/actions/image-actions';
 
 // Selectors
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
@@ -89,6 +90,31 @@ class AdminProductContainer extends Component {
     });
   };
 
+  handleDeleteImage = (image) => {
+    this.setState({
+      loading: true,
+    }, () => {
+      (async () => {
+        try {
+          await this.props.deleteImage(image.getId());
+          const productId = get(this.props, 'match.params.productId');
+          await this.props.getProduct(productId);
+          this.handleShowNotification('Image successfully deleted!');
+        } catch (error) {
+          this.handleShowNotification('There was an error deleting the image.');
+        } finally {
+          this.setState({
+            loading: false,
+          });
+        }
+      })();
+    });
+  };
+
+  handleSetPrimaryImage = (image) => {
+    // TODO: Handle setting the primary image.
+  };
+
   handleSave = () => {
     const updatedProductObj = cloneDeep(this.props.product);
     const updatedProductData = get(this.state, 'updatedProduct', {});
@@ -109,24 +135,28 @@ class AdminProductContainer extends Component {
     updatedProductObj.setEtsyUrl(updatedProductData.etsyUrl);
     updatedProductObj.setType(updatedProductData.type);
 
-    this.setState({
-      loading: true,
-    }, () => {
-      (async () => {
-        try {
-          await this.props.updateProduct(updatedProductObj);
+    this.setState(
+      {
+        loading: true,
+      },
+      () => {
+        (async () => {
+          try {
+            await this.props.updateProduct(updatedProductObj);
 
-          const productId = get(this.props, 'match.params.productId');
-          await this.props.getProduct(productId);
+            const productId = get(this.props, 'match.params.productId');
+            await this.props.getProduct(productId);
 
-          this.setState({
-            loading: false,
-          });
-        } catch (error) {
-          // TODO: HAndle error
-        }
-      })();
-    });
+          } catch (error) {
+            // TODO: HAndle error
+          } finally {
+            this.setState({
+              loading: false,
+            });
+          }
+        })();
+      }
+    );
   };
 
   handleInputChange = (name) => (event) => {
@@ -173,7 +203,7 @@ class AdminProductContainer extends Component {
     const frameWidth = isNull(updatedProduct.frameWidth) ? origFrameWidth : updatedProduct.frameWidth;
 
     const origDefaultColor = productLoaded ? this.props.product.getDefaultColor() : '';
-    const defaultColor = isNull(updatedProduct.defaultColor) ? origDefaultColor: updatedProduct.defaultColor;
+    const defaultColor = isNull(updatedProduct.defaultColor) ? origDefaultColor : updatedProduct.defaultColor;
 
     const origIncludeShippingInPrice = productLoaded ? this.props.product.getIncludeShippingInPrice() : '';
     const includeShippingInPrice = isNull(updatedProduct.includeShippingInPrice)
@@ -207,16 +237,20 @@ class AdminProductContainer extends Component {
         <Spinner spinning={loading}>
           <div className="row">
             <div className="col-12">
-            <PageHeader
-              headerText="Edit Product"
-              buttonText="Save"
-              onButtonClick={this.handleSave}
-            />
+              <PageHeader
+                headerText="Edit Product" buttonText="Save"
+                onButtonClick={this.handleSave}
+              />
             </div>
           </div>
           <div className="row">
             <div className="col-md-12 col-lg-6">
-              <EditImages product={this.props.product} onImageUpload={this.onImageUpload} />
+              <EditImages
+                product={this.props.product}
+                onImageUpload={this.onImageUpload}
+                onImageDelete={this.handleDeleteImage}
+                onSetPrimary={this.handleSetPrimaryImage}
+              />
             </div>
 
             {productLoaded && (
@@ -269,6 +303,7 @@ const mapActionsToProps = {
   verifyLogin,
   getProduct,
   updateProduct,
+  deleteImage,
 };
 
 export default connect(
