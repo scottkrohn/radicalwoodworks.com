@@ -14,7 +14,7 @@ import PageHeader from 'client/components/page-header/page-header';
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
 import { getProduct, updateProduct } from 'client/actions/product-actions';
-import { deleteImage } from 'client/actions/image-actions';
+import { deleteImage, updateProductImageMapping } from 'client/actions/image-actions';
 
 // Selectors
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
@@ -112,7 +112,29 @@ class AdminProductContainer extends Component {
   };
 
   handleSetPrimaryImage = (image) => {
-    // TODO: Handle setting the primary image.
+    this.setState({
+      loading: true,
+    }, () => {
+      (async () => {
+        try {
+          const productId = get(this.props, 'match.params.productId');
+          const updateData = {
+            productId,
+            isPrimary: true,
+          };
+
+          await this.props.updateProductImageMapping(image.getId(), updateData);
+          await this.props.getProduct(productId);
+          this.handleShowNotification('Image successfully set as primary!');
+        } catch (error) {
+          this.handleShowNotification('There was an error setting the primary image. Please try again.');
+        } finally {
+          this.setState({
+            loading: false,
+          });
+        }
+      })();
+    });
   };
 
   handleSave = () => {
@@ -146,9 +168,9 @@ class AdminProductContainer extends Component {
 
             const productId = get(this.props, 'match.params.productId');
             await this.props.getProduct(productId);
-
+            this.handleShowNotification('Product successfully updated!');
           } catch (error) {
-            // TODO: HAndle error
+            this.handleShowNotification('There was an error updating this product. Please try again.');
           } finally {
             this.setState({
               loading: false,
@@ -289,6 +311,8 @@ AdminProductContainer.propTypes = {
   productLoading: PropTypes.bool,
   uploadingImage: PropTypes.bool,
   updateProduct: PropTypes.func,
+  deleteImage: PropTypes.func,
+  updateProductImageMapping: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -304,6 +328,7 @@ const mapActionsToProps = {
   getProduct,
   updateProduct,
   deleteImage,
+  updateProductImageMapping,
 };
 
 export default connect(

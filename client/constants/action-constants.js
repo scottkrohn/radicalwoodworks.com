@@ -56,9 +56,9 @@ const ACTIONS = {
   DELETE_IMAGE_SUCCESS: 'image:deleteImageSuccess',
   DELETE_IMAGE_ERROR: 'image:deleteImageError',
 
-  PRIMARY_IMAGE_REQUEST: 'image:primaryImageRequest',
-  PRIMARY_IMAGE_SUCCESS: 'image:primaryImageSuccess',
-  PRIMARY_IMAGE_ERROR: 'image:primaryImageError',
+  UPDATE_IMAGE_MAPPING_REQUEST: 'image:imageMappingRequest',
+  UPDATE_IMAGE_MAPPING_SUCCESS: 'image:imageMappingSuccess',
+  UPDATE_IMAGE_MAPPING_ERROR: 'image:imageMappingError',
 };
 
 export default ACTIONS;

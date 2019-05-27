@@ -44,6 +44,7 @@ class ImageCarousel extends Component {
         const data = {
           url: fullUrl,
           id: image.getId(),
+          isPrimary: image.getIsPrimary(),
         };
         imageData.push(data);
       }
@@ -146,6 +147,7 @@ class ImageCarousel extends Component {
                       </Menu>
                     </div>
                   )}
+                  {(showActions && imageData.isPrimary) && (<div className={styles.PrimaryBadge}>Primary Image</div>)}
                 </div>
               </div>
             );

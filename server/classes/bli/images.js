@@ -60,8 +60,6 @@ class ImagesBLI extends BaseBLI {
   };
 
   updateProductImageMapping = (productId, imageId, isPrimary, hidden) => {
-    console.log('isPrimary: ', isPrimary);
-    console.log('hidden: ', hidden);
     return (async () => {
       try {
         // If we're updating the primary image we need to clear the current primary image.
