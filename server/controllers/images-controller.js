@@ -32,7 +32,7 @@ module.exports = (req, res, next) => {
           res.send();
         })
         .catch((error) => {
-          res.status(500).send(error);
+          res.status(500).send(get(error, 'message'));
         });
     } else {
       res.status(404).send(EXCEPTIONS.notFound);
