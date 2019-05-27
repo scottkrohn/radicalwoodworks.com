@@ -1,0 +1,1 @@
+export const getUploading = (state) => state.upload.uploading;

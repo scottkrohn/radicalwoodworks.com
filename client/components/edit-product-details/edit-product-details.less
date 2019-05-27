@@ -1,0 +1,32 @@
+.EditProductDetailsContainer {
+  display: flex;
+  flex-direction: column;
+
+  .Row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .Input {
+    margin-top: 10px;
+    flex-basis: 32%;
+  }
+
+  .Select {
+    margin-top: 10px;
+    flex-basis: 32%;
+  }
+
+  .SectionHeader {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin: 15px 0 5px 0;
+  }
+
+  @media (max-width: 992px) {
+    .Row {
+      flex-direction: column;
+    }
+  }
+}

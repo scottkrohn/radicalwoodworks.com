@@ -14,46 +14,46 @@ import Product from 'model/product';
 import styles from 'client/components/product/image-pricing-section.less';
 
 class ImagePricingSection extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render = () => {
-        const images = this.props.product.getImages();
+  render = () => {
+    const images = this.props.product.getImages();
 
-        const imageSectionClasses = classnames({
-            ['col-lg-6']: true,
-            ['col-mg-12']: true,
-            [styles.ImageSectionNoImages]: images.length < 1,
-        });
+    const imageSectionClasses = classnames({
+      ['col-lg-6']: true,
+      ['col-md-12']: true,
+      [styles.ImageSectionNoImages]: images.length < 1,
+    });
 
-        const pricingClasses = classnames({
-            ['col-lg-6']: true,
-            ['col-mg-12']: true,
-            [styles.Pricing]: true,
-        });
+    const pricingClasses = classnames({
+      ['col-lg-6']: true,
+      ['col-md-12']: true,
+      [styles.Pricing]: true,
+    });
 
-        return (
-            <div className="row">
-                <div className={imageSectionClasses}>
-                    {images.length > 0 ? (
-                        <ImageCarousel images={images} />
-                    ) : (
-                        <div className={styles.NoImage}>
-                            <Icon className={styles.NoImageIcon} type="picture" />
-                        </div>
-                    )}
-                </div>
-                <div className={pricingClasses}>
-                    <Pricing product={this.props.product} />
-                </div>
+    return (
+      <div className="row">
+        <div className={imageSectionClasses}>
+          {images.length > 0 ? (
+            <ImageCarousel images={images} />
+          ) : (
+            <div className={styles.NoImage}>
+              <Icon className={styles.NoImageIcon} type="picture" />
             </div>
-        );
-    };
+          )}
+        </div>
+        <div className={pricingClasses}>
+          <Pricing product={this.props.product} />
+        </div>
+      </div>
+    );
+  };
 }
 
 ImagePricingSection.propTypes = {
-    product: PropTypes.instanceOf(Product),
+  product: PropTypes.instanceOf(Product),
 };
 
 export default ImagePricingSection;

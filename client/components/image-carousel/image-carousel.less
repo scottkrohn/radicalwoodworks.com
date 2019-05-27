@@ -1,78 +1,105 @@
-@import "../../styles/variables.less";
+@import '../../styles/variables.less';
 
-.ImageContainer {
-	display: flex !important;
-	justify-content: center;
+.CarouselContainer {
+  position: relative;
+
+  .ImageContainer {
+    display: flex !important;
+    justify-content: center;
+  }
+
+  .ImageActionsWrapper {
+    height: 100%;
+    max-width: 100%;
+    position: relative;
+
+    .Image {
+      height: 100%;
+      max-width: 100%;
+      border: solid @gray 1px;
+      margin: auto;
+    }
+
+    .Actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .PrimaryBadge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 5px;
+      max-height: 30px;
+      color: white;
+      background: rgba(0,0,0,.3);
+      border-radius: 5px;
+    }
+  }
+
+  .Button {
+    cursor: pointer;
+    font-size: 3em;
+    position: absolute;
+    top: ~'calc(100%/2 - 10px)';
+    z-index: 10;
+
+    &Prev {
+      left: 5px;
+    }
+
+    &Next {
+      right: 5px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .Button {
+      cursor: pointer;
+      font-size: 6em;
+      position: absolute;
+      top: ~'calc(100%/2 - 10px)';
+      z-index: 10;
+
+      &Prev {
+        left: 15px;
+      }
+
+      &Next {
+        right: 15px;
+      }
+    }
+  }
 }
 
 :global {
-    .ant-carousel {
+  .ant-carousel {
     overflow: hidden;
     background: gray;
-    height: 400px;
+    height: 450px;
     width: 100%;
-    }
+  }
 
-    @media (max-width: 992px) {
-        .ant-carousel {
-            height: 600px;
-        }
-    }
-
+  @media (max-width: 992px) {
     .ant-carousel {
-        background: transparent;
+      height: 600px;
     }
+  }
 
-    .ant-carousel .slick-slider,
-    .slick-list,
-    .slick-track {
+  .ant-carousel {
+    background: transparent;
+  }
+
+  .ant-carousel .slick-slider,
+  .slick-list,
+  .slick-track {
     height: 100%;
 
     .slick-list .slick-slide {
-        div {
+      div {
         height: 100%;
-        }
+      }
     }
-    }
-}
-
-.Image {
-	height: 100%;
-	max-width: 100%;
-  border: solid @gray 1px;
-  margin: auto;
-}
-
-.Button {
-	cursor: pointer;
-	font-size: 3em;
-	position: absolute;
-	top: ~"calc(100%/2 - 10px)";
-	z-index: 10;
-
-	&Prev{
-		left: 5px;
-	}
-
-	&Next {
-		right: 5px;
-	}
-}
-
-@media (max-width: 992px) {
-	.Button {
-		cursor: pointer;
-		font-size: 6em;
-		position: absolute;
-		top: ~"calc(100%/2 - 10px)";
-		z-index: 10;
-
-		&Prev{
-			left: 15px;
-		}
-
-		&Next {
-			right: 15px;
-		}
-	}
+  }
 }

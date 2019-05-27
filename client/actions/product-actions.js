@@ -4,82 +4,134 @@ import axios from 'axios';
 import ACTIONS from 'constants/action-constants';
 
 export const getProduct = (productId) => {
-    return (dispatch) => {
-        dispatch(getProductRequest());
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      dispatch(getProductRequest());
 
-        axios
-            .get(`/server/products/${productId}`)
-            .then((response) => {
-                dispatch(getProductSuccess(response.data));
-            })
-            .catch((error) => {
-                dispatch(getProductError(error));
-            });
-    };
+      if (!productId) {
+        reject();
+      }
+
+      axios
+        .get(`/server/products/${productId}`)
+        .then((response) => {
+          dispatch(getProductSuccess(response.data));
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(getProductError(error));
+          reject();
+        });
+    });
+  };
 };
 
 export const deleteProduct = (productId) => {
-    return (dispatch) => {
-        dispatch(deleteProductRequest());
+  return (dispatch) => {
+    dispatch(deleteProductRequest());
 
-        return new Promise((resolve, reject) => {
-            axios.delete(`/server/products/${productId}`)
-                .then((response) => {
-                    dispatch(deleteProductSuccess());
-                    resolve(response);
-                })
-                .catch((error) => {
-                    dispatch(deleteProductError());
-                    reject(error);
-                });
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(`/server/products/${productId}`)
+        .then((response) => {
+          dispatch(deleteProductSuccess());
+          resolve(response);
+        })
+        .catch((error) => {
+          dispatch(deleteProductError());
+          reject(error);
         });
+    });
+  };
+};
+
+export const updateProduct = (product) => {
+  return (dispatch) => {
+    dispatch(updateProductRequest());
+    const body = {
+      data: product.getValues(),
     };
+
+    return new Promise((resolve, reject) => {
+      axios
+        .put('/server/products/update', body)
+        .then((response) => {
+          dispatch(updateProductSuccess());
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(updateProductError());
+          reject();
+        });
+    });
+  };
 };
 
 /*******************/
 /* Action Creators */
 /*******************/
 
+const updateProductRequest = () => {
+  return {
+    type: ACTIONS.UPDATE_PRODUCT_REQUEST,
+    payload: {},
+  };
+};
+
+const updateProductSuccess = () => {
+  return {
+    type: ACTIONS.UPDATE_PRODUCT_SUCCESS,
+    payload: {},
+  };
+};
+
+const updateProductError = (error) => {
+  return {
+    type: ACTIONS.UPDATE_PRODUCT_ERROR,
+    payload: error,
+  };
+};
+
 const getProductRequest = () => {
-    return {
-        type: ACTIONS.GET_PRODUCT_REQUEST,
-        payload: {},
-    };
+  return {
+    type: ACTIONS.GET_PRODUCT_REQUEST,
+    payload: {},
+  };
 };
 
 const getProductSuccess = (results) => {
-    return {
-        type: ACTIONS.GET_PRODUCT_SUCCESS,
-        payload: {
-            product: results,
-        },
-    };
+  return {
+    type: ACTIONS.GET_PRODUCT_SUCCESS,
+    payload: {
+      product: results,
+    },
+  };
 };
 
 const getProductError = (error) => {
-    return {
-        type: ACTIONS.GET_PRODUCT_ERROR,
-        payload: error,
-    };
+  return {
+    type: ACTIONS.GET_PRODUCT_ERROR,
+    payload: error,
+  };
 };
 
 const deleteProductRequest = () => {
-    return {
-        type: ACTIONS.DELETE_PRODUCT_REQUEST,
-        payload: {},
-    };
+  return {
+    type: ACTIONS.DELETE_PRODUCT_REQUEST,
+    payload: {},
+  };
 };
 
 const deleteProductSuccess = () => {
-    return {
-        type: ACTIONS.DELETE_PRODUCT_SUCCESS,
-        payload: {},
-    };
+  return {
+    type: ACTIONS.DELETE_PRODUCT_SUCCESS,
+    payload: {},
+  };
 };
 
 const deleteProductError = (error) => {
-    return {
-        type: ACTIONS.DELETE_PRODUCT_ERROR,
-        payload: error,
-    };
+  return {
+    type: ACTIONS.DELETE_PRODUCT_ERROR,
+    payload: error,
+  };
 };

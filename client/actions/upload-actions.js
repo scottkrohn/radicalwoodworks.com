@@ -4,56 +4,68 @@ import axios from 'axios';
 import ACTIONS from 'constants/action-constants';
 import { Route53Resolver } from 'node_modules/aws-sdk/index';
 
-export const uploadImage = (file) => {
-    return (dispatch) => {
-        dispatch(uploadProductRequest());
+export const uploadImage = (file, productId) => {
+  return (dispatch) => {
+    dispatch(uploadImageRequest());
 
-        return new Promise((resolve, reject) => {
-            const formData = new FormData();
-            formData.append('image', file);
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('image', file);
 
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-            };
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
 
-            axios({
-                url: '/server/image/upload',
-                method: 'post',
-                config,
-                data: formData,
-            }).then((result) => {
-                resolve(result.data);
-            })
-            .catch((error) => {
-                // TODO: something with the error
-            });
+      axios({
+        url: `/server/products/image/${productId}`,
+        method: 'post',
+        config,
+        data: formData,
+      })
+        .then((result) => {
+          dispatch(uploadImageSuccess());
+          resolve(result.data);
+        })
+        .catch((error) => {
+          // TODO: something with the error
+          dispatch(uploadImageError());
         });
-    };
+    });
+  };
 };
 
 /*******************/
 /* Action Creators */
 /*******************/
 
-const uploadProductRequest = () => {
-    return {
-        type: ACTIONS.UPLOAD_IMAGE_REQUEST,
-        payload: {},
-    };
+const uploadImageRequest = () => {
+  return {
+    type: ACTIONS.UPLOAD_IMAGE_REQUEST,
+    payload: {
+      uploading: true,
+      error: false,
+    },
+  };
 };
 
-const uploadProductSuccess = () => {
-    return {
-        type: ACTIONS.UPLOAD_IMAGE_SUCCESS,
-        payload: {},
-    };
+const uploadImageSuccess = () => {
+  return {
+    type: ACTIONS.UPLOAD_IMAGE_SUCCESS,
+    payload: {
+      uploading: false,
+      error: false,
+    },
+  };
 };
 
-const uploadProductError = () => {
-    return {
-        type: ACTIONS.UPLOAD_IMAGE_ERROR,
-        payload: {},
-    };
+const uploadImageError = () => {
+  return {
+    type: ACTIONS.UPLOAD_IMAGE_ERROR,
+    payload: {
+      uploading: false,
+      error: true,
+    },
+  };
 };
