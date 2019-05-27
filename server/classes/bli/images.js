@@ -59,10 +59,44 @@ class ImagesBLI extends BaseBLI {
     this.db.insert(DB.tables.productImageMap.name);
   };
 
+  updateProductImageMapping = (productId, imageId, isPrimary, hidden) => {
+    return (async () => {
+      try {
+        // If we're updating the primary image we need to clear the current primary image.
+        if (isPrimary) {
+          const clearPrimarySql = `
+            UPDATE
+              ${DB.tables.productImageMap.name}
+            SET
+              ${DB.tables.productImageMap.columns.isPrimary} = false
+            WHERE
+              ${DB.tables.productImageMap.columns.productId} = ${productId}
+          `;
+          await this.db.query(clearPrimarySql);
+        }
+
+        // Set new primary image.
+        this.db.clear();
+        this.db.assign(DB.tables.productImageMap.columns.isPrimary, isPrimary);
+        this.db.assign(DB.tables.productImageMap.columns.hidden, hidden);
+
+        const setPrimaryWhereClause = `
+          WHERE 
+            ${DB.tables.productImageMap.columns.productId} = ${productId} 
+          AND 
+            ${DB.tables.productImageMap.columns.imageId} = ${imageId}
+        `;
+        await this.db.update(DB.tables.productImageMap.name, setPrimaryWhereClause);
+      } catch (error) {
+        throw new Error('Error occured while upating product image mapping');
+      }
+    })();
+  };
+
   deleteImage = (imageId) => {
     return (async () => {
       try {
-        const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;  
+        const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;
         const deleteImagePromise = this.db.delete(DB.tables.images.name, whereClause);
         const deleteMappingPromise = this.deleteProductImageMap(imageId);
 
@@ -72,12 +106,12 @@ class ImagesBLI extends BaseBLI {
         throw new Error('Error occured while deleting image: ', error);
       }
     })();
-  }
+  };
 
   deleteProductImageMap = (imageId) => {
     const whereClause = `WHERE ${DB.tables.productImageMap.columns.imageId} = ${imageId}`;
     return this.db.delete(DB.tables.productImageMap.name, whereClause);
-  }
+  };
 
   getImage = (imageId) => {
     const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;

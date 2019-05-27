@@ -1,3 +1,6 @@
+import { get } from 'lodash';
+
+// Classes
 import ImagesBLI from '../classes/bli/images';
 
 // Constants
@@ -15,7 +18,24 @@ module.exports = (req, res, next) => {
         res.send(result);
       })
       .catch((error) => {
-        res.status(EXCEPTIONS.internalError).send(error);
+        res.status(500).send(error);
       });
+  } else if (req.method === REQUEST.method.put) {
+    const imageId = req.params.imageId;
+    const isPrimary = get(req, 'body.isPrimary', null);
+    const hidden = get(req, 'body.hidden', null);
+    const productId = get(req, 'body.productId', null);
+
+    if (productId) {
+      imagesBli.updateProductImageMapping(productId, imageId, isPrimary, hidden)
+        .then(() => {
+          res.send();
+        })
+        .catch((error) => {
+          res.status(500).send(error);
+        });
+    } else {
+      res.status(404).send(EXCEPTIONS.notFound);
+    }
   }
 };

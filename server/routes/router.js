@@ -21,7 +21,7 @@ router.route('/products/image/:productId')
 
 // Image Routes
 router.route('/images/:imageId')
-  .delete(require('../controllers/images-controller'));
+  .all(require('../controllers/images-controller'));
 
 // Content Routes
 router.route('/content/:contentType')
