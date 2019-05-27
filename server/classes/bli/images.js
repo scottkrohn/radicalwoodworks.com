@@ -1,5 +1,5 @@
 import BaseBLI from './base';
-import { get } from 'lodash';
+import { get, isNull } from 'lodash';
 
 // Models
 import Image from '../../../model/image';
@@ -60,6 +60,8 @@ class ImagesBLI extends BaseBLI {
   };
 
   updateProductImageMapping = (productId, imageId, isPrimary, hidden) => {
+    console.log('isPrimary: ', isPrimary);
+    console.log('hidden: ', hidden);
     return (async () => {
       try {
         // If we're updating the primary image we need to clear the current primary image.
@@ -77,16 +79,26 @@ class ImagesBLI extends BaseBLI {
 
         // Set new primary image.
         this.db.clear();
-        this.db.assign(DB.tables.productImageMap.columns.isPrimary, isPrimary);
-        this.db.assign(DB.tables.productImageMap.columns.hidden, hidden);
+        let valueUpdated = false;
+        if (!isNull(isPrimary)) {
+          this.db.assign(DB.tables.productImageMap.columns.isPrimary, isPrimary);
+          valueUpdated = true;
+        }
 
-        const setPrimaryWhereClause = `
-          WHERE 
-            ${DB.tables.productImageMap.columns.productId} = ${productId} 
-          AND 
-            ${DB.tables.productImageMap.columns.imageId} = ${imageId}
-        `;
-        await this.db.update(DB.tables.productImageMap.name, setPrimaryWhereClause);
+        if (!isNull(hidden)) {
+          this.db.assign(DB.tables.productImageMap.columns.hidden, hidden);
+          valueUpdated = true;
+        }
+
+        if (valueUpdated) {
+          const setPrimaryWhereClause = `
+            WHERE
+              ${DB.tables.productImageMap.columns.productId} = ${productId}
+            AND
+              ${DB.tables.productImageMap.columns.imageId} = ${imageId}
+          `;
+          await this.db.update(DB.tables.productImageMap.name, setPrimaryWhereClause);
+        }
       } catch (error) {
         throw new Error('Error occured while upating product image mapping');
       }
