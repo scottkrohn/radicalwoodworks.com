@@ -22,8 +22,18 @@ class EditImages extends PureComponent {
     }
   };
 
-  render = () => {
+  getSortedImages = () => {
     const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
+
+    images.sort((a, b) => {
+      return a.getIsPrimary() ? -1 : 0;
+    });
+
+    return images;
+  }
+
+  render = () => {
+    const images = this.getSortedImages();
     const productId = !isEmpty(this.props.product) ? this.props.product.getId() : null;
 
     return (
@@ -32,7 +42,8 @@ class EditImages extends PureComponent {
           <ImageCarousel
             images={images}
             onDelete={this.props.onImageDelete}
-            onSetPrimary={this.props.onSetPrimary}
+            onImageMappingUpdate={this.props.onImageMappingUpdate}
+            showHidden
           />
         </div>
         <div className={styles.ImageUploadContainer}>
@@ -58,7 +69,7 @@ EditImages.propTypes = {
   product: PropTypes.object,
   onImageUpload: PropTypes.func,
   onImageDelete: PropTypes.func,
-  onSetPrimary: PropTypes.func,
+  onImageMappingUpdate: PropTypes.func,
 };
 
 export default EditImages;

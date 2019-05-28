@@ -111,29 +111,35 @@ class AdminProductContainer extends Component {
     });
   };
 
-  handleSetPrimaryImage = (image) => {
-    this.setState({
-      loading: true,
-    }, () => {
-      (async () => {
-        try {
-          const productId = get(this.props, 'match.params.productId');
-          const updateData = {
-            productId,
-            isPrimary: true,
-          };
+  handleUpdateImageMapping = (image, isPrimary = null, hidden = null) => {
 
-          await this.props.updateProductImageMapping(image.getId(), updateData);
-          await this.props.getProduct(productId);
-          this.handleShowNotification('Image successfully set as primary!');
-        } catch (error) {
-          this.handleShowNotification('There was an error setting the primary image. Please try again.');
-        } finally {
-          this.setState({
-            loading: false,
-          });
-        }
-      })();
+    return new Promise((resolve, reject) => {
+      this.setState({
+        loading: true,
+      }, () => {
+        (async () => {
+          try {
+            const productId = get(this.props, 'match.params.productId');
+            const updateData = {
+              productId,
+              isPrimary,
+              hidden: isPrimary ? false : hidden,
+            };
+
+            await this.props.updateProductImageMapping(image.getId(), updateData);
+            await this.props.getProduct(productId);
+            this.handleShowNotification('Image successfully updated!');
+          } catch (error) {
+            this.handleShowNotification('There was an error updating the image. Please try again.');
+            reject();
+          } finally {
+            this.setState({
+              loading: false,
+            });
+            resolve();
+          }
+        })();
+      });
     });
   };
 
@@ -271,7 +277,7 @@ class AdminProductContainer extends Component {
                 product={this.props.product}
                 onImageUpload={this.onImageUpload}
                 onImageDelete={this.handleDeleteImage}
-                onSetPrimary={this.handleSetPrimaryImage}
+                onImageMappingUpdate={this.handleUpdateImageMapping}
               />
             </div>
 
@@ -296,6 +302,7 @@ class AdminProductContainer extends Component {
             autoHideDuration={3000}
             onClose={this.handleHideNotification}
             message={<span>{this.state.notificationMessage}</span>}
+            variant="error"
           />
         </Spinner>
       </div>

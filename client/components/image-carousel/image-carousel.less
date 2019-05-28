@@ -2,6 +2,8 @@
 
 .CarouselContainer {
   position: relative;
+  display: flex;
+  justify-content: center;
 
   .ImageContainer {
     display: flex !important;
@@ -26,7 +28,7 @@
       right: 0;
     }
 
-    .PrimaryBadge {
+    .ImageBadge{
       position: absolute;
       top: 0;
       left: 0;
@@ -51,6 +53,21 @@
 
     &Next {
       right: 5px;
+    }
+  }
+
+  .NoImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid @gray 1px;
+    background: @light-gray;
+    border-radius: 3px;
+    width: 300px;
+    height: 300px;
+
+    .NoImageIcon {
+      font-size: 20px;
     }
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { isEmpty } from 'lodash';
 
 // Components
 import { Icon } from 'antd';
@@ -18,8 +19,18 @@ class ImagePricingSection extends Component {
     super(props);
   }
 
+  getSortedImages = () => {
+    const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
+
+    images.sort((a, b) => {
+      return a.getIsPrimary() ? -1 : 0;
+    });
+
+    return images;
+  }
+
   render = () => {
-    const images = this.props.product.getImages();
+    const images = this.getSortedImages();
 
     const imageSectionClasses = classnames({
       ['col-lg-6']: true,
@@ -36,13 +47,7 @@ class ImagePricingSection extends Component {
     return (
       <div className="row">
         <div className={imageSectionClasses}>
-          {images.length > 0 ? (
-            <ImageCarousel images={images} />
-          ) : (
-            <div className={styles.NoImage}>
-              <Icon className={styles.NoImageIcon} type="picture" />
-            </div>
-          )}
+          <ImageCarousel images={images} />
         </div>
         <div className={pricingClasses}>
           <Pricing product={this.props.product} />

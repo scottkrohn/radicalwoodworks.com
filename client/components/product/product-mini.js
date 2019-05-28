@@ -10,85 +10,85 @@ import styles from 'components/product/product-mini.less';
 import NavLink from 'client/components/nav/nav-link';
 
 class Product extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+  }
+
+  // For now this just grabs the first image.
+  getMainImageUrl = () => {
+    const product = get(this.props, 'product');
+
+    if (!product) {
+      return null;
     }
 
-    // For now this just grabs the first image.
-    getMainImageUrl = () => {
-        const product = get(this.props, 'product');
+    const images = product.getImages();
+    let image = null;
+    if (!isEmpty(images)) {
+      image = images.find((image) => {
+        return image.getIsPrimary();
+      });
 
-        if (!product) {
-            return null;
-        }
+      // Fallback to first image if nothing is marked primary.
+      if (!image) {
+        image = get(images, '[0]', null);
+      }
+    }
 
-        const images = product.getImages();
-        let image = null;
-        if (!isEmpty(images)) {
-            image = images.find((image) => {
-                return image.getIsPrimary();
-            });
+    return image ? image.getThumbUrl() : null;
+  };
 
-            // Fallback to first image if nothing is marked primary.
-            if (!image) {
-                const image = get(images, '[0]', null);
-            }
-        }
+  renderImage = () => {
+    const imageUrl = this.getMainImageUrl();
 
-        return image ? image.getThumbUrl() : null;
-    };
+    return (
+      <div>
+        {imageUrl ? (
+          <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
+        ) : (
+          <div className={styles.NoImage}>
+            <Icon className={styles.NoImageIcon} type="picture" />
+          </div>
+        )}
+      </div>
+    );
+  };
 
-    renderImage = () => {
-        const imageUrl = this.getMainImageUrl();
+  renderPrice = () => {
+    const product = get(this.props, 'product');
 
-        return (
-            <div>
-                {imageUrl ? (
-                    <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
-                ) : (
-                    <div className={styles.NoImage}>
-                        <Icon className={styles.NoImageIcon} type="picture" />
-                    </div>
-                )}
-            </div>
-        );
-    };
+    if (!product) {
+      return '';
+    }
 
-    renderPrice = () => {
-        const product = get(this.props, 'product');
+    const priceString = product.getPrice();
+    return <div className={styles.Price}>${priceString}</div>;
+  };
 
-        if (!product) {
-            return '';
-        }
+  renderTitle = () => {
+    const product = get(this.props, 'product');
 
-        const priceString = product.getPrice();
-        return <div className={styles.Price}>${priceString}</div>;
-    };
+    if (!product) {
+      return '';
+    }
 
-    renderTitle = () => {
-        const product = get(this.props, 'product');
+    return <div className={styles.ProductTitle}>{product.getTitle()}</div>;
+  };
 
-        if (!product) {
-            return '';
-        }
+  render = () => {
+    const product = get(this.props, 'product');
+    const productPageLink = `/products/product/${product.getId()}`;
 
-        return <div className={styles.ProductTitle}>{product.getTitle()}</div>;
-    };
-
-    render = () => {
-        const product = get(this.props, 'product');
-        const productPageLink = `/products/product/${product.getId()}`;
-
-        return (
-            <div className={styles.ProductMiniContainer}>
-                <NavLink to={productPageLink} className={styles.ProductContent}>
-                    {this.renderImage()}
-                    {this.renderTitle()}
-                    {this.renderPrice()}
-                </NavLink>
-            </div>
-        );
-    };
+    return (
+      <div className={styles.ProductMiniContainer}>
+        <NavLink to={productPageLink} className={styles.ProductContent}>
+          {this.renderImage()}
+          {this.renderTitle()}
+          {this.renderPrice()}
+        </NavLink>
+      </div>
+    );
+  };
 }
 
 export default Product;
