@@ -39,28 +39,28 @@ class Product extends Model {
     this.data.description = description;
   };
   setCost = (cost) => {
-    this.data.cost = cost;
+    this.data.cost = this.__getNullOrFloat(cost);
   };
   setPrice = (price) => {
-    this.data.price = price;
+    this.data.price = this.__getNullOrFloat(price);
   };
   setShippingPrice = (shipping_price) => {
-    this.data.shipping_price = shipping_price;
+    this.data.shipping_price = this.__getNullOrFloat(shipping_price);
   };
   setIncludeShippingInPrice = (include_shipping_in_price) => {
-    this.data.include_shipping_in_price = include_shipping_in_price;
+    this.data.include_shipping_in_price = this.__getBoolean(include_shipping_in_price);
   };
   setEtsyUrl = (etsy_url) => {
     this.data.etsy_url = etsy_url;
   };
   setLength = (length) => {
-    this.data.length = isNull(length) ? null : parseFloat(length);
+    this.data.length = this.__getNullOrFloat(length);
   };
   setWidth = (width) => {
-    this.data.width = isNull(width) ? null : parseFloat(width);
+    this.data.width = this.__getNullOrFloat(width);
   };
   setFrameWidth = (frame_width) => {
-    this.data.frame_width = isNull(frame_width) ? null : parseFloat(length);
+    this.data.frame_width = this.__getNullOrFloat(frame_width);
   };
   setDefaultColor = (default_color) => {
     this.data.default_color = default_color;
@@ -115,6 +115,13 @@ class Product extends Model {
   getImages = () => {
     return this.children.images;
   };
+
+  /* Derived Stuff */
+  /*****************/
+
+  getFinalPrice = () => {
+    return !this.getIncludeShippingInPrice() ? this.getPrice() : this.getPrice() + this.getShippingPrice();
+  }
 }
 
 export default Product;

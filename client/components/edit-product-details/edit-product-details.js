@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { isNull } from 'lodash';
 
 // Components
 import TextField from '@material-ui/core/TextField';
@@ -80,7 +81,7 @@ class EditProductDetails extends PureComponent {
           <FormControl className={styles.Select}>
             <InputLabel htmlFor="select-includeShippingInPrice">Include Shipping</InputLabel>
             <Select
-              value={this.props.includeShippingInPrice || ''}
+              value={!isNull(this.props.includeShippingInPrice) ? this.props.includeShippingInPrice : ''}
               onChange={this.props.onChange('includeShippingInPrice')}
               inputProps={{
                 name: 'includeShippingInPrice',

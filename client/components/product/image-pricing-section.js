@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import { isEmpty } from 'lodash';
 
 // Components
-import { Icon } from 'antd';
 import ImageCarousel from 'client/components/image-carousel/image-carousel';
 import Pricing from 'client/components/product/pricing';
 

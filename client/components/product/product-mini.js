@@ -63,7 +63,7 @@ class Product extends Component {
       return '';
     }
 
-    const priceString = product.getPrice();
+    const priceString = product.getFinalPrice();
     return <div className={styles.Price}>${priceString}</div>;
   };
 
