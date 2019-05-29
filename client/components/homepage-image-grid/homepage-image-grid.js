@@ -12,22 +12,23 @@ class HomepageImageGrid extends PureComponent {
   render = () => {
     return (
       <div className={styles.ImageGridContainer}>
-        {this.props.images.map((imageUrl) => {
-          return (
-            <img key={imageUrl} className={styles.Image} src={imageUrl} />
-          )
+        {this.props.imageUrls.map((imageUrl) => {
+          return <img
+            key={imageUrl} className={styles.Image}
+            src={imageUrl}
+          />;
         })}
       </div>
     );
-  }
+  };
 }
 
 HomepageImageGrid.propTypes = {
-  imagesUrls: PropTypes.array,
+  imageUrls: PropTypes.array,
 };
 
 HomepageImageGrid.defaultProps = {
-  imagesUrls: [],
+  imageUrls: [],
 };
 
 export default HomepageImageGrid;

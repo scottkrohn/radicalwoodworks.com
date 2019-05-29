@@ -34,7 +34,7 @@ class HomepageContainer extends Component {
             className="mb-4"
           />
 
-          <HomepageImageGrid images={homepageImageUrls} />
+          <HomepageImageGrid imageUrls={homepageImageUrls} />
         </div>
       </div>
     );
