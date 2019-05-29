@@ -8,26 +8,26 @@ import ProductMini from 'client/components/product/product-mini';
 import styles from 'client/components/product/product-grid.less';
 
 class ProductGrid extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render = () => {
-        const hasProducts = get(this.props, 'products');
+  render = () => {
+    const hasProducts = get(this.props, 'products');
 
-        return (
-            <div className={styles.ProductGrid}>
-                {hasProducts &&
-                    this.props.products.map((product) => {
-                        return (
-                            <div className={styles.ProductCell} key={uniqueId()}>
-                                <ProductMini product={product} />
-                            </div>
-                        );
-                    })}
-            </div>
-        );
-    };
+    return (
+      <div className={styles.ProductGrid}>
+        {hasProducts &&
+          this.props.products.map((product) => {
+            return (
+              <div className={styles.ProductCell} key={uniqueId()}>
+                <ProductMini product={product} />
+              </div>
+            );
+          })}
+      </div>
+    );
+  };
 }
 
 export default ProductGrid;

@@ -57,7 +57,7 @@ class Product extends Model {
     this.data.length = isNull(length) ? null : parseFloat(length);
   };
   setWidth = (width) => {
-    this.data.width = isNull(width) ? null : parseFloat(length);
+    this.data.width = isNull(width) ? null : parseFloat(width);
   };
   setFrameWidth = (frame_width) => {
     this.data.frame_width = isNull(frame_width) ? null : parseFloat(length);

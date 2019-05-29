@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
 import { Spin } from 'antd';
@@ -44,6 +45,10 @@ const mapStateToProps = (state) => {
     product: getProductSelector(state),
     loading: getLoading(state),
   };
+};
+
+ProductContainer.propTypes = {
+  loading: PropTypes.bool,
 };
 
 const mapActionsToProps = {

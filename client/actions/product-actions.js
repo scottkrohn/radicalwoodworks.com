@@ -82,6 +82,7 @@ export const updateProduct = (product) => {
       data: product.getValues(),
     };
 
+
     return new Promise((resolve, reject) => {
       axios
         .put('/server/products/update', body)
