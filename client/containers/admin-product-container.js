@@ -10,7 +10,6 @@ import EditDescription from 'client/components/edit-description/edit-description
 import Spinner from 'client/components/spinner/spinner';
 import Snackbar from '@material-ui/core/Snackbar';
 import PageHeader from 'client/components/page-header/page-header';
-import { Redirect } from 'react-router-dom';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -26,6 +25,7 @@ import Product from 'model/product';
 
 // HOCs
 import { withValidation } from 'client/hoc/auth';
+import { withRouter } from 'react-router-dom';
 
 class AdminProductContainer extends Component {
   constructor(props) {
@@ -220,11 +220,12 @@ class AdminProductContainer extends Component {
               productId = await this.props.createProduct(updatedProductObj);
               message = 'Product successfully created!';
 
-              // TODO: Need to inject the newly created product ID into the URL.
-              // Need to potentially "re-direct" back to this current component, but with the ID in the url?
-
               this.setState({
                 createMode: false,
+                createdProductId: productId,
+              }, () => {
+                // We need to inject the product ID onto the URL so code that pulls the ID from the param works.
+                this.props.history.push(`/admin-product/${productId}`);
               });
             } else {
               productId = get(this.props, 'match.params.productId');
@@ -315,13 +316,8 @@ class AdminProductContainer extends Component {
 
   render = () => {
     const loading = this.state.loading || this.props.productLoading || this.props.uploadingImage;
-
     const productInfo = this.getProductInformation();
     const productLoaded = !isEmpty(this.props.product);
-
-    // if (this.state.createdProductId) {
-    //   return <Redirect to={`/admin-product/${this.state.createdProductId}`} />;
-    // }
 
     return (
       <div className="container-fluid">
@@ -391,6 +387,7 @@ AdminProductContainer.propTypes = {
   deleteImage: PropTypes.func,
   updateProductImageMapping: PropTypes.func,
   createProductMode: PropTypes.bool,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
@@ -413,4 +410,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withValidation(AdminProductContainer));
+)(withValidation(withRouter(AdminProductContainer)));

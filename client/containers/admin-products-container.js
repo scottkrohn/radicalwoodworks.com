@@ -23,6 +23,7 @@ import { getProducts as getProductsSelector, getLoading } from 'selectors/produc
 
 // HOCs
 import { withValidation } from 'client/hoc/auth';
+import { withRouter } from 'react-router-dom';
 
 class AdminProductsContainer extends Component {
   constructor(props) {
@@ -99,6 +100,10 @@ class AdminProductsContainer extends Component {
     });
   };
 
+  handleCreateProduct = () => {
+    this.props.history.push('/admin-product');
+  }
+
   render = () => {
     const loading = this.props.loading || this.state.deletingProduct;
     return (
@@ -107,7 +112,8 @@ class AdminProductsContainer extends Component {
           <div className="col-12">
             <PageHeader
               headerText="Edit Product"
-              showButton={false}
+              buttonText="Create Product"
+              onButtonClick={this.handleCreateProduct}
             />
           </div>
         </div>
@@ -171,4 +177,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withValidation(AdminProductsContainer));
+)(withValidation(withRouter(AdminProductsContainer)));
