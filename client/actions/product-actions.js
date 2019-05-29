@@ -97,9 +97,27 @@ export const updateProduct = (product) => {
   };
 };
 
+export const clearProduct = () => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      dispatch(clearProductRequest());
+      resolve();
+    });
+  };
+};
+
 /*******************/
 /* Action Creators */
 /*******************/
+
+const clearProductRequest = () => {
+  return {
+    type: ACTIONS.CLEAR_PRODUCT_REQUEST,
+    payload: {
+      product: null,
+    },
+  };
+};
 
 const createProductRequest = () => {
   return {

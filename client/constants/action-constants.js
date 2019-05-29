@@ -4,6 +4,7 @@ const ACTIONS = {
   GET_PRODUCTS_SUCCESS: 'products:getProductsSuccess',
   GET_PRODUCTS_ERROR: 'products:getProductsError',
 
+
   // Product Actions
   GET_PRODUCT_REQUEST: 'product:getProductRequest',
   GET_PRODUCT_SUCCESS: 'product:getProductSuccess',
@@ -20,6 +21,8 @@ const ACTIONS = {
   DELETE_PRODUCT_REQUEST: 'product:deleteProductRequest',
   DELETE_PRODUCT_SUCCESS: 'product:deleteProductSuccess',
   DELETE_PRODUCT_ERROR: 'product:deleteProductError',
+
+  CLEAR_PRODUCT_REQUEST: 'product:clearProductRequest',
 
   // Content Actions
   GET_CONTENT_REQUEST: 'content:getContentRequest',

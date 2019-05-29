@@ -18,6 +18,7 @@ const productReducer = (state = initialState, { type, payload }) => {
     case ACTIONS.GET_PRODUCT_SUCCESS:
     case ACTIONS.CREATE_PRODUCT_SUCCESS:
     case ACTIONS.UPDATE_PRODUCT_SUCCESS:
+    case ACTIONS.CLEAR_PRODUCT_REQUEST:
       return {
         ...state,
         ...payload,

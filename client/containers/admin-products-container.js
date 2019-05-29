@@ -16,7 +16,7 @@ import PageHeader from 'client/components/page-header/page-header';
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
 import { getProducts } from 'actions/products-actions';
-import { deleteProduct } from 'actions/product-actions';
+import { deleteProduct, clearProduct } from 'actions/product-actions';
 
 // Selectors
 import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
@@ -101,7 +101,10 @@ class AdminProductsContainer extends Component {
   };
 
   handleCreateProduct = () => {
-    this.props.history.push('/admin-product');
+    this.props.clearProduct()
+      .then(() => {
+        this.props.history.push('/admin-product');
+      });
   }
 
   render = () => {
@@ -159,6 +162,7 @@ AdminProductsContainer.propTypes = {
   products: PropTypes.array,
   deleteProduct: PropTypes.func,
   getProducts: PropTypes.func,
+  clearProduct: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -172,6 +176,7 @@ const mapActionsToProps = {
   verifyLogin,
   getProducts,
   deleteProduct,
+  clearProduct,
 };
 
 export default connect(
