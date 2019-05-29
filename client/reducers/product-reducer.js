@@ -1,39 +1,41 @@
-
 import ACTIONS from 'constants/action-constants';
 import Product from 'model/product';
 
 const initialState = {
-    loading: true,
+  loading: false,
 };
 
 const productReducer = (state = initialState, { type, payload }) => {
-    switch (type) {
+  switch (type) {
     case ACTIONS.GET_PRODUCT_REQUEST:
+    case ACTIONS.CREATE_PRODUCT_REQUEST:
     case ACTIONS.UPDATE_PRODUCT_REQUEST:
-        return {
-            ...state,
-            loading: true,
-            error: false,
-        };
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
     case ACTIONS.GET_PRODUCT_SUCCESS:
+    case ACTIONS.CREATE_PRODUCT_SUCCESS:
     case ACTIONS.UPDATE_PRODUCT_SUCCESS:
-        return {
-            ...state,
-            ...payload,
-            loading: false,
-            error: false,
-        };
+      return {
+        ...state,
+        ...payload,
+        loading: false,
+        error: false,
+      };
     case ACTIONS.GET_PRODUCT_ERROR:
+    case ACTIONS.CREATE_PRODUCT_ERROR:
     case ACTIONS.UPDATE_PRODUCT_ERROR:
-        return {
-            ...state,
-            ...payload,
-            loading: false,
-            error: true,
-        };
+      return {
+        ...state,
+        ...payload,
+        loading: false,
+        error: true,
+      };
     default:
-        return state;
-    }
+      return state;
+  }
 };
 
 export default productReducer;

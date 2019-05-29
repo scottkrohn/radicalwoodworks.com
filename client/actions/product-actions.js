@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import axios from 'axios';
 
 // Constants
@@ -21,6 +22,35 @@ export const getProduct = (productId) => {
         .catch((error) => {
           dispatch(getProductError(error));
           reject();
+        });
+    });
+  };
+};
+
+export const createProduct = (product) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      dispatch(createProductRequest());
+
+      const body = {
+        data: product.getValues(),
+      };
+
+      axios
+        .post('/server/products/create', body)
+        .then((result) => {
+          const productId = get(result, 'data.id', null);
+
+          if (!productId) {
+            throw new Error('Error occured while creating product');
+          }
+
+          dispatch(createProductSuccess());
+          resolve(productId);
+        })
+        .catch((error) => {
+          dispatch(createProductError());
+          reject(error);
         });
     });
   };
@@ -70,6 +100,27 @@ export const updateProduct = (product) => {
 /*******************/
 /* Action Creators */
 /*******************/
+
+const createProductRequest = () => {
+  return {
+    type: ACTIONS.CREATE_PRODUCT_REQUEST,
+    payload: {},
+  };
+};
+
+const createProductSuccess = () => {
+  return {
+    type: ACTIONS.CREATE_PRODUCT_SUCCESS,
+    payload: {},
+  };
+};
+
+const createProductError = (error) => {
+  return {
+    type: ACTIONS.CREATE_PRODUCT_ERROR,
+    payload: error,
+  };
+};
 
 const updateProductRequest = () => {
   return {

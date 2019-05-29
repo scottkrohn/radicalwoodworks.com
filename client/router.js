@@ -23,89 +23,77 @@ import AdminProductContainer from 'client/containers/admin-product-container';
 import NotFoundContainer from 'containers/not-found-container';
 
 const Router = () => (
-    <Switch>
-        <Route
-            exact
-            path="/"
-            component={HomepageContainer}
-        />
-        <Route
-            exact
-            path="/about"
-            component={AboutContainer}
-        />
-        <Route
-            exact
-            path="/contact"
-            component={ContactContainer}
-        />
-        <Route
-            exact
-            path="/faq"
-            component={FaqContainer}
-        />
-        <Route
-            exact
-            path="/login"
-            component={LoginContainer}
-        />
-        <Route
-            exact
-            path="/products"
-            component={ProductsContainer}
-        />
-        <Route
-            exact
-            path="/products/product/:productId"
-            component={ProductContainer}
-        />
+  <Switch>
+    <Route
+      exact path="/"
+      component={HomepageContainer}
+    />
+    <Route
+      exact path="/about"
+      component={AboutContainer}
+    />
+    <Route
+      exact path="/contact"
+      component={ContactContainer}
+    />
+    <Route
+      exact path="/faq"
+      component={FaqContainer}
+    />
+    <Route
+      exact path="/login"
+      component={LoginContainer}
+    />
+    <Route
+      exact path="/products"
+      component={ProductsContainer}
+    />
+    <Route
+      exact path="/products/product/:productId"
+      component={ProductContainer}
+    />
 
-        {/* Protected Routes */}
-        <ProtectedRoute
-            exact
-            path="/admin"
-            component={AdminContainer}
-        />
-        <ProtectedRoute
-            exact
-            path="/admin-about"
-            component={AdminAboutUsContainer}
-        />
-        <ProtectedRoute
-            exact
-            path="/admin-faq"
-            component={AdminFaqContainer}
-        />
-        <ProtectedRoute
-            exact
-            path="/admin-products"
-            component={AdminProductsContainer}
-        />
-        <ProtectedRoute
-            exact
-            path="/admin-product/:productId"
-            component={AdminProductContainer}
-        />
+    {/* Protected Routes */}
+    <ProtectedRoute
+      exact path="/admin"
+      component={AdminContainer}
+    />
+    <ProtectedRoute
+      exact path="/admin-about"
+      component={AdminAboutUsContainer}
+    />
+    <ProtectedRoute
+      exact path="/admin-faq"
+      component={AdminFaqContainer}
+    />
+    <ProtectedRoute
+      exact path="/admin-products"
+      component={AdminProductsContainer}
+    />
+    <ProtectedRoute
+      path="/admin-product/:productId?"
+      component={AdminProductContainer}
+    />
 
-        {/* 404 Route */}
-        <Route component={NotFoundContainer} />
-    </Switch>
+    {/* 404 Route */}
+    <Route component={NotFoundContainer} />
+  </Switch>
 );
 
 const ProtectedRoute = ({ component: Component, ...args }) => {
-    return (
-        <Route
-            {...args}
-            render={(props) => {
-                const isLoggedIn = !!Cookie.get('utoken');
-                return isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />;
-            }}
-        />
-    );
+  return (
+    <Route
+      {...args}
+      render={(props) => {
+        const isLoggedIn = !!Cookie.get('utoken');
+        return isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />;
+      }}
+    />
+  );
 };
 
 ProtectedRoute.propTypes = {
-    component: PropTypes.func,
+  component: PropTypes.func,
 };
 
 export default Router;

@@ -11,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 // Styles
 import styles from 'client/components/edit-product-details/edit-product-details.less';
 
-class EditPricingTitle extends PureComponent {
+class EditProductDetails extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -27,6 +27,8 @@ class EditPricingTitle extends PureComponent {
           value={this.props.title || ''}
           onChange={this.props.onChange('title')}
           variant="outlined"
+          error={this.props.invalidFields.includes('title')}
+          required
         />
 
         <TextField
@@ -36,18 +38,22 @@ class EditPricingTitle extends PureComponent {
           value={this.props.etsyUrl || ''}
           onChange={this.props.onChange('etsyUrl')}
           variant="outlined"
+          error={this.props.invalidFields.includes('etsyUrl')}
+          required
         />
 
         <div className={styles.Row}>
           <FormControl className={styles.Select}>
             <InputLabel htmlFor="select-type">Product Type</InputLabel>
             <Select
-              value={this.props.type || 'CHALKBOARD'}
+              value={this.props.type || ''}
               onChange={this.props.onChange('type')}
               inputProps={{
                 name: 'type',
                 id: 'type-select',
               }}
+              error={this.props.invalidFields.includes('type')}
+              required
             >
               <MenuItem value="SCONCE">Sconce</MenuItem>
               <MenuItem value="CHALKBOARD">Chalkboard</MenuItem>
@@ -57,12 +63,14 @@ class EditPricingTitle extends PureComponent {
           <FormControl className={styles.Select}>
             <InputLabel htmlFor="select-defaultColor">Default Color</InputLabel>
             <Select
-              value={this.props.defaultColor || 'EBONY'}
+              value={this.props.defaultColor || ''}
               onChange={this.props.onChange('defaultColor')}
               inputProps={{
                 name: 'defaultColor',
                 id: 'type-defaultColor',
               }}
+              error={this.props.invalidFields.includes('defaultColor')}
+              required
             >
               <MenuItem value={'EBONY'}>Ebony</MenuItem>
               <MenuItem value={'CHERRY'}>Cherry</MenuItem>
@@ -70,14 +78,16 @@ class EditPricingTitle extends PureComponent {
           </FormControl>
 
           <FormControl className={styles.Select}>
-            <InputLabel htmlFor="select-includeShippingInPrice">Include Shipping In Price</InputLabel>
+            <InputLabel htmlFor="select-includeShippingInPrice">Include Shipping</InputLabel>
             <Select
-              value={this.props.includeShippingInPrice || 0}
+              value={this.props.includeShippingInPrice || ''}
               onChange={this.props.onChange('includeShippingInPrice')}
               inputProps={{
                 name: 'includeShippingInPrice',
                 id: 'type-includeShippingInPrice',
               }}
+              error={this.props.invalidFields.includes('includeShippingInPrice')}
+              required
             >
               <MenuItem value={1}>Yes</MenuItem>
               <MenuItem value={0}>No</MenuItem>
@@ -95,6 +105,8 @@ class EditPricingTitle extends PureComponent {
             value={this.props.price ? parseFloat(this.props.price) : ''}
             onChange={this.props.onChange('price')}
             variant="outlined"
+            error={this.props.invalidFields.includes('price')}
+            required
           />
           <TextField
             id="cost"
@@ -104,6 +116,8 @@ class EditPricingTitle extends PureComponent {
             value={this.props.cost ? parseFloat(this.props.cost) : ''}
             onChange={this.props.onChange('cost')}
             variant="outlined"
+            error={this.props.invalidFields.includes('cost')}
+            required
           />
           <TextField
             id="shipping"
@@ -113,6 +127,8 @@ class EditPricingTitle extends PureComponent {
             value={this.props.shipping ? parseFloat(this.props.shipping) : ''}
             onChange={this.props.onChange('shipping')}
             variant="outlined"
+            error={this.props.invalidFields.includes('shipping')}
+            required
           />
         </div>
 
@@ -126,6 +142,8 @@ class EditPricingTitle extends PureComponent {
             value={this.props.length || ''}
             onChange={this.props.onChange('length')}
             variant="outlined"
+            error={this.props.invalidFields.includes('length')}
+            required
           />
           <TextField
             id="width"
@@ -135,6 +153,8 @@ class EditPricingTitle extends PureComponent {
             value={this.props.width || ''}
             onChange={this.props.onChange('width')}
             variant="outlined"
+            error={this.props.invalidFields.includes('width')}
+            required
           />
           <TextField
             id="frameWidth"
@@ -151,7 +171,7 @@ class EditPricingTitle extends PureComponent {
   };
 }
 
-EditPricingTitle.propTypes = {
+EditProductDetails.propTypes = {
   onChange: PropTypes.func,
   title: PropTypes.string,
   price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -164,6 +184,7 @@ EditPricingTitle.propTypes = {
   defaultColor: PropTypes.string,
   etsyUrl: PropTypes.string,
   type: PropTypes.string,
+  invalidFields: PropTypes.array,
 };
 
-export default EditPricingTitle;
+export default EditProductDetails;

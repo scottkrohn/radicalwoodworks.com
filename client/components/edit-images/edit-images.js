@@ -46,20 +46,22 @@ class EditImages extends PureComponent {
             showHidden
           />
         </div>
-        <div className={styles.ImageUploadContainer}>
-          <ImageUpload
-            onImageUploadSuccess={this.onImageUpload}
-            productId={productId}
-          >
-            <Button
-              variant="contained"
-              slim
-              color="primary"
+        {!this.props.hideAddButton && (
+          <div className={styles.ImageUploadContainer}>
+            <ImageUpload
+              onImageUploadSuccess={this.onImageUpload}
+              productId={productId}
             >
-              Add Image
-            </Button>
-          </ImageUpload>
-        </div>
+              <Button
+                variant="contained"
+                slim
+                color="primary"
+              >
+                Add Image
+              </Button>
+            </ImageUpload>
+          </div>
+        )}
       </div>
     );
   };
@@ -67,9 +69,14 @@ class EditImages extends PureComponent {
 
 EditImages.propTypes = {
   product: PropTypes.object,
+  hideAddButton: PropTypes.bool,
   onImageUpload: PropTypes.func,
   onImageDelete: PropTypes.func,
   onImageMappingUpdate: PropTypes.func,
+};
+
+EditImages.defaultProps = {
+  hideAddButton: false,
 };
 
 export default EditImages;

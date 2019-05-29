@@ -10,15 +10,19 @@ import EditDescription from 'client/components/edit-description/edit-description
 import Spinner from 'client/components/spinner/spinner';
 import Snackbar from '@material-ui/core/Snackbar';
 import PageHeader from 'client/components/page-header/page-header';
+import { Redirect } from 'react-router-dom';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
-import { getProduct, updateProduct } from 'client/actions/product-actions';
+import { getProduct, createProduct, updateProduct } from 'client/actions/product-actions';
 import { deleteImage, updateProductImageMapping } from 'client/actions/image-actions';
 
 // Selectors
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
 import { getUploading } from 'client/selectors/image-upload-selector';
+
+// Models
+import Product from 'model/product';
 
 // HOCs
 import { withValidation } from 'client/hoc/auth';
@@ -31,6 +35,9 @@ class AdminProductContainer extends Component {
       showNotification: false,
       notificationMessage: '',
       loading: false,
+      createMode: false,
+      createdProductId: null,
+      invalidFields: [],
 
       updatedProduct: {
         description: null,
@@ -58,7 +65,11 @@ class AdminProductContainer extends Component {
       }
 
       const productId = get(this.props, 'match.params.productId');
-      await this.props.getProduct(productId);
+      if (productId) {
+        await this.props.getProduct(productId);
+      } else {
+        this.setState({ createMode: true });
+      }
     })();
   };
 
@@ -91,61 +102,94 @@ class AdminProductContainer extends Component {
   };
 
   handleDeleteImage = (image) => {
-    this.setState({
-      loading: true,
-    }, () => {
-      (async () => {
-        try {
-          await this.props.deleteImage(image.getId());
-          const productId = get(this.props, 'match.params.productId');
-          await this.props.getProduct(productId);
-          this.handleShowNotification('Image successfully deleted!');
-        } catch (error) {
-          this.handleShowNotification('There was an error deleting the image.');
-        } finally {
-          this.setState({
-            loading: false,
-          });
-        }
-      })();
-    });
-  };
-
-  handleUpdateImageMapping = (image, isPrimary = null, hidden = null) => {
-
-    return new Promise((resolve, reject) => {
-      this.setState({
+    this.setState(
+      {
         loading: true,
-      }, () => {
+      },
+      () => {
         (async () => {
           try {
+            await this.props.deleteImage(image.getId());
             const productId = get(this.props, 'match.params.productId');
-            const updateData = {
-              productId,
-              isPrimary,
-              hidden: isPrimary ? false : hidden,
-            };
-
-            await this.props.updateProductImageMapping(image.getId(), updateData);
             await this.props.getProduct(productId);
-            this.handleShowNotification('Image successfully updated!');
+            this.handleShowNotification('Image successfully deleted!');
           } catch (error) {
-            this.handleShowNotification('There was an error updating the image. Please try again.');
-            reject();
+            this.handleShowNotification('There was an error deleting the image.');
           } finally {
             this.setState({
               loading: false,
             });
-            resolve();
           }
         })();
-      });
+      }
+    );
+  };
+
+  handleUpdateImageMapping = (image, isPrimary = null, hidden = null) => {
+    return new Promise((resolve, reject) => {
+      this.setState(
+        {
+          loading: true,
+        },
+        () => {
+          (async () => {
+            try {
+              const productId = get(this.props, 'match.params.productId');
+              const updateData = {
+                productId,
+                isPrimary,
+                hidden: isPrimary ? false : hidden,
+              };
+
+              await this.props.updateProductImageMapping(image.getId(), updateData);
+              await this.props.getProduct(productId);
+              this.handleShowNotification('Image successfully updated!');
+            } catch (error) {
+              this.handleShowNotification('There was an error updating the image. Please try again.');
+              reject();
+            } finally {
+              this.setState({
+                loading: false,
+              });
+              resolve();
+            }
+          })();
+        }
+      );
     });
   };
 
+  getInvalidFields = (productData) => {
+    const invalidFields = [];
+
+    const ignoredFields = ['description', 'frameWidth'];
+
+    for (const property in productData) {
+      if (ignoredFields.includes(property)) {
+        continue;
+      } else if (this.state.createMode && !productData[property]) {
+        invalidFields.push(property);
+      } else if (productData[property] === '') {
+        invalidFields.push(property);
+      }
+    }
+
+    return invalidFields;
+  };
+
   handleSave = () => {
-    const updatedProductObj = cloneDeep(this.props.product);
+    const updatedProductObj = this.state.createMode ? new Product() : cloneDeep(this.props.product);
     const updatedProductData = get(this.state, 'updatedProduct', {});
+
+    const invalidFields = this.getInvalidFields(updatedProductData);
+    this.setState({
+      invalidFields,
+    });
+
+    // Let's bail if there's invalid fields.
+    if (invalidFields.length) {
+      return;
+    }
 
     updatedProductObj.setShippingPrice(updatedProductData.shipping);
     updatedProductObj.setPrice(updatedProductData.price);
@@ -170,11 +214,26 @@ class AdminProductContainer extends Component {
       () => {
         (async () => {
           try {
-            await this.props.updateProduct(updatedProductObj);
+            let productId;
+            let message;
+            if (this.state.createMode) {
+              productId = await this.props.createProduct(updatedProductObj);
+              message = 'Product successfully created!';
 
-            const productId = get(this.props, 'match.params.productId');
+              // TODO: Need to inject the newly created product ID into the URL.
+              // Need to potentially "re-direct" back to this current component, but with the ID in the url?
+
+              this.setState({
+                createMode: false,
+              });
+            } else {
+              productId = get(this.props, 'match.params.productId');
+              message = 'Product successfully updated!';
+              await this.props.updateProduct(updatedProductObj);
+            }
+
             await this.props.getProduct(productId);
-            this.handleShowNotification('Product successfully updated!');
+            this.handleShowNotification(message);
           } catch (error) {
             this.handleShowNotification('There was an error updating this product. Please try again.');
           } finally {
@@ -233,7 +292,7 @@ class AdminProductContainer extends Component {
     const origDefaultColor = productLoaded ? this.props.product.getDefaultColor() : '';
     const defaultColor = isNull(updatedProduct.defaultColor) ? origDefaultColor : updatedProduct.defaultColor;
 
-    const origIncludeShippingInPrice = productLoaded ? this.props.product.getIncludeShippingInPrice() : '';
+    const origIncludeShippingInPrice = productLoaded ? this.props.product.getIncludeShippingInPrice() : null;
     const includeShippingInPrice = isNull(updatedProduct.includeShippingInPrice)
       ? origIncludeShippingInPrice
       : updatedProduct.includeShippingInPrice;
@@ -260,13 +319,18 @@ class AdminProductContainer extends Component {
     const productInfo = this.getProductInformation();
     const productLoaded = !isEmpty(this.props.product);
 
+    // if (this.state.createdProductId) {
+    //   return <Redirect to={`/admin-product/${this.state.createdProductId}`} />;
+    // }
+
     return (
       <div className="container-fluid">
         <Spinner spinning={loading}>
           <div className="row">
             <div className="col-12">
               <PageHeader
-                headerText="Edit Product" buttonText="Save"
+                headerText={this.state.createMode ? 'Create Product' : 'Edit Product'}
+                buttonText="Save"
                 onButtonClick={this.handleSave}
               />
             </div>
@@ -278,12 +342,17 @@ class AdminProductContainer extends Component {
                 onImageUpload={this.onImageUpload}
                 onImageDelete={this.handleDeleteImage}
                 onImageMappingUpdate={this.handleUpdateImageMapping}
+                hideAddButton={this.state.createMode}
               />
             </div>
 
-            {productLoaded && (
+            {(productLoaded || this.state.createMode) && (
               <div className="col-md-12 col-lg-6">
-                <EditProductDetails onChange={this.handleInputChange} {...productInfo} />
+                <EditProductDetails
+                  onChange={this.handleInputChange}
+                  {...productInfo}
+                  invalidFields={this.state.invalidFields}
+                />
               </div>
             )}
           </div>
@@ -318,8 +387,10 @@ AdminProductContainer.propTypes = {
   productLoading: PropTypes.bool,
   uploadingImage: PropTypes.bool,
   updateProduct: PropTypes.func,
+  createProduct: PropTypes.func,
   deleteImage: PropTypes.func,
   updateProductImageMapping: PropTypes.func,
+  createProductMode: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
@@ -336,6 +407,7 @@ const mapActionsToProps = {
   updateProduct,
   deleteImage,
   updateProductImageMapping,
+  createProduct,
 };
 
 export default connect(
