@@ -1,27 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Components
+import PageHeader from 'client/components/page-header/page-header';
+import TextBlurb from 'client/components/text-blurb/text-blurb';
+import HomepageImageGrid from 'client/components/homepage-image-grid/homepage-image-grid';
+
+// Constants
+import IMAGES from 'client/constants/image-constants';
+
 class HomepageContainer extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props);
-    }
 
-	render = () => {
-	    return (
-	        <div className="container">
-	            <div className="col-xs-12">
-	                <div className="text-center">
-	                    <h1>Radical Woodworks</h1>
-	                    <h3>Under Construction</h3>
-	                    <p>
-	                        <a href="https://www.etsy.com/shop/radicalwoodworks">Visit Our Etsy Shop</a>
-	                    </p>
-	                </div>
-	            </div>
-	        </div>
-	    );
-	};
+
+  render = () => {
+    const homepageImageUrls = IMAGES.images.homepage.map((url) => {
+      return IMAGES.getFullUrl(url);
+    });
+
+    return (
+      <div className="container">
+        <div className="col-12">
+          <PageHeader
+            headerText='Radical Woodworks'
+            showButton={false}
+          />
+
+          <TextBlurb
+            text="Rustic Handmade Chalkboards and Home Decor"
+            className="mb-4"
+          />
+
+          <HomepageImageGrid images={homepageImageUrls} />
+        </div>
+      </div>
+    );
+  };
 }
 
 const mapStateToProps = (state) => state;
@@ -29,6 +46,6 @@ const mapStateToProps = (state) => state;
 const mapActionsToProps = {};
 
 export default connect(
-    mapStateToProps,
-    mapActionsToProps,
+  mapStateToProps,
+  mapActionsToProps
 )(HomepageContainer);

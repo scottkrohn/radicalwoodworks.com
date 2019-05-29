@@ -21,140 +21,137 @@ import { getAllContent as getAllContentObjects, getLoading } from 'client/select
 import { withValidation } from 'client/hoc/auth';
 
 class AdminFaqContainer extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            selectedContent: null,
-            showNotification: false,
-            notificationMessage: '',
-        };
-    }
-
-    componentDidMount = () => {
-        (async () => {
-            try {
-                await this.props.verifyLogin();
-            } catch (error) {
-                this.props.redirectToHome();
-            }
-
-            await this.props.getAllContent('POLICY');
-
-            const aboutUsContent = get(this.props, 'content.0');
-
-            if (aboutUsContent) {
-                this.setState({
-                    text: aboutUsContent.getContent(),
-                });
-            }
-        })();
+    this.state = {
+      selectedContent: null,
+      showNotification: false,
+      notificationMessage: '',
     };
+  }
 
-    handleEditorChange = (content) => {
+  componentDidMount = () => {
+    (async () => {
+      try {
+        await this.props.verifyLogin();
+      } catch (error) {
+        this.props.redirectToHome();
+      }
+
+      await this.props.getAllContent('POLICY');
+
+      const aboutUsContent = get(this.props, 'content.0');
+
+      if (aboutUsContent) {
         this.setState({
-            selectedContent: content,
+          text: aboutUsContent.getContent(),
         });
-    };
+      }
+    })();
+  };
 
-    handleSave = (content, text) => {
-        content.setContent(text);
+  handleEditorChange = (content) => {
+    this.setState({
+      selectedContent: content,
+    });
+  };
 
-        (async () => {
-            try {
-                await this.props.updateContent(content);
-                this.handleShowNotification('Successfully saved!');
-            } catch (error) {
-                this.handleShowNotification('There was an error while saving!');
-            }
-        })();
-    };
+  handleSave = (content, text) => {
+    content.setContent(text);
 
-    handleShowNotification = (message) => {
-        this.setState({
-            showNotification: true,
-            notificationMessage: message,
-        });
-    };
+    (async () => {
+      try {
+        await this.props.updateContent(content);
+        this.handleShowNotification('Successfully saved!');
+      } catch (error) {
+        this.handleShowNotification('There was an error while saving!');
+      }
+    })();
+  };
 
-    handleHideNotification = () => {
-        this.setState({
-            showNotification: false,
-        });
-    };
+  handleShowNotification = (message) => {
+    this.setState({
+      showNotification: true,
+      notificationMessage: message,
+    });
+  };
 
-    render = () => {
-        const content = this.props.content || [];
+  handleHideNotification = () => {
+    this.setState({
+      showNotification: false,
+    });
+  };
 
-        const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
+  render = () => {
+    const content = this.props.content || [];
 
-        return (
-            <div className="container-fluid text-center">
-                <Spinner spinning={this.props.loading}>
-                    <h2>Edit FAQ</h2>
-                    <Grid>
-                        {policyContent.length > 0 &&
-                            policyContent.map((contentObj) => {
-                                return (
-                                    <Button
-                                        key={contentObj.getId()}
-                                        variant="contained"
-                                        color="primary"
-                                        className="mt-4 ml-3 mr-3"
-                                        onClick={() => this.handleEditorChange(contentObj)}
-                                        grow
-                                    >
-                                        EDIT {contentObj.getType()}
-                                    </Button>
-                                );
-                            })}
-                    </Grid>
+    const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
 
-                    <div className="mt-4">
-                        {this.state.selectedContent && (
-                            <ContentEditor
-                                handleSave={this.handleSave}
-                                content={this.state.selectedContent}
-                            />
-                        )}
-                    </div>
+    return (
+      <div className="container-fluid text-center">
+        <Spinner spinning={this.props.loading}>
+          <h2>Edit FAQ</h2>
+          <Grid>
+            {policyContent.length > 0 &&
+              policyContent.map((contentObj) => {
+                return (
+                  <Button
+                    key={contentObj.getId()}
+                    variant="contained"
+                    color="primary"
+                    className="mt-4 ml-3 mr-3"
+                    onClick={() => this.handleEditorChange(contentObj)}
+                    grow
+                  >
+                    EDIT {contentObj.getType()}
+                  </Button>
+                );
+              })}
+          </Grid>
 
-                    <Snackbar
-                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                        open={this.state.showNotification}
-                        autoHideDuration={3000}
-                        onClose={this.handleHideNotification}
-                        message={<span>{this.state.notificationMessage}</span>}
-                    />
-                </Spinner>
-            </div>
-        );
-    };
+          <div className="mt-4">
+            {this.state.selectedContent && (
+              <ContentEditor handleSave={this.handleSave} content={this.state.selectedContent} />
+            )}
+          </div>
+
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            open={this.state.showNotification}
+            autoHideDuration={3000}
+            onClose={this.handleHideNotification}
+            message={<span>{this.state.notificationMessage}</span>}
+          />
+        </Spinner>
+      </div>
+    );
+  };
 }
 
 AdminFaqContainer.propTypes = {
-    getAllContent: PropTypes.func,
-    verifyLogin: PropTypes.func,
-    redirectToHome: PropTypes.func,
-    loading: PropTypes.bool,
-    content: PropTypes.array,
-    updateContent: PropTypes.func,
+  getAllContent: PropTypes.func,
+  verifyLogin: PropTypes.func,
+  redirectToHome: PropTypes.func,
+  loading: PropTypes.bool,
+  content: PropTypes.array,
+  updateContent: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-    return {
-        content: getAllContentObjects(state),
-        loading: getLoading(state),
-    };
+  return {
+    content: getAllContentObjects(state),
+    loading: getLoading(state),
+  };
 };
 
 const mapActionsToProps = {
-    getAllContent,
-    verifyLogin,
-    updateContent,
+  getAllContent,
+  verifyLogin,
+  updateContent,
 };
 
 export default connect(
-    mapStateToProps,
-    mapActionsToProps
+  mapStateToProps,
+  mapActionsToProps
 )(withValidation(AdminFaqContainer));
