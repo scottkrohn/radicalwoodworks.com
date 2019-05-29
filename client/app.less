@@ -5,3 +5,21 @@
     }
   }
 }
+
+span[data-tool-tip]::before {
+  content: attr(data-tool-tip);
+  background: gray;
+  border-radius: 5px;
+  position: absolute;
+  top: -15px;;
+  left: 5%;
+  padding: 5px;
+  display: block;
+  color: white;
+  transform: scale(0);
+  transition: transform ease-in 150ms, bottom ease-out 150ms;
+}
+
+span[data-tool-tip]:hover::before {
+  transform: scale(1);
+}

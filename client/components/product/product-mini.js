@@ -44,7 +44,9 @@ class Product extends Component {
     return (
       <div>
         {imageUrl ? (
-          <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
+          <div className={styles.ImageWrap}>
+            <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
+          </div>
         ) : (
           <div className={styles.NoImage}>
             <Icon className={styles.NoImageIcon} type="picture" />
