@@ -23,7 +23,7 @@ class ImagePricingSection extends Component {
     const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
 
     images.sort((a, b) => {
-      return a.getIsPrimary() ? -1 : 0;
+      return a.getIsPrimary() ? -1 : 1;
     });
 
     return images;
