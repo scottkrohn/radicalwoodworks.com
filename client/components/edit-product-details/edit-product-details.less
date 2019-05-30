@@ -24,9 +24,53 @@
     margin: 15px 0 5px 0;
   }
 
+
   @media (max-width: 992px) {
     .Row {
       flex-direction: column;
     }
+
+    .Input {
+      height: 100px;
+
+      div {
+        height: 100px;
+      }
+
+      label {
+        font-size: 2em;
+      }
+
+      input {
+        font-size: 2.2em;
+      }
+    }
+
+    .Select {
+      label {
+        font-size: 2em;
+      }
+
+      div {
+        font-size: 1.3em;
+        margin-top: 10px;
+      }
+
+    }
+
+  }
+}
+
+@media (max-width: 992px) {
+  div ul li {
+    .MenuOption {
+      font-size: 2em;
+    }
+  }
+
+  :global {
+      .ql-editor {
+          font-size: 2.8em;
+      }
   }
 }

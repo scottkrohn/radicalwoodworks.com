@@ -12,10 +12,31 @@ import FormControl from '@material-ui/core/FormControl';
 // Styles
 import styles from 'client/components/edit-product-details/edit-product-details.less';
 
+// Constants
+import PRODUCTS from 'constants/product-contants';
+
 class EditProductDetails extends PureComponent {
   constructor(props) {
     super(props);
   }
+
+  renderDropdownOptions = (options) => {
+    const menuOptions = [];
+    if (Array.isArray(options)) {
+      options.forEach((option) => {
+        menuOptions.push(
+          <MenuItem
+            key={option.value} value={option.value}
+            className={styles.MenuOption}
+          >
+            {option.label}
+          </MenuItem>
+        );
+      });
+    }
+
+    return menuOptions;
+  };
 
   render = () => {
     return (
@@ -56,8 +77,7 @@ class EditProductDetails extends PureComponent {
               error={this.props.invalidFields.includes('type')}
               required
             >
-              <MenuItem value="SCONCE">Sconce</MenuItem>
-              <MenuItem value="CHALKBOARD">Chalkboard</MenuItem>
+              {this.renderDropdownOptions(PRODUCTS.types)}
             </Select>
           </FormControl>
 
@@ -73,8 +93,7 @@ class EditProductDetails extends PureComponent {
               error={this.props.invalidFields.includes('defaultColor')}
               required
             >
-              <MenuItem value={'EBONY'}>Ebony</MenuItem>
-              <MenuItem value={'CHERRY'}>Cherry</MenuItem>
+              {this.renderDropdownOptions(PRODUCTS.chalkboards.stains)}
             </Select>
           </FormControl>
 
@@ -90,8 +109,7 @@ class EditProductDetails extends PureComponent {
               error={this.props.invalidFields.includes('includeShippingInPrice')}
               required
             >
-              <MenuItem value={1}>Yes</MenuItem>
-              <MenuItem value={0}>No</MenuItem>
+              {this.renderDropdownOptions(PRODUCTS.includeShippingInPrice)}
             </Select>
           </FormControl>
         </div>
