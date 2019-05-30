@@ -18,9 +18,9 @@ import 'node_modules/bootstrap/dist/css/bootstrap.min.css';
 import App from './app';
 
 const composeEnhancers =
-    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-        : compose;
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
 
 const allStoreEnhancers = composeEnhancers(applyMiddleware(thunk));
 
@@ -28,10 +28,10 @@ const allReducers = combineReducers(rootReducer);
 const store = createStore(allReducers, {}, allStoreEnhancers);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
 );
