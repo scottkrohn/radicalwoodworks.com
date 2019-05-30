@@ -1,3 +1,9 @@
+
+:global {
+  .container-fluid {
+    padding-bottom: 120px;
+  }
+}
 @media (min-width: 1000px) {
   :global {
     .container-fluid {
@@ -5,6 +11,18 @@
     }
   }
 }
+
+:global {
+  .app-container {
+    min-height: 100vh;
+    position: relative;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+}
+
 
 span[data-tool-tip]::before {
   content: attr(data-tool-tip);
