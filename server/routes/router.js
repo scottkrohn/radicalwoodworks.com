@@ -38,8 +38,8 @@ router.route('/contact/send')
 /* Authentication Routes
 /***********************/
 
-// router.route('/signup')
-// 	.post(require('../controllers/signup-controller'));
+router.route('/signup')
+	.post(require('../controllers/signup-controller'));
 
 router.route('/login')
   .post(require('../controllers/auth-controller'));
