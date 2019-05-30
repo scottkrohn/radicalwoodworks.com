@@ -183,7 +183,7 @@ class ImageCarousel extends Component {
                     <img className={styles.Image} src={imageData.url} />
                     {showActions && (
                       <div className={styles.Actions}>
-                        <Button textOnly onClick={this.handleOpenMenu}>
+                        <Button textOnly className={styles.ActionButton} onClick={this.handleOpenMenu}>
                           Actions
                         </Button>
                         <Menu
@@ -194,18 +194,18 @@ class ImageCarousel extends Component {
                         >
                           {showPrimaryAction && (
                             <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.primary)}>
-                              Make Primary Image
+                              <span className={styles.MenuItem}>Make Primary Image</span>
                             </MenuItem>
                           )}
                           {showHideAction && (
-                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.hide)}>Hide Image</MenuItem>
+                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.hide)}><span className={styles.MenuItem}>Hide Images</span></MenuItem>
                           )}
                           {showHideAction && (
-                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.show)}>Unhide Image</MenuItem>
+                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.show)}><span className={styles.MenuItem}>Unhide Image</span></MenuItem>
                           )}
                           {showDeleteAction && (
                             <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.delete)}>
-                              Delete Image
+                              <span className={styles.MenuItem}>Delete Image</span>
                             </MenuItem>
                           )}
                         </Menu>
