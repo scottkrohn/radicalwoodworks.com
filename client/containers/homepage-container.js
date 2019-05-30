@@ -22,7 +22,7 @@ class HomepageContainer extends Component {
     });
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="col-12">
           <PageHeader
             headerText='Radical Woodworks'
