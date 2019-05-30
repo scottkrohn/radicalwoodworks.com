@@ -27,9 +27,8 @@ class EditProductDetails extends PureComponent {
         menuOptions.push(
           <MenuItem
             key={option.value} value={option.value}
-            className={styles.MenuOption}
           >
-            {option.label}
+            <span className={styles.MenuOption}>{option.label}</span>
           </MenuItem>
         );
       });
