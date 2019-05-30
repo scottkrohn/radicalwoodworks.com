@@ -45,6 +45,10 @@ const PRODUCTS = {
         value: 'SSB_GRAY',
         label: 'Shou Sugi Ban Gray',
       },
+      {
+        value: 'DISTRESSED_WHITE',
+        label: 'Distressed White',
+      },
     ],
   },
   types: [

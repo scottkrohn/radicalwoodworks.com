@@ -22,8 +22,8 @@
 
 	.ProductImage {
     box-sizing: border-box;
-		height: 300px;
-		width: 300px;
+		height: 450px;
+		width: 450px;
 		border: solid @gray 1px;
     border-radius: 3px;
     position: relative;
@@ -86,8 +86,8 @@
 		border: solid @gray 1px;
 		background: @light-gray;
 		border-radius: 3px;
-		width: 300px;
-		height: 300px;
+		width: 450px;
+		height: 450px;
 
 		.NoImageIcon {
 			font-size: 20px;
@@ -95,13 +95,16 @@
 	}
 
 	@media (max-width: 1175px) {
-		.NoImage, .ProductImage {
-			width: 400px;
-			height: 400px;
-		}
 
 		.Price, .ProductTitle {
 			font-size: 2.2em;
 		}
-	}
+  }
+  
+  @media (max-width: 950px) {
+		.NoImage, .ProductImage {
+			width: 550px;
+			height: 550px;
+		}
+  }
 }
