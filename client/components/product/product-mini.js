@@ -64,7 +64,7 @@ class Product extends Component {
     }
 
     const priceString = product.getFinalPrice();
-    return <div className={styles.Price}>${priceString}</div>;
+    return <div className={styles.Price}>${priceString.toFixed(2)}</div>;
   };
 
   renderTitle = () => {

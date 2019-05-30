@@ -21,12 +21,12 @@ class ProductsTable extends PureComponent {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell><span className={styles.Text}>Name</span></TableCell>
-            <TableCell><span className={styles.Text}>Price</span></TableCell>
-            <TableCell><span className={styles.Text}>Shipping</span></TableCell>
-            <TableCell><span className={styles.Text}>Free Shipping</span></TableCell>
-            <TableCell><span className={styles.Text}>Total</span></TableCell>
-            <TableCell><span className={styles.Text}>Actions</span></TableCell>
+            <TableCell align="left"><span className={styles.Text}>Name</span></TableCell>
+            <TableCell align="center"><span className={styles.Text}>Price</span></TableCell>
+            <TableCell align="center"><span className={styles.Text}>Shipping</span></TableCell>
+            <TableCell align="center"><span className={styles.Text}>Free Shipping</span></TableCell>
+            <TableCell align="center"><span className={styles.Text}>Total</span></TableCell>
+            <TableCell align="center"><span className={styles.Text}></span></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

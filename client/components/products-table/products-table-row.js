@@ -23,22 +23,22 @@ class ProductsTableRow extends PureComponent {
 
     return (
       <TableRow hover>
-        <TableCell className={styles.Cell}>
+        <TableCell padding="none" align="left" className={styles.Cell}>
           <span className={styles.Text}>{this.props.product.getTitle()}</span>
         </TableCell>
-        <TableCell className={styles.Cell}>
+        <TableCell padding="none" align="center" className={styles.Cell}>
           <span className={styles.Text}>${this.props.product.getPrice().toFixed(2)}</span>
         </TableCell>
-        <TableCell className={styles.Cell}>
+        <TableCell padding="none" align="center" className={styles.Cell}>
           <span className={styles.Text}>${this.props.product.getShippingPrice().toFixed(2)}</span>
         </TableCell>
-        <TableCell className={styles.Cell}>
+        <TableCell padding="none" align="center" className={styles.Cell}>
           <span className={styles.Text}>{this.props.product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</span>
         </TableCell>
-        <TableCell className={styles.Cell}>
+        <TableCell padding="none" align="center" className={styles.Cell}>
           <span className={styles.Text}>${this.props.product.getFinalPrice().toFixed(2)}</span>
         </TableCell>
-        <TableCell className={iconClasses}>
+        <TableCell padding="none" align="center" className={iconClasses}>
           <div className={styles.Icons}>
             <NavLink to={`/admin-product/${this.props.product.getId()}`}>
               <FontAwesomeIcon icon={faEdit} className={styles.ActionIcon} />
