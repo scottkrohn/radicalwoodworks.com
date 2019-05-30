@@ -7,9 +7,44 @@ import ProductMini from 'client/components/product/product-mini';
 // Styles
 import styles from 'client/components/product/product-grid.less';
 
+const observe = (target) => {
+  const io = new IntersectionObserver((entries, observer) => {
+
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add(styles.Show);
+        observer.disconnect();
+      }
+    });
+  });
+
+  io.observe(target);
+}
+
+
 class ProductGrid extends PureComponent {
   constructor(props) {
     super(props);
+    this.myRefs = {};
+    this.props.products.forEach((product) => {
+      const ref = React.createRef();
+      this.myRefs[`product${product.getId()}`] = ref;
+    });
+
+  }
+
+  setObservers = () => {
+    for (const refKey in this.myRefs) {
+      observe(this.myRefs[refKey].current);
+    }
+  }
+
+  componentDidUpdate = () => {
+    this.setObservers();
+  }
+
+  componentDidMount = () => {
+    this.setObservers();
   }
 
   render = () => {
@@ -19,11 +54,16 @@ class ProductGrid extends PureComponent {
       <div className={styles.ProductGrid}>
         {hasProducts &&
           this.props.products.map((product) => {
-            return (
-              <div className={styles.ProductCell} key={uniqueId()}>
+            const miniProduct = (
+              <div ref={this.myRefs[`product${product.getId()}`]} className={styles.Hidden} key={uniqueId()}>
                 <ProductMini product={product} />
               </div>
             );
+
+            // observe(this.ref.current);
+
+            return miniProduct;
+
           })}
       </div>
     );
