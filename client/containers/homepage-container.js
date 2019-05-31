@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { shuffle } from 'lodash';
 
 // Components
 import PageHeader from 'client/components/page-header/page-header';
@@ -14,12 +15,13 @@ class HomepageContainer extends Component {
     super(props);
   }
 
-
-
   render = () => {
-    const homepageImageUrls = IMAGES.images.homepage.map((url) => {
+    let homepageImageUrls = IMAGES.images.homepage.map((url) => {
       return IMAGES.getFullUrl(url);
     });
+
+    homepageImageUrls = shuffle(homepageImageUrls);
+
 
     return (
       <div className="container-fluid">

@@ -34,9 +34,12 @@ class NavBar extends Component {
   }
 
   componentDidMount = () => {
-    this.props.verifyLogin().catch(() => {
-      this.logout();
-    });
+    const isLoggedIn = !!Cookie.get('utoken') || this.props.auth.loggedIn;
+    if (isLoggedIn) {
+      this.props.verifyLogin().catch(() => {
+        this.logout();
+      });
+    }
   };
 
   getCurrentPageName = () => {

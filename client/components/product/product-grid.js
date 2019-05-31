@@ -8,18 +8,8 @@ import ProductMini from 'client/components/product/product-mini';
 // Styles
 import styles from 'client/components/product/product-grid.less';
 
-const observe = (target) => {
-  const io = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add(styles.Show);
-        observer.disconnect();
-      }
-    });
-  });
-
-  io.observe(target);
-};
+// Utils
+import { observerIsIntersecting } from 'client/utils/observers';
 
 class ProductGrid extends PureComponent {
   constructor(props) {
@@ -33,7 +23,9 @@ class ProductGrid extends PureComponent {
 
   setObservers = () => {
     for (const refKey in this.myRefs) {
-      observe(this.myRefs[refKey].current);
+      observerIsIntersecting(this.myRefs[refKey].current, (target) => {
+        target.classList.add(styles.Show);
+      });
     }
   };
 
@@ -60,8 +52,6 @@ class ProductGrid extends PureComponent {
                 <ProductMini product={product} />
               </div>
             );
-
-            // observe(this.ref.current);
 
             return miniProduct;
           })}

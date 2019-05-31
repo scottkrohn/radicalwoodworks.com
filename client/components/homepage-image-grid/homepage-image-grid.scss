@@ -10,12 +10,19 @@
     width: 500px;
     height: 500px;
 		border: solid $gray 1px;
+    opacity: 0;
+    border-radius: 5px;
+  }
+
+  .Show {
+    opacity: 1;
+    transition: opacity ease-in 1000ms;
   }
 }
 
 @media (max-width: 992px) {
   .ImageGridContainer {
-    .Image {
+    .ImageWrap{
       width: 70%;
     }
   }

@@ -12,6 +12,10 @@ const IMAGE = {
       'homepage_2.jpg',
       'homepage_3.jpg',
       'homepage_4.jpg',
+      'homepage_5.jpg',
+      'homepage_6.jpg',
+      'homepage_7.jpg',
+      'homepage_8.jpg',
     ],
   },
 };

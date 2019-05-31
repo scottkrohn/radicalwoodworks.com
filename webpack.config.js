@@ -35,6 +35,7 @@ module.exports = {
         use: [
           {
             loader: 'style-loader',
+            options: { singleton: true},
           },
           {
             loader: 'css-loader',
@@ -64,6 +65,7 @@ module.exports = {
         use: [
           {
             loader: 'style-loader',
+            options: { singleton: true},
           },
           {
             loader: 'css-loader',
