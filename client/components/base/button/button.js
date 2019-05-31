@@ -26,6 +26,10 @@ const styles = {
   cancel: {
     background: 'linear-gradient(45deg, #cc9090 30%, #a87272 90%)',
   },
+  dark: {
+    background: 'linear-gradient(45deg, #5e5d5d 30%, #545251 90%)',
+    borderRadius: 1,
+  },
   slim: {
     height: 30,
   },
@@ -34,6 +38,9 @@ const styles = {
   },
   fullWidth: {
     ['width']: '100%',
+  },
+  halfWidth: {
+    ['width']: '50%',
   },
   '@media (max-width: 992px)': {
     common: {
@@ -45,7 +52,7 @@ const styles = {
 };
 
 const ButtonBase = (props) => {
-  const { textOnly, slim, grow, fullWidth, children, classes, className, color, ...other } = props;
+  const { textOnly, slim, grow, halfWidth, fullWidth, children, classes, className, color, ...other } = props;
 
   const buttonClasses = classnames({
     [classes.common]: !textOnly,
@@ -55,6 +62,7 @@ const ButtonBase = (props) => {
     [classes.slim]: slim,
     [classes.grow]: grow,
     [classes.fullWidth]: fullWidth,
+    [classes.halfWidth]: halfWidth,
   });
 
   return (
@@ -73,6 +81,8 @@ ButtonBase.propTypes = {
   slim: PropTypes.bool,
   grow: PropTypes.bool,
   fullWidth: PropTypes.bool,
+  halfWidth: PropTypes.bool,
+  textOnly: PropTypes.bool,
 };
 
 export default withStyles(styles)(ButtonBase);
