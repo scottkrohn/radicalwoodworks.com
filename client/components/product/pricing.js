@@ -14,7 +14,7 @@ class Pricing extends Component {
 
   getPriceValue = () => {
     const priceValue = this.props.product.getFinalPrice();
-    return `$${priceValue}`;
+    return `$${priceValue.toFixed(2)}`;
   };
 
   getShippingValue = () => {
