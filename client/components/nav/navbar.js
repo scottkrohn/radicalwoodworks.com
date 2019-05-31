@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Cookie from 'js-cookie';
 import { connect } from 'react-redux';
@@ -12,6 +13,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 // Actions
 import { logout } from 'client/actions/auth-actions';
+import { verifyLogin } from 'client/actions/admin-actions';
 
 // Constants
 import NAV from 'constants/nav-constants';
@@ -30,6 +32,12 @@ class NavBar extends Component {
       drawerOpen: false,
     };
   }
+
+  componentDidMount = () => {
+    this.props.verifyLogin().catch(() => {
+      this.logout();
+    });
+  };
 
   getCurrentPageName = () => {
     let currentPage = NAV.pages.home.key;
@@ -185,6 +193,11 @@ class NavBar extends Component {
   }
 }
 
+NavBar.propTypes = {
+  logout: PropTypes.func,
+  verifyLogin: PropTypes.func,
+};
+
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
@@ -193,6 +206,7 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   logout,
+  verifyLogin,
 };
 
 export default connect(
