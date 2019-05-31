@@ -83,7 +83,7 @@ class Product extends Component {
 
     return (
       <div className={styles.ProductMiniContainer}>
-        <NavLink to={productPageLink} className={styles.ProductContent}>
+        <NavLink to={productPageLink} className={styles.Link}>
           {this.renderImage()}
           {this.renderTitle()}
           {this.renderPrice()}
