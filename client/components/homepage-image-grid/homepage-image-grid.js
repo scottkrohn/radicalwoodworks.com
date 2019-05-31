@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 // Styles
-import styles from 'client/components/homepage-image-grid/homepage-image-grid.less';
+import styles from 'client/components/homepage-image-grid/homepage-image-grid.scss';
 
 class HomepageImageGrid extends PureComponent {
   constructor(props) {
