@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
+import { isEmpty, get } from 'lodash';
 
 // Components
 import ProductGrid from 'client/components/product/product-grid';
@@ -11,13 +12,16 @@ import { getProducts } from 'actions/products-actions';
 
 // Selectors
 import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
+
 class ProductsContainer extends Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount = () => {
-    this.props.getProducts();
+    if (isEmpty(this.props.products)) {
+      this.props.getProducts();
+    }
   };
 
   render = () => {
@@ -39,6 +43,10 @@ class ProductsContainer extends Component {
     );
   };
 }
+
+ProductsContainer.propTypes = {
+  getProducts: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {
