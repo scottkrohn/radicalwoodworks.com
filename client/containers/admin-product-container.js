@@ -14,6 +14,7 @@ import PageHeader from 'client/components/page-header/page-header';
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
 import { getProduct, createProduct, updateProduct } from 'client/actions/product-actions';
+import { getProducts } from 'client/actions/products-actions';
 import { deleteImage, updateProductImageMapping } from 'client/actions/image-actions';
 
 // Selectors
@@ -76,6 +77,7 @@ class AdminProductContainer extends Component {
   onImageUpload = (image) => {
     const productId = get(this.props, 'match.params.productId');
     this.props.getProduct(productId);
+    this.props.getProducts(); // Let's make sure the redux store has the most recent products
     this.handleShowNotification('Image successfully uploaded!');
   };
 
@@ -219,6 +221,7 @@ class AdminProductContainer extends Component {
             if (this.state.createMode) {
               productId = await this.props.createProduct(updatedProductObj);
               message = 'Product successfully created!';
+              this.props.getProducts(); // Let's make sure the redux store has the most recent products
 
               this.setState({
                 createMode: false,
@@ -388,6 +391,7 @@ AdminProductContainer.propTypes = {
   updateProductImageMapping: PropTypes.func,
   createProductMode: PropTypes.bool,
   history: PropTypes.object,
+  getProducts: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -405,6 +409,7 @@ const mapActionsToProps = {
   deleteImage,
   updateProductImageMapping,
   createProduct,
+  getProducts,
 };
 
 export default connect(
