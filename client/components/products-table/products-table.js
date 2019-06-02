@@ -21,6 +21,7 @@ class ProductsTable extends PureComponent {
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell align="left"></TableCell>
             <TableCell align="left"><span className={styles.Text}>Name</span></TableCell>
             <TableCell align="center"><span className={styles.Text}>Price</span></TableCell>
             <TableCell align="center"><span className={styles.Text}>Shipping</span></TableCell>

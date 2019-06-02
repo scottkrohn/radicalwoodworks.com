@@ -1,5 +1,8 @@
 import Model from './model';
-import { isNull } from 'lodash';
+import { isEmpty } from 'lodash';
+
+// Constants
+import PRODUCTS from '../constants/product-contants';
 
 class Product extends Model {
   constructor() {
@@ -116,11 +119,31 @@ class Product extends Model {
     return this.children.images;
   };
 
-  /* Derived Stuff */
+  /* Derived Data*/
   /*****************/
 
   getFinalPrice = () => {
     return !this.getIncludeShippingInPrice() ? this.getPrice() : this.getPrice() + this.getShippingPrice();
+  }
+
+  getDefaultColorUi = () => {
+    return PRODUCTS.getLabelForValue(PRODUCTS.chalkboards.stains, this.getDefaultColor());
+  }
+
+  getPrimaryImageUrl = () => {
+    const images = this.getImages();
+    if (isEmpty(images)) {
+      return null;
+    }
+
+    const primaryImage = images.find((image) => image.getIsPrimary());
+
+    // Return either the primary image if it exists, or the first image if no primary is set.
+    if (primaryImage) {
+      return primaryImage.getThumbUrl();
+    } else if(!isEmpty(images[0])) {
+      return images[0].getThumbUrl();
+    }
   }
 }
 

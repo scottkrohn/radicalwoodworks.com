@@ -12,33 +12,61 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 // Styles
 import styles from 'client/components/products-table/products-table.less';
 
+// Constants
+import IMAGES from 'client/constants/image-constants';
+
 class ProductsTableRow extends PureComponent {
   constructor(props) {
     super(props);
   }
 
   render = () => {
-
     const iconClasses = classNames(styles.Cell, styles.Icons);
+
+    const primaryImageUrl = this.props.product.getPrimaryImageUrl();
 
     return (
       <TableRow hover>
-        <TableCell padding="none" align="left" className={styles.Cell}>
+        <TableCell
+          padding="none" align="left"
+          className={styles.Cell}
+        >
+          <img className={styles.TableImage} src={IMAGES.getFullUrl(primaryImageUrl)} />
+        </TableCell>
+        <TableCell
+          padding="none" align="left"
+          className={styles.Cell}
+        >
           <span className={styles.Text}>{this.props.product.getTitle()}</span>
         </TableCell>
-        <TableCell padding="none" align="center" className={styles.Cell}>
+        <TableCell
+          padding="none" align="center"
+          className={styles.Cell}
+        >
           <span className={styles.Text}>${this.props.product.getPrice().toFixed(2)}</span>
         </TableCell>
-        <TableCell padding="none" align="center" className={styles.Cell}>
+        <TableCell
+          padding="none" align="center"
+          className={styles.Cell}
+        >
           <span className={styles.Text}>${this.props.product.getShippingPrice().toFixed(2)}</span>
         </TableCell>
-        <TableCell padding="none" align="center" className={styles.Cell}>
+        <TableCell
+          padding="none" align="center"
+          className={styles.Cell}
+        >
           <span className={styles.Text}>{this.props.product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</span>
         </TableCell>
-        <TableCell padding="none" align="center" className={styles.Cell}>
+        <TableCell
+          padding="none" align="center"
+          className={styles.Cell}
+        >
           <span className={styles.Text}>${this.props.product.getFinalPrice().toFixed(2)}</span>
         </TableCell>
-        <TableCell padding="none" align="center" className={iconClasses}>
+        <TableCell
+          padding="none" align="center"
+          className={iconClasses}
+        >
           <div className={styles.Icons}>
             <NavLink to={`/admin-product/${this.props.product.getId()}`}>
               <FontAwesomeIcon icon={faEdit} className={styles.ActionIcon} />

@@ -77,4 +77,12 @@ const PRODUCTS = {
   ],
 };
 
+PRODUCTS.getLabelForValue = (values, value) => {
+  const foundValueObj = values.find((val) => {
+    return val.value === value;
+  });
+
+  return foundValueObj ? foundValueObj.label : 'UNKNOWN';
+}
+
 export default PRODUCTS;

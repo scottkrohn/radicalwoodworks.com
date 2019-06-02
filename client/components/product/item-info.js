@@ -8,6 +8,9 @@ import Product from 'model/product';
 // Styles
 import styles from 'client/components/product/item-info.less';
 
+// Constants
+import PRODUCTS from 'constants/product-contants';
+
 class ItemInfo extends Component {
   constructor(props) {
     super(props);
@@ -30,16 +33,23 @@ class ItemInfo extends Component {
     const innerWidth = width - frameWidth;
     const validInnerDimensions = frameWidth && innerLength && innerWidth;
 
+    const defaultColorUi = product.getDefaultColorUi();
+
     return (
       <ul className={styles.ItemDetailsList}>
         {validDimensions && <li>{`Dimensions: ${length}" x ${width}"`}</li>}
         {validInnerDimensions && <li>{`Inner Dimensions: ${innerLength}" x ${innerWidth}"`}</li>}
-        {defaultColor && <li>{`Default Color: ${defaultColor}`}</li>}
+        {defaultColor && <li>{`Default Color: ${defaultColorUi}`}</li>}
       </ul>
     );
   };
 
+  renderDefaultColor = (colorValue) => {
+    PRODUCTS.getLabelForValue(PRODUCTS.chalkboards.stains, colorValue);
+  }
+
   render = () => {
+
     return (
       <div className="row">
         <div className="col-lg-9 col-md-12 text-center text-lg-left">

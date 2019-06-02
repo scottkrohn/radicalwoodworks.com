@@ -34,6 +34,7 @@ class ProductsContainer extends Component {
           <div className="col-12">
             <div className="text-center">
               <h1>Radical Woodworks Products</h1>
+
             </div>
           </div>
 

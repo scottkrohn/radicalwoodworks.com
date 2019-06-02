@@ -27,8 +27,6 @@ class HomepageImageGrid extends PureComponent {
       const ref = React.createRef();
       this.myRefs[`url_${content.key}`] = { ref, url: content.url, text: content.text };
     });
-
-    console.log(this.myRefs);
   }
 
   setObservers = () => {

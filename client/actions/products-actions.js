@@ -5,7 +5,6 @@ import ACTIONS from 'constants/action-constants';
 
 export const getProducts = () => {
   return (dispatch) => {
-    console.log('getting products');
     dispatch(getProductsRequest());
 
     return new Promise((resolve, reject) => {
