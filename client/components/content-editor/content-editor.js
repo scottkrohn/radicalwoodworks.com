@@ -15,7 +15,6 @@ const ContentEditor = (props) => {
   const [showPreview, setShowPreview] = useState('');
 
   useEffect(() => {
-    console.log('called');
     setText(props.content.getContent());
   }, [props.content]);
 
