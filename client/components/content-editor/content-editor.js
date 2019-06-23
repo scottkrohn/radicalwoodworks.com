@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -9,97 +9,74 @@ import Button from 'client/components/base/button/button';
 // Styles
 import styles from 'client/components/content-editor/content-editor.less';
 
-class ContentEditor extends PureComponent {
-    constructor(props) {
-        super(props);
+// class ContentEditor extends PureComponent {
+const ContentEditor = (props) => {
+  const [text, setText] = useState('');
+  const [showPreview, setShowPreview] = useState('');
 
-        this.state = {
-            text: '',
-            showPreview: false,
-        };
-    }
+  useEffect(() => {
+    console.log('called');
+    setText(props.content.getContent());
+  }, [props.content]);
 
-    componentDidMount = () => {
-        this.setState({
-            text: this.props.content.getContent(),
-        });
-    };
+  const togglePreview = () => {
+    setShowPreview(!showPreview);
+  };
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.props.content !== prevProps.content) {
-            this.setState({
-                text: this.props.content.getContent(),
-            });
-        }
-    };
+  const onEditorChange = (value) => {
+    setText(value);
+  };
 
-    togglePreview = () => {
-        this.setState({
-            showPreview: !this.state.showPreview,
-        });
-    };
+  const previewClasses = classNames({
+    [styles.Preview]: true,
+    [props.previewClassName]: !!props.previewClassName,
+  });
 
-    onEditorChange = (value) => {
-        this.setState({
-            text: value,
-        });
-    };
+  const previewVerb = showPreview ? 'Hide' : 'Show';
 
-    render = () => {
-        const previewClasses = classNames({
-            [styles.Preview]: true,
-            [this.props.previewClassName]: !!this.props.previewClassName,
-        });
+  return (
+    <div className={styles.ContentEditorContainer}>
+      <h5 className={styles.Header}>{props.content.getType()}</h5>
+      <ReactQuill value={text} onChange={onEditorChange} />
 
-        const previewVerb = this.state.showPreview ? 'Hide' : 'Show';
+      <div className={styles.Buttons}>
+        <div className="offset-lg-4 offset-md-0 col-lg-4 col-md-6">
+          <Button
+            onClick={() => props.handleSave(props.content, text)}
+            color="save"
+            variant="contained"
+            className={styles.Button}
+          >
+            Save!
+          </Button>
+        </div>
+        <div className="col-lg-4 col-md-6 text-right pr-0">
+          <Button
+            onClick={togglePreview}
+            color="primary"
+            slim
+            variant="contained"
+            className={styles.PreviewButton}
+          >
+            {previewVerb} Preview
+          </Button>
+        </div>
+      </div>
 
-        return (
-            <div className={styles.ContentEditorContainer}>
-                <h5 className={styles.Header}>{this.props.content.getType()}</h5>
-                <ReactQuill
-                    value={this.state.text}
-                    onChange={this.onEditorChange}
-                />
-
-                <div className={styles.Buttons}>
-                    <div className="offset-lg-4 offset-md-0 col-lg-4 col-md-6">
-                        <Button
-                            onClick={() => this.props.handleSave(this.props.content, this.state.text)}
-                            color="save"
-                            variant="contained"
-                            className={styles.Button}
-                        >
-                            Save!
-                        </Button>
-                    </div>
-                    <div className="col-lg-4 col-md-6 text-right pr-0">
-                        <Button
-                            onClick={this.togglePreview}
-                            color="primary"
-                            slim
-                            variant="contained"
-                            className={styles.PreviewButton}
-                        >
-                            {previewVerb} Preview
-                        </Button>
-                    </div>
-                </div>
-
-                {this.state.showPreview && (
-                    <div className={previewClasses}>
-                        <div dangerouslySetInnerHTML={{ __html: this.state.text }} />
-                    </div>
-                )}
-            </div>
-        );
-    };
-}
+      {showPreview && (
+        <div className={previewClasses}>
+          <div dangerouslySetInnerHTML={{ __html: text }} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 ContentEditor.propTypes = {
-    content: PropTypes.object,
-    handleSave: PropTypes.func,
-    showPreview: PropTypes.bool,
-    previewClassName: PropTypes.string,
+  content: PropTypes.object,
+  handleSave: PropTypes.func,
+  showPreview: PropTypes.bool,
+  previewClassName: PropTypes.string,
 };
 
 export default ContentEditor;
