@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
 
 // Components
 import Spinner from 'client/components/spinner/spinner';
@@ -20,114 +19,89 @@ import { getAllContent as getAllContentObjects, getLoading } from 'client/select
 // HOC
 import { withValidation } from 'client/hoc/auth';
 
-class AdminFaqContainer extends Component {
-  constructor(props) {
-    super(props);
+const AdminFaqContainer = (props) => {
+  const [selectedContent, setSelectedContent] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
 
-    this.state = {
-      selectedContent: null,
-      showNotification: false,
-      notificationMessage: '',
-    };
-  }
-
-  componentDidMount = () => {
+  useEffect(() => {
     (async () => {
       try {
-        await this.props.verifyLogin();
+        await props.verifyLogin();
       } catch (error) {
-        this.props.redirectToHome();
+        props.redirectToHome();
       }
-
-      await this.props.getAllContent('POLICY');
-
-      const aboutUsContent = get(this.props, 'content.0');
-
-      if (aboutUsContent) {
-        this.setState({
-          text: aboutUsContent.getContent(),
-        });
-      }
+      props.getAllContent('POLICY');
     })();
+  }, []);
+
+  const handleEditorChange = (content) => {
+    setSelectedContent(content);
   };
 
-  handleEditorChange = (content) => {
-    this.setState({
-      selectedContent: content,
-    });
-  };
-
-  handleSave = (content, text) => {
+  const handleSave = (content, text) => {
     content.setContent(text);
 
     (async () => {
       try {
-        await this.props.updateContent(content);
-        this.handleShowNotification('Successfully saved!');
+        await props.updateContent(content);
+        handleShowNotification('Successfully saved!');
       } catch (error) {
-        this.handleShowNotification('There was an error while saving!');
+        handleShowNotification('There was an error while saving!');
       }
     })();
   };
 
-  handleShowNotification = (message) => {
-    this.setState({
-      showNotification: true,
-      notificationMessage: message,
-    });
+  // TODO: Maybe I can use a custom hook here to handle showing notifications?
+  const handleShowNotification = (message) => {
+    setShowNotification(true);
+    setNotificationMessage(message);
   };
 
-  handleHideNotification = () => {
-    this.setState({
-      showNotification: false,
-    });
+  const handleHideNotification = () => {
+    setShowNotification(false);
   };
 
-  render = () => {
-    const content = this.props.content || [];
+  const content = props.content || [];
+  const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
 
-    const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
+  return (
+    <div className="container-fluid text-center">
+      <Spinner spinning={props.loading}>
+        <h2>Edit FAQ</h2>
+        <Grid>
+          {policyContent.length > 0 &&
+            policyContent.map((contentObj) => {
+              return (
+                <Button
+                  key={contentObj.getId()}
+                  variant="contained"
+                  color="primary"
+                  className="mt-4 ml-3 mr-3"
+                  onClick={() => handleEditorChange(contentObj)}
+                  grow
+                >
+                  EDIT {contentObj.getType()}
+                </Button>
+              );
+            })}
+        </Grid>
 
-    return (
-      <div className="container-fluid text-center">
-        <Spinner spinning={this.props.loading}>
-          <h2>Edit FAQ</h2>
-          <Grid>
-            {policyContent.length > 0 &&
-              policyContent.map((contentObj) => {
-                return (
-                  <Button
-                    key={contentObj.getId()}
-                    variant="contained"
-                    color="primary"
-                    className="mt-4 ml-3 mr-3"
-                    onClick={() => this.handleEditorChange(contentObj)}
-                    grow
-                  >
-                    EDIT {contentObj.getType()}
-                  </Button>
-                );
-              })}
-          </Grid>
+        <div className="mt-4">
+          {selectedContent && <ContentEditor handleSave={handleSave} content={selectedContent} />}
+        </div>
 
-          <div className="mt-4">
-            {this.state.selectedContent && (
-              <ContentEditor handleSave={this.handleSave} content={this.state.selectedContent} />
-            )}
-          </div>
-
-          <Snackbar
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={this.state.showNotification}
-            autoHideDuration={3000}
-            onClose={this.handleHideNotification}
-            message={<span>{this.state.notificationMessage}</span>}
-          />
-        </Spinner>
-      </div>
-    );
-  };
-}
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={showNotification}
+          autoHideDuration={3000}
+          onClose={handleHideNotification}
+          message={<span>{notificationMessage}</span>}
+        />
+      </Spinner>
+    </div>
+  );
+};
 
 AdminFaqContainer.propTypes = {
   getAllContent: PropTypes.func,
