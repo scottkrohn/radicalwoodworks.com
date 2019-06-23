@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { get, uniqueId } from 'lodash';
 
@@ -11,54 +11,45 @@ import styles from 'client/components/product/product-grid.less';
 // Utils
 import { observerIsIntersecting } from 'client/utils/observers';
 
-class ProductGrid extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.myRefs = {};
-    this.props.products.forEach((product) => {
-      const ref = React.createRef();
-      this.myRefs[`product${product.getId()}`] = ref;
-    });
-  }
+const ProductGrid = (props) => {
+  const myRefs = {};
+  props.products.forEach((product) => {
+    const ref = useRef(null);
+    myRefs[`product${product.getId()}`] = ref;
+  });
 
-  setObservers = () => {
-    for (const refKey in this.myRefs) {
-      observerIsIntersecting(this.myRefs[refKey].current, (target) => {
+  const setObservers = () => {
+    for (const refKey in myRefs) {
+      observerIsIntersecting(myRefs[refKey].current, (target) => {
         target.classList.add(styles.Show);
       });
     }
   };
 
-  componentDidUpdate = () => {
-    this.setObservers();
-  };
+  useEffect(() => {
+    setObservers();
+  });
 
-  componentDidMount = () => {
-    this.setObservers();
-  };
+  const hasProducts = get(props, 'products');
 
-  render = () => {
-    const hasProducts = get(this.props, 'products');
+  return (
+    <div className={styles.ProductGrid}>
+      {hasProducts &&
+        props.products.map((product) => {
+          const miniProduct = (
+            <div
+              ref={myRefs[`product${product.getId()}`]} className={styles.Hidden}
+              key={uniqueId()}
+            >
+              <ProductMini product={product} />
+            </div>
+          );
 
-    return (
-      <div className={styles.ProductGrid}>
-        {hasProducts &&
-          this.props.products.map((product) => {
-            const miniProduct = (
-              <div
-                ref={this.myRefs[`product${product.getId()}`]} className={styles.Hidden}
-                key={uniqueId()}
-              >
-                <ProductMini product={product} />
-              </div>
-            );
-
-            return miniProduct;
-          })}
-      </div>
-    );
-  };
-}
+          return miniProduct;
+        })}
+    </div>
+  );
+};
 
 ProductGrid.propTypes = {
   products: PropTypes.array,
