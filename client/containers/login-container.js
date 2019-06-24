@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Cookie from 'js-cookie';
 
@@ -9,68 +9,51 @@ import { login } from 'client/actions/auth-actions';
 import LoginForm from 'client/components/login-form/login-form';
 import { Redirect } from 'react-router-dom';
 
-class LoginContainer extends Component {
-  constructor(props) {
-    super(props);
+const LoginContainer = (props) => {
+  const [redirectToAdmin, setRedirectToAdmin] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorCode, setErrorCode] = useState(null);
 
-    this.state = {
-      redirectToAdmin: false,
-      error: false,
-      errorCode: null,
-    };
-  }
+  useEffect(() => {
+    setError(false);
+  });
 
-  handleLogin = (username, password) => {
-    this.props
+  const handleLogin = (username, password) => {
+    props
       .login(username, password)
       .then((token) => {
         Cookie.set('utoken', token, { expires: 7 });
-        this.setState({
-          redirectToAdmin: true,
-        });
+        setRedirectToAdmin(true);
 
         return true;
       })
       .catch((error) => {
         Cookie.remove('utoken');
-        this.setState(
-          {
-            error: true,
-            errorCode: error.code,
-          },
-          () => {
-            this.setState({
-              error: false,
-              errorCode: null,
-            });
-          }
-        );
-
+        setErrorCode(error.code);
+        setError(true);
         return false;
       });
   };
 
-  render = () => {
-    if (this.state.redirectToAdmin) {
-      return <Redirect to="/admin" />;
-    }
+  if (redirectToAdmin) {
+    return <Redirect to="/admin" />;
+  }
 
-    return (
-      <div className="container-fluid">
-        <div className="col-xs-12">
-          <div className="text-center">
-            <h1>Radical Woodworks Login</h1>
-          </div>
-
-          <LoginForm
-            handleLogin={this.handleLogin} error={this.state.error}
-            errorCode={this.state.errorCode}
-          />
+  return (
+    <div className="container-fluid">
+      <div className="col-xs-12">
+        <div className="text-center">
+          <h1>Radical Woodworks Login</h1>
         </div>
+
+        <LoginForm
+          handleLogin={handleLogin} error={error}
+          errorCode={errorCode}
+        />
       </div>
-    );
-  };
-}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

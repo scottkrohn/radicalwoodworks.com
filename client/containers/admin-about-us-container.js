@@ -21,126 +21,121 @@ import { getAllContent as getAllContentObjects, getLoading } from 'client/select
 import { withValidation } from 'client/hoc/auth';
 
 class AdminAboutUs extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            showNotification: false,
-            notificationMessage: '',
-            showPreview: false,
-        };
-    }
-
-    componentDidMount = () => {
-        (async () => {
-            try {
-                await this.props.verifyLogin();
-            } catch (error) {
-                this.props.redirectToHome();
-            }
-
-            await this.props.getAllContent('ABOUT');
-
-            const aboutUsContent = get(this.props, 'content.0');
-
-            if (aboutUsContent) {
-                this.setState({
-                    text: aboutUsContent.getContent(),
-                });
-            }
-        })();
+    this.state = {
+      showNotification: false,
+      notificationMessage: '',
+      showPreview: false,
     };
+  }
 
-    handleSave = (content, text) => {
-        content.setContent(text);
+  componentDidMount = () => {
+    (async () => {
+      try {
+        await this.props.verifyLogin();
+      } catch (error) {
+        this.props.redirectToHome();
+      }
 
-        (async () => {
-            try {
-                await this.props.updateContent(content);
-                this.handleShowNotification('Successfully saved!');
-            } catch (error) {
-                this.handleShowNotification('There was an error while saving!');
-            }
-        })();
-    };
+      await this.props.getAllContent('ABOUT');
 
-    togglePreview = () => {
+      const aboutUsContent = get(this.props, 'content.0');
+
+      if (aboutUsContent) {
         this.setState({
-            showPreview: !this.state.showPreview,
+          text: aboutUsContent.getContent(),
         });
-    };
+      }
+    })();
+  };
 
-    handleShowNotification = (message) => {
-        this.setState({
-            showNotification: true,
-            notificationMessage: message,
-        });
-    };
+  handleSave = (content, text) => {
+    content.setContent(text);
 
-    handleHideNotification = () => {
-        this.setState({
-            showNotification: false,
-        });
-    };
+    (async () => {
+      try {
+        await this.props.updateContent(content);
+        this.handleShowNotification('Successfully saved!');
+      } catch (error) {
+        this.handleShowNotification('There was an error while saving!');
+      }
+    })();
+  };
 
-    render = () => {
-        const aboutUsContent = get(this.props, 'content.0');
+  togglePreview = () => {
+    this.setState({
+      showPreview: !this.state.showPreview,
+    });
+  };
 
-        return (
-            <div className="container-fluid text-center">
-                <h2>Edit About Us</h2>
-                <Spinner spinning={this.props.loading}>
-                    {aboutUsContent && (
-                        <ContentEditor
-                            handleSave={this.handleSave}
-                            content={aboutUsContent}
-                        />
-                    )}
-                </Spinner>
+  handleShowNotification = (message) => {
+    this.setState({
+      showNotification: true,
+      notificationMessage: message,
+    });
+  };
 
-                <div className="mt-3">
-                    {this.state.showPreview && (
-                        <div className="mt-3">
-                            <div dangerouslySetInnerHTML={{ __html: this.state.text }} />
-                        </div>
-                    )}
-                </div>
+  handleHideNotification = () => {
+    this.setState({
+      showNotification: false,
+    });
+  };
 
-                <Snackbar
-                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                    open={this.state.showNotification}
-                    autoHideDuration={3000}
-                    onClose={this.handleHideNotification}
-                    message={<span>{this.state.notificationMessage}</span>}
-                />
+  render = () => {
+    const aboutUsContent = get(this.props, 'content.0');
+
+    return (
+      <div className="container-fluid text-center">
+        <h2>Edit About Us</h2>
+        <Spinner spinning={this.props.loading}>
+          {aboutUsContent && <ContentEditor handleSave={this.handleSave} content={aboutUsContent} />}
+        </Spinner>
+
+        <div className="mt-3">
+          {this.state.showPreview && (
+            <div className="mt-3">
+              <div dangerouslySetInnerHTML={{ __html: this.state.text }} />
             </div>
-        );
-    };
+          )}
+        </div>
+
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={this.state.showNotification}
+          autoHideDuration={3000}
+          onClose={this.handleHideNotification}
+          message={<span>{this.state.notificationMessage}</span>}
+        />
+      </div>
+    );
+  };
 }
 
 AdminAboutUs.propTypes = {
-    verifyLogin: PropTypes.func,
-    redirectToHome: PropTypes.func,
-    getAllContent: PropTypes.func,
-    content: PropTypes.array,
-    loading: PropTypes.bool,
-    updateContent: PropTypes.func,
+  verifyLogin: PropTypes.func,
+  redirectToHome: PropTypes.func,
+  getAllContent: PropTypes.func,
+  content: PropTypes.array,
+  loading: PropTypes.bool,
+  updateContent: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-    return {
-        content: getAllContentObjects(state),
-        loading: getLoading(state),
-    };
+  return {
+    content: getAllContentObjects(state),
+    loading: getLoading(state),
+  };
 };
 
 const mapActionsToProps = {
-    verifyLogin,
-    getAllContent,
-    updateContent,
+  verifyLogin,
+  getAllContent,
+  updateContent,
 };
 
 export default connect(
-    mapStateToProps,
-    mapActionsToProps
+  mapStateToProps,
+  mapActionsToProps
 )(withValidation(AdminAboutUs));
