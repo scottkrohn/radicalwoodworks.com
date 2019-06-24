@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
 
@@ -12,45 +12,39 @@ import { getAllContent as getAllContentObjects, getLoading } from 'client/select
 import AboutUsInfo from 'client/components/about-us/about-us-info';
 import { Spin } from 'antd';
 
-class AboutContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
+const AboutContainer = (props) => {
+  useEffect(() => {
+    props.getAllContent('ABOUT');
+  }, []);
 
-    componentDidMount = () => {
-        this.props.getAllContent('ABOUT');
-    };
+  const content = get(props, 'content', null);
 
-    render = () => {
-        const content = get(this.props, 'content', null);
-
-        return (
-            <div className="container">
-                <div className="col-xs-12">
-                    <Spin spinning={this.props.loading}>
-                        <div className="text-center">
-                            <h1>Radical Woodworks</h1>
-                            {this.props.content && <AboutUsInfo content={content} />}
-                        </div>
-                    </Spin>
-                </div>
-            </div>
-        );
-    };
-}
+  return (
+    <div className="container">
+      <div className="col-xs-12">
+        <Spin spinning={props.loading}>
+          <div className="text-center">
+            <h1>Radical Woodworks</h1>
+            {props.content && <AboutUsInfo content={content} />}
+          </div>
+        </Spin>
+      </div>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
-    return {
-        content: getAllContentObjects(state),
-        loading: getLoading(state),
-    };
+  return {
+    content: getAllContentObjects(state),
+    loading: getLoading(state),
+  };
 };
 
 const mapActionsToProps = {
-    getAllContent: getAllContent,
+  getAllContent: getAllContent,
 };
 
 export default connect(
-    mapStateToProps,
-    mapActionsToProps
+  mapStateToProps,
+  mapActionsToProps
 )(AboutContainer);

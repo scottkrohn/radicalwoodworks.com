@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { isEmpty, get } from 'lodash';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -23,27 +23,20 @@ const IMAGE_ACTIONS = {
   show: 'show',
 };
 
-class ImageCarousel extends Component {
-  constructor(props) {
-    super(props);
+const ImageCarousel = (props) => {
+  let carouselRef = useRef(null);
+  const [anchorElement, setAnchorElement] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
 
-    this.carouselRef = React.createRef();
-
-    this.state = {
-      anchorElement: null,
-      currentImageIndex: 0,
-      showNotification: false,
-      notificationMessage: '',
-    };
-  }
-
-  getImageData = () => {
-    const images = get(this.props, 'images', null);
+  const getImageData = () => {
+    const images = get(props, 'images', null);
     const imageData = [];
 
     if (images) {
       for (const image of images) {
-        if (image.getHidden() && !this.props.showHidden) {
+        if (image.getHidden() && !props.showHidden) {
           continue;
         }
         const fullUrl = IMAGES.getFullUrl(image.getThumbUrl());
@@ -60,177 +53,171 @@ class ImageCarousel extends Component {
     return imageData;
   };
 
-  getCurrentImage = () => {
+  const getCurrentImage = () => {
     let currentImage = null;
-    const images = get(this.props, 'images', null);
+    const images = get(props, 'images', null);
     if (!isEmpty(images)) {
-      currentImage = images[this.state.currentImageIndex];
+      currentImage = images[currentImageIndex];
     }
 
     return currentImage;
   };
 
-  onPrev = () => {
-    this.carouselRef.prev();
+  const onPrev = () => {
+    carouselRef.prev();
   };
 
-  onNext = () => {
-    this.carouselRef.next();
+  const onNext = () => {
+    carouselRef.next();
   };
 
-  goToImageIndex = (index, dontAnimate = true) => {
-    const images = this.getImageData();
-    if (index <=  images.length - 1) {
-      this.carouselRef.goTo(index, dontAnimate);
+  const goToImageIndex = (index, dontAnimate = true) => {
+    const images = getImageData();
+    if (index <= images.length - 1) {
+      carouselRef.goTo(index, dontAnimate);
     }
-  }
-
-  handleShowNotification = (message) => {
-    this.setState({
-      showNotification: true,
-      notificationMessage: message,
-    });
   };
 
-  handleHideNotification = () => {
-    this.setState({
-      showNotification: false,
-    });
+  const handleShowNotification = (message) => {
+    setShowNotification(true);
+    setNotificationMessage(message)
   };
 
-  handleChange = (currentIndex) => {
-    this.setState({
-      currentImageIndex: currentIndex,
-    });
+  const handleHideNotification = () => {
+    setShowNotification(false);
   };
 
-  handleMenuItemClick = (action) => {
-    const currentImage = this.getCurrentImage();
+  const handleChange = (currentIndex) => {
+    setCurrentImageIndex(currentIndex);
+  };
+
+  const handleMenuItemClick = (action) => {
+    const currentImage = getCurrentImage();
     if (currentImage) {
       switch (action) {
         case IMAGE_ACTIONS.delete:
-          this.props.onDelete(currentImage);
+          props.onDelete(currentImage);
           break;
         case IMAGE_ACTIONS.primary:
-          this.props.onImageMappingUpdate(currentImage, true)
-            .then(() => {
-              this.goToImageIndex(0);
-            });
+          props.onImageMappingUpdate(currentImage, true).then(() => {
+            goToImageIndex(0);
+          });
           break;
         case IMAGE_ACTIONS.hide:
           if (currentImage.getIsPrimary()) {
-            this.handleShowNotification('Unable to set the PRIMARY image as hidden.');
+            handleShowNotification('Unable to set the PRIMARY image as hidden.');
             break;
           }
-          this.props.onImageMappingUpdate(currentImage, null, true);
+          props.onImageMappingUpdate(currentImage, null, true);
           break;
         case IMAGE_ACTIONS.show:
-          this.props.onImageMappingUpdate(currentImage, null, false);
+          props.onImageMappingUpdate(currentImage, null, false);
           break;
       }
     }
 
-    this.handleMenuClose();
+    handleMenuClose();
   };
 
-  handleMenuClose = () => {
-    this.setState({
-      anchorElement: null,
-    });
+  const handleMenuClose = () => {
+    setAnchorElement(null);
   };
 
-  handleOpenMenu = (e) => {
-    this.setState({
-      anchorElement: e.currentTarget,
-    });
+  const handleOpenMenu = (e) => {
+    setAnchorElement(e.currentTarget);
   };
 
-  render = () => {
-    const images = this.getImageData();
-    const prevButtonClasses = classnames(styles.Button, styles.ButtonPrev);
-    const nextButtonClasses = classnames(styles.Button, styles.ButtonNext);
+  const images = getImageData();
+  const prevButtonClasses = classnames(styles.Button, styles.ButtonPrev);
+  const nextButtonClasses = classnames(styles.Button, styles.ButtonNext);
 
-    // We'll only show the various actions if we have a function to call.
-    const showDeleteAction = typeof this.props.onDelete === 'function';
-    const showPrimaryAction = typeof this.props.onImageMappingUpdate === 'function';
-    const showHideAction = typeof this.props.onImageMappingUpdate === 'function';
-    const showActions = showDeleteAction || showPrimaryAction || showHideAction;
+  // We'll only show the various actions if we have a function to call.
+  const showDeleteAction = typeof props.onDelete === 'function';
+  const showPrimaryAction = typeof props.onImageMappingUpdate === 'function';
+  const showHideAction = typeof props.onImageMappingUpdate === 'function';
+  const showActions = showDeleteAction || showPrimaryAction || showHideAction;
 
-    return (
-      <div className={styles.CarouselContainer}>
-        {images.length > 1 && (
-          <Icon
-            className={prevButtonClasses} theme="filled"
-            type="left-circle" onClick={this.onPrev}
-          />
-        )}
-        {images.length > 1 && (
-          <Icon
-            className={nextButtonClasses} theme="filled"
-            type="right-circle" onClick={this.onNext}
-          />
-        )}
-        {images.length === 0 ? (
-          <div className={styles.NoImage}>
-            <Icon className={styles.NoImageIcon} type="picture" />
-          </div>
-        ) : (
-          <Carousel ref={(node) => (this.carouselRef = node)} afterChange={this.handleChange}>
-            {images.map((imageData) => {
-              return (
-                <div className={styles.ImageContainer} key={imageData.id}>
-                  <div className={styles.ImageActionsWrapper}>
-                    <img className={styles.Image} src={imageData.url} />
-                    {showActions && (
-                      <div className={styles.Actions}>
-                        <Button textOnly className={styles.ActionButton} onClick={this.handleOpenMenu}>
-                          Actions
-                        </Button>
-                        <Menu
-                          id={`menu-${imageData.id}`}
-                          anchorEl={this.state.anchorElement}
-                          open={Boolean(this.state.anchorElement)}
-                          onClose={this.handleMenuClose}
-                        >
-                          {showPrimaryAction && (
-                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.primary)}>
-                              <span className={styles.MenuItem}>Make Primary Image</span>
-                            </MenuItem>
-                          )}
-                          {showHideAction && (
-                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.hide)}><span className={styles.MenuItem}>Hide Images</span></MenuItem>
-                          )}
-                          {showHideAction && (
-                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.show)}><span className={styles.MenuItem}>Unhide Image</span></MenuItem>
-                          )}
-                          {showDeleteAction && (
-                            <MenuItem onClick={() => this.handleMenuItemClick(IMAGE_ACTIONS.delete)}>
-                              <span className={styles.MenuItem}>Delete Image</span>
-                            </MenuItem>
-                          )}
-                        </Menu>
-                      </div>
-                    )}
-                    {showActions && imageData.isPrimary && <div className={styles.ImageBadge}>Primary Image</div>}
-                    {showActions && imageData.hidden && <div className={styles.ImageBadge}>Hidden</div>}
-                  </div>
-                </div>
-              );
-            })}
-          </Carousel>
-        )}
-
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={this.state.showNotification}
-          autoHideDuration={3000}
-          onClose={this.handleHideNotification}
-          message={<span>{this.state.notificationMessage}</span>}
+  return (
+    <div className={styles.CarouselContainer}>
+      {images.length > 1 && (
+        <Icon
+          className={prevButtonClasses} theme="filled"
+          type="left-circle" onClick={onPrev}
         />
-      </div>
-    );
-  };
-}
+      )}
+      {images.length > 1 && (
+        <Icon
+          className={nextButtonClasses} theme="filled"
+          type="right-circle" onClick={onNext}
+        />
+      )}
+      {images.length === 0 ? (
+        <div className={styles.NoImage}>
+          <Icon className={styles.NoImageIcon} type="picture" />
+        </div>
+      ) : (
+        <Carousel ref={(node) => (carouselRef = node)} afterChange={handleChange}>
+          {images.map((imageData) => {
+            return (
+              <div className={styles.ImageContainer} key={imageData.id}>
+                <div className={styles.ImageActionsWrapper}>
+                  <img className={styles.Image} src={imageData.url} />
+                  {showActions && (
+                    <div className={styles.Actions}>
+                      <Button
+                        textOnly className={styles.ActionButton}
+                        onClick={handleOpenMenu}
+                      >
+                        Actions
+                      </Button>
+                      <Menu
+                        id={`menu-${imageData.id}`}
+                        anchorEl={anchorElement}
+                        open={Boolean(anchorElement)}
+                        onClose={handleMenuClose}
+                      >
+                        {showPrimaryAction && (
+                          <MenuItem onClick={() => handleMenuItemClick(IMAGE_ACTIONS.primary)}>
+                            <span className={styles.MenuItem}>Make Primary Image</span>
+                          </MenuItem>
+                        )}
+                        {showHideAction && (
+                          <MenuItem onClick={() => handleMenuItemClick(IMAGE_ACTIONS.hide)}>
+                            <span className={styles.MenuItem}>Hide Images</span>
+                          </MenuItem>
+                        )}
+                        {showHideAction && (
+                          <MenuItem onClick={() => handleMenuItemClick(IMAGE_ACTIONS.show)}>
+                            <span className={styles.MenuItem}>Unhide Image</span>
+                          </MenuItem>
+                        )}
+                        {showDeleteAction && (
+                          <MenuItem onClick={() => handleMenuItemClick(IMAGE_ACTIONS.delete)}>
+                            <span className={styles.MenuItem}>Delete Image</span>
+                          </MenuItem>
+                        )}
+                      </Menu>
+                    </div>
+                  )}
+                  {showActions && imageData.isPrimary && <div className={styles.ImageBadge}>Primary Image</div>}
+                  {showActions && imageData.hidden && <div className={styles.ImageBadge}>Hidden</div>}
+                </div>
+              </div>
+            );
+          })}
+        </Carousel>
+      )}
+
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={showNotification}
+        autoHideDuration={3000}
+        onClose={handleHideNotification}
+        message={<span>{notificationMessage}</span>}
+      />
+    </div>
+  );
+};
 
 ImageCarousel.propTypes = {
   images: PropTypes.array,

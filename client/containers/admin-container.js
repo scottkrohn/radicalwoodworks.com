@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -13,84 +13,64 @@ import AdminSection from 'client/components/admin-section/admin-section';
 import { withValidation } from 'client/hoc/auth';
 
 const sectionIds = {
-    editProducts: 'editProducts',
-    editPolicies: 'editPolicies',
-    editAboutUs: 'editAboutUs',
-    editFaq: 'editFaq',
+  editProducts: 'editProducts',
+  editPolicies: 'editPolicies',
+  editAboutUs: 'editAboutUs',
+  editFaq: 'editFaq',
 };
-class AdminContainer extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {};
-    }
+const AdminContainer = (props) => {
+  useEffect(() => {
+    props.verifyLogin().catch((error) => {
+      props.redirectToHome();
+    })
+  }, [])
 
-    componentDidMount = () => {
-        this.props.verifyLogin().catch((error) => {
-            this.props.redirectToHome();
-        });
-    };
-
-    handleClick = (sectionId) => {
-        switch (sectionId) {
-            case sectionIds.editProducts:
-                break;
-            case sectionIds.editPolicies:
-                break;
-            case sectionIds.editAboutUs:
-                break;
-            case sectionIds.editFaq:
-                break;
-        }
-    };
-
-    render = () => {
-        return (
-            <div className="container-fluid">
-                <div className="text-center">
-                    <h1>Radical Woodworks Admin Panel</h1>
-                </div>
-                <div>
-                    <Grid>
-                        <AdminSection
-                            title="Edit Products"
-                            text="Click here to edit or delete products"
-                            buttonText="Edit Products"
-                            buttonHref="/admin-products"
-                        />
-                        <AdminSection
-                            title="Edit About Us"
-                            text="Click here to edit the About Us page"
-                            buttonText="Edit About Us"
-                            buttonHref="/admin-about"
-                        />
-                        <AdminSection
-                            title="Edit FAQ"
-                            text="Click here to edit the FAQ page"
-                            buttonText="Edit FAQ"
-                            buttonHref="/admin-faq"
-                        />
-                    </Grid>
-                </div>
-            </div>
-        );
-    };
-}
+  return (
+    <div className="container-fluid">
+      <div className="text-center">
+        <h1>Radical Woodworks Admin Panel</h1>
+      </div>
+      <div>
+        <Grid>
+          <AdminSection
+            title="Edit Products"
+            text="Click here to edit or delete products"
+            buttonText="Edit Products"
+            buttonHref="/admin-products"
+          />
+          <AdminSection
+            title="Edit About Us"
+            text="Click here to edit the About Us page"
+            buttonText="Edit About Us"
+            buttonHref="/admin-about"
+          />
+          <AdminSection
+            title="Edit FAQ"
+            text="Click here to edit the FAQ page"
+            buttonText="Edit FAQ"
+            buttonHref="/admin-faq"
+          />
+        </Grid>
+      </div>
+    </div>
+  );
+};
 
 AdminContainer.propTypes = {
-    verifyLogin: PropTypes.func,
-    redirectToHome: PropTypes.func,
+  verifyLogin: PropTypes.func,
+  redirectToHome: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-    return state;
+  return state;
 };
 
 const mapActionsToProps = {
-    verifyLogin,
+  verifyLogin,
 };
 
 export default connect(
-    mapStateToProps,
-    mapActionsToProps
+  mapStateToProps,
+  mapActionsToProps
 )(withValidation(AdminContainer));
