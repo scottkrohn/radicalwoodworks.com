@@ -1,13 +1,13 @@
 import express from 'express';
 import session from 'express-session';
-import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
-import path from 'path';
-import routes from './server/routes/routes';
-import webpackConfig from './webpack.config.js';
+// import routes from './server/routes/routes';
 import passport from 'passport';
 import passportConfig from './server/lib/passport';
-import { getConfig } from './lib/protected';
+import serverRenderer from './lib/server-renderer';
+import {getConfig} from './lib/protected';
+import {matchRoutes} from 'react-router-config';
+import createStore from './lib/create-store';
+import Routes from './routes';
 
 const app = express();
 const env = app.get('env');
@@ -32,24 +32,45 @@ app.use(passport.session());
 passportConfig(passport);
 
 // Include dev/prod independant routes.
-routes(app);
+// routes(app);
 
-if (env === 'production') {
-  // Serve static output from webpack for production.
-  app.use(express.static(path.join(__dirname, 'build')));
-
-  app.get('*', function(req, res) {
-    console.log(new Date());
-    res.sendFile(path.resolve(__dirname + '/build/index.html'));
+app.get('*', (req, res) => {
+  const store = createStore();
+  
+  const loadDataPromises = matchRoutes(Routes, req.path).map(({route}) => {
+    return route.loadData ? route.loadData(store) : null;
+  }).map((promise) => {
+    if (promise) {
+      return new Promise((resolve, reject) => {
+        promise.then(resolve).catch(resolve);
+      });
+    }
   });
-} else {
-  // Serve react code with webpack for development.
-  app.use(webpackMiddleware(webpack(webpackConfig)));
 
-  app.get('*', function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/build/index.html'));
+  Promise.all(loadDataPromises).then(() => {
+    const context = {};
+    const content = serverRenderer(req, store, context);
+
+    res.send(content);
   });
-}
+});
+
+// if (env === 'production') {
+//   // Serve static output from webpack for production.
+//   app.use(express.static(path.join(__dirname, 'build')));
+
+//   app.get('*', function(req, res) {
+//     console.log(new Date());
+//     res.sendFile(path.resolve(__dirname + '/build/index.html'));
+//   });
+// } else {
+//   // Serve react code with webpack for development.
+//   app.use(webpackMiddleware(webpack(webpackConfig)));
+
+//   app.get('*', function(req, res) {
+//     res.sendFile(path.resolve(__dirname + '/build/index.html'));
+//   });
+// }
 
 const port = process.env.PORT || 3000;
 

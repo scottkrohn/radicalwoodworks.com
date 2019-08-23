@@ -7,7 +7,7 @@ import Product from '../../model/product';
 import REQUEST from '../constants/request-constants';
 import EXCEPTIONS from '../../constants/exceptions';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const productsBli = new ProductsBLI();
 
   const product = new Product();

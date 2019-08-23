@@ -1,24 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // Components
-import Router from './router';
-import NavBar from './components/nav/navbar';
-import Footer from './components/footer/footer';
+// import Router from './router';
+// import NavBar from './components/nav/navbar';
+// import Footer from './components/footer/footer';
 
 // Styles
-import './app.less'; // Global app css
-import 'antd/dist/antd.css'; // Ant Design app less
+import styles from './app.less'; // Global app css
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-class App extends Component {
-  render = () => {
-    return (
-      <div className="app-container">
-        <NavBar />
+const App = () => {
+  useStyles(styles);
+  return (
+    <div className="app-container">
+      I'm the server rendered app.
+      {/* <NavBar />
         <Router />
-        <Footer />
-      </div>
-    );
-  };
-}
+        <Footer /> */}
+    </div>
+  );
+};
 
-export default App;
+export default {
+  component: App,
+};

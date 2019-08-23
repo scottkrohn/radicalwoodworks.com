@@ -3,7 +3,7 @@ import ProductsBLI from '../classes/bli/products';
 // Constants
 import REQUEST from '../constants/request-constants';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const productsBli = new ProductsBLI();
 
   if (req.method === REQUEST.method.get) {

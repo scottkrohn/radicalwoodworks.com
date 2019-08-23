@@ -1,3 +1,4 @@
+import {combineReducers} from 'redux';
 import ProductsReducer from 'client/reducers/products-reducer';
 import ProductReducer from 'client/reducers/product-reducer';
 import ContentReducer from 'client/reducers/content-reducer';
@@ -6,7 +7,7 @@ import AuthReducer from 'client/reducers/auth-reducer';
 import ImageUploadReducer from 'client/reducers/image-upload-reducer';
 import ImagesReducer from 'client/reducers/images-reducer';
 
-const rootReducer = {
+const reducers = {
   products: ProductsReducer,
   product: ProductReducer,
   content: ContentReducer,
@@ -16,4 +17,4 @@ const rootReducer = {
   images: ImagesReducer,
 };
 
-export default rootReducer;
+export default combineReducers(reducers);

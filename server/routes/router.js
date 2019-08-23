@@ -39,7 +39,7 @@ router.route('/contact/send')
 /***********************/
 
 router.route('/signup')
-	.post(require('../controllers/signup-controller'));
+  .post(require('../controllers/signup-controller'));
 
 router.route('/login')
   .post(require('../controllers/auth-controller'));
@@ -50,4 +50,4 @@ router.route('/logout')
 router.route('/verify')
   .all(require('../controllers/admin-controller'));
 
-module.exports = router;
+export default router;

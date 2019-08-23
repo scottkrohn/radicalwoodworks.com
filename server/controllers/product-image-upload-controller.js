@@ -7,7 +7,7 @@ import EXCEPTIONS from '../../constants/exceptions';
 
 const singleUpload = upload.single('image');
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   if (!req.isAuthenticated()) {
     res.status(403).send(EXCEPTIONS.unauthorized);
     return;
