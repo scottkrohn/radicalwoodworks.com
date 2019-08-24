@@ -8,6 +8,7 @@ import {getConfig} from './lib/protected';
 import {matchRoutes} from 'react-router-config';
 import createStore from './lib/create-store';
 import Routes from './routes';
+import proxy from 'express-http-proxy';
 import 'babel-polyfill';
 
 const app = express();
@@ -26,6 +27,8 @@ app.use(
   })
 );
 
+// app.use('/server', proxy('/server'));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -37,6 +40,7 @@ routes(app);
 
 app.use(express.static('public'))
 app.get('*', (req, res) => {
+  console.log('req.path: ', req.path);
   const store = createStore();
   
   const loadDataPromises = matchRoutes(Routes, req.path).map(({route}) => {
