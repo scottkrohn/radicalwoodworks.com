@@ -24,3 +24,17 @@ const App = ({route}) => {
 export default {
   component: App,
 };
+
+
+/**
+ * TODO:
+ * 1. Build new image carousel to replace antd.
+ * 2. Build new icon class class to replace antd.
+ * 3. Add auth support back to the nav bar. Maybe put auth into a HOC (see server-rendering project)
+ * 4. Build a drawer component to replace antd.
+ * 5. Build a spinner component to replace antd.
+ * 6. Remove the old navbar file.
+ * 7. Build new text input component.
+ * 8. Build new Button component.
+ * 9. Build new form component.
+ */
