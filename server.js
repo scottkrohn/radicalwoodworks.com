@@ -1,6 +1,6 @@
 import express from 'express';
 import session from 'express-session';
-// import routes from './server/routes/routes';
+import routes from './server/routes/routes';
 import passport from 'passport';
 import passportConfig from './server/lib/passport';
 import serverRenderer from './lib/server-renderer';
@@ -33,7 +33,7 @@ app.use(passport.session());
 passportConfig(passport);
 
 // Include dev/prod independant routes.
-// routes(app);
+routes(app);
 
 app.use(express.static('public'))
 app.get('*', (req, res) => {
@@ -56,23 +56,6 @@ app.get('*', (req, res) => {
     res.send(content);
   });
 });
-
-// if (env === 'production') {
-//   // Serve static output from webpack for production.
-//   app.use(express.static(path.join(__dirname, 'build')));
-
-//   app.get('*', function(req, res) {
-//     console.log(new Date());
-//     res.sendFile(path.resolve(__dirname + '/build/index.html'));
-//   });
-// } else {
-//   // Serve react code with webpack for development.
-//   app.use(webpackMiddleware(webpack(webpackConfig)));
-
-//   app.get('*', function(req, res) {
-//     res.sendFile(path.resolve(__dirname + '/build/index.html'));
-//   });
-// }
 
 const port = process.env.PORT || 3000;
 

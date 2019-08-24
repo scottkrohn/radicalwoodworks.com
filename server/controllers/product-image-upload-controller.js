@@ -1,4 +1,4 @@
-const upload = require('../lib/image-upload');
+import upload from '../lib/image-upload';
 
 import ImagesBLI from '../classes/bli/images';
 

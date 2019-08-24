@@ -1,53 +1,63 @@
 const express = require('express');
 const router = express.Router();
 
+import adminCtrl from '../controllers/admin-controller';
+import authCtrl from '../controllers/auth-controller';
+import contactCtrl from '../controllers/contact-controller';
+import contentCtrl from '../controllers/content-controller';
+import imagesCtrl from '../controllers/images-controller';
+import productImageUploadCtrl from '../controllers/product-image-upload-controller';
+import productsCtrl from '../controllers/products-controller';
+import productCtrl from '../controllers/product-controller';
+import signupCtrl from '../controllers/signup-controller';
+
 // Products Routes
 router.route('/products/:productId')
-  .get(require('../controllers/products-controller'))
-  .delete(require('../controllers/product-controller'));
+  .get(productsCtrl)
+  .delete(productCtrl);
 
 // Product Routes
 router.route('/products')
-  .get(require('../controllers/products-controller'));
+  .get(productsCtrl);
 
 router.route('/products/create')
-  .post(require('../controllers/product-controller'));
+  .post(productCtrl);
 
 router.route('/products/update')
-  .put(require('../controllers/product-controller'));
+  .put(productCtrl);
 
 router.route('/products/image/:productId')
-  .post(require('../controllers/product-image-upload-controller'));
+  .post(productImageUploadCtrl);
 
 // Image Routes
 router.route('/images/:imageId')
-  .all(require('../controllers/images-controller'));
+  .all(imagesCtrl);
 
 // Content Routes
 router.route('/content/:contentType')
-  .all(require('../controllers/content-controller'));
+  .all(contentCtrl);
 
 router.route('/content/update')
-  .put(require('../controllers/content-controller'));
+  .put(contentCtrl);
 
 // Contact Routes
 router.route('/contact/send')
-  .all(require('../controllers/contact-controller'));
+  .all(contactCtrl);
 
 
-/* Authentication Routes
-/***********************/
+// /* Authentication Routes
+// /***********************/
 
 router.route('/signup')
-  .post(require('../controllers/signup-controller'));
+  .post(signupCtrl);
 
 router.route('/login')
-  .post(require('../controllers/auth-controller'));
+  .post(authCtrl);
 
 router.route('/logout')
-  .put(require('../controllers/auth-controller'));
+  .put(authCtrl);
 
 router.route('/verify')
-  .all(require('../controllers/admin-controller'));
+  .all(adminCtrl);
 
 export default router;
