@@ -6,34 +6,28 @@ import Button from 'client/components/base/button/button';
 
 // Styles
 import styles from 'client/components/page-header/page-header.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-class PageHeader extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  render = () => {
-    return (
-      <div className={styles.PageHeaderContainer}>
-        <div>{/* This is a placeholder div for flexbox. Don't delete me! */}</div>
-        <div className={styles.HeaderText}>
-          {this.props.headerText}
-        </div>
-        <div className={styles.Button}>
-          {this.props.showButton && (
-            <Button
-              variant="contained"
-              color="save"
-              onClick={this.props.onButtonClick}
-            >
-              {this.props.buttonText}
-            </Button>
-          )}
-        </div>
+const PageHeader = ({ buttonText, headerText, onButtonClick, showButton }) => {
+  useStyles(styles);
+  
+  return (
+    <div className={styles.PageHeaderContainer}>
+      <div>{/* This is a placeholder div for flexbox. Don't delete me! */}</div>
+      <div className={styles.HeaderText}>{headerText}</div>
+      <div className={styles.Button}>
+        {showButton && (
+          <Button
+            variant="contained" color="save"
+            onClick={onButtonClick}
+          >
+            {buttonText}
+          </Button>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 PageHeader.propTypes = {
   onButtonClick: PropTypes.func,

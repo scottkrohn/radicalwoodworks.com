@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Styles
 import styles from 'client/components/homepage-content-grid/homepage-content-grid.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Components
 import Button from 'client/components/base/button/button';
@@ -14,6 +15,8 @@ import { observerIsIntersecting } from 'client/utils/observers';
 import { withRouter } from 'react-router-dom';
 
 const HomepageImageGrid = (props) => {
+  useStyles(styles);
+
   const myRefs = {};
   props.homepageContent.forEach((content) => {
     const ref = React.createRef();

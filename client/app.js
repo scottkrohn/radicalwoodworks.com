@@ -1,22 +1,22 @@
 import React from 'react';
 
 // Components
-// import Router from './router';
-// import NavBar from './components/nav/navbar';
-// import Footer from './components/footer/footer';
+import {renderRoutes} from 'react-router-config';
+import NavbarV2 from './components/nav/navbar-v2';
+import Footer from './components/footer/footer';
 
 // Styles
 import styles from './app.less'; // Global app css
+import bootstrapStyles from'node_modules/bootstrap/dist/css/bootstrap.min.css';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const App = () => {
-  useStyles(styles);
+const App = ({route}) => {
+  useStyles(styles, bootstrapStyles);
   return (
     <div className="app-container">
-      I'm the server rendered app.
-      {/* <NavBar />
-        <Router />
-        <Footer /> */}
+      <NavbarV2 />
+      {renderRoutes(route.routes)}
+      <Footer />
     </div>
   );
 };

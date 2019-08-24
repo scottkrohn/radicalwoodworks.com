@@ -8,6 +8,7 @@ import {getConfig} from './lib/protected';
 import {matchRoutes} from 'react-router-config';
 import createStore from './lib/create-store';
 import Routes from './routes';
+import 'babel-polyfill';
 
 const app = express();
 const env = app.get('env');
@@ -34,6 +35,7 @@ passportConfig(passport);
 // Include dev/prod independant routes.
 // routes(app);
 
+app.use(express.static('public'))
 app.get('*', (req, res) => {
   const store = createStore();
   

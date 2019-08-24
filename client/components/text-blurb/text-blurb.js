@@ -4,27 +4,22 @@ import classNames from 'classnames';
 
 // Styles
 import styles from 'client/components/text-blurb/text-blurb.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-class TextBlurb extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const TextBlurb = ({ className, text }) => {
+  useStyles(styles);
+  
+  const textBlurbClasses = classNames({
+    [styles.TextBlurbContainer]: true,
+    [className]: !!className,
+  });
 
-  render = () => {
-    const textBlurbClasses = classNames({
-      [styles.TextBlurbContainer]: true,
-      [this.props.className]: !!this.props.className,
-    });
-
-    return (
-      <div className={textBlurbClasses}>
-        <span>
-          {this.props.text}
-        </span>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={textBlurbClasses}>
+      <span>{text}</span>
+    </div>
+  );
+};
 
 TextBlurb.propTypes = {
   text: PropTypes.string,

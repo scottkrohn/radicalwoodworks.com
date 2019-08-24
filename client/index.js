@@ -2,36 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import createStore from '../lib/create-store';
+import StyleContext from 'isomorphic-style-loader/StyleContext';
+import { renderRoutes } from 'react-router-config';
+import Routes from '../routes';
 import 'typeface-roboto';
 import 'react-quill/dist/quill.snow.css';
 
 // Redux Imports
-// import { applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-// import rootReducer from 'reducers/root-reducer';
 
-// import thunk from 'redux-thunk';
+import 'node_modules/jquery/dist/jquery.min.js';
+import 'node_modules/bootstrap/dist/js/bootstrap.min.js';
 
-// import 'node_modules/jquery/dist/jquery.min.js';
-// import 'node_modules/bootstrap/dist/js/bootstrap.min.js';
-// import 'node_modules/bootstrap/dist/css/bootstrap.min.css';
+const store = createStore(window.INITIAL_STATE);
 
-import App from './app';
+const insertCss = (...styles) => {
+  const removeCss = styles.map((style) => style._insertCss());
+  return () => removeCss.forEach((dispose) => dispose());
+};
 
-// const composeEnhancers =
-//   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-//     : compose;
-
-// const allStoreEnhancers = composeEnhancers(applyMiddleware(thunk));
-
-// const allReducers = combineReducers(rootReducer);
-// const store = createStore(allReducers, {}, allStoreEnhancers);
-
-ReactDOM.render(
+ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <StyleContext.Provider value={{ insertCss }}>
+        <div>{renderRoutes(Routes)}</div>
+      </StyleContext.Provider>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

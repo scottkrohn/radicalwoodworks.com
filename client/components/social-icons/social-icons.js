@@ -6,11 +6,13 @@ import { faFacebook, faTwitter, faPinterest, faInstagram, faEtsy } from '@fortaw
 
 // Styles
 import styles from 'client/components/social-icons/social-icons.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Constants
 import URL from 'client/constants/url-constants';
 
-const SocialIcons = (props) => {
+const SocialIcons = () => {
+  useStyles(styles);
   return (
     <div className={styles.SocialIconsContainer}>
       <a

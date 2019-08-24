@@ -22,9 +22,9 @@ module.exports = {
           'isomorphic-style-loader',
           {
             loader: 'css-loader',
-            // options: {
-            //   importLoaders: 1
-            // }
+            options: {
+              importLoaders: 1,
+            }
           },
         ],
       },
@@ -41,9 +41,8 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              modules: {
-                localIdentName: '[local]___[hash:base64:5]',
-              },
+              modules: true,
+              localIdentName: '[local]___[hash:base64:5]',
             },
           },
           {
