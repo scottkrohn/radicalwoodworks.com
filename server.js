@@ -40,7 +40,6 @@ routes(app);
 
 app.use(express.static('public'))
 app.get('*', (req, res) => {
-  console.log('req.path: ', req.path);
   const store = createStore();
   
   const loadDataPromises = matchRoutes(Routes, req.path).map(({route}) => {

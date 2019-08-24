@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isEmpty, get } from 'lodash';
 
 // Components
-// import ProductGrid from 'client/components/product/product-grid';
+import ProductGrid from 'client/components/product/product-grid';
 
 // Actions
 import { getProducts } from 'actions/products-actions';
@@ -13,12 +13,6 @@ import { getProducts } from 'actions/products-actions';
 import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
 
 const ProductsContainer = ({ getProducts, loading, products }) => {
-  // componentDidMount = () => {
-  //   if (isEmpty(products)) {
-  //     getProducts();
-  //   }
-  // };
-
   useEffect(() => {
     if (isEmpty(products)) {
       getProducts();
@@ -30,14 +24,13 @@ const ProductsContainer = ({ getProducts, loading, products }) => {
 
   return (
     <div className="container-fluid">
-      I'm the products page.
-        {/* <div className="col-12">
-          <div className="text-center">
-            <h1>Radical Woodworks Products</h1>
-          </div>
+      <div className="col-12">
+        <div className="text-center">
+          <h1>Radical Woodworks Products</h1>
         </div>
+      </div>
 
-        {productsLoaded && <ProductGrid products={products} />} */}
+      {productsLoaded && <ProductGrid products={products} />}
     </div>
   );
 };
@@ -62,5 +55,5 @@ export default {
     mapStateToProps,
     mapActionsToProps
   )(ProductsContainer),
-  loadData: (store) => {console.log('called'); return store.dispatch(getProducts())},
+  loadData: (store) => store.dispatch(getProducts()),
 };

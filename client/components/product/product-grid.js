@@ -7,11 +7,13 @@ import ProductMini from 'client/components/product/product-mini';
 
 // Styles
 import styles from 'client/components/product/product-grid.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Utils
 import { observerIsIntersecting } from 'client/utils/observers';
 
 const ProductGrid = (props) => {
+  useStyles(styles);
   const myRefs = {};
   props.products.forEach((product) => {
     const ref = useRef(null);
