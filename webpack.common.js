@@ -3,12 +3,13 @@ const path = require('path');
 module.exports = {
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules', 'client'],
+    extensions: ['.js', '.jsx'],
   },
   // Tell webpack to run babel on every file it runs thru
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.(js|jsx)?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
@@ -24,7 +25,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-            }
+            },
           },
         ],
       },

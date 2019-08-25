@@ -1,69 +1,47 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 // Components
-import ContactForm from 'client/components/contact/contact-form';
-import { Spin } from 'antd';
+import ContactForm from 'client/components/contact/contact-form-v2';
 
 // Actions
 import { sendContact } from 'client/actions/contact-actions';
 
-class ContactContainer extends Component {
-  constructor(props) {
-    super(props);
+const ContactContainer = ({ contact, sendContact }) => {
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
-    this.state = {
-      sent: false,
-      error: false,
-    };
-  }
-
-  handleSendContact = (contact) => {
-    this.props
-      .sendContact(contact)
+  const handleSendContact = (contact) => {
+    sendContact(contact)
       .then((result) => {
         if (result.status === 200) {
-          this.setState({
-            sent: true,
-            error: false,
-          });
+          setSent(true);
+          setError(false);
         }
       })
       .catch((err) => {
-        this.setState({
-          sent: false,
-          error: true,
-        });
+        setSent(false);
+        setError(true);
       });
   };
 
-  renderContactForm = () => {
-    return (
-      <ContactForm
-        handleSendContact={this.handleSendContact}
-        sending={this.props.contact.sending}
-        sent={this.state.sent}
-        error={this.state.error}
-      />
-    );
-  };
-
-  render = () => {
-    return (
-      <Spin spinning={this.props.contact.sending} size="large">
-        <div className="container-fluid">
-          <div className="col-xs-12">
-            <div className="text-center">
-              <h3>Contact Us Radical Woodworks</h3>
-            </div>
-          </div>
-
-          {this.renderContactForm()}
+  return (
+    <div className="container-fluid">
+      <div className="col-xs-12">
+        <div className="text-center">
+          <h3>Contact Us Radical Woodworks</h3>
         </div>
-      </Spin>
-    );
-  };
-}
+      </div>
+
+      <ContactForm
+        handleSendContact={handleSendContact}
+        sending={contact.sending}
+        sent={sent}
+        error={error}
+      />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => state;
 
@@ -71,7 +49,9 @@ const mapActionsToProps = {
   sendContact,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(ContactContainer);
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(ContactContainer),
+};

@@ -1,16 +1,16 @@
 import React from 'react';
 
 // Components
-import {renderRoutes} from 'react-router-config';
+import { renderRoutes } from 'react-router-config';
 import NavbarV2 from './components/nav/navbar-v2';
 import Footer from './components/footer/footer';
 
 // Styles
-import styles from './app.less'; // Global app css
-import bootstrapStyles from'node_modules/bootstrap/dist/css/bootstrap.min.css';
+import styles from './app.scss'; // Global app css
+import bootstrapStyles from 'node_modules/bootstrap/dist/css/bootstrap.min.css';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const App = ({location, route}) => {
+const App = ({ location, route }) => {
   useStyles(styles, bootstrapStyles);
   return (
     <div className="app-container">
@@ -25,7 +25,6 @@ export default {
   component: App,
 };
 
-
 /**
  * TODO:
  * 1. Build new image carousel to replace antd.
@@ -38,5 +37,5 @@ export default {
  * 8. Build new Button component.
  * 9. Build new form component.
  * 10. Build notification component to replace antd.
- * 
+ *
  */

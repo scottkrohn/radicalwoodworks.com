@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.TextInputContainer {
+  .TextInput {
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    border: 1px solid $gray;
+    transition: all 400ms ease-in-out;
+
+    &:focus,
+    &:hover {
+      outline: none;
+      border-color: $link-blue;
+      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    }
+  }
+
+  .TextInputLabel {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+}

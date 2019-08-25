@@ -3,6 +3,7 @@ import App from './client/app';
 
 import HomePage from './client/containers/homepage-container';
 import ProductsPage from './client/containers/products-container';
+import ContactPage from './client/containers/contact-container';
 
 export default [
   {
@@ -11,6 +12,10 @@ export default [
       {
         ...ProductsPage,
         path: '/products',
+      },
+      {
+        ...ContactPage,
+        path: '/contact',
       },
       {
         ...HomePage,
