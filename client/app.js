@@ -10,11 +10,11 @@ import styles from './app.less'; // Global app css
 import bootstrapStyles from'node_modules/bootstrap/dist/css/bootstrap.min.css';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const App = ({route}) => {
+const App = ({location, route}) => {
   useStyles(styles, bootstrapStyles);
   return (
     <div className="app-container">
-      <NavbarV2 />
+      <NavbarV2 location={location} />
       {renderRoutes(route.routes)}
       <Footer />
     </div>
@@ -37,4 +37,6 @@ export default {
  * 7. Build new text input component.
  * 8. Build new Button component.
  * 9. Build new form component.
+ * 10. Build notification component to replace antd.
+ * 
  */
