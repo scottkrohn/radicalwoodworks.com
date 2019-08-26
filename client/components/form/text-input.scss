@@ -1,6 +1,9 @@
 @import '../../styles/variables.scss';
 
 .TextInputContainer {
+  position: relative;
+  padding-bottom: 10px;
+
   .TextInput {
     width: 100%;
     height: 40px;
@@ -14,6 +17,26 @@
       border-color: $peacock-blue;
       box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
     }
+  }
+
+  .Error {
+    border-color: $error-red;
+
+    &:focus,
+    &:hover {
+      border-color: $error-red;
+      box-shadow: none;
+    }
+  }
+
+  .ErrorMessage {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: $error-red;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
   }
 
   .TextArea {
