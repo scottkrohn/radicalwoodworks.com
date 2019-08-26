@@ -6,14 +6,18 @@
     height: 40px;
     border-radius: 3px;
     border: 1px solid $gray;
-    transition: all 400ms ease-in-out;
+    transition: border-color 400ms ease-in-out, box-shadow 400ms ease-in-out;
 
     &:focus,
     &:hover {
       outline: none;
-      border-color: $link-blue;
+      border-color: $peacock-blue;
       box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
     }
+  }
+
+  .TextArea {
+    height: inherit;
   }
 
   .TextInputLabel {

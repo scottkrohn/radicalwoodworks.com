@@ -1,0 +1,18 @@
+@import '../../styles//variables.scss';
+
+.ButtonContainer {
+  .Button {
+    border-radius: 3px;
+    width: 100%;
+    height: 40px;
+    color: $light-gray;
+    background: $peacock-blue;
+    transition: background 300ms ease-in-out;
+
+    &:focus,
+    &:hover {
+      outline: none;
+      background: $otter-blue;
+    }
+  }
+}

@@ -6,7 +6,7 @@ import NavbarV2 from './components/nav/navbar-v2';
 import Footer from './components/footer/footer';
 
 // Styles
-import styles from './app.scss'; // Global app css
+import styles from './styles/app.scss'; // Global app css
 import bootstrapStyles from 'node_modules/bootstrap/dist/css/bootstrap.min.css';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
@@ -37,5 +37,6 @@ export default {
  * 8. Build new Button component.
  * 9. Build new form component.
  * 10. Build notification component to replace antd.
+ * 11. Handle loading/completed/error states for all pages that need them.
  *
  */
