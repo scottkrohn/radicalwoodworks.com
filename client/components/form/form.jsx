@@ -28,20 +28,29 @@ const Form = ({ children, fields }) => {
       [fieldName]: {
         ...formFields[fieldName],
         value: newValue,
-        isValid: runValidate(fieldName, newValue),
+        ...runValidate(fieldName, newValue),
         isDirty: true,
       },
     });
   };
 
   const runValidate = (fieldName, value) => {
-    const validator = formFields[fieldName].validator;
-    if (validator && typeof validator.validate === 'function') {
-      return validator.validate(value);
+    const validators = formFields[fieldName].validators;
+    if (validators && validators.length) {
+      for (const validator of validators) {
+        if (!validator.validate(value)) {
+          return {
+            isValid: false,
+            message: validator.message,
+          };
+        }
+      }
     }
 
     // If no validator was provided then it's always valid.
-    return true;
+    return {
+      isValid: true,
+    };
   };
 
   const fieldProps = (fieldName) => {

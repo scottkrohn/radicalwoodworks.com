@@ -5,6 +5,8 @@ import Contact from 'model/contact';
 
 // Validators
 import RequiredValidator from '../../utils/validators/required-validator';
+import MaxLengthValidator from '../../utils/validators/max-length-validator';
+import MinLengthValidator from '../../utils/validators/min-length-validator';
 
 // Components
 import Form from '../form/form';
@@ -38,19 +40,22 @@ const ContactForm = ({ handleSendContact }) => {
         fields={{
           email: {
             value: '',
-            validator: RequiredValidator('Email address required'),
+            validators: [RequiredValidator('Email address required')],
           },
           name: {
             value: '',
-            validator: RequiredValidator('Name required'),
+            validators: [RequiredValidator('Name required')],
           },
           subject: {
             value: '',
-            validator: RequiredValidator('subject required'),
+            validators: [
+              RequiredValidator('subject required'),
+              MinLengthValidator(10, 'Subject must be at least 10 characters.'),
+            ],
           },
           message: {
             value: '',
-            validator: RequiredValidator('message required'),
+            validators: [RequiredValidator('message required')],
           },
         }}
       >

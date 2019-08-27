@@ -6,10 +6,10 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 const TextInput = ({ value = '', ...props }) => {
   useStyles(styles);
-  const { className, isDirty, isValid, fieldName, label, onChange, rows, textArea, validator } = props;
+  const { className, isDirty, isValid, fieldName, label, message, onChange, rows, textArea } = props;
   const Input = textArea ? 'textarea' : 'input';
 
-  const showValidationError = isDirty && !isValid && validator && validator.message;
+  const showValidationError = isDirty && !isValid && message;
 
   return (
     <div className={cx(styles.TextInputContainer, className)}>
@@ -20,7 +20,7 @@ const TextInput = ({ value = '', ...props }) => {
         value={value}
         rows={rows}
       />
-      {showValidationError && <span className={styles.ErrorMessage}>{validator.message}</span>}
+      {showValidationError && <span className={styles.ErrorMessage}>{message}</span>}
     </div>
   );
 };
