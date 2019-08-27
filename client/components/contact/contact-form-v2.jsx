@@ -5,7 +5,6 @@ import Contact from 'model/contact';
 
 // Validators
 import RequiredValidator from '../../utils/validators/required-validator';
-import MaxLengthValidator from '../../utils/validators/max-length-validator';
 import MinLengthValidator from '../../utils/validators/min-length-validator';
 
 // Components
@@ -21,17 +20,20 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 const ContactForm = ({ handleSendContact }) => {
   useStyles(styles);
 
-  const handleSubmit = ({ email, name, subject, message }) => () => {
-    const formattedMessage = `FROM ${name} - ${email} <br><br> ${message}`;
+  const handleSubmit = ({ fields, isValid }) => () => {
+    if (isValid) {
+      const { message, name, email, subject } = fields;
+      const formattedMessage = `FROM ${name} - ${email} <br><br> ${message}`;
 
-    const contact = new Contact();
-    contact.setTo('skrohn86@gmail.com');
-    // contact.setTo('radicalwoodworks@yahoo.com');
-    contact.setSubject(subject);
-    contact.setFrom(email);
-    contact.setHtml(formattedMessage);
+      const contact = new Contact();
+      contact.setTo('skrohn86@gmail.com');
+      // contact.setTo('radicalwoodworks@yahoo.com');
+      contact.setSubject(subject);
+      contact.setFrom(email);
+      contact.setHtml(formattedMessage);
 
-    handleSendContact(contact);
+      handleSendContact(contact);
+    }
   };
 
   return (
@@ -48,10 +50,7 @@ const ContactForm = ({ handleSendContact }) => {
           },
           subject: {
             value: '',
-            validators: [
-              RequiredValidator('subject required'),
-              MinLengthValidator(10, 'Subject must be at least 10 characters.'),
-            ],
+            validators: [RequiredValidator('subject required'), MinLengthValidator(10, 'Subject must be at least 10 characters.')],
           },
           message: {
             value: '',
@@ -59,7 +58,7 @@ const ContactForm = ({ handleSendContact }) => {
           },
         }}
       >
-        {({ onChange, fieldProps, formValues }) => {
+        {({ onChange, fieldProps, getFormValues }) => {
           return (
             <div className={cx(styles.ContactForm, 'flex flex-dir-col')}>
               <div className="flex flex-dir-col">
@@ -92,7 +91,7 @@ const ContactForm = ({ handleSendContact }) => {
               </div>
               <Button
                 className="mt-3"
-                onClick={handleSubmit(formValues)}
+                onClick={handleSubmit(getFormValues())}
               >
                 Submit
               </Button>

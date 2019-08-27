@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { mapValues } from 'lodash';
+import { every, values, mapValues } from 'lodash';
 
-// TODO: handle invalid data on submit: ie a 'isValid' for entire form
 // TODO: run validate on all fields before submitting to highlight the invalid fields
-// TODO: Handle multiple validators
 
 const Form = ({ children, fields }) => {
   const [formFields, setFormFields] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     setFormFields(setupFieldInitialValues());
   }, [fields]);
 
   const setupFieldInitialValues = () => {
-    return mapValues(fields, (field) => ({
-      ...field,
-      isDirty: false,
-    }));
+    return mapValues(fields, (field) => {
+      return {
+        ...field,
+        isDirty: false,
+        isValid: !field.validators, // If there's no validators then it's always valid.
+      };
+    });
   };
 
   const onChange = (fieldName) => (event) => {
@@ -31,6 +33,12 @@ const Form = ({ children, fields }) => {
         ...runValidate(fieldName, newValue),
         isDirty: true,
       },
+    });
+  };
+
+  const isFormValid = () => {
+    return every(values(formFields), (field) => {
+      return field.isValid;
     });
   };
 
@@ -60,10 +68,19 @@ const Form = ({ children, fields }) => {
     };
   };
 
+  const getFormValues = () => {
+    return {
+      fields: mapValues(formFields, (formField) => {
+        return formField.value;
+      }),
+      isValid: isFormValid(),
+    };
+  };
+
   const formData = {
     onChange,
     fieldProps,
-    formValues: formFields,
+    getFormValues,
   };
 
   return typeof children === 'function' ? children(formData) : children;
