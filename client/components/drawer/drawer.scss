@@ -3,10 +3,11 @@
 .DrawerContainer {
   position: fixed;
   left: 0;
-  top: -300;
-  height: 300px;
+  top: -600;
+  height: 600px;
   width: 100%;
-  background: green;
+  background: white;
+  border-bottom: 1px solid $gray;
   z-index: $z-index-drawer;
   transition: top ease-out 300ms;
 }
