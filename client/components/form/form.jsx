@@ -5,7 +5,6 @@ import { every, values, mapValues } from 'lodash';
 
 const Form = ({ children, fields }) => {
   const [formFields, setFormFields] = useState({});
-  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     setFormFields(setupFieldInitialValues());
@@ -23,14 +22,13 @@ const Form = ({ children, fields }) => {
 
   const onChange = (fieldName) => (event) => {
     const newValue = event.target.value;
-    runValidate(fieldName, newValue);
 
     setFormFields({
       ...formFields,
       [fieldName]: {
         ...formFields[fieldName],
         value: newValue,
-        ...runValidate(fieldName, newValue),
+        ...validateField(fieldName, newValue),
         isDirty: true,
       },
     });
@@ -42,7 +40,7 @@ const Form = ({ children, fields }) => {
     });
   };
 
-  const runValidate = (fieldName, value) => {
+  const validateField = (fieldName, value) => {
     const validators = formFields[fieldName].validators;
     if (validators && validators.length) {
       for (const validator of validators) {
@@ -61,6 +59,19 @@ const Form = ({ children, fields }) => {
     };
   };
 
+  const validateForm = () => {
+    const validatedFormFields = {};
+    for (const fieldName in formFields) {
+      validatedFormFields[fieldName] = {
+        ...formFields[fieldName],
+        ...validateField(fieldName, formFields[fieldName].value),
+        isDirty: true,
+      };
+    }
+
+    setFormFields(validatedFormFields);
+  };
+
   const fieldProps = (fieldName) => {
     return {
       ...formFields[fieldName],
@@ -69,6 +80,8 @@ const Form = ({ children, fields }) => {
   };
 
   const getFormValues = () => {
+    validateForm();
+
     return {
       fields: mapValues(formFields, (formField) => {
         return formField.value;

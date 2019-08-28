@@ -20,7 +20,8 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 const ContactForm = ({ handleSendContact }) => {
   useStyles(styles);
 
-  const handleSubmit = ({ fields, isValid }) => () => {
+  const handleSubmit = (getFormValues) => () => {
+    const { fields, isValid } = getFormValues();
     if (isValid) {
       const { message, name, email, subject } = fields;
       const formattedMessage = `FROM ${name} - ${email} <br><br> ${message}`;
@@ -91,7 +92,7 @@ const ContactForm = ({ handleSendContact }) => {
               </div>
               <Button
                 className="mt-3"
-                onClick={handleSubmit(getFormValues())}
+                onClick={handleSubmit(getFormValues)}
               >
                 Submit
               </Button>
