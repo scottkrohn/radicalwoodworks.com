@@ -21,7 +21,7 @@ const ContactForm = ({ handleSendContact }) => {
   useStyles(styles);
 
   const handleSubmit = (getFormValues) => () => {
-    const { fields, isValid } = getFormValues();
+    const { fields, isValid } = getFormValues(true);
     if (isValid) {
       const { message, name, email, subject } = fields;
       const formattedMessage = `FROM ${name} - ${email} <br><br> ${message}`;

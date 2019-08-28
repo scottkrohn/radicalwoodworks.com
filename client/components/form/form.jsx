@@ -79,8 +79,10 @@ const Form = ({ children, fields }) => {
     };
   };
 
-  const getFormValues = () => {
-    validateForm();
+  const getFormValues = (runValidation = true) => {
+    if (runValidation) {
+      validateForm();
+    }
 
     return {
       fields: mapValues(formFields, (formField) => {
