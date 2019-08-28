@@ -33,10 +33,9 @@ export default {
  * 4. Build a drawer component to replace antd.
  * 5. Build a spinner component to replace antd.
  * 6. Remove the old navbar file.
- * 7. Build new text input component.
- * 8. Build new Button component.
- * 9. Build new form component.
  * 10. Build notification component to replace antd.
  * 11. Handle loading/completed/error states for all pages that need them.
+ * 12. Handle mobile mode on navbar
+ * 13. Make contact page mobile frieldny.
  *
  */
