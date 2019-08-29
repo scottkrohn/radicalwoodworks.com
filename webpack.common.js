@@ -19,15 +19,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          'isomorphic-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-            },
+        use: ['isomorphic-style-loader', {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
           },
-        ],
+        }],
       },
       {
         test: /\.less$/,
@@ -75,9 +72,8 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              modules: {
-                localIdentName: '[local]___[hash:base64:5]',
-              },
+              modules: true,
+              localIdentName: '[local]___[hash:base64:5]',
             },
           },
           {
@@ -102,15 +98,13 @@ module.exports = {
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
-            },
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
           },
-        ],
+        }],
       },
     ],
   },

@@ -21,7 +21,21 @@ const Drawer = ({ children, hide, showing }) => {
       ref={drawerRef}
       className={drawerClasses}
     >
-      {typeof children === 'function' ? children({ hide }) : children}
+      {typeof children === 'function' ? (
+        <div>
+          {typeof hide === 'function' && (
+            <div
+              className={styles.CloseLink}
+              onClick={hide}
+            >
+              Exit
+            </div>
+          )}
+          {children({ hide })}
+        </div>
+      ) : (
+        <div>{children}</div>
+      )}
     </div>
   );
 };
