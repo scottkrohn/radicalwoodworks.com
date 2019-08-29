@@ -51,6 +51,10 @@ const NavbarV2 = ({ location }) => {
     console.log('logout');
   };
 
+  const hideHamburgerMenu = () => {
+    hamburgerMenuShowing && setHamburgerMenuShowing(false);
+  };
+
   return (
     <div className={styles.NavbarContainer}>
       <div className={styles.NavbarLinks}>
@@ -91,7 +95,7 @@ const NavbarV2 = ({ location }) => {
 
       <Drawer
         showing={hamburgerMenuShowing}
-        hide={() => setHamburgerMenuShowing(false)}
+        hide={hideHamburgerMenu}
       >
         {({ hide }) => {
           return (
@@ -102,7 +106,7 @@ const NavbarV2 = ({ location }) => {
                     key={link.path}
                     label={link.label}
                     path={link.path}
-                    onClick={() => setHamburgerMenuShowing(false)}
+                    onClick={hideHamburgerMenu}
                     className={getCurrentPageName() === link.value && styles.ActiveLink}
                   />
                 );
