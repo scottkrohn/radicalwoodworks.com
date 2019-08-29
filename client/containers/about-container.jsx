@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { get, isEmpty } from 'lodash';
+import { get } from 'lodash';
 
 // Actions
 import { getAllContent } from 'client/actions/content-actions';
@@ -10,24 +10,19 @@ import { getAllContent as getAllContentObjects, getLoading } from 'client/select
 
 // Components
 import AboutUsInfo from 'client/components/about-us/about-us-info';
-import { Spin } from 'antd';
 
-const AboutContainer = (props) => {
+const AboutContainer = ({ content, getAllContent }) => {
   useEffect(() => {
-    props.getAllContent('ABOUT');
+    getAllContent('ABOUT');
   }, []);
 
-  const content = get(props, 'content', null);
-
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="col-xs-12">
-        <Spin spinning={props.loading}>
-          <div className="text-center">
-            <h1>Radical Woodworks</h1>
-            {props.content && <AboutUsInfo content={content} />}
-          </div>
-        </Spin>
+        <div className="text-center">
+          <h1>Radical Woodworks</h1>
+          {content && <AboutUsInfo content={content} />}
+        </div>
       </div>
     </div>
   );
@@ -44,7 +39,12 @@ const mapActionsToProps = {
   getAllContent: getAllContent,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(AboutContainer);
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(AboutContainer),
+  loadData: (store) => {
+    return store.dispatch(getAllContent('ABOUT'));
+  },
+};

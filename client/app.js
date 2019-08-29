@@ -28,14 +28,15 @@ export default {
 /**
  * TODO:
  * 1. Build new image carousel to replace antd.
- * 2. Build new icon class class to replace antd.
+ * 2. Fix about us page.
+ * 2. Fix FAQ
  * 3. Add auth support back to the nav bar. Maybe put auth into a HOC (see server-rendering project)
- * 4. Build a drawer component to replace antd.
  * 5. Build a spinner component to replace antd.
  * 6. Remove the old navbar file.
  * 10. Build notification component to replace antd.
  * 11. Handle loading/completed/error states for all pages that need them.
- * 12. Handle mobile mode on navbar
  * 13. Make contact page mobile frieldny.
+ * 14. Server render font awesome icons: https://fontawesome.com/how-to-use/on-the-web/other-topics/server-side-rendering
+ *    2. Build new icon class class to replace antd.
  *
  */

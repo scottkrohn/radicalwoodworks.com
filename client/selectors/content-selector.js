@@ -11,9 +11,8 @@ export const getAllContent = createSelector(
   (allContent) => {
     const contentObjects = [];
 
-    const contentArr = get(allContent, 'data', []);
-    if (!isEmpty(contentArr)) {
-      for (const content of contentArr) {
+    if (!isEmpty(allContent)) {
+      for (const content of allContent) {
         const contentObject = new Content();
         contentObject.setValues(content.data);
         contentObjects.push(contentObject);

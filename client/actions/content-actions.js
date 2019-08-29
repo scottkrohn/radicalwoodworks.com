@@ -1,10 +1,8 @@
-import axios from 'axios';
-
 // Constants
 import ACTIONS from 'constants/action-constants';
 
 export const getAllContent = (category) => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     dispatch(clearContent());
     dispatch(getContentRequest());
 
@@ -12,7 +10,7 @@ export const getAllContent = (category) => {
       axios
         .get(`/server/content/${category}`)
         .then((response) => {
-          dispatch(getContentSuccess(response));
+          dispatch(getContentSuccess(response.data));
           resolve();
         })
         .catch((error) => {

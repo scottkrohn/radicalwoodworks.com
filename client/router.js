@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // Containers
 import HomepageContainer from 'containers/homepage-container';
 import ProductsContainer from 'client/containers/products-container';
-import AboutContainer from 'containers/about-container';
+import AboutContainer from 'client/containers/about-container';
 import ContactContainer from 'containers/contact-container';
 import ProductContainer from 'containers/product-container';
 import FaqContainer from 'containers/faq-container';

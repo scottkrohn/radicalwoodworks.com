@@ -23,8 +23,8 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'no-console': ['warn'],
-    'array-bracket-newline': ['error', { minItems: 4 }],
-    'array-element-newline': ['error', { minItems: 4 }],
+    'array-bracket-newline': ['error', { minItems: 3 }],
+    'array-element-newline': ['error', { minItems: 3 }],
     'no-unused-vars': ['warn'],
     'react/jsx-first-prop-new-line': [1, 'multiline'],
     'react/jsx-max-props-per-line': [

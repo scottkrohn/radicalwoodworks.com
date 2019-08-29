@@ -90,7 +90,10 @@ class AdminAboutUs extends Component {
       <div className="container-fluid text-center">
         <h2>Edit About Us</h2>
         <Spinner spinning={this.props.loading}>
-          {aboutUsContent && <ContentEditor handleSave={this.handleSave} content={aboutUsContent} />}
+          {aboutUsContent && <ContentEditor
+            handleSave={this.handleSave}
+            content={aboutUsContent}
+                             />}
         </Spinner>
 
         <div className="mt-3">
