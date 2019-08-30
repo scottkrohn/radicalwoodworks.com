@@ -1,0 +1,46 @@
+@import '../../styles//variables.scss';
+
+@keyframes slideIn {
+  from {
+    top: -1000px;
+  }
+  to {
+    top: 0;
+  }
+}
+
+.NotificationContainer {
+  position: fixed;
+  right: 2;
+  top: 0;
+  opacity: 1;
+  background: white;
+  width: 400px;
+  z-index: $z-index-notification;
+  border: 1px solid $gray;
+  border-radius: 2px;
+  animation: slideIn 500ms;
+
+  .Message {
+    padding: 15px 10px 15px 5px;
+    font-size: 1.1em;
+    font-weight: 300;
+  }
+
+  .HeaderContainer {
+    border-bottom: 1px solid $light-gray;
+
+    .CloseButton,
+    .HeaderText {
+      padding: 5px;
+      font-size: 0.8em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .CloseButton {
+      color: $gray;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Models
 import Contact from 'model/contact';
@@ -11,14 +11,18 @@ import MinLengthValidator from '../../utils/validators/min-length-validator';
 import Form from '../form/form';
 import TextInput from '../form/text-input';
 import Button from '../button/button';
+import Notification from '../notification/notification';
 
 // Styles
 import cx from 'classnames';
 import styles from './contact-form-v2.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ContactForm = ({ handleSendContact }) => {
+const ContactForm = ({ handleSendContact, error, sent }) => {
   useStyles(styles);
+  const [showingNotification, setShowingNotification] = useState(false);
+  const [notificationHeader, setNotificationHeader] = useState('');
+  const [notificationText, setNotificationText] = useState('');
 
   const handleSubmit = (getFormValues) => () => {
     const { fields, isValid } = getFormValues(true);
@@ -27,8 +31,7 @@ const ContactForm = ({ handleSendContact }) => {
       const formattedMessage = `FROM ${name} - ${email} <br><br> ${message}`;
 
       const contact = new Contact();
-      contact.setTo('skrohn86@gmail.com');
-      // contact.setTo('radicalwoodworks@yahoo.com');
+      contact.setTo('radicalwoodworks@yahoo.com');
       contact.setSubject(subject);
       contact.setFrom(email);
       contact.setHtml(formattedMessage);
@@ -36,6 +39,22 @@ const ContactForm = ({ handleSendContact }) => {
       handleSendContact(contact);
     }
   };
+
+  useEffect(() => {
+    console.log(error);
+    console.log(sent);
+    if (error || sent) {
+      if (error) {
+        setNotificationHeader('Error');
+        setNotificationText('An error occured when sending, please try again.');
+      } else if (sent) {
+        setNotificationHeader('Message Sent');
+        setNotificationText('Message successfully sent!');
+      }
+
+      setShowingNotification(true);
+    }
+  }, [error, sent]);
 
   return (
     <div className="flex flex-dir-col align-items-center">
@@ -100,6 +119,13 @@ const ContactForm = ({ handleSendContact }) => {
           );
         }}
       </Form>
+
+      <Notification
+        header={notificationHeader}
+        message={notificationText}
+        hide={() => setShowingNotification(false)}
+        showing={showingNotification}
+      />
     </div>
   );
 };
