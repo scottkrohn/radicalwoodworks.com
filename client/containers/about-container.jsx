@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
+import PageHeader from 'client/components/page-header/page-header';
 
 // Actions
 import { getAllContent } from 'client/actions/content-actions';
@@ -20,7 +20,10 @@ const AboutContainer = ({ content, getAllContent }) => {
     <div className="container-fluid">
       <div className="col-xs-12">
         <div className="text-center">
-          <h1>Radical Woodworks</h1>
+          <PageHeader
+            headerText="About Radical Woodworks"
+            showButton={false}
+          />
           {content && <AboutUsInfo content={content} />}
         </div>
       </div>

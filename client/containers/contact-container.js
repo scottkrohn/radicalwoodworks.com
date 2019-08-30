@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 // Components
 import ContactForm from 'client/components/contact/contact-form-v2';
+import PageHeader from 'client/components/page-header/page-header';
 
 // Actions
 import { sendContact } from 'client/actions/contact-actions';
@@ -28,9 +29,10 @@ const ContactContainer = ({ contact, sendContact }) => {
   return (
     <div className="container-fluid">
       <div className="col-xs-12">
-        <div className="text-center">
-          <h3>Contact Us Radical Woodworks</h3>
-        </div>
+        <PageHeader
+          headerText="Contact Us"
+          showButton={false}
+        />
       </div>
 
       <ContactForm

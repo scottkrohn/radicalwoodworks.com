@@ -5,6 +5,7 @@ import { isEmpty, get } from 'lodash';
 
 // Components
 import ProductGrid from 'client/components/product/product-grid';
+import PageHeader from 'client/components/page-header/page-header';
 
 // Actions
 import { getProducts } from 'actions/products-actions';
@@ -25,9 +26,10 @@ const ProductsContainer = ({ getProducts, loading, products }) => {
   return (
     <div className="container-fluid">
       <div className="col-12">
-        <div className="text-center">
-          <h1>Radical Woodworks Products</h1>
-        </div>
+        <PageHeader
+          headerText="Radical Woodworks Products"
+          showButton={false}
+        />
       </div>
 
       {productsLoaded && <ProductGrid products={products} />}

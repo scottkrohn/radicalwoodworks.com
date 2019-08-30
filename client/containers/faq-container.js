@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { uniqueId } from 'lodash';
 
@@ -10,49 +10,48 @@ import { getAllContent as getAllContentObjects } from 'client/selectors/content-
 
 // Components
 import Content from 'client/components/content/content';
+import PageHeader from 'client/components/page-header/page-header';
 
-class FaqContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
+const FaqContainer = ({ content, getAllContent }) => {
+  useEffect(() => {
+    getAllContent('POLICY');
+  }, []);
 
-    componentDidMount = () => {
-        this.props.getAllContent('POLICY');
-    };
-
-    render = () => {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="text-center">
-                            <h1>Radical Woodworks Products</h1>
-                        </div>
-                        {this.props.content.map((contentElement) => {
-                            return (
-                                <div key={uniqueId()}>
-                                    <Content content={contentElement.getContent()} />
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </div>
-        );
-    };
-}
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <PageHeader
+            headerText="Frequently Asked Questions"
+            showButton={false}
+          />
+          {content.map((contentElement) => {
+            return (
+              <div key={uniqueId()}>
+                <Content content={contentElement.getContent()} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
-    return {
-        content: getAllContentObjects(state),
-    };
+  return {
+    content: getAllContentObjects(state),
+  };
 };
 
 const mapActionsToProps = {
-    getAllContent: getAllContent,
+  getAllContent: getAllContent,
 };
 
-export default connect(
+export default {
+  component: connect(
     mapStateToProps,
     mapActionsToProps
-)(FaqContainer);
+  )(FaqContainer),
+  loadData: (store) => store.dispatch(getAllContent('POLICY')),
+};

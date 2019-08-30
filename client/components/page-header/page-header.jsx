@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import Button from 'client/components/base/button/button';
 
 // Styles
-import styles from 'client/components/page-header/page-header.less';
+import styles from 'client/components/page-header/page-header.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const PageHeader = ({ buttonText, headerText, onButtonClick, showButton }) => {
   useStyles(styles);
-  
+
   return (
     <div className={styles.PageHeaderContainer}>
       <div>{/* This is a placeholder div for flexbox. Don't delete me! */}</div>
@@ -18,7 +18,8 @@ const PageHeader = ({ buttonText, headerText, onButtonClick, showButton }) => {
       <div className={styles.Button}>
         {showButton && (
           <Button
-            variant="contained" color="save"
+            variant="contained"
+            color="save"
             onClick={onButtonClick}
           >
             {buttonText}
