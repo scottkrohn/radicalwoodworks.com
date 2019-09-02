@@ -35,5 +35,6 @@ export default {
  * 13. Make contact page mobile frieldny.
  * 14. Server render font awesome icons: https://fontawesome.com/how-to-use/on-the-web/other-topics/server-side-rendering
  *    2. Build new icon class class to replace antd.
+ * 15. Delete the old contact form file.
  *
  */

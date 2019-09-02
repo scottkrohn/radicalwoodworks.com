@@ -22,3 +22,7 @@ export const getAllContent = createSelector(
     return contentObjects;
   }
 );
+
+export const getContentType = (state) => {
+  return state && state.content && state.content.type;
+};

@@ -10,7 +10,7 @@ export const getAllContent = (category) => {
       axios
         .get(`/server/content/${category}`)
         .then((response) => {
-          dispatch(getContentSuccess(response.data));
+          dispatch(getContentSuccess(response.data, category));
           resolve();
         })
         .catch((error) => {
@@ -55,11 +55,12 @@ const getContentRequest = () => {
   };
 };
 
-const getContentSuccess = (results) => {
+const getContentSuccess = (results, type) => {
   return {
     type: ACTIONS.GET_CONTENT_SUCCESS,
     payload: {
       content: results,
+      type,
     },
   };
 };

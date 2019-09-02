@@ -6,6 +6,7 @@ import { isEmpty, get } from 'lodash';
 // Components
 import ProductGrid from 'client/components/product/product-grid';
 import PageHeader from 'client/components/page-header/page-header';
+import Spinner from '../components/spinner-v2/spinner-v2';
 
 // Actions
 import { getProducts } from 'actions/products-actions';
@@ -26,6 +27,7 @@ const ProductsContainer = ({ getProducts, loading, products }) => {
   return (
     <div className="container-fluid">
       <div className="col-12">
+        <Spinner spinning={loading} />
         <PageHeader
           headerText="Radical Woodworks Products"
           showButton={false}

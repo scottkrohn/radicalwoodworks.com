@@ -15,12 +15,8 @@ storiesOf('Form', module)
           age: 33,
         }}
       >
-        {({onChange, formFields, formValues}) => {
-
-          const handleSubmit = (formValues) => () => {
-            console.log('handleSubmit called');
-            console.log('formValues: ', formValues);
-          };
+        {({ onChange, formFields, formValues }) => {
+          const handleSubmit = (formValues) => () => {};
 
           return (
             <div className="row">
@@ -47,8 +43,8 @@ storiesOf('Form', module)
     return <TextInput label="Text Input" />;
   })
   .add('TextInput - TextArea', () => {
-    return (<TextInput
+    return <TextInput
       textArea
       label="Text Area"
-    />);
+           />;
   });

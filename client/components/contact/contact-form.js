@@ -63,55 +63,51 @@ class ContactForm extends Component {
 
     return (
       <div className={styles.ContactFormContainer}>
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        <Form
+          {...formItemLayout}
+          onSubmit={this.handleSubmit}
+        >
           <Form.Item label={<Label label="E-Mail" />}>
             {getFieldDecorator('email', {
-              rules: [
-                {
-                  type: 'email',
-                  message: 'The input is not valid E-mail!',
-                },
-                {
-                  required: true,
-                  message: 'Please input your E-mail',
-                },
-              ],
+              rules: [{
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+              }, {
+                required: true,
+                message: 'Please input your E-mail',
+              }],
             })(<Input size="large" />)}
           </Form.Item>
           <Form.Item label={<Label label="Name" />}>
             {getFieldDecorator('name', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your name.',
-                },
-              ],
+              rules: [{
+                required: true,
+                message: 'Please input your name.',
+              }],
             })(<Input size="large" />)}
           </Form.Item>
           <Form.Item label={<Label label="Subject" />}>
             {getFieldDecorator('subject', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input a subject.',
-                },
-              ],
+              rules: [{
+                required: true,
+                message: 'Please input a subject.',
+              }],
             })(<Input size="large" />)}
           </Form.Item>
           <Form.Item label={<Label label="Message" />}>
             {getFieldDecorator('message', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input a message.',
-                },
-              ],
+              rules: [{
+                required: true,
+                message: 'Please input a message.',
+              }],
             })(<Input.TextArea rows={8} />)}
           </Form.Item>
           <Form.Item {...submitLayout}>
             <Button
-              id="submit-contact-form" type="primary"
-              htmlType="submit" className={styles.ContactSubmitButton}
+              id="submit-contact-form"
+              type="primary"
+              htmlType="submit"
+              className={styles.ContactSubmitButton}
             >
               Submit
             </Button>

@@ -12,13 +12,15 @@ import Form from '../form/form';
 import TextInput from '../form/text-input';
 import Button from '../button/button';
 import Notification from '../notification/notification';
+import Spinner from '../spinner-v2/spinner-v2';
+import { Link } from 'react-router-dom';
 
 // Styles
 import cx from 'classnames';
 import styles from './contact-form-v2.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ContactForm = ({ handleSendContact, error, sent }) => {
+const ContactForm = ({ handleSendContact, error, sending, sent }) => {
   useStyles(styles);
   const [showingNotification, setShowingNotification] = useState(false);
   const [notificationHeader, setNotificationHeader] = useState('');
@@ -41,8 +43,6 @@ const ContactForm = ({ handleSendContact, error, sent }) => {
   };
 
   useEffect(() => {
-    console.log(error);
-    console.log(sent);
     if (error || sent) {
       if (error) {
         setNotificationHeader('Error');
@@ -58,67 +58,79 @@ const ContactForm = ({ handleSendContact, error, sent }) => {
 
   return (
     <div className="flex flex-dir-col align-items-center">
-      <Form
-        fields={{
-          email: {
-            value: '',
-            validators: [RequiredValidator('Email address required')],
-          },
-          name: {
-            value: '',
-            validators: [RequiredValidator('Name required')],
-          },
-          subject: {
-            value: '',
-            validators: [RequiredValidator('subject required'), MinLengthValidator(10, 'Subject must be at least 10 characters.')],
-          },
-          message: {
-            value: '',
-            validators: [RequiredValidator('message required')],
-          },
-        }}
+      <Spinner
+        className="flex justify-content-center"
+        spinning={sending}
       >
-        {({ onChange, fieldProps, getFormValues }) => {
-          return (
-            <div className={cx(styles.ContactForm, 'flex flex-dir-col')}>
-              <div className="flex flex-dir-col">
-                <TextInput
-                  className="mt-3"
-                  label="E-Mail Address"
-                  onChange={onChange}
-                  {...fieldProps('email')}
-                />
-                <TextInput
-                  className="mt-3"
-                  label="Name"
-                  onChange={onChange}
-                  {...fieldProps('name')}
-                />
-                <TextInput
-                  className="mt-3"
-                  label="Subject"
-                  onChange={onChange}
-                  {...fieldProps('subject')}
-                />
-                <TextInput
-                  textArea
-                  rows={6}
-                  className="mt-3"
-                  label="Message"
-                  onChange={onChange}
-                  {...fieldProps('message')}
-                />
-              </div>
-              <Button
-                className="mt-3"
-                onClick={handleSubmit(getFormValues)}
-              >
-                Submit
-              </Button>
-            </div>
-          );
-        }}
-      </Form>
+        {sent ? (
+          <div className="flex flex-dir-col align-items-center">
+            <p>Your message has been sent.</p>
+            <Link to="/">Back To Home</Link>
+          </div>
+        ) : (
+          <Form
+            fields={{
+              email: {
+                value: '',
+                validators: [RequiredValidator('Email address required')],
+              },
+              name: {
+                value: '',
+                validators: [RequiredValidator('Name required')],
+              },
+              subject: {
+                value: '',
+                validators: [RequiredValidator('subject required'), MinLengthValidator(10, 'Subject must be at least 10 characters.')],
+              },
+              message: {
+                value: '',
+                validators: [RequiredValidator('message required')],
+              },
+            }}
+          >
+            {({ onChange, fieldProps, getFormValues }) => {
+              return (
+                <div className={cx(styles.ContactForm, 'flex flex-dir-col')}>
+                  <div className="flex flex-dir-col">
+                    <TextInput
+                      className="mt-3"
+                      label="E-Mail Address"
+                      onChange={onChange}
+                      {...fieldProps('email')}
+                    />
+                    <TextInput
+                      className="mt-3"
+                      label="Name"
+                      onChange={onChange}
+                      {...fieldProps('name')}
+                    />
+                    <TextInput
+                      className="mt-3"
+                      label="Subject"
+                      onChange={onChange}
+                      {...fieldProps('subject')}
+                    />
+                    <TextInput
+                      textArea
+                      rows={6}
+                      className="mt-3"
+                      label="Message"
+                      onChange={onChange}
+                      {...fieldProps('message')}
+                    />
+                  </div>
+                  <Button
+                    className="mt-3"
+                    onClick={handleSubmit(getFormValues)}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              );
+            }}
+          </Form>
+        )}
+      </Spinner>
 
       <Notification
         header={notificationHeader}

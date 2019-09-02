@@ -3,6 +3,7 @@ import ACTIONS from 'constants/action-constants';
 const initialState = {
   loading: true,
   error: false,
+  type: '',
 };
 
 const contentReducer = (state = initialState, { type, payload }) => {

@@ -11,7 +11,7 @@ const Notification = ({ actionLabel, header, message, onAction, showing, hide, t
 
   useEffect(() => {
     if (showing) {
-      // setTimeout(hide, timeout);
+      setTimeout(hide, timeout);
     }
   }, [showing]);
 
