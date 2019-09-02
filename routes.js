@@ -6,6 +6,7 @@ import ProductsPage from './client/containers/products-container';
 import ContactPage from './client/containers/contact-container';
 import AboutPage from './client/containers/about-container';
 import FaqPage from './client/containers/faq-container';
+import LoginPage from './client/containers/login-container';
 
 export default [{
   ...App,
@@ -30,6 +31,10 @@ export default [{
     {
       ...FaqPage,
       path: '/faq',
+    },
+    {
+      ...LoginPage,
+      path: '/login',
     },
   ],
 }];

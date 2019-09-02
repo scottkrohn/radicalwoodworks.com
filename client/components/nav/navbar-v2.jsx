@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { get } from 'lodash';
 import cx from 'classnames';
+import Cookie from 'js-cookie';
+import { connect } from 'react-redux';
 
 // Constants
 import NavConstants from '../../constants/nav-constants';
@@ -16,9 +18,23 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import classNames from 'classNames';
 import Drawer from '../drawer/drawer';
 
-const NavbarV2 = ({ location }) => {
+// Actions
+import { logout } from 'client/actions/auth-actions';
+import { verifyLogin } from 'client/actions/admin-actions';
+
+const NavbarV2 = ({ auth, logout, location, verifyLogin }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
+  const isLoggedIn = !!Cookie.get('utoken') || auth.loggedIn;
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      console.log('verifying login');
+      verifyLogin().catch(() => {
+        logout();
+      });
+    }
+  }, []);
 
   const NavbarLink = ({ className, label, path, onClick }) => {
     const classes = classNames(styles.NavbarLink, className && className);
@@ -47,7 +63,7 @@ const NavbarV2 = ({ location }) => {
     return currentPage;
   };
 
-  const logout = () => {
+  const handleLogout = () => {
     console.log('logout');
   };
 
@@ -70,20 +86,24 @@ const NavbarV2 = ({ location }) => {
         })}
       </div>
       <div className={styles.NavbarLinks}>
-        <NavbarLink
-          label={NavConstants.navBarLinks.accountNav.login.label}
-          path={NavConstants.navBarLinks.accountNav.login.path}
-        />
-        {/* TODO: Conditionally show admin/logout buttons */}
-        <NavbarLink
-          label={NavConstants.navBarLinks.accountNav.admin.label}
-          path={NavConstants.navBarLinks.accountNav.admin.path}
-        />
-        <NavbarLink
-          label={NavConstants.navBarLinks.accountNav.logout.label}
-          path={NavConstants.navBarLinks.accountNav.logout.path}
-          onClick={logout}
-        />
+        {isLoggedIn ? (
+          <NavbarLink
+            label={NavConstants.navBarLinks.accountNav.logout.label}
+            path={NavConstants.navBarLinks.accountNav.logout.path}
+            onClick={logout}
+          />
+        ) : (
+          <NavbarLink
+            label={NavConstants.navBarLinks.accountNav.login.label}
+            path={NavConstants.navBarLinks.accountNav.login.path}
+          />
+        )}
+        {isLoggedIn && (
+          <NavbarLink
+            label={NavConstants.navBarLinks.accountNav.admin.label}
+            path={NavConstants.navBarLinks.accountNav.admin.path}
+          />
+        )}
       </div>
       <div className={styles.HamburgerContainer}>
         <FontAwesomeIcon
@@ -111,20 +131,24 @@ const NavbarV2 = ({ location }) => {
                   />
                 );
               })}
-              <NavbarLink
-                label={NavConstants.navBarLinks.accountNav.login.label}
-                path={NavConstants.navBarLinks.accountNav.login.path}
-              />
-              {/* TODO: Conditionally show admin/logout buttons */}
-              <NavbarLink
-                label={NavConstants.navBarLinks.accountNav.admin.label}
-                path={NavConstants.navBarLinks.accountNav.admin.path}
-              />
-              <NavbarLink
-                label={NavConstants.navBarLinks.accountNav.logout.label}
-                path={NavConstants.navBarLinks.accountNav.logout.path}
-                onClick={logout}
-              />
+              {isLoggedIn ? (
+                <NavbarLink
+                  label={NavConstants.navBarLinks.accountNav.logout.label}
+                  path={NavConstants.navBarLinks.accountNav.logout.path}
+                  onClick={handleLogout}
+                />
+              ) : (
+                <NavbarLink
+                  label={NavConstants.navBarLinks.accountNav.login.label}
+                  path={NavConstants.navBarLinks.accountNav.login.path}
+                />
+              )}
+              {isLoggedIn && (
+                <NavbarLink
+                  label={NavConstants.navBarLinks.accountNav.admin.label}
+                  path={NavConstants.navBarLinks.accountNav.admin.path}
+                />
+              )}
             </div>
           );
         }}
@@ -133,4 +157,18 @@ const NavbarV2 = ({ location }) => {
   );
 };
 
-export default NavbarV2;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+const mapActionsToProps = {
+  logout,
+  verifyLogin,
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(NavbarV2);

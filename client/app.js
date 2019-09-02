@@ -29,14 +29,14 @@ export default {
 /**
  * TODO:
  * 1. Build new image carousel to replace antd.
+ * 2. Fix login page. It doesn't render at all.
  * 3. Add auth support back to the nav bar. Maybe put auth into a HOC (see server-rendering project)
  *  3. Show/Hide the login/logout/admin buttons based on logged in/out status.
+ *  4. Add the verifyLogin check to the server. See the server-rendering repo from the video tutorial.
  * 6. Remove the old navbar file.
  * 11. Handle loading/completed/error states for all pages that need them.
  * 13. Make the new contact page mobile frieldny.
- * 14. Server render font awesome icons: https://fontawesome.com/how-to-use/on-the-web/other-topics/server-side-rendering
- *    2. Build new icon class class to replace antd.
- * 15. Delete the old contact form file.
  * 16. Push this code up to a new url on my box and see if it can even run as a server?
+ * 17. Make the enter button work for forms.
  *
  */

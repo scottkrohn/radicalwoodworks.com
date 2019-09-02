@@ -47,7 +47,8 @@ const LoginContainer = (props) => {
         </div>
 
         <LoginForm
-          handleLogin={handleLogin} error={error}
+          handleLogin={handleLogin}
+          error={error}
           errorCode={errorCode}
         />
       </div>
@@ -65,7 +66,9 @@ const mapActionsToProps = {
   login,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(LoginContainer);
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(LoginContainer),
+};

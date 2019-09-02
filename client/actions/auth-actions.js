@@ -5,6 +5,8 @@ import { get } from 'lodash';
 import ACTIONS from 'constants/action-constants';
 
 export const login = (username, password) => {
+  console.log('username: ', username);
+  console.log('password: ', password);
   return (dispatch) => {
     dispatch(loginRequest());
 
