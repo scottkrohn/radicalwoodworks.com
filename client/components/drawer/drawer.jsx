@@ -5,6 +5,9 @@ import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
 import styles from './drawer.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 const Drawer = ({ children, hide, showing }) => {
   const drawerRef = useRef(null);
 
@@ -28,7 +31,10 @@ const Drawer = ({ children, hide, showing }) => {
               className={styles.CloseLink}
               onClick={hide}
             >
-              Exit
+              <FontAwesomeIcon
+                className={styles.CloseIcon}
+                icon={faTimes}
+              />
             </div>
           )}
           {children({ hide })}

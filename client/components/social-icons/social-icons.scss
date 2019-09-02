@@ -1,20 +1,20 @@
-@import '../../styles/variables.less';
+@import '../../styles/variables.scss';
 
 .SocialIconsContainer {
   display: flex;
   align-items: center;
 
   .SocialLink {
-    color: @black;
+    color: $black;
   }
 
   .SocialLink:hover {
-    color: @blueGray;
+    color: $blueGray;
   }
 
   .Icon {
     font-size: 2em;
-    margin: 5px 15px;;
+    margin: 5px 15px;
     cursor: pointer;
   }
 }

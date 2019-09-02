@@ -11,13 +11,14 @@
   z-index: $z-index-drawer;
   transition: top ease-out 300ms;
 
-  .CloseLink {
-    font-size: 2.2em;
+  .CloseIcon {
+    font-size: 4em;
     font-weight: 300;
     color: $gray;
     position: absolute;
     bottom: 45px;
     right: 30px;
+    cursor: pointer;
   }
 }
 
