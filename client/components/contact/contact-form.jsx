@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 // Styles
 import cx from 'classnames';
-import styles from './contact-form-v2.scss';
+import styles from './contact-form.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const ContactForm = ({ handleSendContact, error, sending, sent }) => {

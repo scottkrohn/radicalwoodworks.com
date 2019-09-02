@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 // Components
-import ContactForm from 'client/components/contact/contact-form-v2';
+import ContactForm from 'client/components/contact/contact-form';
 import PageHeader from 'client/components/page-header/page-header';
 
 // Actions

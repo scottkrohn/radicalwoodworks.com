@@ -29,10 +29,9 @@ export default {
  * TODO:
  * 1. Build new image carousel to replace antd.
  * 3. Add auth support back to the nav bar. Maybe put auth into a HOC (see server-rendering project)
- * 5. Build a spinner component to replace antd.
  * 6. Remove the old navbar file.
  * 11. Handle loading/completed/error states for all pages that need them.
- * 13. Make contact page mobile frieldny.
+ * 13. Make the new contact page mobile frieldny.
  * 14. Server render font awesome icons: https://fontawesome.com/how-to-use/on-the-web/other-topics/server-side-rendering
  *    2. Build new icon class class to replace antd.
  * 15. Delete the old contact form file.

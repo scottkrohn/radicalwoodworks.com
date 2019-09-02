@@ -16,7 +16,6 @@ import Spinner from '../components/spinner-v2/spinner-v2';
 const AboutContainer = ({ content, contentType, getAllContent, loading }) => {
   useEffect(() => {
     if (isEmpty(content) || contentType !== 'ABOUT') {
-      console.log('loading about');
       getAllContent('ABOUT');
     }
   }, []);
