@@ -88,37 +88,39 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
               },
             }}
           >
-            {({ onChange, fieldProps, getFormValues }) => {
+            {({ onChange, fieldProps, getFormValues, handleEnterKey }) => {
               return (
-                <div className={cx(styles.ContactForm, 'flex flex-dir-col')}>
-                  <div className="flex flex-dir-col">
-                    <TextInput
-                      className="mt-3"
-                      label="E-Mail Address"
-                      onChange={onChange}
-                      {...fieldProps('email')}
-                    />
-                    <TextInput
-                      className="mt-3"
-                      label="Name"
-                      onChange={onChange}
-                      {...fieldProps('name')}
-                    />
-                    <TextInput
-                      className="mt-3"
-                      label="Subject"
-                      onChange={onChange}
-                      {...fieldProps('subject')}
-                    />
-                    <TextInput
-                      textArea
-                      rows={6}
-                      className="mt-3"
-                      label="Message"
-                      onChange={onChange}
-                      {...fieldProps('message')}
-                    />
-                  </div>
+                <div
+                  className={cx(styles.ContactForm, 'flex flex-dir-col')}
+                  onKeyDown={handleEnterKey(handleSubmit)}
+                >
+                  <TextInput
+                    className="mt-3"
+                    label="E-Mail Address"
+                    onChange={onChange}
+                    {...fieldProps('email')}
+                    tabIndex="0"
+                  />
+                  <TextInput
+                    className="mt-3"
+                    label="Name"
+                    onChange={onChange}
+                    {...fieldProps('name')}
+                  />
+                  <TextInput
+                    className="mt-3"
+                    label="Subject"
+                    onChange={onChange}
+                    {...fieldProps('subject')}
+                  />
+                  <TextInput
+                    textArea
+                    rows={6}
+                    className="mt-3"
+                    label="Message"
+                    onChange={onChange}
+                    {...fieldProps('message')}
+                  />
                   <Button
                     className="mt-3"
                     onClick={handleSubmit(getFormValues)}

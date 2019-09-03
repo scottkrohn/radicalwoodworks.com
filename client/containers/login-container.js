@@ -10,7 +10,7 @@ import LoginForm from 'client/components/login-form/login-form';
 import PageHeader from 'client/components/page-header/page-header';
 import { Redirect } from 'react-router-dom';
 
-const LoginContainer = (props) => {
+const LoginContainer = ({ auth, login }) => {
   const [redirectToAdmin, setRedirectToAdmin] = useState(false);
   const [error, setError] = useState(false);
   const [errorCode, setErrorCode] = useState(null);
@@ -20,8 +20,7 @@ const LoginContainer = (props) => {
   });
 
   const handleLogin = (username, password) => {
-    props
-      .login(username, password)
+    login(username, password)
       .then((token) => {
         Cookie.set('utoken', token, { expires: 7 });
         setRedirectToAdmin(true);
@@ -52,6 +51,7 @@ const LoginContainer = (props) => {
           handleLogin={handleLogin}
           error={error}
           errorCode={errorCode}
+          sending={auth.sending}
         />
       </div>
     </div>

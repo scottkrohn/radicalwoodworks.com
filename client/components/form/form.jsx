@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { every, values, mapValues } from 'lodash';
 
-// TODO: run validate on all fields before submitting to highlight the invalid fields
-
 const Form = ({ children, fields }) => {
   const [formFields, setFormFields] = useState({});
 
@@ -72,6 +70,12 @@ const Form = ({ children, fields }) => {
     setFormFields(validatedFormFields);
   };
 
+  const handleEnterKey = (handleSubmit) => (event) => {
+    if (event.keyCode === 13) {
+      handleSubmit(getFormValues)();
+    }
+  };
+
   const fieldProps = (fieldName) => {
     return {
       ...formFields[fieldName],
@@ -96,6 +100,7 @@ const Form = ({ children, fields }) => {
     onChange,
     fieldProps,
     getFormValues,
+    handleEnterKey,
   };
 
   return typeof children === 'function' ? children(formData) : children;

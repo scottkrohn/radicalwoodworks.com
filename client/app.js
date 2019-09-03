@@ -44,6 +44,7 @@ export default {
  * 17. Make the enter button work for forms.
  * 18. Create new table component to replace material ui
  * 19. Handle error notifications on login failure
+ *  20. Showing loading spinner when logging in.
  * 20. Handle navigating to "protected" page when logged in/out
  *
  *

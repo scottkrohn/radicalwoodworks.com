@@ -6,7 +6,19 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 const TextInput = ({ value = '', ...props }) => {
   useStyles(styles);
-  const { className, isDirty, isValid, fieldName, label, message, onChange, password, rows, textArea } = props;
+  const {
+    className,
+    isDirty,
+    isValid,
+    fieldName,
+    label,
+    message,
+    onChange,
+    onKeyDown,
+    password,
+    rows,
+    textArea,
+  } = props;
   const Input = textArea ? 'textarea' : 'input';
 
   const validationError = isDirty && !isValid;
@@ -21,6 +33,7 @@ const TextInput = ({ value = '', ...props }) => {
         onChange={onChange(fieldName)}
         value={value}
         rows={rows}
+        onKeyDown={typeof onKeyDown === 'function' ? onKeyDown : null}
       />
       {showValidationMessage && <span className={styles.ErrorMessage}>{message}</span>}
     </div>

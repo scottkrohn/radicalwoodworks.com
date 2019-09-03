@@ -19,7 +19,7 @@ import RequiredValidator from '../../utils/validators/required-validator';
 import styles from 'client/components/login-form/login-form.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const LoginForm = ({ error, errorCode, handleLogin }) => {
+const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
   useStyles(styles);
   useEffect(() => {
     if (error) {
@@ -41,7 +41,7 @@ const LoginForm = ({ error, errorCode, handleLogin }) => {
 
   return (
     <div className={cx(styles.LoginFormContainer, 'flex flex-dir-col align-items-center')}>
-      <Spinner />
+      <Spinner spinning={sending} />
       <Form
         fields={{
           username: {
@@ -54,9 +54,12 @@ const LoginForm = ({ error, errorCode, handleLogin }) => {
           },
         }}
       >
-        {({ onChange, fieldProps, getFormValues }) => {
+        {({ onChange, fieldProps, getFormValues, handleEnterKey }) => {
           return (
-            <div className={styles.LoginFormFields}>
+            <div
+              className={styles.LoginFormFields}
+              onKeyDown={handleEnterKey(handleLoginClick)}
+            >
               <TextInput
                 className="mt-3"
                 label="Username"

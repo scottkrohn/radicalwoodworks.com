@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PageHeader from 'client/components/page-header/page-header';
 import { isEmpty } from 'lodash';
 
 // Actions
@@ -12,6 +11,7 @@ import { getAllContent as getAllContentObjects, getContentType, getLoading } fro
 // Components
 import AboutUsInfo from 'client/components/about-us/about-us-info';
 import Spinner from '../components/spinner-v2/spinner-v2';
+import PageHeader from 'client/components/page-header/page-header';
 
 const AboutContainer = ({ content, contentType, getAllContent, loading }) => {
   useEffect(() => {
