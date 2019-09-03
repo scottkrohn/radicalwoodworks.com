@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { get } from 'lodash';
 import cx from 'classnames';
 import Cookie from 'js-cookie';
@@ -20,21 +20,11 @@ import Drawer from '../drawer/drawer';
 
 // Actions
 import { logout } from 'client/actions/auth-actions';
-import { verifyLogin } from 'client/actions/admin-actions';
 
-const NavbarV2 = ({ auth, logout, location, verifyLogin }) => {
+const NavbarV2 = ({ auth, logout, location }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
-  const isLoggedIn = !!Cookie.get('utoken') || auth.loggedIn;
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      console.log('verifying login');
-      verifyLogin().catch(() => {
-        logout();
-      });
-    }
-  }, []);
+  const isLoggedIn = auth.loggedIn;
 
   const NavbarLink = ({ className, label, path, onClick }) => {
     const classes = classNames(styles.NavbarLink, className && className);
@@ -64,7 +54,8 @@ const NavbarV2 = ({ auth, logout, location, verifyLogin }) => {
   };
 
   const handleLogout = () => {
-    console.log('logout');
+    Cookie.remove('utoken');
+    this.props.logout();
   };
 
   const hideHamburgerMenu = () => {
@@ -165,7 +156,6 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   logout,
-  verifyLogin,
 };
 
 export default connect(

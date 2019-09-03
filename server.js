@@ -4,11 +4,10 @@ import routes from './server/routes/routes';
 import passport from 'passport';
 import passportConfig from './server/lib/passport';
 import serverRenderer from './lib/server-renderer';
-import {getConfig} from './lib/protected';
-import {matchRoutes} from 'react-router-config';
+import { getConfig } from './lib/protected';
+import { matchRoutes } from 'react-router-config';
 import createStore from './lib/create-store';
 import Routes from './routes';
-import proxy from 'express-http-proxy';
 import 'babel-polyfill';
 
 const app = express();
@@ -27,8 +26,6 @@ app.use(
   })
 );
 
-// app.use('/server', proxy('/server'));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -38,19 +35,21 @@ passportConfig(passport);
 // Include dev/prod independant routes.
 routes(app);
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.get('*', (req, res) => {
-  const store = createStore();
-  
-  const loadDataPromises = matchRoutes(Routes, req.path).map(({route}) => {
-    return route.loadData ? route.loadData(store) : null;
-  }).map((promise) => {
-    if (promise) {
-      return new Promise((resolve, reject) => {
-        promise.then(resolve).catch(resolve);
-      });
-    }
-  });
+  const store = createStore({}, req);
+
+  const loadDataPromises = matchRoutes(Routes, req.path)
+    .map(({ route }) => {
+      return route.loadData ? route.loadData(store) : null;
+    })
+    .map((promise) => {
+      if (promise) {
+        return new Promise((resolve, reject) => {
+          promise.then(resolve).catch(resolve);
+        });
+      }
+    });
 
   Promise.all(loadDataPromises).then(() => {
     const context = {};

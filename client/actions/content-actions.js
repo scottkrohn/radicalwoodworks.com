@@ -22,7 +22,7 @@ export const getAllContent = (category) => {
 };
 
 export const updateContent = (content) => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     dispatch(updateContentRequest());
 
     return new Promise((resolve, reject) => {

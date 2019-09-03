@@ -1,7 +1,5 @@
-import axios from 'axios';
-
 export const verifyLogin = () => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       axios
         .get('/admin/verify')

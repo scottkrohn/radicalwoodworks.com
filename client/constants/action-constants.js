@@ -4,7 +4,6 @@ const ACTIONS = {
   GET_PRODUCTS_SUCCESS: 'products:getProductsSuccess',
   GET_PRODUCTS_ERROR: 'products:getProductsError',
 
-
   // Product Actions
   GET_PRODUCT_REQUEST: 'product:getProductRequest',
   GET_PRODUCT_SUCCESS: 'product:getProductSuccess',
@@ -43,6 +42,10 @@ const ACTIONS = {
   SEND_LOGIN_REQUEST: 'login:sendLoginRequest',
   SEND_LOGIN_SUCCESS: 'login:sendLoginSuccess',
   SEND_LOGIN_ERROR: 'login:sendLoginError',
+
+  VERIFY_LOGIN_REQUEST: 'verify:sendLoginRequest',
+  VERIFY_LOGIN_SUCCESS: 'verify:sendLoginSuccess',
+  VERIFY_LOGIN_ERROR: 'verify:sendLoginError',
 
   // Logout Actions
   SEND_LOGOUT_REQUEST: 'logout:sendLogoutRequest',

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import cx from 'classnames';
 
 // Constants
 import EXCEPTIONS from 'constants/exceptions';
@@ -40,7 +40,7 @@ const LoginForm = ({ error, errorCode, handleLogin }) => {
   };
 
   return (
-    <div className={styles.LoginFormContainer}>
+    <div className={cx(styles.LoginFormContainer, 'flex flex-dir-col align-items-center')}>
       <Spinner />
       <Form
         fields={{
@@ -56,7 +56,7 @@ const LoginForm = ({ error, errorCode, handleLogin }) => {
       >
         {({ onChange, fieldProps, getFormValues }) => {
           return (
-            <div>
+            <div className={styles.LoginFormFields}>
               <TextInput
                 className="mt-3"
                 label="Username"

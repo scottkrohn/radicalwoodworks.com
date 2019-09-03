@@ -82,7 +82,7 @@ const NAV = {
       },
       logout: {
         label: 'Logout',
-        path: 'javascript:;',
+        path: '/',
         value: 'logout',
       },
     },

@@ -7,6 +7,7 @@ import { login } from 'client/actions/auth-actions';
 
 // Component
 import LoginForm from 'client/components/login-form/login-form';
+import PageHeader from 'client/components/page-header/page-header';
 import { Redirect } from 'react-router-dom';
 
 const LoginContainer = (props) => {
@@ -42,9 +43,10 @@ const LoginContainer = (props) => {
   return (
     <div className="container-fluid">
       <div className="col-xs-12">
-        <div className="text-center">
-          <h1>Radical Woodworks Login</h1>
-        </div>
+        <PageHeader
+          headerText="Radical Woodworks Login"
+          showButton={false}
+        />
 
         <LoginForm
           handleLogin={handleLogin}
