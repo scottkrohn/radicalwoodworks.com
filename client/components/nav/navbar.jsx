@@ -13,7 +13,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Styles
-import styles from './navbar-v2.scss';
+import styles from './navbar.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import classNames from 'classNames';
 import Drawer from '../drawer/drawer';
@@ -21,7 +21,7 @@ import Drawer from '../drawer/drawer';
 // Actions
 import { logout } from 'client/actions/auth-actions';
 
-const NavbarV2 = ({ auth, logout, location }) => {
+const Navbar = ({ auth, logout, location }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;
@@ -161,4 +161,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(NavbarV2);
+)(Navbar);
