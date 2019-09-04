@@ -25,7 +25,7 @@ import { getUploading } from 'client/selectors/image-upload-selector';
 import Product from 'model/product';
 
 // HOCs
-import { withValidation } from 'client/hoc/auth';
+import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
 class AdminProductContainer extends Component {
@@ -415,4 +415,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withValidation(withRouter(AdminProductContainer)));
+)(withAuthValidation(withRouter(AdminProductContainer)));

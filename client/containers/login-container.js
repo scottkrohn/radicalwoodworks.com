@@ -17,14 +17,13 @@ const LoginContainer = ({ auth, login }) => {
 
   useEffect(() => {
     setError(false);
-  });
+  }, []);
 
   const handleLogin = (username, password) => {
     login(username, password)
       .then((token) => {
         Cookie.set('utoken', token, { expires: 7 });
         setRedirectToAdmin(true);
-
         return true;
       })
       .catch((error) => {

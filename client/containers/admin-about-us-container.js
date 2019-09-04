@@ -18,7 +18,7 @@ import { getAllContent, updateContent } from 'client/actions/content-actions';
 import { getAllContent as getAllContentObjects, getLoading } from 'client/selectors/content-selector';
 
 // HOC
-import { withValidation } from 'client/hoc/auth';
+import { withAuthValidation } from 'client/hoc/auth';
 
 class AdminAboutUs extends Component {
   constructor(props) {
@@ -141,4 +141,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withValidation(AdminAboutUs));
+)(withAuthValidation(AdminAboutUs));

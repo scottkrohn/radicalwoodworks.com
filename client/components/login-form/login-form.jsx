@@ -9,14 +9,13 @@ import EXCEPTIONS from 'constants/exceptions';
 import Form from '../form/form';
 import TextInput from '../form/text-input';
 import Button from '../button/button';
-import Notification from '../notification/notification';
 import Spinner from '../spinner-v2/spinner-v2';
 
 // Validators
 import RequiredValidator from '../../utils/validators/required-validator';
 
 // Styles
-import styles from 'client/components/login-form/login-form.less';
+import styles from 'client/components/login-form/login-form.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
@@ -42,6 +41,15 @@ const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
   return (
     <div className={cx(styles.LoginFormContainer, 'flex flex-dir-col align-items-center')}>
       <Spinner spinning={sending} />
+      {error && (
+        <div className={styles.LoginError}>
+          {errorCode === 1000 ? (
+            <div>Invalid username/password</div>
+          ) : (
+            <div>An unknown error occured, please try again</div>
+          )}
+        </div>
+      )}
       <Form
         fields={{
           username: {

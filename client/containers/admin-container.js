@@ -6,11 +6,12 @@ import PropTypes from 'prop-types';
 import { verifyLogin } from 'client/actions/admin-actions';
 
 // Components
-import Grid from 'client/components/grid/grid';
-import AdminSection from 'client/components/admin-section/admin-section';
+// import Grid from 'client/components/grid/grid';
+// import AdminSection from 'client/components/admin-section/admin-section';
+import PageHeader from 'client/components/page-header/page-header';
 
 // HOC
-import { withValidation } from 'client/hoc/auth';
+import { withAuthValidation } from 'client/hoc/auth';
 
 const sectionIds = {
   editProducts: 'editProducts',
@@ -20,19 +21,20 @@ const sectionIds = {
 };
 
 const AdminContainer = (props) => {
-  useEffect(() => {
-    props.verifyLogin().catch((error) => {
-      props.redirectToHome();
-    })
-  }, [])
+  // useEffect(() => {
+  //   props.verifyLogin().catch((error) => {
+  //     props.redirectToHome();
+  //   });
+  // }, []);
 
   return (
     <div className="container-fluid">
-      <div className="text-center">
-        <h1>Radical Woodworks Admin Panel</h1>
-      </div>
+      <PageHeader
+        headerText="Radical Woodworks Admin Panel"
+        showButton={false}
+      />
       <div>
-        <Grid>
+        {/* <Grid>
           <AdminSection
             title="Edit Products"
             text="Click here to edit or delete products"
@@ -51,7 +53,7 @@ const AdminContainer = (props) => {
             buttonText="Edit FAQ"
             buttonHref="/admin-faq"
           />
-        </Grid>
+        </Grid> */}
       </div>
     </div>
   );
@@ -70,7 +72,9 @@ const mapActionsToProps = {
   verifyLogin,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withValidation(AdminContainer));
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(withAuthValidation(AdminContainer)),
+};

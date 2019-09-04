@@ -16,12 +16,19 @@ const authReducer = (state = initialState, { type, payload }) => {
         loggedIn: false,
       };
     case ACTIONS.SEND_LOGIN_ERROR:
-    case ACTIONS.VERIFY_LOGIN_ERROR:
       return {
         ...state,
         ...payload,
         sending: false,
         error: true,
+        loggedIn: false,
+      };
+    case ACTIONS.VERIFY_LOGIN_ERROR:
+      return {
+        ...state,
+        ...payload,
+        sending: false,
+        error: false,
         loggedIn: false,
       };
     case ACTIONS.SEND_LOGIN_SUCCESS:

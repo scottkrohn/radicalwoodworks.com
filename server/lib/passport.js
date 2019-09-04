@@ -77,7 +77,7 @@ export default (passport) => {
 
           if (!result.length) {
             // No User Found
-            return done(null, false, EXCEPTIONS.noUserFound);
+            return done(null, false, EXCEPTIONS.invalidCredentials);
           }
 
           const user = result[0];

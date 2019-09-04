@@ -55,6 +55,10 @@ app.get('*', (req, res) => {
     const context = {};
     const content = serverRenderer(req, store, context);
 
+    if (context.notFound) {
+      res.status(404);
+    }
+
     res.send(content);
   });
 });

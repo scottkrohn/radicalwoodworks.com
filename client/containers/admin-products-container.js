@@ -22,7 +22,7 @@ import { deleteProduct, clearProduct } from 'actions/product-actions';
 import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
 
 // HOCs
-import { withValidation } from 'client/hoc/auth';
+import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
 class AdminProductsContainer extends Component {
@@ -182,4 +182,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withValidation(withRouter(AdminProductsContainer)));
+)(withAuthValidation(withRouter(AdminProductsContainer)));

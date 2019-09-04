@@ -17,7 +17,7 @@ import { verifyLogin } from 'client/actions/admin-actions';
 import { getAllContent as getAllContentObjects, getLoading } from 'client/selectors/content-selector';
 
 // HOC
-import { withValidation } from 'client/hoc/auth';
+import { withAuthValidation } from 'client/hoc/auth';
 
 const AdminFaqContainer = (props) => {
   const [selectedContent, setSelectedContent] = useState(null);
@@ -128,4 +128,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withValidation(AdminFaqContainer));
+)(withAuthValidation(AdminFaqContainer));
