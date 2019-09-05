@@ -8,8 +8,9 @@ import IMAGE from 'constants/image-constants';
 import styles from 'components/product/product-mini.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import NavLink from 'client/components/nav/nav-link';
+import { Link } from 'react-router-dom';
 
-const ProductMini = ({product}) => {
+const ProductMini = ({ product }) => {
   useStyles(styles);
   // For now this just grabs the first image.
   const getMainImageUrl = () => {
@@ -40,7 +41,10 @@ const ProductMini = ({product}) => {
       <div>
         {imageUrl ? (
           <div className={styles.ImageWrap}>
-            <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
+            <img
+              className={styles.ProductImage}
+              src={IMAGE.getFullUrl(imageUrl)}
+            />
           </div>
         ) : (
           <div className={styles.NoImage}>{/* TODO: Need to use a non-antd icon here to indicate no image. */}</div>
@@ -70,11 +74,14 @@ const ProductMini = ({product}) => {
 
   return (
     <div className={styles.ProductMiniContainer}>
-      <NavLink to={productPageLink} className={styles.Link}>
+      <Link
+        to={productPageLink}
+        className={styles.Link}
+      >
         {renderImage()}
         {renderTitle()}
         {renderPrice()}
-      </NavLink>
+      </Link>
     </div>
   );
 };

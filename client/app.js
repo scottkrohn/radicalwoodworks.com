@@ -40,5 +40,6 @@ export default {
  * 13. Make the new contact page mobile friendly.
  * 16. Push this code up to a new url on my box and see if it can even run as a server?
  * 18. Create new table component to replace material ui
- * 19. Handle error notifications on login failure
+ * 
+// TODO: How to get url params on server render data load for product page.
  */

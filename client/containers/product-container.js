@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
-import { Spin } from 'antd';
 
 // Actions
 import { getProduct } from 'client/actions/product-actions';
@@ -13,6 +12,7 @@ import { getProduct as getProductSelector, getLoading } from 'client/selectors/p
 // Component
 import ImagePricingSection from 'client/components/product/image-pricing-section';
 import ItemInfo from 'client/components/product/item-info';
+import { finished } from 'stream';
 
 class ProductContainer extends Component {
   constructor(props) {
@@ -30,11 +30,10 @@ class ProductContainer extends Component {
 
     return (
       <div className="container-fluid">
-        <Spin spinning={this.props.loading} size="large">
-          {productLoaded && <ImagePricingSection product={product} />}
-          <hr />
-          {productLoaded && <ItemInfo product={product} />}
-        </Spin>
+        HELLO
+        {/* {productLoaded && <ImagePricingSection product={product} />} */}
+        <hr />
+        {productLoaded && <ItemInfo product={product} />}
       </div>
     );
   };
@@ -55,7 +54,11 @@ const mapActionsToProps = {
   getProduct,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(ProductContainer);
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(ProductContainer),
+};
+
+// TODO: How to get url params on server render data load?

@@ -35,7 +35,7 @@ passportConfig(passport);
 // Include dev/prod independant routes.
 routes(app);
 
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 app.get('*', (req, res) => {
   const store = createStore({}, req);
 

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import { isEmpty } from 'lodash';
 
 // Components
-import ImageCarousel from 'client/components/image-carousel/image-carousel';
 import Pricing from 'client/components/product/pricing';
 
 // Models
@@ -26,7 +25,7 @@ class ImagePricingSection extends Component {
     });
 
     return images;
-  }
+  };
 
   render = () => {
     const images = this.getSortedImages();
@@ -46,7 +45,8 @@ class ImagePricingSection extends Component {
     return (
       <div className="row">
         <div className={imageSectionClasses}>
-          <ImageCarousel images={images} />
+          {/* <ImageCarousel images={images} /> */}
+          TODO: Image Carousel
         </div>
         <div className={pricingClasses}>
           <Pricing product={this.props.product} />
