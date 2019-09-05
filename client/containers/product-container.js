@@ -12,7 +12,8 @@ import { getProduct as getProductSelector, getLoading } from 'client/selectors/p
 // Component
 import ImagePricingSection from 'client/components/product/image-pricing-section';
 import ItemInfo from 'client/components/product/item-info';
-import { finished } from 'stream';
+
+import ImageCarousel from '../components/image-carousel-v2/image-carousel';
 
 class ProductContainer extends Component {
   constructor(props) {
@@ -28,10 +29,15 @@ class ProductContainer extends Component {
     const product = get(this.props, 'product', null);
     const productLoaded = !isEmpty(product);
 
+    if (product && product.getImages) {
+      console.log(JSON.stringify(product.getImages()));
+    }
+
     return (
       <div className="container-fluid">
         HELLO
         {/* {productLoaded && <ImagePricingSection product={product} />} */}
+        {productLoaded && <ImageCarousel images={product.getImages()} />}
         <hr />
         {productLoaded && <ItemInfo product={product} />}
       </div>
