@@ -1,16 +1,34 @@
+@import '../../styles/variables.scss';
+
 .ImageCarouselContainer {
-  max-width: 400px;
-  // position: relative;
+  max-width: 600px;
+  width: 600px;
+  position: relative;
   overflow: hidden;
+
+  .PrevNav,
+  .NextNav {
+    position: absolute;
+    top: calc(50% - 17px);
+  }
+
+  .NextNav {
+    right: 1px;
+  }
+
+  .PrevNav {
+    left: 1px;
+  }
 
   .ImageWrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
 
     .Image {
+      border: 1px solid $gray;
       max-height: 100%;
       max-width: 100%;
     }

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 
+import CarouselNavButton from './carousel-nav-button';
+import CarouselDots from './carousel-dots';
+
 // Constants
 import IMAGES from '../../constants/image-constants';
 
@@ -9,13 +12,16 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 /*
  * TODO:
- * 1. Create prev/forward buttons
- * 2. Create indicator dots
+ * 2. Handle clicking on an indicator dot.
  * 3. Add options menu like on the old carousel.
  * 4. Allow arbitrary height/width
+ * 5. Support the 'showHidden' prop.
+ * 6. Add sorting to push the primary to the front and remove the hidden images.
+ * 7. Add gallary beneath the image.
+ * 8. Make it clickable/scrollable with touch input.
  */
 
-const ImageCarousel = ({ images }) => {
+const ImageCarousel = ({ images, showHidden }) => {
   useStyles(styles);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -37,7 +43,9 @@ const ImageCarousel = ({ images }) => {
     }
   };
 
-  const goToImageIndex = (index) => {};
+  const goToImageIndex = (index) => {
+    console.log('going to ', index);
+  };
 
   const getCurrentImageWidth = () => {
     const images = getImageData();
@@ -49,7 +57,7 @@ const ImageCarousel = ({ images }) => {
 
     if (images) {
       for (const image of images) {
-        if (image.getHidden() && !props.showHidden) {
+        if (image.getHidden() && !showHidden) {
           continue;
         }
         const fullUrl = IMAGES.getFullUrl(image.getThumbUrl());
@@ -74,11 +82,11 @@ const ImageCarousel = ({ images }) => {
           className={cx(styles.Carousel, 'flex')}
           style={{
             transform: `translateX(${translateX}px)`,
-            transition: 'transform ease-out 500ms',
+            transition: 'transform ease-out 300ms',
           }}
         >
           {imageData &&
-            imageData.map((image) => {
+            imageData.map((image, index) => {
               return (
                 <div
                   className={styles.ImageWrapper}
@@ -86,16 +94,29 @@ const ImageCarousel = ({ images }) => {
                   id={`carousel_image_${image.id}`}
                 >
                   <img
-                    className={styles.Image}
+                    className={cx(styles.Image, currentIndex === index && styles.Active)}
                     src={image.url}
                   />
                 </div>
               );
             })}
         </div>
+        <CarouselNavButton
+          className={styles.PrevNav}
+          direction="left"
+          onClick={goToPrevImage}
+        />
+        <CarouselNavButton
+          className={styles.NextNav}
+          direction="right"
+          onClick={goToNextImage}
+        />
+        <CarouselDots
+          count={images.length}
+          onClick={goToImageIndex}
+          currentIndex={currentIndex}
+        />
       </div>
-      <button onClick={goToPrevImage}>prev</button>
-      <button onClick={goToNextImage}>next</button>
     </div>
   );
 };

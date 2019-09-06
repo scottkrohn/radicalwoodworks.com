@@ -29,13 +29,8 @@ class ProductContainer extends Component {
     const product = get(this.props, 'product', null);
     const productLoaded = !isEmpty(product);
 
-    if (product && product.getImages) {
-      console.log(JSON.stringify(product.getImages()));
-    }
-
     return (
       <div className="container-fluid">
-        HELLO
         {/* {productLoaded && <ImagePricingSection product={product} />} */}
         {productLoaded && <ImageCarousel images={product.getImages()} />}
         <hr />
