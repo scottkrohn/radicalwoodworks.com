@@ -15,7 +15,6 @@ import useStyles from 'isomorphic-style-loader/useStyles';
  * TODO:
  * 1. Add options menu like on the old carousel.
  * 2. Support the 'showHidden' prop.
- * 3. Don't display hidden images.
  * 4. Add gallary beneath the image.
  * 5. Make it clickable/scrollable with touch input.
  */
@@ -26,7 +25,7 @@ const ImageCarousel = ({ images, showHidden }) => {
   const [translateX, setTranslateX] = useState(0);
 
   const goToNextImage = () => {
-    if (currentIndex === images.length - 1) {
+    if (currentIndex === imageData.length - 1) {
       setCurrentIndex(0);
       setTranslateX(0);
     } else {
@@ -127,7 +126,7 @@ const ImageCarousel = ({ images, showHidden }) => {
           onClick={goToNextImage}
         />
         <CarouselDots
-          count={images.length}
+          count={imageData.length}
           onClick={goToImageIndex}
           currentIndex={currentIndex}
         />
