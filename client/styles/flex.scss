@@ -54,4 +54,16 @@
       flex-grow: 2;
     }
   }
+
+  .flex-basis {
+    &-25 {
+      flex-basis: 25%;
+    }
+    &-50 {
+      flex-basis: 50%;
+    }
+    &-75 {
+      flex-basis: 75%;
+    }
+  }
 }

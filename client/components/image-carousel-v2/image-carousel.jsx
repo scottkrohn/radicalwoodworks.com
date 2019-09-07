@@ -18,7 +18,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
  * 5. Make it clickable/scrollable with touch input.
  */
 
-const ImageCarousel = ({ images, showHidden }) => {
+const ImageCarousel = ({ className, images, showHidden }) => {
   useStyles(styles);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -95,44 +95,42 @@ const ImageCarousel = ({ images, showHidden }) => {
   }, [images]);
 
   return (
-    <div>
-      <div className={cx(styles.ImageCarouselContainer)}>
-        <div
-          className={cx(styles.Carousel)}
-          style={{ transform: `translateX(${translateX}px)` }}
-        >
-          {imageData &&
-            imageData.map((image, index) => {
-              return (
-                <div
-                  className={styles.ImageWrapper}
-                  key={image.id}
-                  id={`carousel_image_${image.id}`}
-                >
-                  <img
-                    className={cx(styles.Image, currentIndex === index && styles.Active)}
-                    src={image.url}
-                  />
-                </div>
-              );
-            })}
-        </div>
-        <CarouselNavButton
-          className={styles.PrevNav}
-          direction="left"
-          onClick={goToPrevImage}
-        />
-        <CarouselNavButton
-          className={styles.NextNav}
-          direction="right"
-          onClick={goToNextImage}
-        />
-        <CarouselDots
-          count={imageData.length}
-          onClick={goToImageIndex}
-          currentIndex={currentIndex}
-        />
+    <div className={cx(styles.ImageCarouselContainer, className)}>
+      <div
+        className={cx(styles.Carousel)}
+        style={{ transform: `translateX(${translateX}px)` }}
+      >
+        {imageData &&
+          imageData.map((image, index) => {
+            return (
+              <div
+                className={styles.ImageWrapper}
+                key={image.id}
+                id={`carousel_image_${image.id}`}
+              >
+                <img
+                  className={cx(styles.Image, currentIndex === index && styles.Active)}
+                  src={image.url}
+                />
+              </div>
+            );
+          })}
       </div>
+      <CarouselNavButton
+        className={styles.PrevNav}
+        direction="left"
+        onClick={goToPrevImage}
+      />
+      <CarouselNavButton
+        className={styles.NextNav}
+        direction="right"
+        onClick={goToNextImage}
+      />
+      <CarouselDots
+        count={imageData.length}
+        onClick={goToImageIndex}
+        currentIndex={currentIndex}
+      />
     </div>
   );
 };

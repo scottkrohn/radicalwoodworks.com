@@ -6,18 +6,12 @@ import { get } from 'lodash';
 import Product from 'model/product';
 
 // Styles
-import styles from 'client/components/product/item-info.less';
+import styles from 'client/components/product/item-info.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-// Constants
-import PRODUCTS from 'constants/product-contants';
-
-class ItemInfo extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  renderItemDetails = () => {
-    const product = get(this.props, 'product');
+const ItemInfo = ({ product }) => {
+  useStyles(styles);
+  const renderItemDetails = () => {
     if (!product) {
       return null;
     }
@@ -44,33 +38,26 @@ class ItemInfo extends Component {
     );
   };
 
-  renderDefaultColor = (colorValue) => {
-    PRODUCTS.getLabelForValue(PRODUCTS.chalkboards.stains, colorValue);
-  }
-
-  render = () => {
-
-    return (
-      <div className="row">
-        <div className="col-lg-9 col-md-12 text-center text-lg-left">
-          <div className={styles.Description}>
-            <h3 className={styles.DescriptionHeader}>Item Description</h3>
-            <div dangerouslySetInnerHTML={{ __html: this.props.product.getDescription() }} />
-          </div>
-        </div>
-        <div className="col-lg-3 col-md-12 text-center text-lg-left">
-          <div className={styles.HideDesktop}>
-            <hr />
-          </div>
-          <div className={styles.ItemDetails}>
-            <h3 className={styles.ItemDetailsHeader}>Details</h3>
-            {this.renderItemDetails()}
-          </div>
+  return (
+    <div className="row">
+      <div className="col-lg-9 col-md-12 text-center text-lg-left">
+        <div className={styles.Description}>
+          <h3 className={styles.DescriptionHeader}>Item Description</h3>
+          <div dangerouslySetInnerHTML={{ __html: product.getDescription() }} />
         </div>
       </div>
-    );
-  };
-}
+      <div className="col-lg-3 col-md-12 text-center text-lg-left">
+        <div className={styles.HideDesktop}>
+          <hr />
+        </div>
+        <div className={styles.ItemDetails}>
+          <h3 className={styles.ItemDetailsHeader}>Details</h3>
+          {renderItemDetails()}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 ItemInfo.propTypes = {
   product: PropTypes.instanceOf(Product),

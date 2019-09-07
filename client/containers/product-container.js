@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
@@ -10,35 +10,44 @@ import { getProduct } from 'client/actions/product-actions';
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
 
 // Component
-import ImagePricingSection from 'client/components/product/image-pricing-section';
+import Pricing from 'client/components/product/pricing';
 import ItemInfo from 'client/components/product/item-info';
+import Spinner from '../components/spinner-v2/spinner-v2';
 
 import ImageCarousel from '../components/image-carousel-v2/image-carousel';
 
-class ProductContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+const ProductContainer = ({ getProduct, loading, match, product }) => {
+  const productId = get(match, 'params.productId');
 
-  componentDidMount = () => {
-    const productId = get(this.props, 'match.params.productId');
-    this.props.getProduct(productId);
-  };
+  useEffect(() => {
+    getProduct(productId);
+  }, []);
 
-  render = () => {
-    const product = get(this.props, 'product', null);
-    const productLoaded = !isEmpty(product);
+  const productLoaded = !isEmpty(product);
 
-    return (
-      <div className="container-fluid">
-        {/* {productLoaded && <ImagePricingSection product={product} />} */}
-        {productLoaded && <ImageCarousel images={product.getImages()} />}
-        <hr />
-        {productLoaded && <ItemInfo product={product} />}
-      </div>
-    );
-  };
-}
+  return (
+    <div className="container-fluid mt-5">
+      <Spinner spinning={loading}>
+        {productLoaded && parseInt(product.getId(), 10) === parseInt(productId, 10) && (
+          <Fragment>
+            <div className="flex">
+              <ImageCarousel
+                className="flex-basis-50"
+                images={product.getImages()}
+              />
+              <Pricing
+                className="flex-basis-50"
+                product={product}
+              />
+            </div>
+            <hr />
+            <ItemInfo product={product} />
+          </Fragment>
+        )}
+      </Spinner>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

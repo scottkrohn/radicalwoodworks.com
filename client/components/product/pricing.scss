@@ -1,0 +1,85 @@
+@import '../../styles/variables.scss';
+
+.PricingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .Price {
+    text-align: center;
+
+    .PriceLabel {
+      font-weight: 500;
+      font-size: 1.5em;
+    }
+
+    .PriceValue {
+      font-weight: 700;
+      font-size: 2.3em;
+      color: $moneyGreen;
+    }
+  }
+
+  .Shipping {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.2em;
+  }
+
+  .Title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2em;
+  }
+
+  .AddToCart {
+    text-align: center;
+    margin-top: 50px;
+
+    .AddToCartLink {
+      text-decoration: none;
+    }
+  }
+
+  .AddToCartLabel {
+    margin-right: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 2em;
+    vertical-align: middle;
+    color: $black;
+  }
+
+  .AddToCartImage {
+    width: 110px;
+  }
+
+  @media (max-width: 992px) {
+    .Title {
+      font-size: 3em;
+    }
+
+    .Shipping {
+      font-size: 2.5em;
+    }
+
+    .Price {
+      .PriceLabel {
+        font-size: 3em;
+      }
+
+      .PriceValue {
+        font-size: 3.5em;
+      }
+    }
+
+    .AddToCartLabel {
+      font-size: 3em;
+      margin-right: 20px;
+    }
+
+    .AddToCartImage {
+      width: 150px;
+    }
+  }
+}
