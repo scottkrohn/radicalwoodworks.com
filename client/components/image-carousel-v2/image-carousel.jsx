@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
+import { isEmpty } from 'lodash';
 
 import CarouselNavButton from './carousel-nav-button';
 import CarouselDots from './carousel-dots';
@@ -12,11 +13,11 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 /*
  * TODO:
- * 3. Add options menu like on the old carousel.
- * 5. Support the 'showHidden' prop.
- * 6. Add sorting to push the primary to the front and remove the hidden images.
- * 7. Add gallary beneath the image.
- * 8. Make it clickable/scrollable with touch input.
+ * 1. Add options menu like on the old carousel.
+ * 2. Support the 'showHidden' prop.
+ * 3. Don't display hidden images.
+ * 4. Add gallary beneath the image.
+ * 5. Make it clickable/scrollable with touch input.
  */
 
 const ImageCarousel = ({ images, showHidden }) => {
@@ -56,8 +57,22 @@ const ImageCarousel = ({ images, showHidden }) => {
     return document.getElementById(`carousel_image_${imageData[currentIndex].id}`).clientWidth;
   };
 
+  const sortImages = () => {
+    if (isEmpty(images)) {
+      return [];
+    }
+
+    images.sort((a, b) => {
+      return a.getIsPrimary() ? -1 : 1;
+    });
+
+    return images;
+  };
+
   const imageData = useMemo(() => {
     const imageDataArr = [];
+    sortImages(images);
+
     if (images) {
       for (const image of images) {
         if (image.getHidden() && !showHidden) {
