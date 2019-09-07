@@ -77,13 +77,10 @@ const ImageCarousel = ({ images, showHidden }) => {
   const imageData = getImageData();
   return (
     <div>
-      <div className={cx(styles.ImageCarouselContainer, 'flex')}>
+      <div className={cx(styles.ImageCarouselContainer)}>
         <div
-          className={cx(styles.Carousel, 'flex')}
-          style={{
-            transform: `translateX(${translateX}px)`,
-            transition: 'transform ease-out 300ms',
-          }}
+          className={cx(styles.Carousel)}
+          style={{ transform: `translateX(${translateX}px)` }}
         >
           {imageData &&
             imageData.map((image, index) => {
