@@ -31,7 +31,7 @@ export default {
 };
 
 /**
- * TODO:
+ * High Level TODO:
  * 1. Build new image carousel to replace antd.
  * 2. Make admin page server render. Update to use the new buttons.
  * 3. Make the product page server render.
@@ -40,6 +40,14 @@ export default {
  * 13. Make the new contact page mobile friendly.
  * 16. Push this code up to a new url on my box and see if it can even run as a server?
  * 18. Create new table component to replace material ui
- * 
-// TODO: How to get url params on server render data load for product page.
+ *
+ * Image Carousel TODO:
+ *
+ * 1. Add options menu like on the old carousel.
+ * 2. Support the 'showHidden' prop.
+ * 4. Add gallary beneath the image.
+ * 5. Make it clickable/scrollable with touch input.
+ *
+ * Product Page TODO:
+ * TODO: How to get url params on server render data load for product page.
  */

@@ -12,7 +12,6 @@ import styles from './image-carousel.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 /*
- * TODO:
  * 1. Add options menu like on the old carousel.
  * 2. Support the 'showHidden' prop.
  * 4. Add gallary beneath the image.
