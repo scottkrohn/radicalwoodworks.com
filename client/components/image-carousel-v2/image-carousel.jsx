@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 
 import CarouselNavButton from './carousel-nav-button';
@@ -12,7 +12,6 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 /*
  * TODO:
- * 2. Handle clicking on an indicator dot.
  * 3. Add options menu like on the old carousel.
  * 5. Support the 'showHidden' prop.
  * 6. Add sorting to push the primary to the front and remove the hidden images.
@@ -54,13 +53,11 @@ const ImageCarousel = ({ images, showHidden }) => {
   };
 
   const getCurrentImageWidth = () => {
-    const images = getImageData();
-    return document.getElementById(`carousel_image_${images[currentIndex].id}`).clientWidth;
+    return document.getElementById(`carousel_image_${imageData[currentIndex].id}`).clientWidth;
   };
 
-  const getImageData = () => {
-    const imageData = [];
-
+  const imageData = useMemo(() => {
+    const imageDataArr = [];
     if (images) {
       for (const image of images) {
         if (image.getHidden() && !showHidden) {
@@ -73,14 +70,14 @@ const ImageCarousel = ({ images, showHidden }) => {
           isPrimary: image.getIsPrimary(),
           hidden: image.getHidden(),
         };
-        imageData.push(data);
+
+        imageDataArr.push(data);
       }
     }
 
-    return imageData;
-  };
+    return imageDataArr;
+  }, [images]);
 
-  const imageData = getImageData();
   return (
     <div>
       <div className={cx(styles.ImageCarouselContainer)}>
