@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
@@ -26,7 +26,7 @@ const ProductContainer = ({ getProduct, loading, match, product }) => {
   const productLoaded = !isEmpty(product);
 
   return (
-    <div className="container-fluid mt-5">
+    <div className="container-fluid mt-1">
       <Spinner spinning={loading}>
         {productLoaded && parseInt(product.getId(), 10) === parseInt(productId, 10) && (
           <Fragment>

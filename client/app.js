@@ -15,7 +15,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import { verifyLogin } from 'client/actions/auth-actions';
 
 const App = ({ location, route }) => {
-  useStyles(styles, bootstrapStyles, fontAwesomeStyles);
+  useStyles(bootstrapStyles, fontAwesomeStyles, styles);
   return (
     <div className="app-container">
       <Navbar location={location} />
