@@ -14,7 +14,6 @@ import useStyles from 'isomorphic-style-loader/useStyles';
  * TODO:
  * 2. Handle clicking on an indicator dot.
  * 3. Add options menu like on the old carousel.
- * 4. Allow arbitrary height/width
  * 5. Support the 'showHidden' prop.
  * 6. Add sorting to push the primary to the front and remove the hidden images.
  * 7. Add gallary beneath the image.
@@ -44,7 +43,14 @@ const ImageCarousel = ({ images, showHidden }) => {
   };
 
   const goToImageIndex = (index) => {
-    console.log('going to ', index);
+    if (index === 0) {
+      setCurrentIndex(0);
+      setTranslateX(0);
+    } else {
+      const translateCoefficient = getCurrentImageWidth() * Math.abs(currentIndex - index);
+      setCurrentIndex(index);
+      setTranslateX(translateX - (index < currentIndex ? -translateCoefficient : translateCoefficient));
+    }
   };
 
   const getCurrentImageWidth = () => {
