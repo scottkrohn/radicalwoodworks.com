@@ -38,6 +38,9 @@ const ImageCarousel = ({ images, showHidden }) => {
     if (currentIndex !== 0) {
       setCurrentIndex(currentIndex - 1);
       setTranslateX(translateX + getCurrentImageWidth());
+    } else {
+      setCurrentIndex(imageData.length - 1);
+      setTranslateX((imageData.length - 1) * getCurrentImageWidth() * -1);
     }
   };
 
