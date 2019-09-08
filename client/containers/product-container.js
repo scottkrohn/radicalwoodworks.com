@@ -19,12 +19,14 @@ import ImageCarousel from '../components/image-carousel-v2/image-carousel';
 import styles from './product-container.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ProductContainer = ({ getProduct, loading, match, product }) => {
+const ProductContainer = ({ getProduct, loading, match, product, location }) => {
   useStyles(styles);
   const productId = get(match, 'params.productId');
 
   useEffect(() => {
-    getProduct(productId);
+    if (isEmpty(product) || product.getId() != productId) {
+      getProduct(productId);
+    }
   }, []);
 
   const productLoaded = !isEmpty(product);
@@ -73,6 +75,9 @@ export default {
     mapStateToProps,
     mapActionsToProps
   )(ProductContainer),
+  loadData: (store, path) => {
+    const pathParts = path.split('/').filter((part) => part);
+    const productId = pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
+    return productId != null ? store.dispatch(getProduct(productId)) : Promise.resolve();
+  },
 };
-
-// TODO: How to get url params on server render data load?

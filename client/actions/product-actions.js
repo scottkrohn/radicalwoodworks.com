@@ -1,11 +1,10 @@
 import { get } from 'lodash';
-import axios from 'axios';
 
 // Constants
 import ACTIONS from 'constants/action-constants';
 
 export const getProduct = (productId) => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(getProductRequest());
 
@@ -28,7 +27,7 @@ export const getProduct = (productId) => {
 };
 
 export const createProduct = (product) => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(createProductRequest());
 
@@ -57,7 +56,7 @@ export const createProduct = (product) => {
 };
 
 export const deleteProduct = (productId) => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     dispatch(deleteProductRequest());
 
     return new Promise((resolve, reject) => {
@@ -76,12 +75,11 @@ export const deleteProduct = (productId) => {
 };
 
 export const updateProduct = (product) => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     dispatch(updateProductRequest());
     const body = {
       data: product.getValues(),
     };
-
 
     return new Promise((resolve, reject) => {
       axios
@@ -99,7 +97,7 @@ export const updateProduct = (product) => {
 };
 
 export const clearProduct = () => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(clearProductRequest());
       resolve();
