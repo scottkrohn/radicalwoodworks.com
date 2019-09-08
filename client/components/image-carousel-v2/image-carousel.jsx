@@ -104,14 +104,16 @@ const ImageCarousel = ({ className, images, showHidden }) => {
           imageData.map((image, index) => {
             return (
               <div
-                className={styles.ImageWrapper}
                 key={image.id}
                 id={`carousel_image_${image.id}`}
+                className={styles.SlidePane}
               >
-                <img
-                  className={cx(styles.Image, currentIndex === index && styles.Active)}
-                  src={image.url}
-                />
+                <div className={styles.ImageWrapper}>
+                  <img
+                    className={cx(styles.Image, currentIndex === index && styles.Active)}
+                    src={image.url}
+                  />
+                </div>
               </div>
             );
           })}

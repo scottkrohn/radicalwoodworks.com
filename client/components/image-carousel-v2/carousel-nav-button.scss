@@ -4,13 +4,13 @@
   display: inline-block;
   cursor: pointer;
   font-size: 2.2em;
-  color: $gray;
   transition: color ease-in 100ms, background ease-in 100ms;
-  background: $light-gray;
   border-radius: 100%;
+  color: $light-gray;
+  background: $gray;
 
   &:hover {
-    color: $light-gray;
-    background: $gray;
+    background: $light-gray;
+    color: $gray;
   }
 }
