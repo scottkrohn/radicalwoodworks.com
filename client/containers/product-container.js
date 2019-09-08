@@ -75,8 +75,7 @@ export default {
     mapStateToProps,
     mapActionsToProps
   )(ProductContainer),
-  loadData: (store, path) => {
-    const pathParts = path.split('/').filter((part) => part);
+  loadData: (store, pathParts) => {
     const productId = pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
     return productId != null ? store.dispatch(getProduct(productId)) : Promise.resolve();
   },
