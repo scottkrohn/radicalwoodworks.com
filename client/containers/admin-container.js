@@ -1,32 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// Actions
-import { verifyLogin } from 'client/actions/admin-actions';
-
 // Components
-// import Grid from 'client/components/grid/grid';
-// import AdminSection from 'client/components/admin-section/admin-section';
+import Grid from 'client/components/grid/grid';
+import AdminSection from 'client/components/admin-section/admin-section';
 import PageHeader from 'client/components/page-header/page-header';
 
 // HOC
 import { withAuthValidation } from 'client/hoc/auth';
 
-const sectionIds = {
-  editProducts: 'editProducts',
-  editPolicies: 'editPolicies',
-  editAboutUs: 'editAboutUs',
-  editFaq: 'editFaq',
-};
-
-const AdminContainer = (props) => {
-  // useEffect(() => {
-  //   props.verifyLogin().catch((error) => {
-  //     props.redirectToHome();
-  //   });
-  // }, []);
-
+const AdminContainer = () => {
   return (
     <div className="container-fluid">
       <PageHeader
@@ -34,7 +18,7 @@ const AdminContainer = (props) => {
         showButton={false}
       />
       <div>
-        {/* <Grid>
+        <Grid>
           <AdminSection
             title="Edit Products"
             text="Click here to edit or delete products"
@@ -53,7 +37,7 @@ const AdminContainer = (props) => {
             buttonText="Edit FAQ"
             buttonHref="/admin-faq"
           />
-        </Grid> */}
+        </Grid>
       </div>
     </div>
   );
@@ -68,13 +52,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-const mapActionsToProps = {
-  verifyLogin,
-};
-
 export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(withAuthValidation(AdminContainer)),
+  component: connect(mapStateToProps)(withAuthValidation(AdminContainer)),
 };

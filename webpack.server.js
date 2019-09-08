@@ -20,15 +20,17 @@ const serverConfig = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
   },
-  
+
   // This will exclude any modules that live inside the node_modules folder from being
   // bundled into the server bundle.js because they're unnecessary.
   externals: [webpackNodeExternals()],
-  plugins: [
-    new webpack.DefinePlugin({
-      IS_CLIENT: false,
-    })
-  ],
+  plugins: [new webpack.DefinePlugin({
+    IS_CLIENT: false,
+  })],
+
+  watchOptions: {
+    ignored: /client/,
+  },
 };
 
 module.exports = merge(commonConfig, serverConfig);

@@ -6,7 +6,7 @@ import styles from 'client/components/homepage-content-grid/homepage-content-gri
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Components
-import Button from 'client/components/base/button/button';
+import Button from 'client/components/button/button';
 
 // Utils
 import { observerIsIntersecting } from 'client/utils/observers';
@@ -64,13 +64,15 @@ const HomepageImageGrid = (props) => {
       {props.homepageContent.map((content) => {
         if (content.type === 'image') {
           return <img
-            key={content.key} ref={myRefs[`url_${content.key}`].ref}
+            key={content.key}
+            ref={myRefs[`url_${content.key}`].ref}
             className={styles.Content}
-          />;
+                 />;
         } else if (content.type === 'content') {
           return (
             <div
-              ref={myRefs[`url_${content.key}`].ref} key={content.key}
+              ref={myRefs[`url_${content.key}`].ref}
+              key={content.key}
               className={styles.TextContent}
             >
               <TextContent content={content} />

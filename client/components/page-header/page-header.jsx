@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import Button from 'client/components/base/button/button';
+import Button from 'client/components/button/button';
 
 // Styles
 import styles from 'client/components/page-header/page-header.scss';

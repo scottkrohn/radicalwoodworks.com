@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from 'client/components/grid/grid.less';
+import styles from 'client/components/grid/grid.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 const Grid = ({ children }) => {
+  useStyles(styles);
   return <div className={styles.GridContainer}>{children}</div>;
 };
 

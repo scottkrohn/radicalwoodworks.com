@@ -1,14 +1,15 @@
-@import '../../../client//styles/variables.less';
+@import '../../../client/styles/variables.scss';
 
 .AdminSectionContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 45%;
+  width: 32%;
   min-height: 150px;
-  border: 1px solid black;
-  margin: 20px;
+  border: 1px solid $gray;
+  margin: 5px;
+  color: $black;
 }
 
 .TitleContainer {
