@@ -32,12 +32,13 @@ export default {
 
 /**
  * High Level TODO:
- * 4. Remove the nav-link.js file in favor of using the Link component from react-router-dom.
- * 11. Handle loading/completed/error states for all pages that need them.
- * 13. Make the new contact page mobile friendly.
- * 16. Push this code up to a new url on my box and see if it can even run as a server?
- * 18. Create new table component to replace material ui
- * 19. Create a modal component (only use for it for now is showing a larger version of the product image.)
+ * 1. Push this code up to a new url on my box and see if it can even run as a server?
+ * 2. Create new table component to replace material ui
+ * 3. Create a modal component (only use for it for now is showing a larger version of the product image.)
+ * 4. Make admin Edit Products page work.
+ * 4. Make admin Edit Product page work.
+ * 5. Make admin Edit FAQ page work.
+ * 6. Make admin Edit About Us page work.
  *
  * Image Carousel TODO:
  *
@@ -46,6 +47,7 @@ export default {
  * 4. Add gallary beneath the image.
  * 5. Make it clickable/scrollable with touch input.
  *
- * Mobile
+ * Mobile/General
  * 1. Make every page mobile friendly.
+ * 2. Handle loading/completed/error states for all pages that need them.
  */
