@@ -46,8 +46,7 @@ const HomepageImageGrid = (props) => {
         <div className={styles.ContentText}>{props.content.text}</div>
         {props.content.buttonText && props.content.url && (
           <Button
-            variant="contained"
-            color="dark"
+            dark
             halfWidth
             onClick={() => handleButtonClick(props.content.url)}
             className={styles.ContentButton}

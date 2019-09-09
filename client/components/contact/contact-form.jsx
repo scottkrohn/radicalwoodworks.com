@@ -123,6 +123,7 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
                   />
                   <Button
                     className="mt-3"
+                    primary
                     onClick={handleSubmit(getFormValues)}
                   >
                     Submit

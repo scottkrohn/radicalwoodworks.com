@@ -83,6 +83,7 @@ const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
               />
               <Button
                 className="mt-4"
+                primary
                 onClick={handleLoginClick(getFormValues)}
               >
                 Login

@@ -25,8 +25,7 @@ const AdminSection = ({ onClickHandler, title, text, buttonHref, buttonText }) =
       <div className={styles.ButtonContainer}>
         <NavLink to={buttonHref}>
           <Button
-            variant="contained"
-            color="primary"
+            primary
             onClick={handleButtonClick}
           >
             {buttonText}
