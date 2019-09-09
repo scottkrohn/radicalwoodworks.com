@@ -5,7 +5,7 @@ import classNames from 'classnames';
 // Components
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import NavLink from 'client/components/nav/nav-link';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,49 +28,62 @@ class ProductsTableRow extends PureComponent {
     return (
       <TableRow hover>
         <TableCell
-          padding="none" align="left"
+          padding="none"
+          align="left"
           className={styles.Cell}
         >
-          <img className={styles.TableImage} src={IMAGES.getFullUrl(primaryImageUrl)} />
+          <img
+            className={styles.TableImage}
+            src={IMAGES.getFullUrl(primaryImageUrl)}
+          />
         </TableCell>
         <TableCell
-          padding="none" align="left"
+          padding="none"
+          align="left"
           className={styles.Cell}
         >
           <span className={styles.Text}>{this.props.product.getTitle()}</span>
         </TableCell>
         <TableCell
-          padding="none" align="center"
+          padding="none"
+          align="center"
           className={styles.Cell}
         >
           <span className={styles.Text}>${this.props.product.getPrice().toFixed(2)}</span>
         </TableCell>
         <TableCell
-          padding="none" align="center"
+          padding="none"
+          align="center"
           className={styles.Cell}
         >
           <span className={styles.Text}>${this.props.product.getShippingPrice().toFixed(2)}</span>
         </TableCell>
         <TableCell
-          padding="none" align="center"
+          padding="none"
+          align="center"
           className={styles.Cell}
         >
           <span className={styles.Text}>{this.props.product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</span>
         </TableCell>
         <TableCell
-          padding="none" align="center"
+          padding="none"
+          align="center"
           className={styles.Cell}
         >
           <span className={styles.Text}>${this.props.product.getFinalPrice().toFixed(2)}</span>
         </TableCell>
         <TableCell
-          padding="none" align="center"
+          padding="none"
+          align="center"
           className={iconClasses}
         >
           <div className={styles.Icons}>
-            <NavLink to={`/admin-product/${this.props.product.getId()}`}>
-              <FontAwesomeIcon icon={faEdit} className={styles.ActionIcon} />
-            </NavLink>
+            <Link to={`/admin-product/${this.props.product.getId()}`}>
+              <FontAwesomeIcon
+                icon={faEdit}
+                className={styles.ActionIcon}
+              />
+            </Link>
             <FontAwesomeIcon
               onClick={() => this.props.handleDeleteProduct(this.props.product)}
               icon={faTrash}

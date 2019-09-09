@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import Button from 'client/components/button/button';
-import NavLink from 'client/components/nav/nav-link';
+import { Link } from 'react-router-dom';
 
 // Styles
 import styles from 'client/components/admin-section/admin-section.scss';
@@ -23,14 +23,14 @@ const AdminSection = ({ onClickHandler, title, text, buttonHref, buttonText }) =
       <div className={styles.TitleContainer}>{title}</div>
       <div className={styles.TextContainer}>{text}</div>
       <div className={styles.ButtonContainer}>
-        <NavLink to={buttonHref}>
+        <Link to={buttonHref}>
           <Button
             primary
             onClick={handleButtonClick}
           >
             {buttonText}
           </Button>
-        </NavLink>
+        </Link>
       </div>
     </div>
   );

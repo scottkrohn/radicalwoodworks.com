@@ -32,8 +32,6 @@ export default {
 
 /**
  * High Level TODO:
- * 1. Add different button styles to the button component (primary, flat, etc)
- * 2. Make admin page server render. Update to use the new buttons.
  * 4. Remove the nav-link.js file in favor of using the Link component from react-router-dom.
  * 11. Handle loading/completed/error states for all pages that need them.
  * 13. Make the new contact page mobile friendly.
@@ -47,4 +45,7 @@ export default {
  * 2. Support the 'showHidden' prop.
  * 4. Add gallary beneath the image.
  * 5. Make it clickable/scrollable with touch input.
+ *
+ * Mobile
+ * 1. Make every page mobile friendly.
  */

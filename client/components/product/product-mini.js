@@ -7,7 +7,6 @@ import IMAGE from 'constants/image-constants';
 // Styles
 import styles from 'components/product/product-mini.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
-import NavLink from 'client/components/nav/nav-link';
 import { Link } from 'react-router-dom';
 
 const ProductMini = ({ product }) => {
