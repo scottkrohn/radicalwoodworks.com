@@ -1,0 +1,50 @@
+.ContentEditorContainer {
+  margin-top: 20px;
+
+  .Buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .PreviewButton {
+    width: 50%;
+  }
+
+  :global {
+    .ql-editor {
+      height: unset;
+    }
+    .ql-container {
+      height: unset;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .PreviewButton {
+      width: 100%;
+    }
+
+    :global {
+      .ql-editor {
+        font-size: 2.8em;
+      }
+    }
+
+    .Preview {
+      font-size: 2em;
+
+      p,
+      li,
+      h3 {
+        font-size: 2em;
+      }
+    }
+  }
+
+  .Preview {
+    margin-top: 20px;
+  }
+}

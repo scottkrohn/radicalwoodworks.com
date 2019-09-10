@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { get } from 'lodash';
 
 // Components
-import ReactQuill from 'react-quill';
-import Button from 'client/components/base/button/button';
 import Snackbar from '@material-ui/core/Snackbar';
 import Spinner from 'client/components/spinner/spinner';
 import ContentEditor from 'client/components/content-editor/content-editor';

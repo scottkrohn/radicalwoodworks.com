@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from 'client/components/base/button/button';
+import Button from 'client/components/button/button';
 import Snackbar from '@material-ui/core/Snackbar';
 import PageHeader from 'client/components/page-header/page-header';
 
@@ -101,11 +101,10 @@ class AdminProductsContainer extends Component {
   };
 
   handleCreateProduct = () => {
-    this.props.clearProduct()
-      .then(() => {
-        this.props.history.push('/admin-product');
-      });
-  }
+    this.props.clearProduct().then(() => {
+      this.props.history.push('/admin-product');
+    });
+  };
 
   render = () => {
     const loading = this.props.loading || this.state.deletingProduct;
@@ -121,22 +120,32 @@ class AdminProductsContainer extends Component {
           </div>
         </div>
         <Spinner spinning={loading}>
-          <ProductsTable handleDeleteProduct={this.handleDeleteProduct} products={this.props.products} />
-          <Dialog open={this.state.deleteDialogOpen} onClose={this.handleCloseDeleteDialog}>
+          <ProductsTable
+            handleDeleteProduct={this.handleDeleteProduct}
+            products={this.props.products}
+          />
+          <Dialog
+            open={this.state.deleteDialogOpen}
+            onClose={this.handleCloseDeleteDialog}
+          >
             <DialogTitle>Confirm Delete Product</DialogTitle>
             <DialogContent>
               <DialogContentText>Are you sure you want to delete this product?</DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button
-                variant="contained" color="cancel"
-                slim onClick={() => this.handleDeleteAction(false)}
+                variant="contained"
+                color="cancel"
+                slim
+                onClick={() => this.handleDeleteAction(false)}
               >
                 Nevermind
               </Button>
               <Button
-                variant="contained" color="save"
-                slim onClick={() => this.handleDeleteAction(true)}
+                variant="contained"
+                color="save"
+                slim
+                onClick={() => this.handleDeleteAction(true)}
               >
                 Confirm
               </Button>

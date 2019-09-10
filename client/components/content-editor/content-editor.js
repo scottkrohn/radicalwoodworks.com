@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // Components
-import ReactQuill from 'react-quill';
-import Button from 'client/components/base/button/button';
+import Quill from '../quill-wrapper/quill-wrapper';
+import Button from 'client/components/button/button';
 
 // Styles
-import styles from 'client/components/content-editor/content-editor.less';
+import styles from 'client/components/content-editor/content-editor.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-// class ContentEditor extends PureComponent {
 const ContentEditor = (props) => {
+  useStyles(styles);
   const [text, setText] = useState('');
   const [showPreview, setShowPreview] = useState('');
 
@@ -36,14 +37,16 @@ const ContentEditor = (props) => {
   return (
     <div className={styles.ContentEditorContainer}>
       <h5 className={styles.Header}>{props.content.getType()}</h5>
-      <ReactQuill value={text} onChange={onEditorChange} />
+      <Quill
+        value={text}
+        onChange={onEditorChange}
+      />
 
       <div className={styles.Buttons}>
         <div className="offset-lg-4 offset-md-0 col-lg-4 col-md-6">
           <Button
             onClick={() => props.handleSave(props.content, text)}
-            color="save"
-            variant="contained"
+            save
             className={styles.Button}
           >
             Save!
@@ -52,9 +55,7 @@ const ContentEditor = (props) => {
         <div className="col-lg-4 col-md-6 text-right pr-0">
           <Button
             onClick={togglePreview}
-            color="primary"
-            slim
-            variant="contained"
+            primary
             className={styles.PreviewButton}
           >
             {previewVerb} Preview

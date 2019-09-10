@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 
 // Components
-import Spinner from 'client/components/spinner/spinner';
-import Snackbar from '@material-ui/core/Snackbar';
-import Button from 'client/components/base/button/button';
+import Spinner from 'client/components/spinner-v2/spinner-v2';
+import Button from 'client/components/button/button';
 import Grid from 'client/components/grid/grid';
 import ContentEditor from 'client/components/content-editor/content-editor';
+import PageHeader from 'client/components/page-header/page-header';
 
 // Actions
 import { getAllContent, updateContent } from 'client/actions/content-actions';
@@ -19,7 +20,14 @@ import { getAllContent as getAllContentObjects, getLoading } from 'client/select
 // HOC
 import { withAuthValidation } from 'client/hoc/auth';
 
+// Styles
+import styles from './admin-faq-container.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
+
+// TODO: Show notifications on save.
+
 const AdminFaqContainer = (props) => {
+  useStyles(styles);
   const [selectedContent, setSelectedContent] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
@@ -66,20 +74,21 @@ const AdminFaqContainer = (props) => {
   const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
 
   return (
-    <div className="container-fluid text-center">
+    <div className={cx('container-fluid text-center', styles.AdminFaqContainer)}>
       <Spinner spinning={props.loading}>
-        <h2>Edit FAQ</h2>
+        <PageHeader
+          headerText="Edit FAQ"
+          showButton={false}
+        />
         <Grid>
           {policyContent.length > 0 &&
             policyContent.map((contentObj) => {
               return (
                 <Button
                   key={contentObj.getId()}
-                  variant="contained"
-                  color="primary"
+                  primary
                   className="mt-4 ml-3 mr-3"
                   onClick={() => handleEditorChange(contentObj)}
-                  grow
                 >
                   EDIT {contentObj.getType()}
                 </Button>
@@ -87,17 +96,21 @@ const AdminFaqContainer = (props) => {
             })}
         </Grid>
 
-        <div className="mt-4">
-          {selectedContent && <ContentEditor handleSave={handleSave} content={selectedContent} />}
+        <div className={styles.EditorContainer}>
+          {selectedContent && <ContentEditor
+            handleSave={handleSave}
+            content={selectedContent}
+                              />}
         </div>
 
-        <Snackbar
+        {/* Replace snackbar with Notification */}
+        {/* <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           open={showNotification}
           autoHideDuration={3000}
           onClose={handleHideNotification}
           message={<span>{notificationMessage}</span>}
-        />
+        /> */}
       </Spinner>
     </div>
   );
@@ -125,7 +138,9 @@ const mapActionsToProps = {
   updateContent,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withAuthValidation(AdminFaqContainer));
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(withAuthValidation(AdminFaqContainer)),
+};

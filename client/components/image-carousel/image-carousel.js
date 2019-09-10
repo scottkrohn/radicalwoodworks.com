@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import { Icon, Carousel } from 'antd';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Button from 'client/components/base/button/button';
+import Button from 'client/components/button/button';
 import Snackbar from '@material-ui/core/Snackbar';
 
 // Constants

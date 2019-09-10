@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 // Components
 import ImageUpload from 'client/components/image-upload/image-upload';
 import ImageCarousel from 'client/components/image-carousel/image-carousel';
-import Button from 'client/components/base/button/button';
+import Button from 'client/components/button/button';
 
 // Styles
 import styles from 'client/components/edit-images/edit-images.less';

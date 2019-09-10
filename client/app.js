@@ -39,6 +39,7 @@ export default {
  * 4. Make admin Edit Product page work.
  * 5. Make admin Edit FAQ page work.
  * 6. Make admin Edit About Us page work.
+ * 7. Figure out how to server render quill, or write my own rich text editor.
  *
  * Image Carousel TODO:
  *
@@ -50,4 +51,8 @@ export default {
  * Mobile/General
  * 1. Make every page mobile friendly.
  * 2. Handle loading/completed/error states for all pages that need them.
+ *
+ * Remove
+ * 1. Old Carousel
+ * 2. Old Spinner
  */

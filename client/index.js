@@ -6,7 +6,7 @@ import StyleContext from 'isomorphic-style-loader/StyleContext';
 import { renderRoutes } from 'react-router-config';
 import Routes from '../routes';
 import 'typeface-roboto';
-import 'react-quill/dist/quill.snow.css';
+import 'babel-polyfill';
 
 // Redux Imports
 import { Provider } from 'react-redux';

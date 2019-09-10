@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 // Components
-import ReactQuill from 'react-quill';
+// import ReactQuill from 'react-quill';
+import Quill from '../quill-wrapper/quill-wrapper';
 
 // Styles
 import styles from 'client/components/edit-description/edit-description.less';
@@ -17,7 +18,10 @@ class EditDescription extends PureComponent {
     return (
       <div className={styles.EditDescriptionContainer}>
         <div className={styles.SectionHeader}>Description</div>
-        <ReactQuill value={this.props.description} onChange={this.props.onChange} />
+        <Quill
+          value={this.props.description}
+          onChange={this.props.onChange}
+        />
       </div>
     );
   };
