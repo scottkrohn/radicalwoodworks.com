@@ -13,6 +13,7 @@ import ProductPage from './client/containers/product-container';
 
 // Admin Pages
 import AdminPage from './client/containers/admin-container';
+import AdminAboutUsPage from './client/containers/admin-about-us-container';
 import AdminFaqPage from './client/containers/admin-faq-container';
 
 export default [{
@@ -50,6 +51,10 @@ export default [{
     {
       ...AdminPage,
       path: '/admin',
+    },
+    {
+      ...AdminAboutUsPage,
+      path: '/admin-about',
     },
     {
       ...AdminFaqPage,
