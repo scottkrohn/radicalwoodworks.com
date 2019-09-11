@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cx from 'classnames';
+import { isEmpty } from 'lodash';
 
 // Components
 import Spinner from 'client/components/spinner-v2/spinner-v2';
@@ -16,7 +17,7 @@ import { getAllContent, updateContent } from 'client/actions/content-actions';
 import { verifyLogin } from 'client/actions/admin-actions';
 
 // Selectors
-import { getAllContent as getAllContentObjects, getLoading } from 'client/selectors/content-selector';
+import { getAllContent as getAllContentObjects, getContentType, getLoading } from 'client/selectors/content-selector';
 
 // HOC
 import { withAuthValidation } from 'client/hoc/auth';
@@ -25,20 +26,15 @@ import { withAuthValidation } from 'client/hoc/auth';
 import styles from './admin-faq-container.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const AdminFaqContainer = (props) => {
+const AdminFaqContainer = ({ content, contentType, getAllContent, loading, updateContent }) => {
   useStyles(styles);
   const [selectedContent, setSelectedContent] = useState(null);
   const [notificationContent, setNotificationContent] = useState({});
 
   useEffect(() => {
-    (async () => {
-      try {
-        await props.verifyLogin();
-      } catch (error) {
-        props.redirectToHome();
-      }
-      props.getAllContent('POLICY');
-    })();
+    if (isEmpty(content) || contentType !== 'POLICY') {
+      getAllContent('POLICY');
+    }
   }, []);
 
   const handleEditorChange = (content) => {
@@ -50,7 +46,7 @@ const AdminFaqContainer = (props) => {
 
     (async () => {
       try {
-        await props.updateContent(content);
+        await updateContent(content);
         setNotificationContent({
           header: 'Success!',
           message: 'Update successfully saved!',
@@ -66,12 +62,11 @@ const AdminFaqContainer = (props) => {
     })();
   };
 
-  const content = props.content || [];
   const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
 
   return (
     <div className={cx('container-fluid text-center', styles.AdminFaqContainer)}>
-      <Spinner spinning={props.loading}>
+      <Spinner spinning={loading}>
         <PageHeader
           headerText="Edit FAQ"
           showButton={false}
@@ -120,6 +115,7 @@ AdminFaqContainer.propTypes = {
 const mapStateToProps = (state) => {
   return {
     content: getAllContentObjects(state),
+    contentType: getContentType(state),
     loading: getLoading(state),
   };
 };
@@ -135,4 +131,5 @@ export default {
     mapStateToProps,
     mapActionsToProps
   )(withAuthValidation(AdminFaqContainer)),
+  loadData: (store) => store.dispatch(getAllContent('POLICY')),
 };

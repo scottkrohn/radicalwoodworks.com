@@ -37,7 +37,6 @@ export default {
  * 3. Create a modal component (only use for it for now is showing a larger version of the product image.)
  * 4. Make admin Edit Products page work.
  * 4. Make admin Edit Product page work.
- * 5. Make admin Edit FAQ page work.
  * 6. Make admin Edit About Us page work.
  * 7. Figure out how to server render quill, or write my own rich text editor.
  *
