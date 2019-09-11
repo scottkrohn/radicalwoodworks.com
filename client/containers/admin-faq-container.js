@@ -9,6 +9,7 @@ import Button from 'client/components/button/button';
 import Grid from 'client/components/grid/grid';
 import ContentEditor from 'client/components/content-editor/content-editor';
 import PageHeader from 'client/components/page-header/page-header';
+import Notification from 'client/components/notification/notification';
 
 // Actions
 import { getAllContent, updateContent } from 'client/actions/content-actions';
@@ -24,13 +25,10 @@ import { withAuthValidation } from 'client/hoc/auth';
 import styles from './admin-faq-container.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-// TODO: Show notifications on save.
-
 const AdminFaqContainer = (props) => {
   useStyles(styles);
   const [selectedContent, setSelectedContent] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationContent, setNotificationContent] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -53,21 +51,19 @@ const AdminFaqContainer = (props) => {
     (async () => {
       try {
         await props.updateContent(content);
-        handleShowNotification('Successfully saved!');
+        setNotificationContent({
+          header: 'Success!',
+          message: 'Update successfully saved!',
+          showing: true,
+        });
       } catch (error) {
-        handleShowNotification('There was an error while saving!');
+        setNotificationContent({
+          header: 'Error',
+          message: 'There was an error while saving this update, please try again.',
+          showing: true,
+        });
       }
     })();
-  };
-
-  // TODO: Maybe I can use a custom hook here to handle showing notifications?
-  const handleShowNotification = (message) => {
-    setShowNotification(true);
-    setNotificationMessage(message);
-  };
-
-  const handleHideNotification = () => {
-    setShowNotification(false);
   };
 
   const content = props.content || [];
@@ -102,16 +98,12 @@ const AdminFaqContainer = (props) => {
             content={selectedContent}
                               />}
         </div>
-
-        {/* Replace snackbar with Notification */}
-        {/* <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={showNotification}
-          autoHideDuration={3000}
-          onClose={handleHideNotification}
-          message={<span>{notificationMessage}</span>}
-        /> */}
       </Spinner>
+
+      <Notification
+        content={notificationContent}
+        hide={() => setNotificationContent({ showing: false })}
+      />
     </div>
   );
 };

@@ -22,9 +22,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 const ContactForm = ({ handleSendContact, error, sending, sent }) => {
   useStyles(styles);
-  const [showingNotification, setShowingNotification] = useState(false);
-  const [notificationHeader, setNotificationHeader] = useState('');
-  const [notificationText, setNotificationText] = useState('');
+  const [notificationContent, setNotificationContent] = useState({});
 
   const handleSubmit = (getFormValues) => () => {
     const { fields, isValid } = getFormValues(true);
@@ -45,14 +43,18 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
   useEffect(() => {
     if (error || sent) {
       if (error) {
-        setNotificationHeader('Error');
-        setNotificationText('An error occured when sending, please try again.');
+        setNotificationContent({
+          header: 'Error',
+          message: 'An error occured when sending, please try again.',
+          showing: true,
+        });
       } else if (sent) {
-        setNotificationHeader('Message Sent');
-        setNotificationText('Message successfully sent!');
+        setNotificationContent({
+          header: 'Message Sent',
+          message: 'Message successfully sent!',
+          showing: true,
+        });
       }
-
-      setShowingNotification(true);
     }
   }, [error, sent]);
 
@@ -136,10 +138,8 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
       </Spinner>
 
       <Notification
-        header={notificationHeader}
-        message={notificationText}
-        hide={() => setShowingNotification(false)}
-        showing={showingNotification}
+        content={notificationContent}
+        hide={() => setNotificationContent({ showing: false })}
       />
     </div>
   );

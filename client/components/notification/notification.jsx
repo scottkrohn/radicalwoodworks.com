@@ -6,8 +6,10 @@ import Button from '../button/button';
 import styles from './notification.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const Notification = ({ actionLabel, header, message, onAction, showing, hide, timeout = 5000 }) => {
+const Notification = ({ actionLabel, content, onAction, hide, timeout = 5000 }) => {
   useStyles(styles);
+
+  const { header, message, showing } = content;
 
   useEffect(() => {
     if (showing) {
