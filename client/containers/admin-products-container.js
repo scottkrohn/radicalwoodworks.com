@@ -2,16 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ProductsTable from 'client/components/products-table/products-table';
-import Spinner from 'client/components/spinner/spinner';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from 'client/components/button/button';
-import Snackbar from '@material-ui/core/Snackbar';
+// import ProductsTable from 'client/components/products-table/products-table';
+import Spinner from 'client/components/spinner-v2/spinner-v2';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+// import Button from 'client/components/button/button';
+// import Snackbar from '@material-ui/core/Snackbar';
 import PageHeader from 'client/components/page-header/page-header';
+import Table from 'client/components/table/table';
+import TableHead from 'client/components/table/table-head';
+import TableBody from 'client/components/table/table-body';
+import TableRow from 'client/components/table/table-row';
+import TableCell from 'client/components/table/table-cell';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -40,13 +45,12 @@ class AdminProductsContainer extends Component {
 
   componentDidMount = () => {
     (async () => {
-      try {
-        await this.props.verifyLogin();
-      } catch (error) {
-        this.props.redirectToHome();
-      }
-
-      await this.props.getProducts();
+      // try {
+      //   await this.props.verifyLogin();
+      // } catch (error) {
+      //   this.props.redirectToHome();
+      // }
+      // await this.props.getProducts();
     })();
   };
 
@@ -120,11 +124,27 @@ class AdminProductsContainer extends Component {
           </div>
         </div>
         <Spinner spinning={loading}>
-          <ProductsTable
-            handleDeleteProduct={this.handleDeleteProduct}
-            products={this.props.products}
-          />
-          <Dialog
+          <div>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>1</TableCell>
+                  <TableCell>2</TableCell>
+                  <TableCell>3</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <div>Hello</div>
+                  </TableCell>
+                  <TableCell>two</TableCell>
+                  <TableCell>three</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+          {/* <Dialog
             open={this.state.deleteDialogOpen}
             onClose={this.handleCloseDeleteDialog}
           >
@@ -150,14 +170,14 @@ class AdminProductsContainer extends Component {
                 Confirm
               </Button>
             </DialogActions>
-          </Dialog>
-          <Snackbar
+          </Dialog> */}
+          {/* <Snackbar
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={this.state.showNotification}
             autoHideDuration={3000}
             onClose={this.handleHideNotification}
             message={<span>{this.state.notificationMessage}</span>}
-          />
+          /> */}
         </Spinner>
       </div>
     );
@@ -188,7 +208,16 @@ const mapActionsToProps = {
   clearProduct,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withAuthValidation(withRouter(AdminProductsContainer)));
+// export default {
+//   component: connect(
+//     mapStateToProps,
+//     mapActionsToProps
+//   )(withAuthValidation(withRouter(AdminProductsContainer))),
+// };
+
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(withRouter(AdminProductsContainer)),
+};
