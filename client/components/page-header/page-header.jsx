@@ -19,6 +19,7 @@ const PageHeader = ({ buttonText, headerText, onButtonClick, showButton }) => {
         {showButton && (
           <Button
             save
+            className="flex-grow"
             onClick={onButtonClick}
           >
             {buttonText}

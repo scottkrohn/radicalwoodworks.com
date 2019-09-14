@@ -9,6 +9,11 @@
     text-align: center;
   }
 
+  .Button {
+    display: flex;
+    align-items: center;
+  }
+
   :nth-child(3) {
     text-align: right;
   }
