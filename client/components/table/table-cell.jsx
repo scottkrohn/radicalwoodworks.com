@@ -7,7 +7,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 const TableCell = ({ align = 'left', className, children }) => {
   useStyles(styles);
   const tableCellStyles = cx({
-    [className]: this,
+    [className]: true,
     [styles.TableCellContainer]: true,
     ['justify-content-start']: align === 'left',
     ['justify-content-center']: align === 'center',

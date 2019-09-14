@@ -3,98 +3,65 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // Components
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import TableRow from 'client/components/table/table-row';
+import TableCell from 'client/components/table/table-cell';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 // Styles
 import styles from 'client/components/products-table/products-table.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Constants
 import IMAGES from 'client/constants/image-constants';
 
-class ProductsTableRow extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const ProductsTableRow = ({ handleDeleteProduct, product }) => {
+  useStyles(styles);
+  const iconClasses = classNames(styles.Cell, styles.Icons);
+  const primaryImageUrl = product.getPrimaryImageUrl();
 
-  render = () => {
-    const iconClasses = classNames(styles.Cell, styles.Icons);
-
-    const primaryImageUrl = this.props.product.getPrimaryImageUrl();
-
-    return (
-      <TableRow hover>
-        <TableCell
-          padding="none"
-          align="left"
-          className={styles.Cell}
-        >
-          <img
-            className={styles.TableImage}
-            src={IMAGES.getFullUrl(primaryImageUrl)}
-          />
-        </TableCell>
-        <TableCell
-          padding="none"
-          align="left"
-          className={styles.Cell}
-        >
-          <span className={styles.Text}>{this.props.product.getTitle()}</span>
-        </TableCell>
-        <TableCell
-          padding="none"
-          align="center"
-          className={styles.Cell}
-        >
-          <span className={styles.Text}>${this.props.product.getPrice().toFixed(2)}</span>
-        </TableCell>
-        <TableCell
-          padding="none"
-          align="center"
-          className={styles.Cell}
-        >
-          <span className={styles.Text}>${this.props.product.getShippingPrice().toFixed(2)}</span>
-        </TableCell>
-        <TableCell
-          padding="none"
-          align="center"
-          className={styles.Cell}
-        >
-          <span className={styles.Text}>{this.props.product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</span>
-        </TableCell>
-        <TableCell
-          padding="none"
-          align="center"
-          className={styles.Cell}
-        >
-          <span className={styles.Text}>${this.props.product.getFinalPrice().toFixed(2)}</span>
-        </TableCell>
-        <TableCell
-          padding="none"
-          align="center"
-          className={iconClasses}
-        >
-          <div className={styles.Icons}>
-            <Link to={`/admin-product/${this.props.product.getId()}`}>
-              <FontAwesomeIcon
-                icon={faEdit}
-                className={styles.ActionIcon}
-              />
-            </Link>
+  return (
+    <TableRow hover>
+      <TableCell className={styles.Cell}>
+        <img
+          className={styles.TableImage}
+          src={IMAGES.getFullUrl(primaryImageUrl)}
+        />
+      </TableCell>
+      <TableCell className={styles.Cell}>
+        <span className={styles.Text}>{product.getTitle()}</span>
+      </TableCell>
+      <TableCell className={styles.Cell}>
+        <span className={styles.Text}>${product.getPrice().toFixed(2)}</span>
+      </TableCell>
+      <TableCell className={styles.Cell}>
+        <span className={styles.Text}>${product.getShippingPrice().toFixed(2)}</span>
+      </TableCell>
+      <TableCell className={styles.Cell}>
+        <span className={styles.Text}>{product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</span>
+      </TableCell>
+      <TableCell className={styles.Cell}>
+        <span className={styles.Text}>${product.getFinalPrice().toFixed(2)}</span>
+      </TableCell>
+      <TableCell className={iconClasses}>
+        <div className={styles.Icons}>
+          <Link to={`/admin-product/${product.getId()}`}>
             <FontAwesomeIcon
-              onClick={() => this.props.handleDeleteProduct(this.props.product)}
-              icon={faTrash}
+              icon={faEdit}
               className={styles.ActionIcon}
             />
-          </div>
-        </TableCell>
-      </TableRow>
-    );
-  };
-}
+          </Link>
+          <FontAwesomeIcon
+            onClick={() => handleDeleteProduct(product)}
+            icon={faTrash}
+            className={styles.ActionIcon}
+          />
+        </div>
+      </TableCell>
+    </TableRow>
+  );
+};
 
 ProductsTableRow.propTypes = {
   product: PropTypes.object,

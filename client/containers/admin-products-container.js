@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -12,11 +12,7 @@ import Spinner from 'client/components/spinner-v2/spinner-v2';
 // import Button from 'client/components/button/button';
 // import Snackbar from '@material-ui/core/Snackbar';
 import PageHeader from 'client/components/page-header/page-header';
-import Table from 'client/components/table/table';
-import TableHead from 'client/components/table/table-head';
-import TableBody from 'client/components/table/table-body';
-import TableRow from 'client/components/table/table-row';
-import TableCell from 'client/components/table/table-cell';
+import ProductsTable from 'client/components/products-table/products-table';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -30,159 +26,80 @@ import { getProducts as getProductsSelector, getLoading } from 'selectors/produc
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
-class AdminProductsContainer extends Component {
-  constructor(props) {
-    super(props);
+// TODO: 1. Notifications on delete
+// TODO: 2. Modals for confirmation dialog.
 
-    this.state = {
-      deleteDialogOpen: false,
-      productToDelete: null,
-      deletingProduct: false,
-      showNotification: false,
-      notificationMessage: '',
-    };
-  }
+const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, history, loading, products }) => {
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+  const [deletingProduct, setDeletingProduct] = useState(false);
 
-  componentDidMount = () => {
-    (async () => {
-      // try {
-      //   await this.props.verifyLogin();
-      // } catch (error) {
-      //   this.props.redirectToHome();
-      // }
-      // await this.props.getProducts();
-    })();
-  };
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-  handleDeleteAction = (confirmed) => {
+  const handleDeleteAction = (confirmed) => {
     if (confirmed) {
-      this.setState({ deletingProduct: true }, () => {
-        (async () => {
-          let notificationMessage;
-          try {
-            await this.props.deleteProduct(this.state.productToDelete.getId());
-            await this.props.getProducts();
-            notificationMessage = 'Product Successfully Deleted';
-          } catch (error) {
-            notificationMessage = 'An error occured while deleting the product, please try again.';
-          } finally {
-            this.setState({
-              deleteDialogOpen: false,
-              productToDelete: null,
-              deletingProduct: false,
-              showNotification: true,
-              notificationMessage,
-            });
-          }
-        })();
-      });
+      setDeletingProduct(true);
+
+      (async () => {
+        let notificationMessage;
+        try {
+          await deleteProduct(productToDelete.getId());
+          await getProducts();
+          notificationMessage = 'Product Successfully Deleted';
+        } catch (error) {
+          notificationMessage = 'An error occured while deleting the product, please try again.';
+        } finally {
+          setDeleteDialogOpen(false);
+          setProductToDelete(null);
+          setProductToDelete(false);
+          // TODO: Pop notification
+        }
+      })();
     } else {
-      this.setState({
-        productToDelete: null,
-        deleteDialogOpen: false,
-      });
+      setDeleteDialogOpen(false);
+      setProductToDelete(null);
     }
   };
 
-  handleCloseDeleteDialog = () => {
-    this.setState({
-      deleteDialogOpen: false,
-      productToDelete: null,
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+    setProductToDelete(null);
+  };
+
+  const handleDeleteProduct = (product) => {
+    setDeleteDialogOpen(true);
+    setProductToDelete(product);
+  };
+
+  const handleCreateProduct = () => {
+    clearProduct().then(() => {
+      history.push('/admin-product');
     });
   };
 
-  handleDeleteProduct = (product) => {
-    this.setState({
-      deleteDialogOpen: true,
-      productToDelete: product,
-    });
-  };
-
-  handleHideNotification = () => {
-    this.setState({
-      showNotification: false,
-    });
-  };
-
-  handleCreateProduct = () => {
-    this.props.clearProduct().then(() => {
-      this.props.history.push('/admin-product');
-    });
-  };
-
-  render = () => {
-    const loading = this.props.loading || this.state.deletingProduct;
-    return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12">
-            <PageHeader
-              headerText="Edit Product"
-              buttonText="Create Product"
-              onButtonClick={this.handleCreateProduct}
-            />
-          </div>
+  const spinning = loading || deletingProduct;
+  return (
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-12">
+          <PageHeader
+            headerText="Edit Product"
+            buttonText="Create Product"
+            onButtonClick={handleCreateProduct}
+          />
         </div>
-        <Spinner spinning={loading}>
-          <div>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>1</TableCell>
-                  <TableCell>2</TableCell>
-                  <TableCell>3</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <div>Hello</div>
-                  </TableCell>
-                  <TableCell>two</TableCell>
-                  <TableCell>three</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </div>
-          {/* <Dialog
-            open={this.state.deleteDialogOpen}
-            onClose={this.handleCloseDeleteDialog}
-          >
-            <DialogTitle>Confirm Delete Product</DialogTitle>
-            <DialogContent>
-              <DialogContentText>Are you sure you want to delete this product?</DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                color="cancel"
-                slim
-                onClick={() => this.handleDeleteAction(false)}
-              >
-                Nevermind
-              </Button>
-              <Button
-                variant="contained"
-                color="save"
-                slim
-                onClick={() => this.handleDeleteAction(true)}
-              >
-                Confirm
-              </Button>
-            </DialogActions>
-          </Dialog> */}
-          {/* <Snackbar
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={this.state.showNotification}
-            autoHideDuration={3000}
-            onClose={this.handleHideNotification}
-            message={<span>{this.state.notificationMessage}</span>}
-          /> */}
-        </Spinner>
       </div>
-    );
-  };
-}
+      <Spinner spinning={spinning}>
+        <ProductsTable
+          products={products}
+          handleDeleteProduct={handleDeleteProduct}
+        />
+      </Spinner>
+    </div>
+  );
+};
 
 AdminProductsContainer.propTypes = {
   verifyLogin: PropTypes.func,
@@ -208,16 +125,10 @@ const mapActionsToProps = {
   clearProduct,
 };
 
-// export default {
-//   component: connect(
-//     mapStateToProps,
-//     mapActionsToProps
-//   )(withAuthValidation(withRouter(AdminProductsContainer))),
-// };
-
 export default {
   component: connect(
     mapStateToProps,
     mapActionsToProps
-  )(withRouter(AdminProductsContainer)),
+  )(withAuthValidation(withRouter(AdminProductsContainer))),
+  loadData: (store) => store.dispatch(getProducts()),
 };

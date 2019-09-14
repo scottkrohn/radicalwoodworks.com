@@ -18,8 +18,7 @@ const PageHeader = ({ buttonText, headerText, onButtonClick, showButton }) => {
       <div className={styles.Button}>
         {showButton && (
           <Button
-            variant="contained"
-            color="save"
+            save
             onClick={onButtonClick}
           >
             {buttonText}

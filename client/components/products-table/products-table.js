@@ -1,54 +1,54 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
+import Table from 'client/components/table/table';
+import TableHead from 'client/components/table/table-head';
+import TableBody from 'client/components/table/table-body';
+import TableRow from 'client/components/table/table-row';
+import TableCell from 'client/components/table/table-cell';
 import ProductsTableRow from 'client/components/products-table/products-table-row';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 
 // Styles
 import styles from 'client/components/products-table/products-table.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-class ProductsTable extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  render = () => {
-    return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left"></TableCell>
-            <TableCell align="left"><span className={styles.Text}>Name</span></TableCell>
-            <TableCell align="center"><span className={styles.Text}>Price</span></TableCell>
-            <TableCell align="center"><span className={styles.Text}>Shipping</span></TableCell>
-            <TableCell align="center"><span className={styles.Text}>Free Shipping</span></TableCell>
-            <TableCell align="center"><span className={styles.Text}>Total</span></TableCell>
-            <TableCell align="center"><span className={styles.Text}></span></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.props.products.map((product) => {
-            return (
-              <ProductsTableRow
-                key={product.getId()}
-                handleDeleteProduct={this.props.handleDeleteProduct}
-                product={product}
-              />
-            );
-          })}
-        </TableBody>
-      </Table>
-    );
-  };
-}
-
-ProductsTable.propTypes = {
-  products: PropTypes.array,
-  handleDeleteProduct: PropTypes.func,
+const ProductsTable = ({ handleDeleteProduct, products }) => {
+  useStyles(styles);
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell></TableCell>
+          <TableCell>
+            <span className={styles.Text}>Name</span>
+          </TableCell>
+          <TableCell>
+            <span className={styles.Text}>Price</span>
+          </TableCell>
+          <TableCell>
+            <span className={styles.Text}>Shipping</span>
+          </TableCell>
+          <TableCell>
+            <span className={styles.Text}>Free Shipping</span>
+          </TableCell>
+          <TableCell>
+            <span className={styles.Text}>Total</span>
+          </TableCell>
+          <TableCell>
+            <span className={styles.Text}></span>
+          </TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {products.map((product) => {
+          return <ProductsTableRow
+            key={product.getId()}
+            handleDeleteProduct={handleDeleteProduct}
+            product={product}
+                 />;
+        })}
+      </TableBody>
+    </Table>
+  );
 };
 
 export default ProductsTable;
