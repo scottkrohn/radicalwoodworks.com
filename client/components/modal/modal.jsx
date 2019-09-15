@@ -4,6 +4,7 @@ import { getModalRootContainer, createPortal } from '../../utils/services/portal
 import styles from './modal.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
+import useKeyPressHandler from '../../utils/hooks/useKeyPressHandler';
 
 const Modal = ({ children }) => {
   useStyles(styles);
@@ -19,6 +20,7 @@ const Modal = ({ children }) => {
 
   const contentRef = useRef(null);
   useOutsideClickHandler(contentRef, hide);
+  useKeyPressHandler(27, hide);
 
   const modifiedChildren = React.Children.map(children, (child) => {
     if (child.type === ModalTrigger) {
