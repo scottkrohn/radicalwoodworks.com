@@ -38,9 +38,19 @@
     top: 200px;
     background: white;
     display: inline-block;
-    border: 1px solid black;
     min-width: 200px;
     min-height: 150px;
     animation: slideIn 300ms;
   }
+
+  .HidingContent {
+    top: 100px;
+    opacity: 0;
+    transition: all ease-in 300ms;
+  }
+}
+
+.HidingOverlay {
+  background: rgba(0, 0, 0, 0);
+  transition: all ease-in 300ms;
 }

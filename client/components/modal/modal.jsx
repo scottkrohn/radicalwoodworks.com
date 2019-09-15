@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { getModalRootContainer, createPortal } from '../../utils/services/portal-service';
+import cx from 'classnames';
 
 import styles from './modal.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
@@ -9,9 +10,15 @@ import useKeyPressHandler from '../../utils/hooks/useKeyPressHandler';
 const Modal = ({ children }) => {
   useStyles(styles);
   const [showing, setShowing] = useState(false);
+  const [hiding, setHiding] = useState(false);
 
   const hide = () => {
-    showing && setShowing(false);
+    showing && setHiding(true);
+    showing &&
+      setTimeout(() => {
+        setHiding(false);
+        setShowing(false);
+      }, 300);
   };
 
   const show = () => {
@@ -49,10 +56,10 @@ const Modal = ({ children }) => {
       <Trigger className={styles.ModalTrigger} />
       {showing &&
         createPortal(
-          <div className={styles.ModalOverlay}>
+          <div className={cx(styles.ModalOverlay, hiding && styles.HidingOverlay)}>
             <div
               ref={contentRef}
-              className={styles.ModalContent}
+              className={cx(styles.ModalContent, hiding && styles.HidingContent)}
             >
               <Content />
             </div>
