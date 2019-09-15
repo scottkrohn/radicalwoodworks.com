@@ -46,11 +46,11 @@
   .HidingContent {
     top: 100px;
     opacity: 0;
-    transition: all ease-in 300ms;
+    transition: all 300ms;
   }
 }
 
 .HidingOverlay {
   background: rgba(0, 0, 0, 0);
-  transition: all ease-in 300ms;
+  transition: all 300ms;
 }
