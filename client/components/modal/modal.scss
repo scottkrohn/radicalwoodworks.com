@@ -1,0 +1,46 @@
+@keyframes backgroundFade {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    top: 100px;
+    opacity: 0;
+  }
+  to {
+    top: 200px;
+    opacity: 1;
+  }
+}
+
+.ModalContainer {
+}
+
+.ModalOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: backgroundFade 300ms;
+
+  .ModalContent {
+    position: absolute;
+    top: 200px;
+    background: white;
+    display: inline-block;
+    border: 1px solid black;
+    min-width: 200px;
+    min-height: 150px;
+    animation: slideIn 300ms;
+  }
+}

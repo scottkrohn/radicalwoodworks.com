@@ -32,11 +32,9 @@ export default {
 
 /**
  * High Level TODO:
- * 1. Push this code up to a new url on my box and see if it can even run as a server?
- * 2. Create new table component to replace material ui
- * 3. Create a modal component (only use for it for now is showing a larger version of the product image.)
- * 4. Make admin Edit Products page work.
- * 4. Make admin Edit Product page work.
+ * 1. Create a modal component.
+ * 2. Make admin Edit Product page work.
+ * 3. Finish the Admin Products page (need modals for delete and product page for edit)
  *
  * Image Carousel TODO:
  *
