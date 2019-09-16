@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// import ProductsTable from 'client/components/products-table/products-table';
 import Spinner from 'client/components/spinner-v2/spinner-v2';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
-// import Button from 'client/components/button/button';
-// import Snackbar from '@material-ui/core/Snackbar';
 import PageHeader from 'client/components/page-header/page-header';
 import ProductsTable from 'client/components/products-table/products-table';
+import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';

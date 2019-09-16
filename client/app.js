@@ -31,13 +31,16 @@ export default {
 };
 
 /**
- * High Level TODO:
+ * High Level
  * 1. Create a modal component.
  * 2. Make admin Edit Product page work.
  * 3. Finish the Admin Products page (need modals for delete and product page for edit)
  *
- * Image Carousel TODO:
+ * Modal
+ * Create a modal header component, a default one and maybe one that allows a render prop?
+ * Create a confirm modal body?
  *
+ * Image Carousel
  * 1. Add options menu like on the old carousel.
  * 2. Support the 'showHidden' prop.
  * 4. Add gallary beneath the image.
@@ -50,4 +53,7 @@ export default {
  * Remove
  * 1. Old Carousel
  * 2. Old Spinner
+ *
+ * Misc
+ * 1. Fix the bullets on the FAQ page.
  */

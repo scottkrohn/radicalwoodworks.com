@@ -14,8 +14,6 @@ import Content from 'client/components/content/content';
 import Spinner from '../components/spinner-v2/spinner-v2';
 import PageHeader from 'client/components/page-header/page-header';
 
-import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
-
 const FaqContainer = ({ content, contentType, getAllContent, loading }) => {
   useEffect(() => {
     if (isEmpty(content) || contentType !== 'POLICY') {
@@ -42,19 +40,6 @@ const FaqContainer = ({ content, contentType, getAllContent, loading }) => {
             })}
         </div>
       </div>
-
-      <Modal>
-        <ModalTrigger>
-          {({ hide, show }) => {
-            return <button onClick={show}>Open Modal</button>;
-          }}
-        </ModalTrigger>
-        <ModalContent>
-          {({ hide }) => {
-            return <button onClick={hide}>Hide</button>;
-          }}
-        </ModalContent>
-      </Modal>
     </div>
   );
 };

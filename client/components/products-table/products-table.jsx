@@ -8,7 +8,7 @@ import TableCell from 'client/components/table/table-cell';
 import ProductsTableRow from 'client/components/products-table/products-table-row';
 
 // Styles
-import styles from 'client/components/products-table/products-table.less';
+import styles from 'client/components/products-table/products-table.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const ProductsTable = ({ handleDeleteProduct, products }) => {

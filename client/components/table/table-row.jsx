@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import styles from './table-row.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
@@ -8,7 +9,7 @@ const TableRow = ({ className, children, head }) => {
   const RowType = head ? 'th' : 'td';
 
   return (
-    <tr className={styles.TableRowContainer}>
+    <tr className={cx(styles.TableRowContainer, className)}>
       {Array.isArray(children) ? (
         children.map((child, index) => <RowType key={index}>{child}</RowType>)
       ) : (
