@@ -59,7 +59,7 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
               />
             </Link>
           </div>
-          <Modal>
+          <Modal headerLabel="Delete Product">
             <ModalTrigger>
               {({ hide, show }) => {
                 return <FontAwesomeIcon

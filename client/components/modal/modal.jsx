@@ -2,12 +2,15 @@ import React, { useRef, useState } from 'react';
 import { getModalRootContainer, createPortal } from '../../utils/services/portal-service';
 import cx from 'classnames';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import styles from './modal.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
 import useKeyPressHandler from '../../utils/hooks/useKeyPressHandler';
 
-const Modal = ({ children }) => {
+const Modal = ({ children, headerLabel = '' }) => {
   useStyles(styles);
   const [showing, setShowing] = useState(false);
   const [hiding, setHiding] = useState(false);
@@ -54,18 +57,29 @@ const Modal = ({ children }) => {
   return (
     <div>
       <Trigger className={styles.ModalTrigger} />
-      {showing &&
-        createPortal(
-          <div className={cx(styles.ModalOverlay, hiding && styles.HidingOverlay)}>
-            <div
-              ref={contentRef}
-              className={cx(styles.ModalContent, hiding && styles.HidingContent)}
-            >
-              <Content />
-            </div>
-          </div>,
-          getModalRootContainer()
-        )}
+      {showing && (
+        <div>
+          {createPortal(
+            <div className={cx(styles.ModalOverlay, hiding && styles.HidingOverlay)}>
+              <div
+                ref={contentRef}
+                className={cx(styles.ModalContent, hiding && styles.HidingContent)}
+              >
+                <div className={styles.ContentHeader}>
+                  {headerLabel}
+                  <FontAwesomeIcon
+                    className={styles.CloseIcon}
+                    icon={faTimes}
+                    onClick={hide}
+                  />
+                </div>
+                <Content />
+              </div>
+            </div>,
+            getModalRootContainer()
+          )}
+        </div>
+      )}
     </div>
   );
 };
