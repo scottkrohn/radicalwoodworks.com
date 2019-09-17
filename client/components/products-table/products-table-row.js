@@ -74,9 +74,20 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
                 return (
                   <div className={'flex flex-dir-col'}>
                     Are you sure you want to delete this product?
-                    <div className="mt-4 flex ">
-                      <Button danger>Yes</Button>
-                      <Button onClick={hide}>Cancel</Button>
+                    <div className="mt-4 flex justify-content-evenly">
+                      <Button
+                        className="flex-basis-33"
+                        danger
+                        onClick={() => handleDeleteProduct(product)}
+                      >
+                        Yes
+                      </Button>
+                      <Button
+                        className="flex-basis-33"
+                        onClick={hide}
+                      >
+                        Cancel
+                      </Button>
                     </div>
                   </div>
                 );

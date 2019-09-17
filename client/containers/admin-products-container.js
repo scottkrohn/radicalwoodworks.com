@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// Components
 import Spinner from 'client/components/spinner-v2/spinner-v2';
 import PageHeader from 'client/components/page-header/page-header';
 import ProductsTable from 'client/components/products-table/products-table';
-import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
+import Notification from '../components/notification/notification';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -19,51 +20,36 @@ import { getProducts as getProductsSelector, getLoading } from 'selectors/produc
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
-// TODO: 1. Notifications on delete
-// TODO: 2. Modals for confirmation dialog.
-
 const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, history, loading, products }) => {
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [productToDelete, setProductToDelete] = useState(null);
   const [deletingProduct, setDeletingProduct] = useState(false);
+  const [notificationContent, setNotificationContent] = useState({});
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  const handleDeleteAction = (confirmed) => {
-    if (confirmed) {
-      setDeletingProduct(true);
-
-      (async () => {
-        let notificationMessage;
-        try {
-          await deleteProduct(productToDelete.getId());
-          await getProducts();
-          notificationMessage = 'Product Successfully Deleted';
-        } catch (error) {
-          notificationMessage = 'An error occured while deleting the product, please try again.';
-        } finally {
-          setDeleteDialogOpen(false);
-          setProductToDelete(null);
-          setProductToDelete(false);
-          // TODO: Pop notification
-        }
-      })();
-    } else {
-      setDeleteDialogOpen(false);
-      setProductToDelete(null);
-    }
-  };
-
-  const handleCloseDeleteDialog = () => {
-    setDeleteDialogOpen(false);
-    setProductToDelete(null);
-  };
-
   const handleDeleteProduct = (product) => {
-    setDeleteDialogOpen(true);
-    setProductToDelete(product);
+    setDeletingProduct(true);
+    (async () => {
+      try {
+        await deleteProduct(product.getId());
+        await getProducts();
+        setNotificationContent({
+          header: 'Success!',
+          message: 'Product successfully deleted!',
+          showing: true,
+        });
+      } catch (error) {
+        setNotificationContent({
+          header: 'Error',
+          message: 'An error occured deleting this product, please try again.',
+          showing: true,
+        });
+      } finally {
+        setDeletingProduct(false);
+        // TODO: Pop notification
+      }
+    })();
   };
 
   const handleCreateProduct = () => {
@@ -73,6 +59,7 @@ const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, hist
   };
 
   const spinning = loading || deletingProduct;
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -88,6 +75,10 @@ const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, hist
         <ProductsTable
           products={products}
           handleDeleteProduct={handleDeleteProduct}
+        />
+        <Notification
+          content={notificationContent}
+          hide={() => setNotificationContent({ showing: false })}
         />
       </Spinner>
     </div>
