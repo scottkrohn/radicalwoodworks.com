@@ -6,9 +6,9 @@ import { cloneDeep, get, isNull, isEmpty } from 'lodash';
 // Components
 import EditImages from 'client/components/edit-images/edit-images';
 import EditProductDetails from 'client/components/edit-product-details/edit-product-details';
+import EditProductDetailsV2 from 'client/components/edit-product-details/edit-product-details-v2';
 import EditDescription from 'client/components/edit-description/edit-description';
-import Spinner from 'client/components/spinner/spinner';
-import Snackbar from '@material-ui/core/Snackbar';
+import Spinner from 'client/components/spinner-v2/spinner-v2';
 import PageHeader from 'client/components/page-header/page-header';
 
 // Actions
@@ -223,13 +223,16 @@ class AdminProductContainer extends Component {
               message = 'Product successfully created!';
               this.props.getProducts(); // Let's make sure the redux store has the most recent products
 
-              this.setState({
-                createMode: false,
-                createdProductId: productId,
-              }, () => {
-                // We need to inject the product ID onto the URL so code that pulls the ID from the param works.
-                this.props.history.push(`/admin-product/${productId}`);
-              });
+              this.setState(
+                {
+                  createMode: false,
+                  createdProductId: productId,
+                },
+                () => {
+                  // We need to inject the product ID onto the URL so code that pulls the ID from the param works.
+                  this.props.history.push(`/admin-product/${productId}`);
+                }
+              );
             } else {
               productId = get(this.props, 'match.params.productId');
               message = 'Product successfully updated!';
@@ -347,7 +350,7 @@ class AdminProductContainer extends Component {
 
             {(productLoaded || this.state.createMode) && (
               <div className="col-md-12 col-lg-6">
-                <EditProductDetails
+                <EditProductDetailsV2
                   onChange={this.handleInputChange}
                   {...productInfo}
                   invalidFields={this.state.invalidFields}
@@ -360,18 +363,12 @@ class AdminProductContainer extends Component {
 
           <div className="row">
             <div className="col-12">
-              <EditDescription onChange={this.handleDescriptionChange} description={productInfo.description} />
+              <EditDescription
+                onChange={this.handleDescriptionChange}
+                description={productInfo.description}
+              />
             </div>
           </div>
-
-          <Snackbar
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={this.state.showNotification}
-            autoHideDuration={3000}
-            onClose={this.handleHideNotification}
-            message={<span>{this.state.notificationMessage}</span>}
-            variant="error"
-          />
         </Spinner>
       </div>
     );
@@ -412,7 +409,9 @@ const mapActionsToProps = {
   getProducts,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withAuthValidation(withRouter(AdminProductContainer)));
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(withAuthValidation(withRouter(AdminProductContainer))),
+};

@@ -32,13 +32,12 @@ export default {
 
 /**
  * High Level
- * 1. Create a modal component.
- * 2. Make admin Edit Product page work.
  * 3. Finish the Admin Products page (need modals for delete and product page for edit)
  *
- * Modal
- * Create a modal header component, a default one and maybe one that allows a render prop?
- * Create a confirm modal body?
+ * Edit Product Page
+ * 1. Create a select input
+ * 2. Add styling
+ * 3. Convert all related components to functional
  *
  * Image Carousel
  * 1. Add options menu like on the old carousel.

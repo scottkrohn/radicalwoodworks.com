@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 // Components
-// import ReactQuill from 'react-quill';
 import Quill from '../quill-wrapper/quill-wrapper';
 
 // Styles

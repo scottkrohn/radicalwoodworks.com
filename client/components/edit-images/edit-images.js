@@ -1,71 +1,61 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 // Components
 import ImageUpload from 'client/components/image-upload/image-upload';
-import ImageCarousel from 'client/components/image-carousel/image-carousel';
+import ImageCarousel from '../../components/image-carousel-v2/image-carousel';
 import Button from 'client/components/button/button';
 
 // Styles
 import styles from 'client/components/edit-images/edit-images.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-// prettier-ignore
-class EditImages extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const EditImages = ({ onImageUpload, product, onImageDelete, hideAddButton, onImageMappingUpdate }) => {
+  useStyles(styles);
 
-  onImageUpload = (image) => {
-    if (typeof this.props.onImageUpload === 'function') {
-      this.props.onImageUpload(image);
+  const handleImageUpload = (image) => {
+    if (typeof onImageUpload === 'function') {
+      onImageUpload(image);
     }
   };
 
-  getSortedImages = () => {
-    const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
+  const getSortedImages = () => {
+    const images = !isEmpty(product) ? product.getImages() : [];
 
     images.sort((a, b) => {
       return a.getIsPrimary() ? -1 : 1;
     });
 
     return images;
-  }
-
-  render = () => {
-    const images = this.getSortedImages();
-    const productId = !isEmpty(this.props.product) ? this.props.product.getId() : null;
-
-    return (
-      <div className={styles.EditImagesContainer}>
-        <div className={styles.CarouselContainer}>
-          <ImageCarousel
-            images={images}
-            onDelete={this.props.onImageDelete}
-            onImageMappingUpdate={this.props.onImageMappingUpdate}
-            showHidden
-          />
-        </div>
-        {!this.props.hideAddButton && (
-          <div className={styles.ImageUploadContainer}>
-            <ImageUpload
-              onImageUploadSuccess={this.onImageUpload}
-              productId={productId}
-            >
-              <Button
-                variant="contained"
-                slim
-                color="primary"
-              >
-                Add Image
-              </Button>
-            </ImageUpload>
-          </div>
-        )}
-      </div>
-    );
   };
-}
+
+  const images = getSortedImages();
+  const productId = !isEmpty(product) ? product.getId() : null;
+
+  return (
+    <div className={styles.EditImagesContainer}>
+      <div className={styles.CarouselContainer}>
+        <ImageCarousel
+          images={images}
+          onDelete={onImageDelete}
+          onImageMappingUpdate={onImageMappingUpdate}
+          showHidden
+        />
+      </div>
+      {!hideAddButton && (
+        <div className={styles.ImageUploadContainer}>
+          <ImageUpload
+            onImageUploadSuccess={handleImageUpload}
+            productId={productId}
+          >
+            <Button primary>Add Image</Button>
+          </ImageUpload>
+        </div>
+      )}
+    </div>
+  );
+};
 
 EditImages.propTypes = {
   product: PropTypes.object,

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { isNull } from 'lodash';
 
 // Components
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+// import TextField from '@material-ui/core/TextField';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import Select from '@material-ui/core/Select';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import FormControl from '@material-ui/core/FormControl';
 
 // Styles
 import styles from 'client/components/edit-product-details/edit-product-details.less';
@@ -26,7 +26,8 @@ class EditProductDetails extends PureComponent {
       options.forEach((option) => {
         menuOptions.push(
           <MenuItem
-            key={option.value} value={option.value}
+            key={option.value}
+            value={option.value}
           >
             <span className={styles.MenuOption}>{option.label}</span>
           </MenuItem>
@@ -41,7 +42,7 @@ class EditProductDetails extends PureComponent {
     return (
       <div className={styles.EditProductDetailsContainer}>
         <div className={styles.SectionHeader}>Product Info</div>
-        <TextField
+        {/* <TextField
           id="title"
           className={styles.Input}
           label="Title"
@@ -182,8 +183,8 @@ class EditProductDetails extends PureComponent {
             value={this.props.frameWidth || ''}
             onChange={this.props.onChange('frameWidth')}
             variant="outlined"
-          />
-        </div>
+          /> 
+            </div> */}
       </div>
     );
   };

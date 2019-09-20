@@ -16,6 +16,7 @@ import AdminPage from './client/containers/admin-container';
 import AdminAboutUsPage from './client/containers/admin-about-us-container';
 import AdminFaqPage from './client/containers/admin-faq-container';
 import AdminProductsPage from './client/containers/admin-products-container';
+import AdminProductPage from './client/containers/admin-product-container';
 
 export default [{
   ...App,
@@ -64,6 +65,10 @@ export default [{
     {
       ...AdminProductsPage,
       path: '/admin-products',
+    },
+    {
+      ...AdminProductPage,
+      path: '/admin-product/:productId?',
     },
     { ...NotFoundPage },
   ],

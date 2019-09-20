@@ -5,9 +5,10 @@
   padding-bottom: 10px;
 
   .TextInput {
+    padding: 10px;
     width: 100%;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 3px;
     border: 1px solid $gray;
     transition: border-color 400ms ease-in-out, box-shadow 400ms ease-in-out;
 
