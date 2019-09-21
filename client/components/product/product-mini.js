@@ -4,6 +4,8 @@ import { get, isEmpty } from 'lodash';
 // Constants
 import IMAGE from 'constants/image-constants';
 
+import MissingImage from 'client/components/missing-image/missing-image';
+
 // Styles
 import styles from 'components/product/product-mini.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
@@ -46,7 +48,9 @@ const ProductMini = ({ product }) => {
             />
           </div>
         ) : (
-          <div className={styles.NoImage}>{/* TODO: Need to use a non-antd icon here to indicate no image. */}</div>
+          <div className={styles.NoImage}>
+            <MissingImage />
+          </div>
         )}
       </div>
     );
@@ -57,8 +61,7 @@ const ProductMini = ({ product }) => {
       return '';
     }
 
-    const priceString = product.getFinalPrice();
-    return <div className={styles.Price}>${priceString.toFixed(2)}</div>;
+    return <div className={styles.Price}>${product.getFormattedFinalPrice()}</div>;
   };
 
   const renderTitle = () => {

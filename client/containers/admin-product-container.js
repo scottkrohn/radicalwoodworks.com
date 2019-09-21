@@ -326,6 +326,7 @@ const AdminProductContainer = ({
               onImageDelete={handleDeleteImage}
               onImageMappingUpdate={handleUpdateImageMapping}
               hideAddButton={createMode}
+              missingImageMessage={createMode ? 'Create the product to add images' : ''}
             />
           </div>
 

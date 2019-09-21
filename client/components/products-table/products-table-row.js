@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
 import Button from 'client/components/button/button';
+import MissingImage from 'client/components/missing-image/missing-image';
 
 // Styles
 import styles from 'client/components/products-table/products-table.scss';
@@ -30,10 +31,14 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
         className={styles.ProductsTableRowContainer}
       >
         <TableCell className={styles.Cell}>
-          <img
-            className={styles.TableImage}
-            src={IMAGES.getFullUrl(primaryImageUrl)}
-          />
+          {primaryImageUrl ? (
+            <img
+              className={styles.TableImage}
+              src={IMAGES.getFullUrl(primaryImageUrl)}
+            />
+          ) : (
+            <MissingImage className={styles.TableImage} />
+          )}
         </TableCell>
         <TableCell className={styles.Cell}>
           <span className={styles.Text}>{product.getTitle()}</span>

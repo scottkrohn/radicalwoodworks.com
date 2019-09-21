@@ -6,12 +6,20 @@ import { isEmpty } from 'lodash';
 import ImageUpload from 'client/components/image-upload/image-upload';
 import ImageCarousel from '../../components/image-carousel-v2/image-carousel';
 import Button from 'client/components/button/button';
+import MissingImage from 'client/components/missing-image/missing-image';
 
 // Styles
 import styles from 'client/components/edit-images/edit-images.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const EditImages = ({ onImageUpload, product, onImageDelete, hideAddButton, onImageMappingUpdate }) => {
+const EditImages = ({
+  onImageUpload,
+  product,
+  onImageDelete,
+  missingImageMessage,
+  hideAddButton,
+  onImageMappingUpdate,
+}) => {
   useStyles(styles);
 
   const handleImageUpload = (image) => {
@@ -33,15 +41,25 @@ const EditImages = ({ onImageUpload, product, onImageDelete, hideAddButton, onIm
   const images = getSortedImages();
   const productId = !isEmpty(product) ? product.getId() : null;
 
+  console.log(images);
   return (
     <div className={styles.EditImagesContainer}>
       <div className={styles.CarouselContainer}>
-        <ImageCarousel
-          images={images}
-          onDelete={onImageDelete}
-          onImageMappingUpdate={onImageMappingUpdate}
-          showHidden
-        />
+        {images && images.length > 0 ? (
+          <ImageCarousel
+            images={images}
+            onDelete={onImageDelete}
+            onImageMappingUpdate={onImageMappingUpdate}
+            showHidden
+          />
+        ) : (
+          <div className={styles.MissingImageContainer}>
+            <MissingImage
+              className={styles.MissingImage}
+              message={missingImageMessage}
+            />
+          </div>
+        )}
       </div>
       {!hideAddButton && (
         <div className={styles.ImageUploadContainer}>
