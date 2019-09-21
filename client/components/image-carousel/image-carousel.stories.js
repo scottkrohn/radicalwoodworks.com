@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'client/components/image-carousel/react';
 
-import { storiesOf } from '@storybook/react';
+import { storiesOf } from 'client/components/image-carousel/@storybook/react';
 
-import ImageCarousel from '../image-carousel-v2/image-carousel';
+import ImageCarousel from './image-carousel';
 import Image from '../../../model/image';
 
 const imageData = [

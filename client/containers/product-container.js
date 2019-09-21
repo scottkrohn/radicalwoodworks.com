@@ -14,7 +14,7 @@ import { getProduct as getProductSelector, getLoading } from 'client/selectors/p
 import Pricing from 'client/components/product/pricing';
 import ItemInfo from 'client/components/product/item-info';
 import Spinner from '../components/spinner-v2/spinner-v2';
-import ImageCarousel from '../components/image-carousel-v2/image-carousel';
+import ImageCarousel from '../components/image-carousel/image-carousel';
 
 import styles from './product-container.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
@@ -77,6 +77,6 @@ export default {
   )(ProductContainer),
   loadData: (store, pathParts) => {
     const productId = pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
-    return productId != null ? store.dispatch(getProduct(productId)) : Promise.resolve();
+    return productId !== null ? store.dispatch(getProduct(productId)) : Promise.resolve();
   },
 };
