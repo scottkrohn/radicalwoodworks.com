@@ -13,7 +13,6 @@ export const getProduct = createSelector(
     let productObject = {};
 
     if (!isEmpty(productData)) {
-      console.log('PRODUCT DATA: ', productData);
       const product = new Product();
       product.setValues(productData.data);
 

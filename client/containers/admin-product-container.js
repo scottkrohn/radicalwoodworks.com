@@ -28,11 +28,6 @@ import Product from 'model/product';
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
-// TODO:
-// 1. Load data server side.
-// 2. Convert all components to functional.
-// 3. Make notifications work.
-
 const AdminProductContainer = ({
   createProduct,
   deleteImage,
@@ -69,7 +64,9 @@ const AdminProductContainer = ({
     (async () => {
       const productId = get(match, 'params.productId');
       if (productId) {
-        await getProduct(productId);
+        if (isEmpty(product) || product.getId() != productId) {
+          await getProduct(productId);
+        }
       } else {
         setCreateMode(true);
       }
@@ -402,4 +399,8 @@ export default {
     mapStateToProps,
     mapActionsToProps
   )(withAuthValidation(withRouter(AdminProductContainer))),
+  loadData: (store, pathParts) => {
+    const productId = pathParts.length === 2 ? parseInt(pathParts[1], 10) : null;
+    return productId !== null ? store.dispatch(getProduct(productId)) : Promise.resolve();
+  },
 };
