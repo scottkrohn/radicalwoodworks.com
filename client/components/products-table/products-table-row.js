@@ -39,16 +39,16 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
           <span className={styles.Text}>{product.getTitle()}</span>
         </TableCell>
         <TableCell className={styles.Cell}>
-          <span className={styles.Text}>${product.getPrice().toFixed(2)}</span>
+          <span className={styles.Text}>${product.getFormattedPrice()}</span>
         </TableCell>
         <TableCell className={styles.Cell}>
-          <span className={styles.Text}>${product.getShippingPrice().toFixed(2)}</span>
+          <span className={styles.Text}>${product.getFormattedShippingPrice()}</span>
         </TableCell>
         <TableCell className={styles.Cell}>
           <span className={styles.Text}>{product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</span>
         </TableCell>
         <TableCell className={styles.Cell}>
-          <span className={styles.Text}>${product.getFinalPrice().toFixed(2)}</span>
+          <span className={styles.Text}>${product.getFormattedFinalPrice()}</span>
         </TableCell>
         <TableCell className={iconClasses}>
           <div className={styles.Icons}>

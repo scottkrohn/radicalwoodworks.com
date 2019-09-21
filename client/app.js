@@ -34,10 +34,14 @@ export default {
  * High Level
  * 3. Finish the Admin Products page (need modals for delete and product page for edit)
  *
+ * Inputs
+ * Add "Number only" input.
+ *
  * Edit Product Page
  * 1. Create a select input
  * 2. Add styling
  * 3. Convert all related components to functional
+ * 4. Create a "No image" state
  *
  * Image Carousel
  * 1. Add options menu like on the old carousel.
@@ -55,4 +59,5 @@ export default {
  *
  * Misc
  * 1. Fix the bullets on the FAQ page.
+ * 2. Fix spacing of carousel on the admin products page. The dots are on top of the "Add image" button.
  */
