@@ -65,7 +65,7 @@ const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, hist
       <div className="row">
         <div className="col-12">
           <PageHeader
-            headerText="Edit Product"
+            headerText="Edit Products"
             buttonText="Create Product"
             onButtonClick={handleCreateProduct}
           />

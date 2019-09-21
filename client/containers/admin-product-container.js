@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, isNull, isEmpty } from 'lodash';
@@ -9,6 +9,7 @@ import EditProductDetails from 'client/components/edit-product-details/edit-prod
 import EditDescription from 'client/components/edit-description/edit-description';
 import Spinner from 'client/components/spinner-v2/spinner-v2';
 import PageHeader from 'client/components/page-header/page-header';
+import Notification from 'client/components/notification/notification';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -32,134 +33,127 @@ import { withRouter } from 'react-router-dom';
 // 2. Convert all components to functional.
 // 3. Make notifications work.
 
-class AdminProductContainer extends Component {
-  constructor(props) {
-    super(props);
+const AdminProductContainer = ({
+  createProduct,
+  deleteImage,
+  getProduct,
+  getProducts,
+  history,
+  match,
+  product,
+  productLoading,
+  updateProduct,
+  updateProductImageMapping,
+  uploadingImage,
+}) => {
+  const [loading, setLoading] = useState(false);
+  const [createMode, setCreateMode] = useState(false);
+  const [invalidFields, setInvalidFields] = useState({});
+  const [notificationContent, setNotificationContent] = useState({});
+  const [updatedProduct, setUpdatedProduct] = useState({
+    description: null,
+    title: null,
+    price: null,
+    shipping: null,
+    includeShippingInPrice: null,
+    length: null,
+    width: null,
+    defaultColor: null,
+    frameWidth: null,
+    etsyUrl: null,
+    cost: null,
+    type: null,
+  });
 
-    this.state = {
-      showNotification: false,
-      notificationMessage: '',
-      loading: false,
-      createMode: false,
-      createdProductId: null,
-      invalidFields: [],
-
-      updatedProduct: {
-        description: null,
-        title: null,
-        price: null,
-        shipping: null,
-        includeShippingInPrice: null,
-        length: null,
-        width: null,
-        defaultColor: null,
-        frameWidth: null,
-        etsyUrl: null,
-        cost: null,
-        type: null,
-      },
-    };
-  }
-
-  componentDidMount = () => {
+  useEffect(() => {
     (async () => {
-      const productId = get(this.props, 'match.params.productId');
+      const productId = get(match, 'params.productId');
       if (productId) {
-        await this.props.getProduct(productId);
+        await getProduct(productId);
       } else {
-        this.setState({ createMode: true });
+        setCreateMode(true);
+      }
+    })();
+  }, []);
+
+  const onImageUpload = (image) => {
+    const productId = get(match, 'params.productId');
+    getProduct(productId);
+    getProducts(); // Let's make sure the redux store has the most recent products
+    setNotificationContent({
+      header: 'Success',
+      message: 'Image successfully uploaded!',
+      showing: true,
+    });
+  };
+
+  const handleDescriptionChange = (value) => {
+    setUpdatedProduct({
+      ...updatedProduct,
+      description: value,
+    });
+  };
+
+  const handleDeleteImage = (image) => {
+    setLoading(true);
+    (async () => {
+      try {
+        await deleteImage(image.getId());
+        const productId = get(match, 'params.productId');
+        await getProduct(productId);
+        setNotificationContent({
+          header: 'Success',
+          message: 'Image successfully deleted!',
+          showing: true,
+        });
+      } catch (error) {
+        setNotificationContent({
+          header: 'Error',
+          message: 'An error occured when updating, please try again.',
+          showing: true,
+        });
+      } finally {
+        setLoading(false);
       }
     })();
   };
 
-  onImageUpload = (image) => {
-    const productId = get(this.props, 'match.params.productId');
-    this.props.getProduct(productId);
-    this.props.getProducts(); // Let's make sure the redux store has the most recent products
-    this.handleShowNotification('Image successfully uploaded!');
-  };
-
-  handleShowNotification = (message) => {
-    this.setState({
-      showNotification: true,
-      notificationMessage: message,
-    });
-  };
-
-  handleHideNotification = () => {
-    this.setState({
-      showNotification: false,
-    });
-  };
-
-  handleDescriptionChange = (value) => {
-    this.setState({
-      updatedProduct: {
-        ...this.state.updatedProduct,
-        description: value,
-      },
-    });
-  };
-
-  handleDeleteImage = (image) => {
-    this.setState(
-      {
-        loading: true,
-      },
-      () => {
-        (async () => {
-          try {
-            await this.props.deleteImage(image.getId());
-            const productId = get(this.props, 'match.params.productId');
-            await this.props.getProduct(productId);
-            this.handleShowNotification('Image successfully deleted!');
-          } catch (error) {
-            this.handleShowNotification('There was an error deleting the image.');
-          } finally {
-            this.setState({
-              loading: false,
-            });
-          }
-        })();
-      }
-    );
-  };
-
-  handleUpdateImageMapping = (image, isPrimary = null, hidden = null) => {
+  const handleUpdateImageMapping = (image, isPrimary = null, hidden = null) => {
     return new Promise((resolve, reject) => {
-      this.setState(
-        {
-          loading: true,
-        },
-        () => {
-          (async () => {
-            try {
-              const productId = get(this.props, 'match.params.productId');
-              const updateData = {
-                productId,
-                isPrimary,
-                hidden: isPrimary ? false : hidden,
-              };
+      setLoading(true);
+      (async () => {
+        try {
+          const productId = get(match, 'params.productId');
+          const updateData = {
+            productId,
+            isPrimary,
+            hidden: isPrimary ? false : hidden,
+          };
 
-              await this.props.updateProductImageMapping(image.getId(), updateData);
-              await this.props.getProduct(productId);
-              this.handleShowNotification('Image successfully updated!');
-            } catch (error) {
-              this.handleShowNotification('There was an error updating the image. Please try again.');
-              reject();
-            } finally {
-              this.setState({
-                loading: false,
-              });
-              resolve();
-            }
-          })();
+          await updateProductImageMapping(image.getId(), updateData);
+          await getProduct(productId);
+
+          setNotificationContent({
+            header: 'Success',
+            message: 'Image updated!',
+            showing: true,
+          });
+        } catch (error) {
+          setNotificationContent({
+            header: 'Error',
+            message: 'An error occured when updating, please try again.',
+            showing: true,
+          });
+          reject();
+        } finally {
+          setLoading(false);
+          resolve();
         }
-      );
+      })();
     });
   };
 
-  getInvalidFields = (productData) => {
+  const getInvalidFields = (productData) => {
     const invalidFields = {};
 
     const ignoredFields = [
@@ -173,7 +167,7 @@ class AdminProductContainer extends Component {
     for (const property in productData) {
       if (ignoredFields.includes(property)) {
         continue;
-      } else if (this.state.createMode && !productData[property]) {
+      } else if (createMode && !productData[property]) {
         invalidFields[property] = { isDirty: true, isValid: false, message: 'Required' };
       } else if (productData[property] === '') {
         invalidFields[property] = { isDirty: true, isValid: false, message: 'Required' };
@@ -183,21 +177,18 @@ class AdminProductContainer extends Component {
     return invalidFields;
   };
 
-  handleSave = () => {
+  const handleSave = () => {
     const updatedProductObj = new Product();
 
-    if (!this.state.createMode) {
-      updatedProductObj.setId(this.props.product.getId());
+    if (!createMode) {
+      updatedProductObj.setId(product.getId());
     }
 
-    const updatedProductData = get(this.state, 'updatedProduct', {});
-    const invalidFields = this.getInvalidFields(updatedProductData);
+    const updatedProductData = updatedProduct;
+    const invalidFields = getInvalidFields(updatedProductData);
 
-    this.setState({
-      invalidFields,
-    });
+    setInvalidFields(invalidFields);
 
-    console.log(invalidFields);
     // Let's bail if there's invalid fields.
     if (!isEmpty(invalidFields)) {
       return;
@@ -216,95 +207,84 @@ class AdminProductContainer extends Component {
     updatedProductObj.setEtsyUrl(updatedProductData.etsyUrl);
     updatedProductObj.setType(updatedProductData.type);
 
-    this.setState(
-      {
-        loading: true,
-      },
-      () => {
-        (async () => {
-          try {
-            let productId;
-            let message;
-            if (this.state.createMode) {
-              productId = await this.props.createProduct(updatedProductObj);
-              message = 'Product successfully created!';
-              this.props.getProducts(); // Let's make sure the redux store has the most recent products
-              this.setState(
-                {
-                  createMode: false,
-                  createdProductId: productId,
-                },
-                () => {
-                  // We need to inject the product ID onto the URL so code that pulls the ID from the param works.
-                  this.props.history.push(`/admin-product/${productId}`);
-                }
-              );
-            } else {
-              productId = get(this.props, 'match.params.productId');
-              message = 'Product successfully updated!';
-              await this.props.updateProduct(updatedProductObj);
-            }
-            await this.props.getProduct(productId);
-            this.handleShowNotification(message);
-          } catch (error) {
-            this.handleShowNotification('There was an error updating this product. Please try again.');
-          } finally {
-            this.setState({
-              loading: false,
-            });
-          }
-        })();
+    setLoading(true);
+    (async () => {
+      try {
+        let productId;
+        if (createMode) {
+          productId = await createProduct(updatedProductObj);
+          getProducts(); // Let's make sure the redux store has the most recent products
+          setCreateMode(false);
+
+          // We need to inject the product ID onto the URL so code that pulls the ID from the param works.
+          history.push(`/admin-product/${productId}`);
+        } else {
+          productId = get(match, 'params.productId');
+          await updateProduct(updatedProductObj);
+        }
+        await getProduct(productId);
+
+        setNotificationContent({
+          header: 'Success',
+          message: 'Successfully updated product!',
+          showing: true,
+        });
+      } catch (error) {
+        setNotificationContent({
+          header: 'Error',
+          message: 'An error occured when updating, please try again.',
+          showing: true,
+        });
+      } finally {
+        setLoading(false);
       }
-    );
+    })();
   };
 
-  handleInputChange = (name) => (event) => {
-    this.setState({
-      updatedProduct: {
-        ...this.state.updatedProduct,
-        [name]: event.target.value,
-      },
+  const handleInputChange = (name) => (event) => {
+    setUpdatedProduct({
+      ...updatedProduct,
+      [name]: event.target.value,
     });
   };
 
-  getProductInformation = () => {
-    const updatedProduct = this.state.updatedProduct;
-    const productLoaded = !isEmpty(this.props.product);
+  const getProductInformation = () => {
+    const productLoaded = !isEmpty(product);
 
-    const origDescription = productLoaded ? this.props.product.getDescription() : '';
+    const origDescription = productLoaded ? product.getDescription() : '';
     const description = isNull(updatedProduct.description) ? origDescription : updatedProduct.description;
 
-    const origTitle = productLoaded ? this.props.product.getTitle() : '';
+    const origTitle = productLoaded ? product.getTitle() : '';
     const title = isNull(updatedProduct.title) ? origTitle : updatedProduct.title;
 
-    const origPrice = productLoaded ? this.props.product.getPrice() : '';
+    const origPrice = productLoaded ? product.getPrice() : '';
     const price = isNull(updatedProduct.price) ? origPrice : updatedProduct.price;
 
-    const origType = productLoaded ? this.props.product.getType() : '';
+    const origType = productLoaded ? product.getType() : '';
     const type = isNull(updatedProduct.type) ? origType : updatedProduct.type;
 
-    const origCost = productLoaded ? this.props.product.getCost() : '';
+    const origCost = productLoaded ? product.getCost() : '';
     const cost = isNull(updatedProduct.cost) ? origCost : updatedProduct.cost;
 
-    const origShipping = productLoaded ? this.props.product.getShippingPrice() : '';
+    const origShipping = productLoaded ? product.getShippingPrice() : '';
     const shipping = isNull(updatedProduct.shipping) ? origShipping : updatedProduct.shipping;
 
-    const origEtsyUrl = productLoaded ? this.props.product.getEtsyUrl() : '';
+    const origEtsyUrl = productLoaded ? product.getEtsyUrl() : '';
     const etsyUrl = isNull(updatedProduct.etsyUrl) ? origEtsyUrl : updatedProduct.etsyUrl;
 
-    const origLength = productLoaded ? this.props.product.getLength() : '';
+    const origLength = productLoaded ? product.getLength() : '';
     const length = isNull(updatedProduct.length) ? origLength : updatedProduct.length;
 
-    const origWidth = productLoaded ? this.props.product.getWidth() : '';
+    const origWidth = productLoaded ? product.getWidth() : '';
     const width = isNull(updatedProduct.width) ? origWidth : updatedProduct.width;
 
-    const origFrameWidth = productLoaded ? this.props.product.getFrameWidth() : '';
+    const origFrameWidth = productLoaded ? product.getFrameWidth() : '';
     const frameWidth = isNull(updatedProduct.frameWidth) ? origFrameWidth : updatedProduct.frameWidth;
 
-    const origDefaultColor = productLoaded ? this.props.product.getDefaultColor() : '';
+    const origDefaultColor = productLoaded ? product.getDefaultColor() : '';
     const defaultColor = isNull(updatedProduct.defaultColor) ? origDefaultColor : updatedProduct.defaultColor;
 
-    const origIncludeShippingInPrice = productLoaded ? this.props.product.getIncludeShippingInPrice() : 0;
+    const origIncludeShippingInPrice = productLoaded ? product.getIncludeShippingInPrice() : 0;
     const includeShippingInPrice = isNull(updatedProduct.includeShippingInPrice)
       ? origIncludeShippingInPrice
       : updatedProduct.includeShippingInPrice;
@@ -325,60 +305,63 @@ class AdminProductContainer extends Component {
     };
   };
 
-  render = () => {
-    const loading = this.state.loading || this.props.productLoading || this.props.uploadingImage;
-    const productInfo = this.getProductInformation();
-    const productLoaded = !isEmpty(this.props.product);
+  const isLoading = loading || productLoading || uploadingImage;
+  const productInfo = getProductInformation();
+  const productLoaded = !isEmpty(product);
 
-    return (
-      <div className="container-fluid">
-        <Spinner spinning={loading}>
-          <div className="row">
-            <div className="col-12">
-              <PageHeader
-                headerText={this.state.createMode ? 'Create Product' : 'Edit Product'}
-                buttonText="Save"
-                onButtonClick={this.handleSave}
-              />
-            </div>
+  return (
+    <div className="container-fluid">
+      <Spinner spinning={isLoading}>
+        <div className="row">
+          <div className="col-12">
+            <PageHeader
+              headerText={createMode ? 'Create Product' : 'Edit Product'}
+              buttonText="Save"
+              onButtonClick={handleSave}
+            />
           </div>
-          <div className="row">
+        </div>
+        <div className="row">
+          <div className="col-md-12 col-lg-6">
+            <EditImages
+              product={product}
+              onImageUpload={onImageUpload}
+              onImageDelete={handleDeleteImage}
+              onImageMappingUpdate={handleUpdateImageMapping}
+              hideAddButton={createMode}
+            />
+          </div>
+
+          {(productLoaded || createMode) && (
             <div className="col-md-12 col-lg-6">
-              <EditImages
-                product={this.props.product}
-                onImageUpload={this.onImageUpload}
-                onImageDelete={this.handleDeleteImage}
-                onImageMappingUpdate={this.handleUpdateImageMapping}
-                hideAddButton={this.state.createMode}
+              <EditProductDetails
+                onChange={handleInputChange}
+                {...productInfo}
+                invalidFields={invalidFields}
               />
             </div>
+          )}
+        </div>
 
-            {(productLoaded || this.state.createMode) && (
-              <div className="col-md-12 col-lg-6">
-                <EditProductDetails
-                  onChange={this.handleInputChange}
-                  {...productInfo}
-                  invalidFields={this.state.invalidFields}
-                />
-              </div>
-            )}
+        <hr />
+
+        <div className="row">
+          <div className="col-12">
+            <EditDescription
+              onChange={handleDescriptionChange}
+              description={productInfo.description}
+            />
           </div>
+        </div>
+      </Spinner>
 
-          <hr />
-
-          <div className="row">
-            <div className="col-12">
-              <EditDescription
-                onChange={this.handleDescriptionChange}
-                description={productInfo.description}
-              />
-            </div>
-          </div>
-        </Spinner>
-      </div>
-    );
-  };
-}
+      <Notification
+        content={notificationContent}
+        hide={() => setNotificationContent({ showing: false })}
+      />
+    </div>
+  );
+};
 
 AdminProductContainer.propTypes = {
   verifyLogin: PropTypes.func,
