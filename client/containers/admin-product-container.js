@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { cloneDeep, get, isNull, isEmpty } from 'lodash';
+import { get, isNull, isEmpty } from 'lodash';
 
 // Components
 import EditImages from 'client/components/edit-images/edit-images';
 import EditProductDetails from 'client/components/edit-product-details/edit-product-details';
-import EditProductDetailsV2 from 'client/components/edit-product-details/edit-product-details-v2';
 import EditDescription from 'client/components/edit-description/edit-description';
 import Spinner from 'client/components/spinner-v2/spinner-v2';
 import PageHeader from 'client/components/page-header/page-header';
@@ -27,6 +26,11 @@ import Product from 'model/product';
 // HOCs
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
+
+// TODO:
+// 1. Load data server side.
+// 2. Convert all components to functional.
+// 3. Make notifications work.
 
 class AdminProductContainer extends Component {
   constructor(props) {
@@ -59,12 +63,6 @@ class AdminProductContainer extends Component {
 
   componentDidMount = () => {
     (async () => {
-      try {
-        await this.props.verifyLogin();
-      } catch (error) {
-        this.props.redirectToHome();
-      }
-
       const productId = get(this.props, 'match.params.productId');
       if (productId) {
         await this.props.getProduct(productId);
@@ -162,17 +160,23 @@ class AdminProductContainer extends Component {
   };
 
   getInvalidFields = (productData) => {
-    const invalidFields = [];
+    const invalidFields = {};
 
-    const ignoredFields = ['description', 'frameWidth'];
+    const ignoredFields = [
+      'description',
+      'frameWidth',
+      'defaultColor',
+      'includeShippingInPrice',
+      'type',
+    ];
 
     for (const property in productData) {
       if (ignoredFields.includes(property)) {
         continue;
       } else if (this.state.createMode && !productData[property]) {
-        invalidFields.push(property);
+        invalidFields[property] = { isDirty: true, isValid: false, message: 'Required' };
       } else if (productData[property] === '') {
-        invalidFields.push(property);
+        invalidFields[property] = { isDirty: true, isValid: false, message: 'Required' };
       }
     }
 
@@ -180,31 +184,34 @@ class AdminProductContainer extends Component {
   };
 
   handleSave = () => {
-    const updatedProductObj = this.state.createMode ? new Product() : cloneDeep(this.props.product);
-    const updatedProductData = get(this.state, 'updatedProduct', {});
+    const updatedProductObj = new Product();
 
+    if (!this.state.createMode) {
+      updatedProductObj.setId(this.props.product.getId());
+    }
+
+    const updatedProductData = get(this.state, 'updatedProduct', {});
     const invalidFields = this.getInvalidFields(updatedProductData);
+
     this.setState({
       invalidFields,
     });
 
+    console.log(invalidFields);
     // Let's bail if there's invalid fields.
-    if (invalidFields.length) {
+    if (!isEmpty(invalidFields)) {
       return;
     }
 
     updatedProductObj.setShippingPrice(updatedProductData.shipping);
     updatedProductObj.setPrice(updatedProductData.price);
     updatedProductObj.setCost(updatedProductData.cost);
-
     updatedProductObj.setDescription(updatedProductData.description);
     updatedProductObj.setTitle(updatedProductData.title);
     updatedProductObj.setIncludeShippingInPrice(updatedProductData.includeShippingInPrice);
-
     updatedProductObj.setLength(updatedProductData.length);
     updatedProductObj.setWidth(updatedProductData.width);
     updatedProductObj.setDefaultColor(updatedProductData.defaultColor);
-
     updatedProductObj.setFrameWidth(updatedProductData.frameWidth);
     updatedProductObj.setEtsyUrl(updatedProductData.etsyUrl);
     updatedProductObj.setType(updatedProductData.type);
@@ -222,7 +229,6 @@ class AdminProductContainer extends Component {
               productId = await this.props.createProduct(updatedProductObj);
               message = 'Product successfully created!';
               this.props.getProducts(); // Let's make sure the redux store has the most recent products
-
               this.setState(
                 {
                   createMode: false,
@@ -238,7 +244,6 @@ class AdminProductContainer extends Component {
               message = 'Product successfully updated!';
               await this.props.updateProduct(updatedProductObj);
             }
-
             await this.props.getProduct(productId);
             this.handleShowNotification(message);
           } catch (error) {
@@ -299,7 +304,7 @@ class AdminProductContainer extends Component {
     const origDefaultColor = productLoaded ? this.props.product.getDefaultColor() : '';
     const defaultColor = isNull(updatedProduct.defaultColor) ? origDefaultColor : updatedProduct.defaultColor;
 
-    const origIncludeShippingInPrice = productLoaded ? this.props.product.getIncludeShippingInPrice() : null;
+    const origIncludeShippingInPrice = productLoaded ? this.props.product.getIncludeShippingInPrice() : 0;
     const includeShippingInPrice = isNull(updatedProduct.includeShippingInPrice)
       ? origIncludeShippingInPrice
       : updatedProduct.includeShippingInPrice;
@@ -350,7 +355,7 @@ class AdminProductContainer extends Component {
 
             {(productLoaded || this.state.createMode) && (
               <div className="col-md-12 col-lg-6">
-                <EditProductDetailsV2
+                <EditProductDetails
                   onChange={this.handleInputChange}
                   {...productInfo}
                   invalidFields={this.state.invalidFields}
