@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
-import { isEmpty } from 'lodash';
+import { findIndex, isEmpty } from 'lodash';
 
 import CarouselNavButton from './carousel-nav-button';
 import CarouselDots from './carousel-dots';
@@ -64,9 +64,17 @@ const ImageCarousel = ({ className, images, showHidden }) => {
       return [];
     }
 
-    images.sort((a, b) => {
-      return a.getIsPrimary() ? -1 : 1;
+    const primaryIndex = findIndex(images, (image) => {
+      return image.getIsPrimary();
     });
+
+    // Move the primary image to the front of the array.
+    if (primaryIndex) {
+      const primaryImage = images.splice(primaryIndex, 1);
+      if (primaryImage.length) {
+        images.unshift(primaryImage[0]);
+      }
+    }
 
     return images;
   };
