@@ -28,17 +28,6 @@ const EditImages = ({
     }
   };
 
-  const getSortedImages = () => {
-    const images = !isEmpty(product) ? product.getImages() : [];
-
-    images.sort((a, b) => {
-      return a.getIsPrimary() ? -1 : 1;
-    });
-
-    return images;
-  };
-
-  const images = getSortedImages();
   const productId = !isEmpty(product) ? product.getId() : null;
 
   return (
@@ -46,7 +35,7 @@ const EditImages = ({
       <div className={styles.CarouselContainer}>
         {images && images.length > 0 ? (
           <ImageCarousel
-            images={images}
+            images={product.getImages()}
             onDelete={onImageDelete}
             onImageMappingUpdate={onImageMappingUpdate}
             showHidden

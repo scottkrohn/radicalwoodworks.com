@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
-import { findIndex, isEmpty } from 'lodash';
+import { sortBy, findIndex, isEmpty } from 'lodash';
 
 import CarouselNavButton from './carousel-nav-button';
 import CarouselDots from './carousel-dots';
@@ -121,12 +121,10 @@ const ImageCarousel = ({ className, images, showHidden }) => {
                   <ModalTrigger>
                     {({ hide, show }) => {
                       return (
-                        <div
-                          onClick={show}
-                          className={styles.ImageWrapper}
-                        >
+                        <div className={styles.ImageWrapper}>
                           <img
                             className={cx(styles.Image, currentIndex === index && styles.Active)}
+                            onClick={show}
                             src={image.url}
                           />
                         </div>
