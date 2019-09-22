@@ -29,13 +29,14 @@ const EditImages = ({
   };
 
   const productId = !isEmpty(product) ? product.getId() : null;
+  const images = product.getImages();
 
   return (
     <div className={styles.EditImagesContainer}>
       <div className={styles.CarouselContainer}>
         {images && images.length > 0 ? (
           <ImageCarousel
-            images={product.getImages()}
+            images={images}
             onDelete={onImageDelete}
             onImageMappingUpdate={onImageMappingUpdate}
             showHidden
