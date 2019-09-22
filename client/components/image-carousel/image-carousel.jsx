@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 
 import CarouselNavButton from './carousel-nav-button';
 import CarouselDots from './carousel-dots';
+import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
 
 // Constants
 import IMAGES from '../../constants/image-constants';
@@ -108,12 +109,31 @@ const ImageCarousel = ({ className, images, showHidden }) => {
                 id={`carousel_image_${image.id}`}
                 className={styles.SlidePane}
               >
-                <div className={styles.ImageWrapper}>
-                  <img
-                    className={cx(styles.Image, currentIndex === index && styles.Active)}
-                    src={image.url}
-                  />
-                </div>
+                <Modal>
+                  <ModalTrigger>
+                    {({ hide, show }) => {
+                      return (
+                        <div
+                          onClick={show}
+                          className={styles.ImageWrapper}
+                        >
+                          <img
+                            className={cx(styles.Image, currentIndex === index && styles.Active)}
+                            src={image.url}
+                          />
+                        </div>
+                      );
+                    }}
+                  </ModalTrigger>
+                  <ModalContent>
+                    {({ hide }) => {
+                      return <img
+                        className={styles.FullSizeImage}
+                        src={image.url}
+                             />;
+                    }}
+                  </ModalContent>
+                </Modal>
               </div>
             );
           })}

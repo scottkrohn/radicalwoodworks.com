@@ -33,6 +33,7 @@
     height: 100%;
 
     .ImageWrapper {
+      cursor: pointer;
       height: 100%;
 
       .Image {
@@ -42,4 +43,8 @@
       }
     }
   }
+}
+
+.FullSizeImage {
+  width: 100%;
 }

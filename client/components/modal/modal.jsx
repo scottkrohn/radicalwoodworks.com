@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 import { getModalRootContainer, createPortal } from '../../utils/services/portal-service';
 import cx from 'classnames';
 
@@ -42,17 +42,23 @@ const Modal = ({ children, headerLabel = '' }) => {
     }
   });
 
-  const Trigger = () => {
-    return modifiedChildren.find((child) => {
-      return child.type === ModalTrigger;
-    });
-  };
+  // Memoizing Trigger/Content because otherwise they're re-calculated on every
+  // re-render, which causes flickering.
+  const Trigger = useMemo(() => {
+    return () => {
+      return modifiedChildren.find((child) => {
+        return child.type === ModalTrigger;
+      });
+    };
+  }, []);
 
-  const Content = () => {
-    return modifiedChildren.find((child) => {
-      return child.type === ModalContent;
-    });
-  };
+  const Content = useMemo(() => {
+    return () => {
+      return modifiedChildren.find((child) => {
+        return child.type === ModalContent;
+      });
+    };
+  }, []);
 
   return (
     <div>

@@ -44,5 +44,4 @@ export default {
  *
  * Misc
  * 1. Fix the bullets on the FAQ page.
- * 2. Fix spacing of carousel on the admin products page. The dots are on top of the "Add image" button.
  */
