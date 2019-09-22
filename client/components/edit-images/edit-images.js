@@ -41,7 +41,6 @@ const EditImages = ({
   const images = getSortedImages();
   const productId = !isEmpty(product) ? product.getId() : null;
 
-  console.log(images);
   return (
     <div className={styles.EditImagesContainer}>
       <div className={styles.CarouselContainer}>
