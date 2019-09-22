@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Components
-import Spinner from 'client/components/spinner-v2/spinner-v2';
+import Spinner from 'client/components/spinner/spinner';
 import PageHeader from 'client/components/page-header/page-header';
 import ProductsTable from 'client/components/products-table/products-table';
 import Notification from '../components/notification/notification';

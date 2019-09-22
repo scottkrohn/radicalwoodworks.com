@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 
 // Components
-import Spinner from 'client/components/spinner-v2/spinner-v2';
+import Spinner from 'client/components/spinner/spinner';
 import ContentEditor from 'client/components/content-editor/content-editor';
 import PageHeader from 'client/components/page-header/page-header';
 import Notification from 'client/components/notification/notification';

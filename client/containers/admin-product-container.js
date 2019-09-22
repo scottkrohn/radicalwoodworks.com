@@ -7,7 +7,7 @@ import { get, isNull, isEmpty } from 'lodash';
 import EditImages from 'client/components/edit-images/edit-images';
 import EditProductDetails from 'client/components/edit-product-details/edit-product-details';
 import EditDescription from 'client/components/edit-description/edit-description';
-import Spinner from 'client/components/spinner-v2/spinner-v2';
+import Spinner from 'client/components/spinner/spinner';
 import PageHeader from 'client/components/page-header/page-header';
 import Notification from 'client/components/notification/notification';
 

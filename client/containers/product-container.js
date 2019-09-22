@@ -13,7 +13,7 @@ import { getProduct as getProductSelector, getLoading } from 'client/selectors/p
 // Component
 import Pricing from 'client/components/product/pricing';
 import ItemInfo from 'client/components/product/item-info';
-import Spinner from '../components/spinner-v2/spinner-v2';
+import Spinner from '../components/spinner/spinner';
 import ImageCarousel from '../components/image-carousel/image-carousel';
 
 import styles from './product-container.scss';

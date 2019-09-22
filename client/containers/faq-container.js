@@ -11,7 +11,7 @@ import { getAllContent as getAllContentObjects, getContentType, getLoading } fro
 
 // Components
 import Content from 'client/components/content/content';
-import Spinner from '../components/spinner-v2/spinner-v2';
+import Spinner from '../components/spinner/spinner';
 import PageHeader from 'client/components/page-header/page-header';
 
 const FaqContainer = ({ content, contentType, getAllContent, loading }) => {

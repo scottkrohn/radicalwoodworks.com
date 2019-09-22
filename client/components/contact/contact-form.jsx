@@ -12,7 +12,7 @@ import Form from '../form/form';
 import TextInput from '../form/text-input';
 import Button from '../button/button';
 import Notification from '../notification/notification';
-import Spinner from '../spinner-v2/spinner-v2';
+import Spinner from '../spinner/spinner';
 import { Link } from 'react-router-dom';
 
 // Styles

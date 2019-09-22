@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { isEmpty } from 'lodash';
 
 // Components
-import Spinner from 'client/components/spinner-v2/spinner-v2';
+import Spinner from 'client/components/spinner/spinner';
 import Button from 'client/components/button/button';
 import Grid from 'client/components/grid/grid';
 import ContentEditor from 'client/components/content-editor/content-editor';

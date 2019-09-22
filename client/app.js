@@ -46,7 +46,6 @@ export default {
  * 2. Handle loading/completed/error states for all pages that need them.
  *
  * Remove
- * 1. Old Carousel
  * 2. Old Spinner
  *
  * Misc

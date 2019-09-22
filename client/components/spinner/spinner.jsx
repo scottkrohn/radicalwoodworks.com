@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import styles from './spinner-v2.scss';
+import styles from './spinner.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const Spinner = ({ children, className, spinning }) => {

@@ -9,7 +9,7 @@ import EXCEPTIONS from 'constants/exceptions';
 import Form from '../form/form';
 import TextInput from '../form/text-input';
 import Button from '../button/button';
-import Spinner from '../spinner-v2/spinner-v2';
+import Spinner from '../spinner/spinner';
 
 // Validators
 import RequiredValidator from '../../utils/validators/required-validator';
