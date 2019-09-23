@@ -3,17 +3,30 @@ import PropTypes from 'prop-types';
 
 // Components
 import Button from 'client/components/button/button';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 
 // Styles
 import styles from 'client/components/page-header/page-header.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const PageHeader = ({ buttonText, headerText, onButtonClick, showButton }) => {
+const PageHeader = ({ text, href, buttonText, headerText, onButtonClick, showButton }) => {
   useStyles(styles);
 
   return (
     <div className={styles.PageHeaderContainer}>
-      <div>{/* This is a placeholder div for flexbox. Don't delete me! */}</div>
+      <div className={styles.LeftLink}>
+        {text && href ? (
+          <Link to={href}>
+            <FontAwesomeIcon
+              className={styles.HamburgerIcon}
+              icon={faLongArrowAltLeft}
+            />
+            <span className={styles.LinkText}>{text}</span>
+          </Link>
+        ) : null}
+      </div>
       <div className={styles.HeaderText}>{headerText}</div>
       <div className={styles.Button}>
         {showButton && (

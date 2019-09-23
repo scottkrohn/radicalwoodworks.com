@@ -50,7 +50,7 @@ const Modal = ({ children, headerLabel = '' }) => {
         return child.type === ModalTrigger;
       });
     };
-  }, [showing]);
+  }, []);
 
   const Content = useMemo(() => {
     return () => {

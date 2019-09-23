@@ -309,6 +309,8 @@ const AdminProductContainer = ({
               headerText={createMode ? 'Create Product' : 'Edit Product'}
               buttonText="Save"
               onButtonClick={handleSave}
+              text="Back to Admin Products"
+              href="/admin-products"
             />
           </div>
         </div>
