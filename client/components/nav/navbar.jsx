@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom';
 // Styles
 import styles from './navbar.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
-import classNames from 'classNames';
 import Drawer from '../drawer/drawer';
 
 // Actions
@@ -27,7 +26,7 @@ const Navbar = ({ auth, logout, location }) => {
   const isLoggedIn = auth.loggedIn;
 
   const NavbarLink = ({ className, label, path, onClick }) => {
-    const classes = classNames(styles.NavbarLink, className && className);
+    const classes = cx(styles.NavbarLink, className && className);
 
     return (
       <Link
