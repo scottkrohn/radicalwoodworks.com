@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import cx from 'classNames';
+import cx from 'classnames';
 
 import Button from '../button/button';
 
