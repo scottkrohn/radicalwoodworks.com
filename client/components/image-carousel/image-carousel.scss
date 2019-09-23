@@ -33,8 +33,47 @@
     height: 100%;
 
     .ImageWrapper {
+      position: relative;
       cursor: pointer;
       height: 100%;
+
+      .OptionsMenu {
+        pointer-events: none;
+        position: absolute;
+        top: 3;
+        right: 3;
+
+        .Button {
+          pointer-events: all;
+          background: rgba(0, 0, 0, 0.4);
+          color: $light-gray;
+          font-size: 0.8em;
+          padding: 5px;
+          border: 1px solid $gray;
+          border-radius: 2px;
+          transition: background ease-in 100ms;
+          &:hover {
+            background: rgba(0, 0, 0, 0.7);
+          }
+        }
+
+        .Attribute {
+          background: rgba(0, 0, 0, 0.4);
+          color: $light-gray;
+          font-size: 0.6em;
+          margin-top: 1px;
+          padding: 1px;
+          pointer-events: none;
+        }
+
+        .Primary {
+          background: rgba(53, 179, 247, 0.8);
+        }
+
+        .Danger {
+          background: rgba(247, 69, 59, 0.4);
+        }
+      }
 
       .Image {
         border: 1px solid $gray;

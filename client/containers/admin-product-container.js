@@ -91,18 +91,14 @@ const AdminProductContainer = ({
     });
   };
 
-  const handleDeleteImage = (image) => {
+  const handleDeleteImage = (imageId) => {
     setLoading(true);
     (async () => {
       try {
-        await deleteImage(image.getId());
+        await deleteImage(imageId);
         const productId = get(match, 'params.productId');
         await getProduct(productId);
-        setNotificationContent({
-          header: 'Success',
-          message: 'Image successfully deleted!',
-          showing: true,
-        });
+        reloadPage();
       } catch (error) {
         setNotificationContent({
           header: 'Error',
@@ -115,7 +111,7 @@ const AdminProductContainer = ({
     })();
   };
 
-  const handleUpdateImageMapping = (image, isPrimary = null, hidden = null) => {
+  const handleUpdateImageMapping = (imageId, isPrimary = null, hidden = null) => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       (async () => {
@@ -127,14 +123,8 @@ const AdminProductContainer = ({
             hidden: isPrimary ? false : hidden,
           };
 
-          await updateProductImageMapping(image.getId(), updateData);
-          await getProduct(productId);
-
-          setNotificationContent({
-            header: 'Success',
-            message: 'Image updated!',
-            showing: true,
-          });
+          await updateProductImageMapping(imageId, updateData);
+          reloadPage();
         } catch (error) {
           setNotificationContent({
             header: 'Error',
@@ -148,6 +138,10 @@ const AdminProductContainer = ({
         }
       })();
     });
+  };
+
+  const reloadPage = () => {
+    IS_CLIENT && window.location.reload();
   };
 
   const getInvalidFields = (productData) => {

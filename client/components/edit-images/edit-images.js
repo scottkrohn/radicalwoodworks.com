@@ -29,7 +29,7 @@ const EditImages = ({
   };
 
   const productId = !isEmpty(product) ? product.getId() : null;
-  const images = product.getImages();
+  const images = product && product.getImages ? product.getImages() : [];
 
   return (
     <div className={styles.EditImagesContainer}>
@@ -39,7 +39,9 @@ const EditImages = ({
             images={images}
             onDelete={onImageDelete}
             onImageMappingUpdate={onImageMappingUpdate}
+            onImageDelete={onImageDelete}
             showHidden
+            showOptions
           />
         ) : (
           <div className={styles.MissingImageContainer}>

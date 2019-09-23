@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
-import { sortBy, findIndex, isEmpty } from 'lodash';
+import { findIndex, isEmpty } from 'lodash';
 
 import CarouselNavButton from './carousel-nav-button';
 import CarouselDots from './carousel-dots';
 import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
+import Button from 'client/components/button/button';
 
 // Constants
 import IMAGES from '../../constants/image-constants';
@@ -13,13 +14,12 @@ import styles from './image-carousel.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 /*
- * 1. Add options menu like on the old carousel.
- * 2. Support the 'showHidden' prop.
+ * 1.
  * 4. Add gallary beneath the image.
  * 5. Make it clickable/scrollable with touch input.
  */
 
-const ImageCarousel = ({ className, images, showHidden }) => {
+const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate, showOptions, showHidden }) => {
   useStyles(styles);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -127,6 +127,76 @@ const ImageCarousel = ({ className, images, showHidden }) => {
                             onClick={show}
                             src={image.url}
                           />
+                          {showOptions && (
+                            <Modal headerLabel="Update Image">
+                              <ModalTrigger>
+                                {({ hide, show }) => {
+                                  return (
+                                    <div className={styles.OptionsMenu}>
+                                      <div
+                                        onClick={show}
+                                        className={styles.Button}
+                                      >
+                                        OPTIONS
+                                      </div>
+                                      {Boolean(image.isPrimary) && (
+                                        <div className={cx(styles.Primary, styles.Attribute)}>PRIMARY</div>
+                                      )}
+                                      {Boolean(image.hidden) && (
+                                        <div className={cx(styles.Danger, styles.Attribute)}>HIDDEN</div>
+                                      )}
+                                    </div>
+                                  );
+                                }}
+                              </ModalTrigger>
+                              <ModalContent>
+                                {({ hide }) => {
+                                  return (
+                                    <div>
+                                      {!image.isPrimary && (
+                                        <Button
+                                          onClick={() => {
+                                            hide();
+                                            onImageMappingUpdate(image.id, true, image.hidden);
+                                          }}
+                                        >
+                                          Make Primary
+                                        </Button>
+                                      )}
+                                      {Boolean(image.hidden) && (
+                                        <Button
+                                          onClick={() => {
+                                            hide();
+                                            onImageMappingUpdate(image.id, image.isPrimary, false);
+                                          }}
+                                        >
+                                          Unhide Image
+                                        </Button>
+                                      )}
+                                      {!image.hidden && !image.isPrimary && (
+                                        <Button
+                                          onClick={() => {
+                                            hide();
+                                            onImageMappingUpdate(image.id, image.isPrimary, true);
+                                          }}
+                                        >
+                                          Hide Image
+                                        </Button>
+                                      )}
+                                      <Button
+                                        onClick={() => {
+                                          hide();
+                                          onImageDelete(image.id);
+                                        }}
+                                      >
+                                        Delete Image
+                                      </Button>
+                                    </div>
+                                  );
+                                }}
+                              </ModalContent>
+                            </Modal>
+                          )}
                         </div>
                       );
                     }}
@@ -136,6 +206,7 @@ const ImageCarousel = ({ className, images, showHidden }) => {
                       return <img
                         className={styles.FullSizeImage}
                         src={image.url}
+                        onClick={hide}
                              />;
                     }}
                   </ModalContent>
