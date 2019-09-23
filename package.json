@@ -8,6 +8,10 @@
     "dev:build-server": "webpack --config webpack.server.js --watch",
     "dev:build-client": "webpack --config webpack.client.js --watch",
     "dev:server": "nodemon --watch build --exec \"node build/bundle.js\"",
+    "build": "npm-run-all --parallel build:*",
+    "start": "nodemon --exec \"node build/bundle.js\"",
+    "build:build-server": "NODE_ENV=production webpack -p --config webpack.server.js",
+    "build:build-client": "NODE_ENV=production webpack -p --config webpack.client.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

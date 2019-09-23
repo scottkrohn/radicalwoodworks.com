@@ -15,11 +15,9 @@ const clientConfig = {
     path: path.resolve(__dirname, 'public'),
   },
 
-  plugins: [
-    new webpack.DefinePlugin({
-      IS_CLIENT: true,
-    })
-  ],
+  plugins: [new webpack.DefinePlugin({
+    IS_CLIENT: true,
+  })],
 };
 
 module.exports = merge(commonConfig, clientConfig);
