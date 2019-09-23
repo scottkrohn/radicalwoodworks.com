@@ -32,11 +32,8 @@ export default {
 
 /**
  * Image Carousel
- * 1. Add options menu like on the old carousel.
- * 2. Support the 'showHidden' prop.
  * 4. Add gallary beneath the image.
  * 5. Make it clickable/scrollable with touch input.
- * 6. Add a pop up mode.
  *
  * Mobile/General
  * 1. Make every page mobile friendly.
