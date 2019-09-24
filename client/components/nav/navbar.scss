@@ -7,6 +7,10 @@
   border-bottom: 1px solid $light-gray;
   min-height: 40px;
 
+  .Drawer {
+    height: 725px;
+  }
+
   @media (max-width: $mobile) {
     min-height: 100px;
   }
@@ -51,7 +55,7 @@
     }
 
     @media (max-width: $mobile) {
-      font-size: 2em;
+      font-size: 4em;
     }
   }
 

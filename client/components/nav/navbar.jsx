@@ -106,6 +106,7 @@ const Navbar = ({ auth, logout, location }) => {
       <Drawer
         showing={hamburgerMenuShowing}
         hide={hideHamburgerMenu}
+        className={styles.Drawer}
       >
         {({ hide }) => {
           return (

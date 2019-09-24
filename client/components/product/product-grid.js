@@ -29,7 +29,8 @@ const ProductGrid = (props) => {
   };
 
   useEffect(() => {
-    setObservers();
+    // NOTE: Turning off the intersection observer for now.
+    // setObservers();
   });
 
   const hasProducts = get(props, 'products');
@@ -40,7 +41,9 @@ const ProductGrid = (props) => {
         props.products.map((product) => {
           const miniProduct = (
             <div
-              ref={myRefs[`product${product.getId()}`]} className={styles.Hidden}
+              ref={myRefs[`product${product.getId()}`]}
+              // className={styles.Hidden} // NOTE: Turning off the intersection observer for now.
+              className={styles.Show}
               key={uniqueId()}
             >
               <ProductMini product={product} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import cx from 'classnames';
 import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
 
@@ -8,7 +8,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const Drawer = ({ children, hide, showing }) => {
+const Drawer = ({ children, className, hide, showing }) => {
   const drawerRef = useRef(null);
 
   useOutsideClickHandler(drawerRef, hide);
@@ -17,6 +17,7 @@ const Drawer = ({ children, hide, showing }) => {
   const drawerClasses = cx({
     [styles.DrawerContainer]: true,
     [styles.Showing]: showing,
+    [className]: className,
   });
 
   return (
