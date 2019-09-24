@@ -1,5 +1,18 @@
 .ProductContainer {
-  .ImageCarousel {
-    height: 400px;
+  .ImagePricingSection {
+    display: flex;
+    flex-direction: row;
+
+    .ImageCarousel {
+      height: 400px;
+    }
+
+    @media (max-width: 992px) {
+      flex-direction: column;
+
+      .ImageCarousel {
+        height: 700px;
+      }
+    }
   }
 }

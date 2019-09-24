@@ -36,7 +36,7 @@ const ProductContainer = ({ getProduct, loading, match, product, location }) => 
       <Spinner spinning={loading}>
         {productLoaded && parseInt(product.getId(), 10) === parseInt(productId, 10) && (
           <Fragment>
-            <div className="flex">
+            <div className={styles.ImagePricingSection}>
               <ImageCarousel
                 className={cx(styles.ImageCarousel, 'flex-basis-50')}
                 images={product.getImages()}
