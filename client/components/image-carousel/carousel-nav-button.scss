@@ -13,4 +13,8 @@
     background: $light-gray;
     color: $gray;
   }
+
+  @media (max-width: 992px) {
+    font-size: 4.2em;
+  }
 }
