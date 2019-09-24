@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
-import { findIndex, isEmpty } from 'lodash';
+import { get, findIndex, isEmpty } from 'lodash';
 
 import CarouselNavButton from './carousel-nav-button';
 import CarouselDots from './carousel-dots';
@@ -13,16 +13,27 @@ import IMAGES from '../../constants/image-constants';
 import styles from './image-carousel.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-/*
- * 1.
- * 4. Add gallary beneath the image.
- * 5. Make it clickable/scrollable with touch input.
- */
-
 const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate, showOptions, showHidden }) => {
   useStyles(styles);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
+  const [swipeStart, setSwipeStart] = useState(null);
+  const [swipeEnd, setSwipeEnd] = useState(null);
+
+  useEffect(() => {
+    if (swipeStart && swipeEnd) {
+      const diff = swipeStart - swipeEnd;
+      if (Math.abs(diff) > 100) {
+        if (diff > 0) {
+          goToNextImage();
+        } else {
+          goToPrevImage();
+        }
+      }
+      setSwipeStart(null);
+      setSwipeEnd(null);
+    }
+  }, [swipeStart, swipeEnd]);
 
   const goToNextImage = () => {
     if (currentIndex === imageData.length - 1) {
@@ -103,6 +114,14 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
     return imageDataArr;
   }, [images]);
 
+  const onSwipeStart = (event) => {
+    setSwipeStart(get(event, 'touches[0].clientX'));
+  };
+
+  const onSwipeEnd = (event) => {
+    setSwipeEnd(get(event, 'changedTouches[0].clientX'));
+  };
+
   return (
     <div className={cx(styles.ImageCarouselContainer, className)}>
       <div
@@ -119,9 +138,13 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
               >
                 <Modal>
                   <ModalTrigger>
-                    {({ hide, show }) => {
+                    {({ show }) => {
                       return (
-                        <div className={styles.ImageWrapper}>
+                        <div
+                          onTouchStart={onSwipeStart}
+                          onTouchEnd={onSwipeEnd}
+                          className={styles.ImageWrapper}
+                        >
                           <img
                             className={cx(styles.Image, currentIndex === index && styles.Active)}
                             onClick={show}
