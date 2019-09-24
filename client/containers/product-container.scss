@@ -5,13 +5,20 @@
 
     .ImageCarousel {
       height: 400px;
+      flex-basis: 50%;
+    }
+
+    .Pricing {
+      height: 400px;
+      flex-basis: 50%;
     }
 
     @media (max-width: 992px) {
       flex-direction: column;
+      height: 1000px;
 
       .ImageCarousel {
-        height: 700px;
+        height: 500px;
       }
     }
   }

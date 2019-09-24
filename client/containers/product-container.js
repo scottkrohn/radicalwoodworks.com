@@ -38,11 +38,11 @@ const ProductContainer = ({ getProduct, loading, match, product, location }) => 
           <Fragment>
             <div className={styles.ImagePricingSection}>
               <ImageCarousel
-                className={cx(styles.ImageCarousel, 'flex-basis-50')}
+                className={cx(styles.ImageCarousel)}
                 images={product.getImages()}
               />
               <Pricing
-                className="flex-basis-50"
+                className={styles.Pricing}
                 product={product}
               />
             </div>
