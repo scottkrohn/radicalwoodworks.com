@@ -1,19 +1,15 @@
 import React, { PureComponent } from 'react';
 
 import styles from 'client/components/content/content.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-class Content extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
-    render = () => {
-        return (
-            <div className={styles.ContentContainer}>
-                <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
-            </div>
-        );
-    };
-}
+const Content = ({ content }) => {
+  useStyles(styles);
+  return (
+    <div className={styles.ContentContainer}>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </div>
+  );
+};
 
 export default Content;
