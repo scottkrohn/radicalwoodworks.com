@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 // Components
 import Button from 'client/components/button/button';
@@ -11,11 +12,11 @@ import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 import styles from 'client/components/page-header/page-header.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const PageHeader = ({ text, href, buttonText, headerText, onButtonClick, showButton }) => {
+const PageHeader = ({ className, text, href, buttonText, headerText, onButtonClick, showButton }) => {
   useStyles(styles);
 
   return (
-    <div className={styles.PageHeaderContainer}>
+    <div className={cx(className, styles.PageHeaderContainer)}>
       <div className={styles.LeftLink}>
         {text && href ? (
           <Link to={href}>

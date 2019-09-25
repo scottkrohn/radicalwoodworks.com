@@ -20,7 +20,11 @@ import { getProducts as getProductsSelector, getLoading } from 'selectors/produc
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
+import styles from 'client/containers/admin-products-container.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
+
 const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, history, loading, products }) => {
+  useStyles(styles);
   const [deletingProduct, setDeletingProduct] = useState(false);
   const [notificationContent, setNotificationContent] = useState({});
 
@@ -47,7 +51,6 @@ const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, hist
         });
       } finally {
         setDeletingProduct(false);
-        // TODO: Pop notification
       }
     })();
   };
@@ -65,6 +68,7 @@ const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, hist
       <div className="row">
         <div className="col-12">
           <PageHeader
+            className={styles.AdminProductsPageHeader}
             headerText="Edit Products"
             buttonText="Create Product"
             onButtonClick={handleCreateProduct}

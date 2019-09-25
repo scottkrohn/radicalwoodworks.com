@@ -28,6 +28,9 @@ import Product from 'model/product';
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
+import styles from 'client/containers/admin-product-container.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
+
 const AdminProductContainer = ({
   createProduct,
   deleteImage,
@@ -41,6 +44,7 @@ const AdminProductContainer = ({
   updateProductImageMapping,
   uploadingImage,
 }) => {
+  useStyles(styles);
   const [loading, setLoading] = useState(false);
   const [createMode, setCreateMode] = useState(false);
   const [invalidFields, setInvalidFields] = useState({});
@@ -306,6 +310,7 @@ const AdminProductContainer = ({
         <div className="row">
           <div className="col-12">
             <PageHeader
+              className={styles.AdminProductPageHeader}
               headerText={createMode ? 'Create Product' : 'Edit Product'}
               buttonText="Save"
               onButtonClick={handleSave}
