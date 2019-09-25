@@ -47,7 +47,6 @@ const HomepageImageGrid = (props) => {
         {props.content.buttonText && props.content.url && (
           <Button
             dark
-            halfWidth
             onClick={() => handleButtonClick(props.content.url)}
             className={styles.ContentButton}
           >

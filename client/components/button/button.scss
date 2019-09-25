@@ -52,6 +52,13 @@
       background: $dark-hover;
     }
   }
+
+  @media (max-width: 992px) {
+    .Button {
+      height: 80px;
+      font-size: 3em;
+    }
+  }
 }
 
 .HalfWidth {

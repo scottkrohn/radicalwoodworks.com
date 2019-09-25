@@ -31,14 +31,10 @@ export default {
 };
 
 /**
- * Image Carousel
- * 4. Add gallary beneath the image.
- * 5. Make it clickable/scrollable with touch input.
  *
  * Mobile/General
  * 1. Make every page mobile friendly.
  * 2. Handle loading/completed/error states for all pages that need them.
  *
  * Misc
- * 1. Fix the bullets on the FAQ page.
  */
