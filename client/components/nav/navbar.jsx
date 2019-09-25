@@ -54,7 +54,7 @@ const Navbar = ({ auth, logout, location }) => {
 
   const handleLogout = () => {
     Cookie.remove('utoken');
-    this.props.logout();
+    logout();
   };
 
   const hideHamburgerMenu = () => {
@@ -80,7 +80,7 @@ const Navbar = ({ auth, logout, location }) => {
           <NavbarLink
             label={NavConstants.navBarLinks.accountNav.logout.label}
             path={NavConstants.navBarLinks.accountNav.logout.path}
-            onClick={logout}
+            onClick={handleLogout}
           />
         ) : (
           <NavbarLink
