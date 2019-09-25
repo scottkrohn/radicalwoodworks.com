@@ -124,7 +124,7 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
                     {...fieldProps('message')}
                   />
                   <Button
-                    className="mt-3"
+                    className={styles.SubmitButton}
                     primary
                     onClick={handleSubmit(getFormValues)}
                   >
