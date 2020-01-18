@@ -1,0 +1,50 @@
+.PageHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  margin-top: 10px;
+
+  div {
+    flex-basis: 33.3%;
+    text-align: center;
+  }
+
+  .Button {
+    display: flex;
+    align-items: center;
+  }
+
+  .LeftLink {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 20px;
+
+    .LinkText {
+      margin-left: 5px;
+    }
+  }
+
+  :nth-child(3) {
+    text-align: right;
+  }
+
+  .HeaderText {
+    font-size: 2.3em;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 992px) {
+  .PageHeaderContainer {
+    div {
+      flex-basis: 0%;
+    }
+
+    flex-direction: column;
+    .HeaderText {
+      align-self: center;
+      font-size: 4em;
+    }
+  }
+}

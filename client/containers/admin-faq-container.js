@@ -1,38 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cx from 'classnames';
+import { isEmpty } from 'lodash';
 
 // Components
 import Spinner from 'client/components/spinner/spinner';
-import Snackbar from '@material-ui/core/Snackbar';
-import Button from 'client/components/base/button/button';
+import Button from 'client/components/button/button';
 import Grid from 'client/components/grid/grid';
 import ContentEditor from 'client/components/content-editor/content-editor';
+import PageHeader from 'client/components/page-header/page-header';
+import Notification from 'client/components/notification/notification';
 
 // Actions
 import { getAllContent, updateContent } from 'client/actions/content-actions';
 import { verifyLogin } from 'client/actions/admin-actions';
 
 // Selectors
-import { getAllContent as getAllContentObjects, getLoading } from 'client/selectors/content-selector';
+import { getAllContent as getAllContentObjects, getContentType, getLoading } from 'client/selectors/content-selector';
 
 // HOC
-import { withValidation } from 'client/hoc/auth';
+import { withAuthValidation } from 'client/hoc/auth';
 
-const AdminFaqContainer = (props) => {
+// Styles
+import styles from './admin-faq-container.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
+
+const AdminFaqContainer = ({ content, contentType, getAllContent, loading, updateContent }) => {
+  useStyles(styles);
   const [selectedContent, setSelectedContent] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationContent, setNotificationContent] = useState({});
 
   useEffect(() => {
-    (async () => {
-      try {
-        await props.verifyLogin();
-      } catch (error) {
-        props.redirectToHome();
-      }
-      props.getAllContent('POLICY');
-    })();
+    if (isEmpty(content) || contentType !== 'POLICY') {
+      getAllContent('POLICY');
+    }
   }, []);
 
   const handleEditorChange = (content) => {
@@ -44,42 +46,40 @@ const AdminFaqContainer = (props) => {
 
     (async () => {
       try {
-        await props.updateContent(content);
-        handleShowNotification('Successfully saved!');
+        await updateContent(content);
+        setNotificationContent({
+          header: 'Success!',
+          message: 'Update successfully saved!',
+          showing: true,
+        });
       } catch (error) {
-        handleShowNotification('There was an error while saving!');
+        setNotificationContent({
+          header: 'Error',
+          message: 'There was an error while saving this update, please try again.',
+          showing: true,
+        });
       }
     })();
   };
 
-  // TODO: Maybe I can use a custom hook here to handle showing notifications?
-  const handleShowNotification = (message) => {
-    setShowNotification(true);
-    setNotificationMessage(message);
-  };
-
-  const handleHideNotification = () => {
-    setShowNotification(false);
-  };
-
-  const content = props.content || [];
   const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
 
   return (
-    <div className="container-fluid text-center">
-      <Spinner spinning={props.loading}>
-        <h2>Edit FAQ</h2>
+    <div className={cx('container-fluid text-center', styles.AdminFaqContainer)}>
+      <Spinner spinning={loading}>
+        <PageHeader
+          headerText="Edit FAQ"
+          showButton={false}
+        />
         <Grid>
           {policyContent.length > 0 &&
             policyContent.map((contentObj) => {
               return (
                 <Button
                   key={contentObj.getId()}
-                  variant="contained"
-                  color="primary"
+                  primary
                   className="mt-4 ml-3 mr-3"
                   onClick={() => handleEditorChange(contentObj)}
-                  grow
                 >
                   EDIT {contentObj.getType()}
                 </Button>
@@ -87,18 +87,18 @@ const AdminFaqContainer = (props) => {
             })}
         </Grid>
 
-        <div className="mt-4">
-          {selectedContent && <ContentEditor handleSave={handleSave} content={selectedContent} />}
+        <div className={styles.EditorContainer}>
+          {selectedContent && <ContentEditor
+            handleSave={handleSave}
+            content={selectedContent}
+                              />}
         </div>
-
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={showNotification}
-          autoHideDuration={3000}
-          onClose={handleHideNotification}
-          message={<span>{notificationMessage}</span>}
-        />
       </Spinner>
+
+      <Notification
+        content={notificationContent}
+        hide={() => setNotificationContent({ showing: false })}
+      />
     </div>
   );
 };
@@ -115,6 +115,7 @@ AdminFaqContainer.propTypes = {
 const mapStateToProps = (state) => {
   return {
     content: getAllContentObjects(state),
+    contentType: getContentType(state),
     loading: getLoading(state),
   };
 };
@@ -125,7 +126,10 @@ const mapActionsToProps = {
   updateContent,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withValidation(AdminFaqContainer));
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(withAuthValidation(AdminFaqContainer)),
+  loadData: (store) => store.dispatch(getAllContent('POLICY')),
+};

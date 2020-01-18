@@ -13,25 +13,25 @@
     color: inherit;
   }
 
-	.Price {
-		font-weight: 500;
-		color: @moneyGreen;
-		font-size: 1.2em;
-	}
+  .Price {
+    font-weight: 500;
+    color: @moneyGreen;
+    font-size: 1.2em;
+  }
 
-	.ProductTitle {
-		text-align: center;
-		font-size: 1.2em;
-	}
+  .ProductTitle {
+    text-align: center;
+    font-size: 1.2em;
+  }
 
-	.ProductImage {
+  .ProductImage {
     box-sizing: border-box;
-		height: 450px;
-		width: 450px;
-		border: solid @gray 1px;
+    height: 450px;
+    width: 450px;
+    border: solid @gray 1px;
     border-radius: 3px;
     position: relative;
-    
+
     &:hover {
       opacity: 0.5;
       transition: opacity ease-in 300ms;
@@ -47,7 +47,8 @@
       background-color: black;
     }
 
-    &::before, &::after {
+    &::before,
+    &::after {
       box-sizing: border-box;
       border-radius: 3px;
       pointer-events: none;
@@ -71,44 +72,51 @@
       transform: scale(0, 1);
     }
 
-    &::after{
+    &::after {
       border-left: 1px solid @light-gray;
       border-right: 1px solid @light-gray;
       transform: scale(1, 0);
     }
 
-    &:hover::before, &:hover::after {
+    &:hover::before,
+    &:hover::after {
       transform: scale(1, 1);
       transition: transform ease-out 300ms;
     }
   }
 
-	.NoImage {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border: solid @gray 1px;
-		background: @light-gray;
-		border-radius: 3px;
-		width: 450px;
-		height: 450px;
+  .NoImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid @gray 1px;
+    background: @light-gray;
+    border-radius: 3px;
+    width: 450px;
+    height: 450px;
 
-		.NoImageIcon {
-			font-size: 20px;
-		}
-	}
-
-	@media (max-width: 1175px) {
-
-		.Price, .ProductTitle {
-			font-size: 2.2em;
-		}
+    .NoImageIcon {
+      font-size: 20px;
+    }
   }
-  
+
+  @media (max-width: 1175px) {
+    .Price,
+    .ProductTitle {
+      font-size: 2.2em;
+    }
+
+    .ProductImage {
+      width: 380px;
+      height: 380px;
+    }
+  }
+
   @media (max-width: 950px) {
-		.NoImage, .ProductImage {
-			width: 550px;
-			height: 550px;
-		}
+    .NoImage,
+    .ProductImage {
+      width: 550px;
+      height: 550px;
+    }
   }
 }

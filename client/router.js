@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 // Containers
 import HomepageContainer from 'containers/homepage-container';
-import ProductsContainer from 'containers/products-container';
-import AboutContainer from 'containers/about-container';
+import ProductsContainer from 'client/containers/products-container';
+import AboutContainer from 'client/containers/about-container';
 import ContactContainer from 'containers/contact-container';
 import ProductContainer from 'containers/product-container';
 import FaqContainer from 'containers/faq-container';
@@ -25,49 +25,60 @@ import NotFoundContainer from 'containers/not-found-container';
 const Router = () => (
   <Switch>
     <Route
-      exact path="/"
+      exact
+      path="/"
       component={HomepageContainer}
     />
     <Route
-      exact path="/about"
+      exact
+      path="/about"
       component={AboutContainer}
     />
     <Route
-      exact path="/contact"
+      exact
+      path="/contact"
       component={ContactContainer}
     />
     <Route
-      exact path="/faq"
+      exact
+      path="/faq"
       component={FaqContainer}
     />
     <Route
-      exact path="/login"
+      exact
+      path="/login"
       component={LoginContainer}
     />
     <Route
-      exact path="/products"
+      exact
+      path="/products"
       component={ProductsContainer}
     />
     <Route
-      exact path="/products/product/:productId"
+      exact
+      path="/products/product/:productId"
       component={ProductContainer}
     />
 
     {/* Protected Routes */}
     <ProtectedRoute
-      exact path="/admin"
+      exact
+      path="/admin"
       component={AdminContainer}
     />
     <ProtectedRoute
-      exact path="/admin-about"
+      exact
+      path="/admin-about"
       component={AdminAboutUsContainer}
     />
     <ProtectedRoute
-      exact path="/admin-faq"
+      exact
+      path="/admin-faq"
       component={AdminFaqContainer}
     />
     <ProtectedRoute
-      exact path="/admin-products"
+      exact
+      path="/admin-products"
       component={AdminProductsContainer}
     />
     <ProtectedRoute

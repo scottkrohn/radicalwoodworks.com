@@ -1,0 +1,11 @@
+.ContactForm {
+  width: 80%;
+
+  .SubmitButton {
+    margin-top: 40px;
+  }
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
+}

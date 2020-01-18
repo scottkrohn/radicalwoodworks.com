@@ -1,0 +1,74 @@
+@import '../../styles/variables.scss';
+
+@keyframes backgroundFade {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    top: 100px;
+    opacity: 0;
+  }
+  to {
+    top: 200px;
+    opacity: 1;
+  }
+}
+
+.ModalOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: backgroundFade 300ms;
+
+  .ModalContent {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding: 10px;
+    position: absolute;
+    top: 200px;
+    background: white;
+    min-width: 200px;
+    min-height: 150px;
+    animation: slideIn 300ms;
+
+    .ContentHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 400;
+      font-size: 1.1em;
+      border-bottom: 1px solid $gray;
+      margin: -5px -10px 5px -10px;
+      padding: 0 0 5px 10px;
+
+      .CloseIcon {
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .HidingContent {
+    top: 100px;
+    opacity: 0;
+    transition: all 300ms;
+  }
+}
+
+.HidingOverlay {
+  background: rgba(0, 0, 0, 0);
+  transition: all 300ms;
+}

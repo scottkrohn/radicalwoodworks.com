@@ -1,0 +1,15 @@
+@import '../../styles/variables.scss';
+
+.MissingImageContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5em;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $gray;
+  background: $light-gray;
+
+  .Message {
+    font-size: 0.6em;
+  }
+}

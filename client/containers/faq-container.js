@@ -1,58 +1,65 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { uniqueId } from 'lodash';
+import { isEmpty } from 'lodash';
 
 // Actions
 import { getAllContent } from 'client/actions/content-actions';
 
 // Selectors
-import { getAllContent as getAllContentObjects } from 'client/selectors/content-selector';
+import { getAllContent as getAllContentObjects, getContentType, getLoading } from 'client/selectors/content-selector';
 
 // Components
 import Content from 'client/components/content/content';
+import Spinner from '../components/spinner/spinner';
+import PageHeader from 'client/components/page-header/page-header';
 
-class FaqContainer extends Component {
-    constructor(props) {
-        super(props);
+const FaqContainer = ({ content, contentType, getAllContent, loading }) => {
+  useEffect(() => {
+    if (isEmpty(content) || contentType !== 'POLICY') {
+      getAllContent('POLICY');
     }
+  }, []);
 
-    componentDidMount = () => {
-        this.props.getAllContent('POLICY');
-    };
-
-    render = () => {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="text-center">
-                            <h1>Radical Woodworks Products</h1>
-                        </div>
-                        {this.props.content.map((contentElement) => {
-                            return (
-                                <div key={uniqueId()}>
-                                    <Content content={contentElement.getContent()} />
-                                </div>
-                            );
-                        })}
-                    </div>
+  return (
+    <div className="container-fluid">
+      <div className="col-xs-12">
+        <div className="text-center">
+          <Spinner spinning={loading} />
+          <PageHeader
+            headerText="Frequently Asked Questions"
+            showButton={false}
+          />
+          {contentType === 'POLICY' &&
+            content.map((contentElement) => {
+              return (
+                <div key={uniqueId()}>
+                  <Content content={contentElement.getContent()} />
                 </div>
-            </div>
-        );
-    };
-}
+              );
+            })}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
-    return {
-        content: getAllContentObjects(state),
-    };
+  return {
+    content: getAllContentObjects(state),
+    contentType: getContentType(state),
+    loading: getLoading(state),
+  };
 };
 
 const mapActionsToProps = {
-    getAllContent: getAllContent,
+  getAllContent: getAllContent,
 };
 
-export default connect(
+export default {
+  component: connect(
     mapStateToProps,
     mapActionsToProps
-)(FaqContainer);
+  )(FaqContainer),
+  loadData: (store) => store.dispatch(getAllContent('POLICY')),
+};

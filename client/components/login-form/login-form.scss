@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.LoginFormContainer {
+  .LoginFormFields {
+    width: 80%;
+  }
+
+  .LoginError {
+    color: $error-red;
+  }
+}

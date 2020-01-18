@@ -1,71 +1,70 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 // Components
 import ImageUpload from 'client/components/image-upload/image-upload';
-import ImageCarousel from 'client/components/image-carousel/image-carousel';
-import Button from 'client/components/base/button/button';
+import ImageCarousel from '../image-carousel/image-carousel';
+import Button from 'client/components/button/button';
+import MissingImage from 'client/components/missing-image/missing-image';
 
 // Styles
 import styles from 'client/components/edit-images/edit-images.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-// prettier-ignore
-class EditImages extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const EditImages = ({
+  onImageUpload,
+  product,
+  onImageDelete,
+  missingImageMessage,
+  hideAddButton,
+  onImageMappingUpdate,
+}) => {
+  useStyles(styles);
 
-  onImageUpload = (image) => {
-    if (typeof this.props.onImageUpload === 'function') {
-      this.props.onImageUpload(image);
+  const handleImageUpload = (image) => {
+    if (typeof onImageUpload === 'function') {
+      onImageUpload(image);
     }
   };
 
-  getSortedImages = () => {
-    const images = !isEmpty(this.props.product) ? this.props.product.getImages() : [];
+  const productId = !isEmpty(product) ? product.getId() : null;
+  const images = product && product.getImages ? product.getImages() : [];
 
-    images.sort((a, b) => {
-      return a.getIsPrimary() ? -1 : 1;
-    });
-
-    return images;
-  }
-
-  render = () => {
-    const images = this.getSortedImages();
-    const productId = !isEmpty(this.props.product) ? this.props.product.getId() : null;
-
-    return (
-      <div className={styles.EditImagesContainer}>
-        <div className={styles.CarouselContainer}>
+  return (
+    <div className={styles.EditImagesContainer}>
+      <div className={styles.CarouselContainer}>
+        {images && images.length > 0 ? (
           <ImageCarousel
             images={images}
-            onDelete={this.props.onImageDelete}
-            onImageMappingUpdate={this.props.onImageMappingUpdate}
+            onDelete={onImageDelete}
+            onImageMappingUpdate={onImageMappingUpdate}
+            onImageDelete={onImageDelete}
             showHidden
+            showOptions
           />
-        </div>
-        {!this.props.hideAddButton && (
-          <div className={styles.ImageUploadContainer}>
-            <ImageUpload
-              onImageUploadSuccess={this.onImageUpload}
-              productId={productId}
-            >
-              <Button
-                variant="contained"
-                slim
-                color="primary"
-              >
-                Add Image
-              </Button>
-            </ImageUpload>
+        ) : (
+          <div className={styles.MissingImageContainer}>
+            <MissingImage
+              className={styles.MissingImage}
+              message={missingImageMessage}
+            />
           </div>
         )}
       </div>
-    );
-  };
-}
+      {!hideAddButton && (
+        <div className={styles.ImageUploadContainer}>
+          <ImageUpload
+            onImageUploadSuccess={handleImageUpload}
+            productId={productId}
+          >
+            <Button primary>Add Image</Button>
+          </ImageUpload>
+        </div>
+      )}
+    </div>
+  );
+};
 
 EditImages.propTypes = {
   product: PropTypes.object,

@@ -122,13 +122,25 @@ class Product extends Model {
   /* Derived Data*/
   /*****************/
 
+  getFormattedPrice = () => {
+    return isNaN(this.getPrice()) ? this.getPrice() : this.getPrice().toFixed(2);
+  };
+
+  getFormattedShippingPrice = () => {
+    return isNaN(this.getShippingPrice()) ? this.getShippingPrice() : this.getShippingPrice().toFixed(2);
+  };
+
+  getFormattedFinalPrice = () => {
+    return isNaN(this.getFinalPrice()) ? this.getFinalPrice() : this.getFinalPrice().toFixed(2);
+  };
+
   getFinalPrice = () => {
     return !this.getIncludeShippingInPrice() ? this.getPrice() : this.getPrice() + this.getShippingPrice();
-  }
+  };
 
   getDefaultColorUi = () => {
     return PRODUCTS.getLabelForValue(PRODUCTS.chalkboards.stains, this.getDefaultColor());
-  }
+  };
 
   getPrimaryImageUrl = () => {
     const images = this.getImages();
@@ -141,10 +153,10 @@ class Product extends Model {
     // Return either the primary image if it exists, or the first image if no primary is set.
     if (primaryImage) {
       return primaryImage.getThumbUrl();
-    } else if(!isEmpty(images[0])) {
+    } else if (!isEmpty(images[0])) {
       return images[0].getThumbUrl();
     }
-  }
+  };
 }
 
 export default Product;

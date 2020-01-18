@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
 import { get, isEmpty } from 'lodash';
-import { Icon } from 'antd';
 
 // Constants
 import IMAGE from 'constants/image-constants';
 
+import MissingImage from 'client/components/missing-image/missing-image';
+
 // Styles
 import styles from 'components/product/product-mini.less';
-import NavLink from 'client/components/nav/nav-link';
+import useStyles from 'isomorphic-style-loader/useStyles';
+import { Link } from 'react-router-dom';
 
-class Product extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+const ProductMini = ({ product }) => {
+  useStyles(styles);
   // For now this just grabs the first image.
-  getMainImageUrl = () => {
-    const product = get(this.props, 'product');
-
+  const getMainImageUrl = () => {
     if (!product) {
       return null;
     }
@@ -38,38 +35,36 @@ class Product extends Component {
     return image ? image.getThumbUrl() : null;
   };
 
-  renderImage = () => {
-    const imageUrl = this.getMainImageUrl();
+  const renderImage = () => {
+    const imageUrl = getMainImageUrl();
 
     return (
       <div>
         {imageUrl ? (
           <div className={styles.ImageWrap}>
-            <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
+            <img
+              className={styles.ProductImage}
+              src={IMAGE.getFullUrl(imageUrl)}
+            />
           </div>
         ) : (
           <div className={styles.NoImage}>
-            <Icon className={styles.NoImageIcon} type="picture" />
+            <MissingImage />
           </div>
         )}
       </div>
     );
   };
 
-  renderPrice = () => {
-    const product = get(this.props, 'product');
-
+  const renderPrice = () => {
     if (!product) {
       return '';
     }
 
-    const priceString = product.getFinalPrice();
-    return <div className={styles.Price}>${priceString.toFixed(2)}</div>;
+    return <div className={styles.Price}>${product.getFormattedFinalPrice()}</div>;
   };
 
-  renderTitle = () => {
-    const product = get(this.props, 'product');
-
+  const renderTitle = () => {
     if (!product) {
       return '';
     }
@@ -77,20 +72,20 @@ class Product extends Component {
     return <div className={styles.ProductTitle}>{product.getTitle()}</div>;
   };
 
-  render = () => {
-    const product = get(this.props, 'product');
-    const productPageLink = `/products/product/${product.getId()}`;
+  const productPageLink = `/products/product/${product.getId()}`;
 
-    return (
-      <div className={styles.ProductMiniContainer}>
-        <NavLink to={productPageLink} className={styles.Link}>
-          {this.renderImage()}
-          {this.renderTitle()}
-          {this.renderPrice()}
-        </NavLink>
-      </div>
-    );
-  };
-}
+  return (
+    <div className={styles.ProductMiniContainer}>
+      <Link
+        to={productPageLink}
+        className={styles.Link}
+      >
+        {renderImage()}
+        {renderTitle()}
+        {renderPrice()}
+      </Link>
+    </div>
+  );
+};
 
-export default Product;
+export default ProductMini;

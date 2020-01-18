@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+
+.ActionIcon {
+  color: $black;
+  cursor: pointer;
+  margin: 3px;
+  font-size: 1.5em;
+}
+
+.ActionIcon:first-child {
+  margin-right: 10px;
+}
+
+.Cell {
+  position: relative;
+  padding: 3px;
+}
+
+.Icons {
+  display: flex;
+}
+
+.TableImage {
+  width: 100px;
+  height: 100px;
+}
+
+.Text {
+  max-width: 400px;
+}
+
+@media (max-width: 992px) {
+  .Text {
+    font-size: 2em;
+  }
+
+  .ActionIcon {
+    font-size: 3em;
+  }
+}

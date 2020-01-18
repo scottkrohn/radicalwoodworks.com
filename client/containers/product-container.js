@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, isEmpty } from 'lodash';
-import { Spin } from 'antd';
+import cx from 'classnames';
 
 // Actions
 import { getProduct } from 'client/actions/product-actions';
@@ -11,34 +11,49 @@ import { getProduct } from 'client/actions/product-actions';
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
 
 // Component
-import ImagePricingSection from 'client/components/product/image-pricing-section';
+import Pricing from 'client/components/product/pricing';
 import ItemInfo from 'client/components/product/item-info';
+import Spinner from '../components/spinner/spinner';
+import ImageCarousel from '../components/image-carousel/image-carousel';
 
-class ProductContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+import styles from './product-container.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
-  componentDidMount = () => {
-    const productId = get(this.props, 'match.params.productId');
-    this.props.getProduct(productId);
-  };
+const ProductContainer = ({ getProduct, loading, match, product, location }) => {
+  useStyles(styles);
+  const productId = get(match, 'params.productId');
 
-  render = () => {
-    const product = get(this.props, 'product', null);
-    const productLoaded = !isEmpty(product);
+  useEffect(() => {
+    if (isEmpty(product) || product.getId() != productId) {
+      getProduct(productId);
+    }
+  }, []);
 
-    return (
-      <div className="container-fluid">
-        <Spin spinning={this.props.loading} size="large">
-          {productLoaded && <ImagePricingSection product={product} />}
-          <hr />
-          {productLoaded && <ItemInfo product={product} />}
-        </Spin>
-      </div>
-    );
-  };
-}
+  const productLoaded = !isEmpty(product);
+
+  return (
+    <div className={cx(styles.ProductContainer, 'container-fluid mt-1')}>
+      <Spinner spinning={loading}>
+        {productLoaded && parseInt(product.getId(), 10) === parseInt(productId, 10) && (
+          <Fragment>
+            <div className={styles.ImagePricingSection}>
+              <ImageCarousel
+                className={cx(styles.ImageCarousel)}
+                images={product.getImages()}
+              />
+              <Pricing
+                className={styles.Pricing}
+                product={product}
+              />
+            </div>
+            <hr />
+            <ItemInfo product={product} />
+          </Fragment>
+        )}
+      </Spinner>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -55,7 +70,13 @@ const mapActionsToProps = {
   getProduct,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(ProductContainer);
+export default {
+  component: connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(ProductContainer),
+  loadData: (store, pathParts) => {
+    const productId = pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
+    return productId !== null ? store.dispatch(getProduct(productId)) : Promise.resolve();
+  },
+};

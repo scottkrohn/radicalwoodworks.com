@@ -1,36 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-// Actions
-import { verifyLogin } from 'client/actions/admin-actions';
 
 // Components
 import Grid from 'client/components/grid/grid';
 import AdminSection from 'client/components/admin-section/admin-section';
+import PageHeader from 'client/components/page-header/page-header';
 
 // HOC
-import { withValidation } from 'client/hoc/auth';
+import { withAuthValidation } from 'client/hoc/auth';
 
-const sectionIds = {
-  editProducts: 'editProducts',
-  editPolicies: 'editPolicies',
-  editAboutUs: 'editAboutUs',
-  editFaq: 'editFaq',
-};
-
-const AdminContainer = (props) => {
-  useEffect(() => {
-    props.verifyLogin().catch((error) => {
-      props.redirectToHome();
-    })
-  }, [])
-
+const AdminContainer = () => {
   return (
     <div className="container-fluid">
-      <div className="text-center">
-        <h1>Radical Woodworks Admin Panel</h1>
-      </div>
+      <PageHeader
+        headerText="Radical Woodworks Admin Panel"
+        showButton={false}
+      />
       <div>
         <Grid>
           <AdminSection
@@ -66,11 +52,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-const mapActionsToProps = {
-  verifyLogin,
+export default {
+  component: connect(mapStateToProps)(withAuthValidation(AdminContainer)),
 };
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withValidation(AdminContainer));

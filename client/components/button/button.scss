@@ -1,0 +1,70 @@
+@import '../../styles//variables.scss';
+
+.ButtonContainer {
+  .Button {
+    border-radius: 3px;
+    width: 100%;
+    height: 40px;
+    color: $white;
+    background: $default;
+    transition: background 300ms ease-in-out;
+
+    &:focus,
+    &:hover {
+      outline: none;
+      background: $default-hover;
+    }
+  }
+
+  .Primary {
+    background: $primary;
+
+    &:focus,
+    &:hover {
+      background: $primary-hover;
+    }
+  }
+
+  .Danger {
+    background: $danger;
+
+    &:focus,
+    &:hover {
+      background: $danger-hover;
+    }
+  }
+
+  .Save {
+    background: $save;
+
+    &:focus,
+    &:hover {
+      background: $save-hover;
+    }
+  }
+
+  .Dark {
+    background: $dark;
+    border-radius: 1px;
+
+    &:focus,
+    &:hover {
+      background: $dark-hover;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .Button {
+      height: 80px;
+      font-size: 3em;
+    }
+  }
+}
+
+.HalfWidth {
+  width: 50%;
+}
+
+.FullWidth {
+  width: 100%;
+}

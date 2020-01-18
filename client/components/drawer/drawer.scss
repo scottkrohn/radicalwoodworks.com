@@ -1,0 +1,28 @@
+@import '../../styles//variables.scss';
+
+.DrawerContainer {
+  position: fixed;
+  left: 0;
+  top: -2000;
+  min-height: 600px;
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid $gray;
+  z-index: $z-index-drawer;
+  transition: top ease-out 400ms;
+  box-shadow: 0px 1px 5px 0px;
+
+  .CloseIcon {
+    font-size: 4em;
+    font-weight: 300;
+    color: $gray;
+    position: absolute;
+    bottom: 45px;
+    right: 30px;
+    cursor: pointer;
+  }
+}
+
+.Showing {
+  top: 0;
+}

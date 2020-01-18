@@ -1,11 +1,10 @@
-import axios from 'axios';
 import qs from 'qs';
 import { get } from 'lodash';
 
 import ACTIONS from 'constants/action-constants';
 
 export const login = (username, password) => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     dispatch(loginRequest());
 
     const postBody = {
@@ -37,7 +36,7 @@ export const login = (username, password) => {
 };
 
 export const logout = () => {
-  return (dispatch) => {
+  return (dispatch, getState, axios) => {
     dispatch(logoutRequest());
 
     return new Promise((resolve, reject) => {
@@ -56,9 +55,47 @@ export const logout = () => {
   };
 };
 
+export const verifyLogin = () => {
+  return (dispatch, getState, axios) => {
+    dispatch(verifyLoginRequest());
+    return new Promise((resolve, reject) => {
+      axios
+        .get('/admin/verify')
+        .then((response) => {
+          dispatch(verifyLoginSuccess());
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(verifyLoginError(error));
+          reject();
+        });
+    });
+  };
+};
+
 /*******************/
 /* Action Creators */
 /*******************/
+
+const verifyLoginRequest = () => {
+  return {
+    type: ACTIONS.VERIFY_LOGIN_REQUEST,
+    payload: {},
+  };
+};
+
+const verifyLoginError = (error) => {
+  return {
+    type: ACTIONS.VERIFY_LOGIN_ERROR,
+    payload: { error },
+  };
+};
+const verifyLoginSuccess = () => {
+  return {
+    type: ACTIONS.VERIFY_LOGIN_SUCCESS,
+    payload: {},
+  };
+};
 
 const loginRequest = () => {
   return {

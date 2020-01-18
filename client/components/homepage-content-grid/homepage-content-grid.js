@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 // Styles
 import styles from 'client/components/homepage-content-grid/homepage-content-grid.scss';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Components
-import Button from 'client/components/base/button/button';
+import Button from 'client/components/button/button';
 
 // Utils
 import { observerIsIntersecting } from 'client/utils/observers';
@@ -14,6 +15,8 @@ import { observerIsIntersecting } from 'client/utils/observers';
 import { withRouter } from 'react-router-dom';
 
 const HomepageImageGrid = (props) => {
+  useStyles(styles);
+
   const myRefs = {};
   props.homepageContent.forEach((content) => {
     const ref = React.createRef();
@@ -43,9 +46,7 @@ const HomepageImageGrid = (props) => {
         <div className={styles.ContentText}>{props.content.text}</div>
         {props.content.buttonText && props.content.url && (
           <Button
-            variant="contained"
-            color="dark"
-            halfWidth
+            dark
             onClick={() => handleButtonClick(props.content.url)}
             className={styles.ContentButton}
           >
@@ -61,13 +62,15 @@ const HomepageImageGrid = (props) => {
       {props.homepageContent.map((content) => {
         if (content.type === 'image') {
           return <img
-            key={content.key} ref={myRefs[`url_${content.key}`].ref}
+            key={content.key}
+            ref={myRefs[`url_${content.key}`].ref}
             className={styles.Content}
-          />;
+                 />;
         } else if (content.type === 'content') {
           return (
             <div
-              ref={myRefs[`url_${content.key}`].ref} key={content.key}
+              ref={myRefs[`url_${content.key}`].ref}
+              key={content.key}
               className={styles.TextContent}
             >
               <TextContent content={content} />

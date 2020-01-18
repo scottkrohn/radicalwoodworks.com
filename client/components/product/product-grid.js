@@ -7,11 +7,13 @@ import ProductMini from 'client/components/product/product-mini';
 
 // Styles
 import styles from 'client/components/product/product-grid.less';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Utils
 import { observerIsIntersecting } from 'client/utils/observers';
 
 const ProductGrid = (props) => {
+  useStyles(styles);
   const myRefs = {};
   props.products.forEach((product) => {
     const ref = useRef(null);
@@ -27,7 +29,8 @@ const ProductGrid = (props) => {
   };
 
   useEffect(() => {
-    setObservers();
+    // NOTE: Turning off the intersection observer for now.
+    // setObservers();
   });
 
   const hasProducts = get(props, 'products');
@@ -38,7 +41,9 @@ const ProductGrid = (props) => {
         props.products.map((product) => {
           const miniProduct = (
             <div
-              ref={myRefs[`product${product.getId()}`]} className={styles.Hidden}
+              ref={myRefs[`product${product.getId()}`]}
+              // className={styles.Hidden} // NOTE: Turning off the intersection observer for now.
+              className={styles.Show}
               key={uniqueId()}
             >
               <ProductMini product={product} />

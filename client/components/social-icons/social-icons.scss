@@ -1,0 +1,28 @@
+@import '../../styles/variables.scss';
+
+.SocialIconsContainer {
+  display: flex;
+  align-items: center;
+
+  .SocialLink {
+    color: $black;
+  }
+
+  .SocialLink:hover {
+    color: $blueGray;
+  }
+
+  .Icon {
+    font-size: 2em;
+    margin: 5px 15px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 992px) {
+  .SocialIconsContainer {
+    .Icon {
+      font-size: 3em;
+    }
+  }
+}

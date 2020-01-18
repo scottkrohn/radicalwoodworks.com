@@ -3,7 +3,7 @@ import passport from 'passport';
 // Constants
 import REQUEST from '../constants/request-constants';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   if (req.method === REQUEST.method.post) {
     passport.authenticate('local-signup', {
       successRedirect: '/profile', // redirect to the secure profile section

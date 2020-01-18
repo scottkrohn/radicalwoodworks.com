@@ -7,7 +7,7 @@ import ImagesBLI from '../classes/bli/images';
 import REQUEST from '../constants/request-constants';
 import EXCEPTIONS from '../../constants/exceptions';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const imagesBli = new ImagesBLI();
 
   if (req.method === REQUEST.method.delete) {

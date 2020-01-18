@@ -1,0 +1,32 @@
+@import '../../styles/variables.scss';
+
+.CarouselDotsContainer {
+  width: 100%;
+  position: absolute;
+  bottom: 20;
+
+  .Dot {
+    position: relative;
+    cursor: pointer;
+
+    &::after {
+      content: ' ';
+      display: inline-block;
+      background: $gray;
+      height: 8px;
+      width: 8px;
+      border-radius: 100%;
+      margin-right: 2px;
+      margin-left: 2px;
+    }
+  }
+
+  .Active {
+    top: -2px;
+    &::after {
+      background: $light-gray;
+      height: 12px;
+      width: 12px;
+    }
+  }
+}

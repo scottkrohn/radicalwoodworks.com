@@ -1,0 +1,19 @@
+.SelectInputContainer {
+  .SelectInput {
+    width: 100%;
+    height: 40px;
+    background: white;
+  }
+
+  .SelectInputLabel {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+  @media (max-width: 992px) {
+    .SelectInput {
+      font-size: 2.2em;
+      height: 90px;
+    }
+  }
+}

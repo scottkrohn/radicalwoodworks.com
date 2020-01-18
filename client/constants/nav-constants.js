@@ -41,6 +41,52 @@ const NAV = {
       path: 'admin',
     },
   },
+  navBarLinks: {
+    mainNav: [
+      {
+        label: 'Home',
+        path: '/',
+        value: 'home',
+      },
+      {
+        label: 'Products',
+        path: '/products',
+        value: 'products',
+      },
+      {
+        label: 'About Us',
+        path: '/about',
+        value: 'about',
+      },
+      {
+        label: 'Contact',
+        path: '/contact',
+        value: 'contact',
+      },
+      {
+        label: 'FAQ',
+        path: '/faq',
+        value: 'faq',
+      },
+    ],
+    accountNav: {
+      login: {
+        label: 'Login',
+        path: '/login',
+        value: 'login',
+      },
+      admin: {
+        label: 'Admin',
+        path: '/admin',
+        value: 'admin',
+      },
+      logout: {
+        label: 'Logout',
+        path: '/',
+        value: 'logout',
+      },
+    },
+  },
 };
 
 export default NAV;
