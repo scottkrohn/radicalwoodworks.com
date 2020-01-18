@@ -92,7 +92,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "serialize-javascript": "^1.8.0",
+    "serialize-javascript": "^2.1.1",
     "typeface-roboto": "0.0.54",
     "webpack-merge": "^4.2.1",
     "webpack-node-externals": "^1.7.2"
