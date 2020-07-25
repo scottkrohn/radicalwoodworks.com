@@ -7,6 +7,7 @@ import serverRenderer from './lib/server-renderer';
 import { getConfig } from './lib/protected';
 import { matchRoutes } from 'react-router-config';
 import createStore from './lib/create-store';
+import requestLogger from './lib/request-logger';
 import Routes from './routes';
 import 'babel-polyfill';
 
@@ -23,7 +24,7 @@ app.use(
     secret: getConfig('passportSecret'),
     resave: true,
     saveUninitialized: true,
-  })
+  }),
 );
 
 app.use(passport.initialize());
@@ -35,6 +36,7 @@ passportConfig(passport);
 // Include dev/prod independant routes.
 routes(app);
 
+app.use(requestLogger);
 app.use('/public', express.static('public'));
 app.get('*', (req, res) => {
   const store = createStore({}, req);
