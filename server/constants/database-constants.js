@@ -1,3 +1,5 @@
+import CartItem from '@model/cart-item';
+
 const DATABASE = {
   tables: {
     products: {
@@ -54,11 +56,33 @@ const DATABASE = {
         password: 'password',
       },
     },
+    carts: {
+      name: 'carts',
+      columns: {
+        id: 'id',
+        createdTs: 'created_ts',
+        updatedTs: 'updated_ts',
+        expirationTs: 'updated_ts',
+        customerId: 'customer_id',
+        isExpired: 'is_expired',
+      },
+    },
+    cartItems: {
+      name: 'cart_items',
+      columns: {
+        id: 'id',
+        cartId: 'cart_id',
+        productId: 'product_id',
+        quantity: 'quantity',
+        isDeleted: 'is_deleted',
+      },
+    },
   },
 };
 
 DATABASE.getProductDatabaseFieldsMapping = (product) => {
   const productColumns = DATABASE.tables.products.columns;
+
   return {
     [productColumns.id]: product.getId(),
     [productColumns.type]: product.getType(),
@@ -76,4 +100,31 @@ DATABASE.getProductDatabaseFieldsMapping = (product) => {
   };
 };
 
+/**
+ * @param {Cart} cart
+ */
+DATABASE.getCartDatabaseFieldsMapping = (cart) => {
+  const cartColumns = DATABASE.tables.carts.columns;
+
+  return {
+    [cartColumns.id]: cart.getId(),
+    [cartColumns.createdTs]: cart.getCreatedTs(),
+    [cartColumns.updatedTs]: cart.getUpdatedTs(),
+    [cartColumns.expirationTs]: cart.getExpirationTs(),
+    [cartColumns.customerId]: cart.getCustomerId(),
+    [cartColumns.isExpired]: cart.getIsExpired(),
+  };
+};
+
+DATABASE.getCartItemDatabaseFieldsMapping = (cartItem) => {
+  const cartItemColumns = DATABASE.tables.cartItems.columns;
+
+  return {
+    [cartItemColumns.id]: cartItem.getId(),
+    [cartItemColumns.cartId]: cartItem.getCartId(),
+    [cartItemColumns.productId]: cartItem.getProductId(),
+    [cartItemColumns.quantity]: cartItem.getQuantity(),
+    [cartItemColumns.isDeleted]: cartItem.getIsDeleted(),
+  };
+};
 export default DATABASE;

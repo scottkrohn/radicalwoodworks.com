@@ -8,7 +8,7 @@ export const getAllContent = (category) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .get(`/server/content/${category}`)
+        .get(`/api/content/${category}`)
         .then((response) => {
           dispatch(getContentSuccess(response.data, category));
           resolve();
@@ -27,7 +27,7 @@ export const updateContent = (content) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .put('/server/content/update', content.getValues())
+        .put('/api/content/update', content.getValues())
         .then((response) => {
           if (response.status === 200) {
             dispatch(updateContentSuccess());

@@ -9,7 +9,7 @@ export const getProducts = () => {
 
     return new Promise((resolve, reject) => {
       axios
-        .get('/server/products')
+        .get('/api/products')
         .then((response) => {
           if (response.status === 200) {
             dispatch(getProductsSuccess(response.data));

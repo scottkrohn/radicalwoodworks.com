@@ -1,11 +1,11 @@
 import { get, isNull } from 'lodash';
 
-import BaseBLI from './base';
-import ImagesBLI from './images';
+import BaseBLI from '@bli/base';
+import ImagesBLI from '@bli/images';
 
 // Constants
-import DB from '../../constants/database-constants';
-import Product from '../../../model/product';
+import DB from '@constants-server/database-constants';
+import Product from '@model/product';
 
 class ProductsBLI extends BaseBLI {
   constructor() {

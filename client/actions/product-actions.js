@@ -13,7 +13,7 @@ export const getProduct = (productId) => {
       }
 
       axios
-        .get(`/server/products/${productId}`)
+        .get(`/api/products/${productId}`)
         .then((response) => {
           dispatch(getProductSuccess(response.data));
           resolve();
@@ -36,7 +36,7 @@ export const createProduct = (product) => {
       };
 
       axios
-        .post('/server/products/create', body)
+        .post('/api/products/create', body)
         .then((result) => {
           const productId = get(result, 'data.id', null);
 
@@ -61,7 +61,7 @@ export const deleteProduct = (productId) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .delete(`/server/products/${productId}`)
+        .delete(`/api/products/${productId}`)
         .then((response) => {
           dispatch(deleteProductSuccess());
           resolve(response);
@@ -83,7 +83,7 @@ export const updateProduct = (product) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .put('/server/products/update', body)
+        .put('/api/products/update', body)
         .then((response) => {
           dispatch(updateProductSuccess());
           resolve();

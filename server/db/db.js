@@ -23,7 +23,7 @@ class Database {
   };
 
   assignStr = (field, value) => {
-    const escapedString = value.replace(/'/g, '\\\'');
+    const escapedString = value.replace(/'/g, "\\'");
     this.fields[field] = `'${escapedString}'`;
   };
 

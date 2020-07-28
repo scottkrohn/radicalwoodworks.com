@@ -1,7 +1,7 @@
-import ProductsBLI from '../classes/bli/products';
+import ProductsBLI from '@bli/products';
 
 // Constants
-import REQUEST from '../constants/request-constants';
+import REQUEST from '@constants-server/request-constants';
 
 export default (req, res, next) => {
   const productsBli = new ProductsBLI();

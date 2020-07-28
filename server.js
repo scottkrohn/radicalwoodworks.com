@@ -33,7 +33,7 @@ app.use(passport.session());
 // Setup Passport
 passportConfig(passport);
 
-// Include dev/prod independant routes.
+// Set up API routes.
 routes(app);
 
 app.use(requestLogger);

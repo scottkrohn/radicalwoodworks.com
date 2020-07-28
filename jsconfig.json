@@ -1,6 +1,14 @@
 {
-	"compilerOptions": {
-		"baseUrl": "./",
-		"target": "ES6",
-	}
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES6",
+    "paths": {
+      "@bli/*": ["./server/classes/bli/*"],
+      "@constants/*": ["./constants/*"],
+      "@constants-server/*": ["./server/constants/*"],
+      "@controller/*": ["./server/controllers/*"],
+      "@db/*": ["./server/db/*"],
+      "@model/*": ["./model/*"]
+    }
+  }
 }

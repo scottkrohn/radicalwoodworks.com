@@ -7,7 +7,7 @@ export const deleteImage = (imageId) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .delete(`/server/images/${imageId}`)
+        .delete(`/api/images/${imageId}`)
         .then((result) => {
           dispatch(deleteImageSuccess());
           resolve();
@@ -26,7 +26,7 @@ export const updateProductImageMapping = (imageId, data) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .put(`/server/images/${imageId}`, data)
+        .put(`/api/images/${imageId}`, data)
         .then((response) => {
           dispatch(imageMappingSuccess());
           resolve();

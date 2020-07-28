@@ -1,63 +1,52 @@
 const express = require('express');
 const router = express.Router();
 
-import adminCtrl from '../controllers/admin-controller';
-import authCtrl from '../controllers/auth-controller';
-import contactCtrl from '../controllers/contact-controller';
-import contentCtrl from '../controllers/content-controller';
-import imagesCtrl from '../controllers/images-controller';
-import productImageUploadCtrl from '../controllers/product-image-upload-controller';
-import productsCtrl from '../controllers/products-controller';
-import productCtrl from '../controllers/product-controller';
-import signupCtrl from '../controllers/signup-controller';
+import adminCtrl from '@controller/admin-controller';
+import authCtrl from '@controller/auth-controller';
+import cartCtrl from '@controller/cart-controller';
+import contactCtrl from '@controller/contact-controller';
+import contentCtrl from '@controller/content-controller';
+import imagesCtrl from '@controller/images-controller';
+import productImageUploadCtrl from '@controller/product-image-upload-controller';
+import productsCtrl from '@controller/products-controller';
+import productCtrl from '@controller/product-controller';
+import signupCtrl from '@controller/signup-controller';
 
 // Products Routes
-router.route('/products/:productId')
-  .get(productsCtrl)
-  .delete(productCtrl);
+router.route('/products/:productId').get(productsCtrl).delete(productCtrl);
 
 // Product Routes
-router.route('/products')
-  .get(productsCtrl);
+router.route('/products').get(productsCtrl);
 
-router.route('/products/create')
-  .post(productCtrl);
+router.route('/products/create').post(productCtrl);
 
-router.route('/products/update')
-  .put(productCtrl);
+router.route('/products/update').put(productCtrl);
 
-router.route('/products/image/:productId')
-  .post(productImageUploadCtrl);
+router.route('/products/image/:productId').post(productImageUploadCtrl);
 
 // Image Routes
-router.route('/images/:imageId')
-  .all(imagesCtrl);
+router.route('/images/:imageId').all(imagesCtrl);
 
 // Content Routes
-router.route('/content/:contentType')
-  .all(contentCtrl);
+router.route('/content/:contentType').all(contentCtrl);
 
-router.route('/content/update')
-  .put(contentCtrl);
+router.route('/content/update').put(contentCtrl);
 
 // Contact Routes
-router.route('/contact/send')
-  .all(contactCtrl);
+router.route('/contact/send').all(contactCtrl);
 
+// Cart Routes
+router.route('/cart/:cartId?').all(cartCtrl);
 
 // /* Authentication Routes
 // /***********************/
 
-router.route('/signup')
-  .post(signupCtrl);
+router.route('/signup').post(signupCtrl);
 
-router.route('/login')
-  .post(authCtrl);
+router.route('/login').post(authCtrl);
 
-router.route('/logout')
-  .put(authCtrl);
+router.route('/logout').put(authCtrl);
 
-router.route('/verify')
-  .all(adminCtrl);
+router.route('/verify').all(adminCtrl);
 
 export default router;

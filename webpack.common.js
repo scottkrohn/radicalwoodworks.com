@@ -2,6 +2,14 @@ const path = require('path');
 
 module.exports = {
   resolve: {
+    alias: {
+      ['@bli']: path.resolve(__dirname, './server/classes/bli'),
+      ['@constants']: path.resolve(__dirname, './constants'),
+      ['@constants-server']: path.resolve(__dirname, './server/constants'),
+      ['@controller']: path.resolve(__dirname, './server/controllers'),
+      ['@db']: path.resolve(__dirname, './server/db'),
+      ['@model']: path.resolve(__dirname, './model'),
+    },
     modules: [path.resolve(__dirname), 'node_modules', 'client'],
     extensions: ['.js', '.jsx'],
   },
@@ -19,12 +27,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['isomorphic-style-loader', {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
+        use: [
+          'isomorphic-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.less$/,
@@ -98,13 +109,15 @@ module.exports = {
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'fonts/',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
           },
-        }],
+        ],
       },
     ],
   },

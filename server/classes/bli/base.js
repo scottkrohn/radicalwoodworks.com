@@ -1,4 +1,4 @@
-import Database from '../../db/db';
+import Database from '@db/db';
 
 class BaseBLI {
   constructor() {
