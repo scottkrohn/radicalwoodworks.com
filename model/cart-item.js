@@ -6,10 +6,10 @@ class CartItem extends Model {
 
     this.data = {
       id: null,
-      cart_id: null,
-      product_id: null,
+      cartId: null,
+      productId: null,
       quantity: null,
-      is_deleted: null,
+      isDeleted: null,
     };
   }
 
@@ -18,19 +18,19 @@ class CartItem extends Model {
   };
 
   setCartId = (cartId) => {
-    this.data.cart_id = cartId;
+    this.data.cartId = cartId;
   };
 
   setProductId = (productId) => {
-    this.data.product_id = productId;
+    this.data.productId = productId;
   };
 
   setQuantity = (quantity) => {
     this.data.quantity = quantity;
   };
 
-  setIsDeleted = (is_deleted) => {
-    this.data.is_deleted = is_deleted;
+  setIsDeleted = (isDeleted) => {
+    this.data.isDeleted = isDeleted;
   };
 
   getId = () => {
@@ -38,11 +38,11 @@ class CartItem extends Model {
   };
 
   getCartId = () => {
-    return this.data.cart_id;
+    return this.data.cartId;
   };
 
   getProductId = () => {
-    return this.data.product_id;
+    return this.data.productId;
   };
 
   getQuantity = () => {
@@ -51,6 +51,14 @@ class CartItem extends Model {
 
   getIsDeleted = () => {
     return this.data.isDeleted;
+  };
+
+  addQuantity = (quantity) => {
+    if (this.data.quantity) {
+      this.data.quantity + quantity >= 0 ? (this.data.quantity += quantity) : (this.data.quantity = 0);
+    } else {
+      this.data.quantity = quantity > 0 ? quantity : 0;
+    }
   };
 }
 

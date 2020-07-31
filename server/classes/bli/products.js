@@ -81,6 +81,22 @@ class ProductsBLI extends BaseBLI {
     return product;
   };
 
+  validateProductsExist = async (productIds) => {
+    const productSql = `
+      SELECT
+        id
+      FROM
+        ${DB.tables.products.name}
+      WHERE
+        ${DB.tables.products.columns.id}
+      IN
+        (${productIds.join(',')})
+    `;
+    const productResult = await this.db.query(productSql);
+
+    return productResult.length === productIds.length;
+  };
+
   _assignProductValues = (product, ignoreNull = true) => {
     this.db.clear();
 

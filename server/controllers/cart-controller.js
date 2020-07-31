@@ -3,21 +3,32 @@ import CartBLI from '@bli/cart';
 
 import REQUEST from '@constants-server/request-constants';
 
-export default (req, res, next) => {
+export default async function (req, res, next) {
   const cartBli = new CartBLI();
   const cartId = req.params.cartId;
 
   if (req.method === REQUEST.method.get) {
     if (cartId) {
-      cartBli.getCartById(cartId).then((result) => {
-        res.send(result);
-      });
+      const cart = await cartBli.getCartById(cartId);
+      res.send(cart);
     }
   } else if (req.method === REQUEST.method.post) {
     const customerId = get(req, 'body.customerId', null);
     const items = get(req, 'body.items', []);
-    cartBli.createCart(customerId, items).then((cart) => {
-      res.send(cart);
-    });
+    const cart = await cartBli.createCart(customerId, items);
+    res.send(cart);
+  } else if (req.method === REQUEST.method.put) {
+    let cart = await cartBli.getCartById(cartId);
+    const items = get(req, 'body.items', []);
+
+    try {
+      await cartBli.addOrUpdateCartItems(cart, items);
+    } catch (error) {
+      res.status(error.status).send(error);
+      return;
+    }
+    cart = await cartBli.getCartById(cartId);
+
+    res.send(cart);
   }
-};
+}

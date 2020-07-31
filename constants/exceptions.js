@@ -17,7 +17,7 @@ const EXCEPTIONS = {
   },
   unauthorized: {
     code: 1003,
-    message: 'You\'re not logged in',
+    message: "You're not logged in",
   },
   routeNotFound: {
     code: 1004,
@@ -27,6 +27,17 @@ const EXCEPTIONS = {
     code: 1005,
     message: 'Not Found',
   },
+  productNotFound: {
+    code: 1006,
+    message: 'Product Not Found',
+  },
+};
+
+EXCEPTIONS.apiError = (error, status = 500) => {
+  return {
+    ...error,
+    status,
+  };
 };
 
 EXCEPTIONS.getMessageForErrorCode = (code) => {

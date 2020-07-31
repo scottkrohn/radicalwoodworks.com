@@ -2,9 +2,11 @@ import { get } from 'lodash';
 import BaseBLI from '@bli/base';
 import Cart from '@model/cart';
 import CartItem from '@model/cart-item';
+import ProductBLI from '@bli/products';
 
 import DB from '@constants-server/database-constants';
 import CART from '@constants/cart-constants';
+import EXCEPTIONS from '@constants/exceptions';
 
 class CartBLI extends BaseBLI {
   constructor() {
@@ -23,7 +25,7 @@ class CartBLI extends BaseBLI {
     const cartData = get(cartRow, '[0]', {});
     const cartModel = new Cart();
 
-    cartModel.setValues(cartData);
+    cartModel.setValues(cartData, true);
     cartModel.setItems(cartItemModels);
 
     if (!cartModel.getIsExpired() && Date.now() - cartModel.getUpdatedTs() > CART.expiration48Hours) {
@@ -58,7 +60,7 @@ class CartBLI extends BaseBLI {
     const cartItemRows = await this.db.query(sql);
     const cartItemModels = cartItemRows.map((cartItemData) => {
       const cartItem = new CartItem();
-      cartItem.setValues(cartItemData);
+      cartItem.setValues(cartItemData, true);
       return cartItem;
     });
 
@@ -81,22 +83,50 @@ class CartBLI extends BaseBLI {
     const id = get(result, 'insertId', null);
     if (id) {
       cart.setId(id);
-      await this.addItemsToCart(cart, items);
+      await this.addOrUpdateCartItems(cart, items);
       return cart;
     } else {
       throw new Error();
     }
   };
 
-  addItemsToCart = async (cart, items) => {
+  /**
+   *
+   * @param {Cart} cart
+   * @param {*} items
+   */
+  addOrUpdateCartItems = async (cart, items) => {
     const itemPromises = [];
-    items.forEach((item) => {
-      const itemModel = new CartItem();
-      itemModel.setValues(item);
-      itemModel.setCartId(cart.getId());
-      cart.addItem(itemModel);
-      if (this._assignItemValues(itemModel, true)) {
-        itemPromises.push(this.db.insert(DB.tables.cartItems.name));
+
+    // Validate that products exist before adding them to cart.
+    const productBli = new ProductBLI();
+    const productIds = items.map((item) => item.productId);
+
+    const productsExist = await productBli.validateProductsExist(productIds);
+    if (!productsExist) {
+      throw new EXCEPTIONS.apiError(EXCEPTIONS.productNotFound);
+    }
+
+    items.forEach(async (item) => {
+      const existingItem = cart.getItem(item.productId);
+
+      if (existingItem) {
+        existingItem.addQuantity(item.quantity);
+        const whereClause = `WHERE ${DB.tables.cartItems.columns.id} = ${existingItem.getId()}`;
+
+        if (this._assignItemValues(existingItem, true)) {
+          itemPromises.push(this.db.update(DB.tables.cartItems.name, whereClause));
+        }
+      } else {
+        const itemModel = new CartItem();
+        itemModel.setValues(item);
+        itemModel.setIsDeleted(false);
+        itemModel.setCartId(cart.getId());
+        cart.addItem(itemModel);
+
+        if (this._assignItemValues(itemModel, true)) {
+          itemPromises.push(this.db.insert(DB.tables.cartItems.name));
+        }
       }
     });
 

@@ -13,17 +13,24 @@ class Model {
     };
   };
 
-  setValues = (values) => {
-    for (var property in values) {
+  setValues = (values, convertToCamelCase = false) => {
+    for (var field in values) {
+      const property = convertToCamelCase ? this.__convertSnakeToCamel(field) : field;
       if (has(this.data, property)) {
-        this.data[property] = values[property];
+        this.data[property] = values[field];
       }
     }
   };
 
+  __convertSnakeToCamel = (str) => {
+    return str.replace(/([_][a-z])/, (group) => {
+      return group.replace('_', '').toUpperCase();
+    });
+  };
+
   __getNullOrFloat = (value) => {
     return isNull(value) ? null : parseFloat(value);
-  }
+  };
 
   __getBoolean = (value) => {
     const type = typeof value;
@@ -37,7 +44,7 @@ class Model {
       default:
         return Boolean(value);
     }
-  }
+  };
 }
 
 export default Model;

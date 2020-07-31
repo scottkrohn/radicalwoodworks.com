@@ -1,3 +1,4 @@
+import { find } from 'lodash';
 import Model from '@model/model';
 
 class Cart extends Model {
@@ -6,11 +7,11 @@ class Cart extends Model {
 
     this.data = {
       id: null,
-      created_ts: null,
-      updated_ts: null,
-      expiration_ts: null,
-      customer_id: null,
-      is_expired: null,
+      createdTs: null,
+      updatedTs: null,
+      expirationTs: null,
+      customerId: null,
+      isExpired: null,
     };
 
     this.children = {
@@ -23,23 +24,23 @@ class Cart extends Model {
   };
 
   setCreatedTs = (createdTs) => {
-    this.data.created_ts = createdTs;
+    this.data.createdTs = createdTs;
   };
 
   setUpdatedTs = (updatedTs) => {
-    this.data.updated_ts = updatedTs;
+    this.data.updatedTs = updatedTs;
   };
 
   setExpirationTs = (expirationTs) => {
-    this.data.expiration_ts = expirationTs;
+    this.data.expirationTs = expirationTs;
   };
 
   setCustomerId = (customerId) => {
-    this.data.customer_id = customerId;
+    this.data.customerId = customerId;
   };
 
   setIsExpired = (isExpired) => {
-    this.data.is_expired = isExpired;
+    this.data.isExpired = isExpired;
   };
 
   getId = () => {
@@ -47,23 +48,23 @@ class Cart extends Model {
   };
 
   getCreatedTs = () => {
-    return this.data.created_ts;
+    return this.data.createdTs;
   };
 
   getUpdatedTs = () => {
-    return this.data.updated_ts;
+    return this.data.updatedTs;
   };
 
   getExpirationTs = () => {
-    return this.data.expiration_ts;
+    return this.data.expirationTs;
   };
 
   getCustomerId = () => {
-    return this.data.customer_id;
+    return this.data.customerId;
   };
 
   getIsExpired = () => {
-    return this.data.is_expired;
+    return this.data.isExpired;
   };
 
   /* Children Getters & Setters */
@@ -82,6 +83,10 @@ class Cart extends Model {
     } else {
       this.children.items = [item];
     }
+  };
+
+  getItem = (productId) => {
+    return find(this.children.items, (item) => item.getProductId() === productId);
   };
 }
 
