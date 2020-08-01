@@ -11,6 +11,7 @@ module.exports = {
       ['@helpers']: path.resolve(__dirname, './client/utils/helpers'),
       ['@model']: path.resolve(__dirname, './model'),
       ['@reducers']: path.resolve(__dirname, './client/reducers'),
+      ['@selectors']: path.resolve(__dirname, './client/selectors'),
     },
     modules: [path.resolve(__dirname), 'node_modules', 'client'],
     extensions: ['.js', '.jsx'],

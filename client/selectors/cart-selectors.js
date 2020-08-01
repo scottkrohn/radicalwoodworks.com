@@ -31,3 +31,16 @@ export const getCart = createSelector([getCartFromState], (cartData) => {
 
   return cartModel;
 });
+
+export const selectItemCount = createSelector([getCart], (cartModel) => {
+  if (!cartModel || !cartModel.getItems) {
+    return 0;
+  }
+
+  const cartItems = cartModel.getItems() || [];
+  const itemCount = cartItems.reduce((itemCount, item) => {
+    return itemCount + item.getQuantity();
+  }, 0);
+
+  return itemCount;
+});

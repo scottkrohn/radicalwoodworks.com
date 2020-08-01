@@ -10,7 +10,8 @@
       "@helpers/*": ["./client/utils/helpers/*"],
       "@db/*": ["./server/db/*"],
       "@model/*": ["./model/*"],
-      "@reducers/*": ["./client/*"]
+      "@reducers/*": ["./client/*"],
+      "@selectors/*": ["./client/selectors*"]
     }
   }
 }

@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.CartIconContainer {
+  position: relative;
+
+  .CartIcon {
+    font-size: 30px;
+    color: $black;
+  }
+
+  .CartCountContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-size: 13px;
+    height: 18px;
+    width: 18px;
+    background: $peacock-blue;
+    color: $white;
+    border-radius: 10px;
+    top: -3px;
+    right: -3px;
+  }
+}

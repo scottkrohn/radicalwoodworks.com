@@ -11,6 +11,7 @@ import NavConstants from '../../constants/nav-constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import CartIcon from '../cart-icon/cart-icon';
 
 // Styles
 import styles from './navbar.scss';
@@ -24,7 +25,10 @@ import { getCartById } from 'client/actions/cart-actions';
 // Helpers
 import { getSession } from '@helpers/session-helper';
 
-const Navbar = ({ auth, getCartById, logout, location }) => {
+// Selectors
+import { selectItemCount } from '@selectors/cart-selectors';
+
+const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;
@@ -84,6 +88,9 @@ const Navbar = ({ auth, getCartById, logout, location }) => {
         })}
       </div>
       <div className={styles.NavbarLinks}>
+        <div className={styles.CartContainer}>
+          <CartIcon itemCount={itemCount} />
+        </div>
         {isLoggedIn ? (
           <NavbarLink
             label={NavConstants.navBarLinks.accountNav.logout.label}
@@ -155,6 +162,7 @@ const Navbar = ({ auth, getCartById, logout, location }) => {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    itemCount: selectItemCount(state),
   };
 };
 
