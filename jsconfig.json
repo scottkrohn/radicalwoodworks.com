@@ -7,8 +7,10 @@
       "@constants/*": ["./constants/*"],
       "@constants-server/*": ["./server/constants/*"],
       "@controller/*": ["./server/controllers/*"],
+      "@helpers/*": ["./client/utils/helpers/*"],
       "@db/*": ["./server/db/*"],
-      "@model/*": ["./model/*"]
+      "@model/*": ["./model/*"],
+      "@reducers/*": ["./client/*"]
     }
   }
 }

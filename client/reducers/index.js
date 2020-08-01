@@ -1,13 +1,15 @@
-import {combineReducers} from 'redux';
-import ProductsReducer from 'client/reducers/products-reducer';
-import ProductReducer from 'client/reducers/product-reducer';
-import ContentReducer from 'client/reducers/content-reducer';
-import ContactReducer from 'client/reducers/contact-reducer';
-import AuthReducer from 'client/reducers/auth-reducer';
-import ImageUploadReducer from 'client/reducers/image-upload-reducer';
-import ImagesReducer from 'client/reducers/images-reducer';
+import { combineReducers } from 'redux';
+import ProductsReducer from '@reducers/products-reducer';
+import ProductReducer from '@reducers/product-reducer';
+import ContentReducer from '@reducers/content-reducer';
+import ContactReducer from '@reducers/contact-reducer';
+import AuthReducer from '@reducers/auth-reducer';
+import ImageUploadReducer from '@reducers/image-upload-reducer';
+import ImagesReducer from '@reducers/images-reducer';
+import CartReducer from '@reducers/cart-reducer';
 
 const reducers = {
+  cart: CartReducer,
   products: ProductsReducer,
   product: ProductReducer,
   content: ContentReducer,

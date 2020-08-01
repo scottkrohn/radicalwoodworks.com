@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { get } from 'lodash';
 import cx from 'classnames';
 import Cookie from 'js-cookie';
@@ -19,21 +19,29 @@ import Drawer from '../drawer/drawer';
 
 // Actions
 import { logout } from 'client/actions/auth-actions';
+import { getCartById } from 'client/actions/cart-actions';
 
-const Navbar = ({ auth, logout, location }) => {
+// Helpers
+import { getSession } from '@helpers/session-helper';
+
+const Navbar = ({ auth, getCartById, logout, location }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;
+
+  useEffect(() => {
+    // TODO: look for cart by customer id if there's no cart in the session and a user is logged in.
+    const cartId = getSession('cartId');
+    if (cartId) {
+      getCartById(cartId);
+    }
+  }, []);
 
   const NavbarLink = ({ className, label, path, onClick }) => {
     const classes = cx(styles.NavbarLink, className && className);
 
     return (
-      <Link
-        className={classes}
-        to={path}
-        onClick={onClick}
-      >
+      <Link className={classes} to={path} onClick={onClick}>
         {label}
       </Link>
     );
@@ -103,11 +111,7 @@ const Navbar = ({ auth, logout, location }) => {
         />
       </div>
 
-      <Drawer
-        showing={hamburgerMenuShowing}
-        hide={hideHamburgerMenu}
-        className={styles.Drawer}
-      >
+      <Drawer showing={hamburgerMenuShowing} hide={hideHamburgerMenu} className={styles.Drawer}>
         {({ hide }) => {
           return (
             <div className={cx('flex', 'flex-dir-col')}>
@@ -156,9 +160,7 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   logout,
+  getCartById,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(Navbar);
+export default connect(mapStateToProps, mapActionsToProps)(Navbar);

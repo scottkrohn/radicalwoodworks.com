@@ -69,6 +69,19 @@ const ACTIONS = {
   UPDATE_IMAGE_MAPPING_REQUEST: 'image:imageMappingRequest',
   UPDATE_IMAGE_MAPPING_SUCCESS: 'image:imageMappingSuccess',
   UPDATE_IMAGE_MAPPING_ERROR: 'image:imageMappingError',
+
+  // Cart Actions
+  ADD_TO_CART_REQUEST: 'cart:addToCartRequest',
+  ADD_TO_CART_SUCCESS: 'cart:addToCartSuccess',
+  ADD_TO_CART_ERROR: 'cart:addToCartError',
+
+  CREATE_CART_REQUEST: 'cart:createCartRequest',
+  CREATE_CART_SUCCESS: 'cart:createCartSuccess',
+  CREATE_CART_ERROR: 'cart:createCartError',
+
+  GET_CART_REQUEST: 'cart:getCartRequest',
+  GET_CART_SUCCESS: 'cart:getCartSuccess',
+  GET_CART_ERROR: 'cart:getCartError',
 };
 
 export default ACTIONS;

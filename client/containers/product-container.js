@@ -6,9 +6,11 @@ import cx from 'classnames';
 
 // Actions
 import { getProduct } from 'client/actions/product-actions';
+import { addItemToCart, getCartById, createCart } from 'client/actions/cart-actions';
 
 // Selectors
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
+import { getCart, getLoading as getCartLoading } from 'client/selectors/cart-selectors';
 
 // Component
 import Pricing from 'client/components/product/pricing';
@@ -16,10 +18,11 @@ import ItemInfo from 'client/components/product/item-info';
 import Spinner from '../components/spinner/spinner';
 import ImageCarousel from '../components/image-carousel/image-carousel';
 
+// Styles
 import styles from './product-container.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ProductContainer = ({ getProduct, loading, match, product, location }) => {
+const ProductContainer = ({ addItemToCart, cart, createCart, getCartById, getProduct, loading, match, product }) => {
   useStyles(styles);
   const productId = get(match, 'params.productId');
 
@@ -29,6 +32,14 @@ const ProductContainer = ({ getProduct, loading, match, product, location }) => 
     }
   }, []);
 
+  const handleAddToCart = (product) => {
+    if (isEmpty(cart)) {
+      createCart(product.getId(), 1);
+    } else {
+      addItemToCart(cart.getId(), product.getId(), 1);
+    }
+  };
+
   const productLoaded = !isEmpty(product);
 
   return (
@@ -37,14 +48,8 @@ const ProductContainer = ({ getProduct, loading, match, product, location }) => 
         {productLoaded && parseInt(product.getId(), 10) === parseInt(productId, 10) && (
           <Fragment>
             <div className={styles.ImagePricingSection}>
-              <ImageCarousel
-                className={cx(styles.ImageCarousel)}
-                images={product.getImages()}
-              />
-              <Pricing
-                className={styles.Pricing}
-                product={product}
-              />
+              <ImageCarousel className={cx(styles.ImageCarousel)} images={product.getImages()} />
+              <Pricing className={styles.Pricing} product={product} onAddToCart={handleAddToCart} />
             </div>
             <hr />
             <ItemInfo product={product} />
@@ -58,7 +63,8 @@ const ProductContainer = ({ getProduct, loading, match, product, location }) => 
 const mapStateToProps = (state) => {
   return {
     product: getProductSelector(state),
-    loading: getLoading(state),
+    loading: getLoading(state) || getCartLoading(state),
+    cart: getCart(state),
   };
 };
 
@@ -67,14 +73,14 @@ ProductContainer.propTypes = {
 };
 
 const mapActionsToProps = {
+  addItemToCart,
+  createCart,
+  getCartById,
   getProduct,
 };
 
 export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(ProductContainer),
+  component: connect(mapStateToProps, mapActionsToProps)(ProductContainer),
   loadData: (store, pathParts) => {
     const productId = pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
     return productId !== null ? store.dispatch(getProduct(productId)) : Promise.resolve();

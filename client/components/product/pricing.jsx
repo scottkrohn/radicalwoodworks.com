@@ -9,7 +9,7 @@ import Product from 'model/product';
 // Constants
 import IMAGE from 'client/constants/image-constants';
 
-const Pricing = ({ className, product }) => {
+const Pricing = ({ className, onAddToCart, product }) => {
   useStyles(styles);
   const getPriceValue = () => {
     const priceValue = product.getFinalPrice();
@@ -22,22 +22,14 @@ const Pricing = ({ className, product }) => {
     return shippingValue > 0 && !includeShipping ? `$${shippingValue.toFixed(2)}` : 'Free!';
   };
 
-  const getAddToCartButton = () => {
+  const getEtsyButton = () => {
     const etsyUrl = product.getEtsyUrl() || 'https://www.etsy.com/shop/radicalwoodworks/';
-    const addToCartButton = IMAGE.getFullUrl(IMAGE.imagePaths.etsyLogo);
+    const etsyLogo = IMAGE.getFullUrl(IMAGE.imagePaths.etsyLogo);
 
     return (
-      <a
-        href={etsyUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.AddToCartLink}
-      >
+      <a href={etsyUrl} target="_blank" rel="noopener noreferrer" className={styles.AddToCartLink}>
         <span className={styles.AddToCartLabel}>Buy on</span>
-        <img
-          src={addToCartButton}
-          className={styles.AddToCartImage}
-        />
+        <img src={etsyLogo} className={styles.AddToCartImage} />
       </a>
     );
   };
@@ -56,7 +48,11 @@ const Pricing = ({ className, product }) => {
         <span className={styles.ShippingValue}>{getShippingValue()}</span>
       </div>
       <div className={styles.AddToCart}>
-        <span>{getAddToCartButton()}</span>
+        <span>{getEtsyButton()}</span>
+      </div>
+
+      <div>
+        <button onClick={() => onAddToCart(product)}>Add To Cart</button>
       </div>
     </div>
   );
@@ -64,6 +60,7 @@ const Pricing = ({ className, product }) => {
 
 Pricing.propTypes = {
   product: PropTypes.instanceOf(Product),
+  onAddToCart: PropTypes.func,
 };
 
 export default Pricing;
