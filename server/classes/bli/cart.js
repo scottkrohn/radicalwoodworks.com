@@ -28,7 +28,30 @@ class CartBLI extends BaseBLI {
     cartModel.setValues(cartData, true);
     cartModel.setItems(cartItemModels);
 
-    if (!cartModel.getIsExpired() && Date.now() - cartModel.getUpdatedTs() > CART.expiration48Hours) {
+    if (this._isCartExpired(cartModel)) {
+      cartModel.setIsExpired(true);
+      this.markCartExpired(cartModel.getId());
+    }
+
+    if (!cartModel.getId() || cartModel.getIsExpired()) {
+      return null;
+    } else {
+      return cartModel;
+    }
+  };
+
+  getCartByCustomerId = async (cid) => {
+    const whereClause = `WHERE ${DB.tables.carts.columns.customerId} = ${cid} AND ${DB.tables.carts.columns.isExpired} = 0`;
+    const cartRow = await this.db.selectOne(DB.tables.carts.name, whereClause);
+
+    const cartData = get(cartRow, '[0]', {});
+    const cartModel = new Cart();
+    cartModel.setValues(cartData, true);
+
+    const cartItemModels = await this.getCartItemsByCartId(cartModel.getId());
+    cartModel.setItems(cartItemModels);
+
+    if (this._isCartExpired(cartModel)) {
       cartModel.setIsExpired(true);
       this.markCartExpired(cartModel.getId());
     }
@@ -67,6 +90,13 @@ class CartBLI extends BaseBLI {
     return cartItemModels;
   };
 
+  /**
+   * Add a new cart to the database.
+   *
+   * @param {number} customerId
+   * @param {array} items
+   * @returns {Cart} cart
+   */
   createCart = async (customerId, items) => {
     const cart = new Cart();
     cart.setCustomerId(customerId);
@@ -91,9 +121,13 @@ class CartBLI extends BaseBLI {
   };
 
   /**
+   * Adds or updated one or more items to the database for a specific cart. Checks each
+   * item's product ID to validate that the product exists. A negative quantity can be used
+   * to remove items from a cart. Throws an error if the product id doesn't exist for an item.
    *
    * @param {Cart} cart
-   * @param {*} items
+   * @param {array} items
+   * @returns {array} array of items added to the database
    */
   addOrUpdateCartItems = async (cart, items) => {
     const itemPromises = [];
@@ -107,6 +141,7 @@ class CartBLI extends BaseBLI {
       throw new EXCEPTIONS.apiError(EXCEPTIONS.productNotFound);
     }
 
+    // Insert each item into the database.
     items.forEach(async (item) => {
       const existingItem = cart.getItem(item.productId);
 
@@ -139,6 +174,10 @@ class CartBLI extends BaseBLI {
     this.db.assignBoolean(DB.tables.carts.columns.isExpired, true);
     const whereClause = `WHERE \`${DB.tables.carts.columns.id}\` = ${cartId}`;
     return this.db.update(DB.tables.carts.name, whereClause);
+  };
+
+  _isCartExpired = (cartModel) => {
+    return !cartModel.getIsExpired() && Date.now() - cartModel.getUpdatedTs() > CART.expiration48Hours;
   };
 
   _assignItemValues = (item, ignoreNull = true) => {

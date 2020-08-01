@@ -2,15 +2,22 @@ import { get } from 'lodash';
 import CartBLI from '@bli/cart';
 
 import REQUEST from '@constants-server/request-constants';
+import EXCEPTIONS from '@constants/exceptions';
 
 export default async function (req, res, next) {
   const cartBli = new CartBLI();
   const cartId = req.params.cartId;
+  const cid = req.query.cid;
 
   if (req.method === REQUEST.method.get) {
     if (cartId) {
       const cart = await cartBli.getCartById(cartId);
       res.send(cart);
+    } else if (cid) {
+      const cart = await cartBli.getCartByCustomerId(cid);
+      res.send(cart);
+    } else {
+      res.status(400).send(EXCEPTIONS.apiError(EXCEPTIONS.cartNotFound, 400));
     }
   } else if (req.method === REQUEST.method.post) {
     const customerId = get(req, 'body.customerId', null);
@@ -27,6 +34,7 @@ export default async function (req, res, next) {
       res.status(error.status).send(error);
       return;
     }
+
     cart = await cartBli.getCartById(cartId);
 
     res.send(cart);

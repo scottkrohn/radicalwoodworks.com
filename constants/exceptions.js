@@ -31,6 +31,10 @@ const EXCEPTIONS = {
     code: 1006,
     message: 'Product Not Found',
   },
+  cartNotFound: {
+    code: 1007,
+    message: 'Cart not found',
+  },
 };
 
 EXCEPTIONS.apiError = (error, status = 500) => {
