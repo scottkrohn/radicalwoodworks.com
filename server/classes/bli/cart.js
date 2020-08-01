@@ -165,8 +165,8 @@ class CartBLI extends BaseBLI {
       }
     });
 
-    const result = await Promise.all(itemPromises);
-    return result;
+    return Promise.all(itemPromises);
+    // return result;
   };
 
   markCartExpired = (cartId) => {
