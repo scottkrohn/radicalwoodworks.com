@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   resolve: {
     alias: {
+      ['@actions']: path.resolve(__dirname, './client/actions'),
       ['@bli']: path.resolve(__dirname, './server/classes/bli'),
       ['@constants']: path.resolve(__dirname, './constants'),
       ['@constants-server']: path.resolve(__dirname, './server/constants'),

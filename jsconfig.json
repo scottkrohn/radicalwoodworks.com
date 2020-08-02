@@ -3,6 +3,7 @@
     "baseUrl": "./",
     "target": "ES6",
     "paths": {
+      "@actions/*": ["./client/actions/*"],
       "@bli/*": ["./server/classes/bli/*"],
       "@constants/*": ["./constants/*"],
       "@constants-server/*": ["./server/constants/*"],

@@ -28,18 +28,21 @@ export const createCart = (productId, quantity, customerId = null) => {
 
 export const getCartById = (cartId) => {
   return (dispatch, getState, axios) => {
-    dispatch(getCartRequest());
-
-    axios
-      .get(`/api/cart/${cartId}`)
-      .then((response) => {
-        const cartId = get(response, 'data.data.id');
-        cartId && Cookie.set('cartId', cartId), { expires: 2 };
-        dispatch(getCartSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(getCartError(error));
-      });
+    return new Promise((resolve, reject) => {
+      dispatch(getCartRequest());
+      axios
+        .get(`/api/cart${cartId ? `/${cartId}` : ''}`)
+        .then((response) => {
+          const cartId = get(response, 'data.data.id');
+          cartId && Cookie.set('cartId', cartId), { expires: 2 };
+          dispatch(getCartSuccess(response.data));
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(getCartError(error));
+          reject();
+        });
+    });
   };
 };
 

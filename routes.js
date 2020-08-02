@@ -10,6 +10,7 @@ import FaqPage from './client/containers/faq-container';
 import LoginPage from './client/containers/login-container';
 import NotFoundPage from './client/containers/not-found-container';
 import ProductPage from './client/containers/product-container';
+import CartPage from './client/containers/cart-page';
 
 // Admin Pages
 import AdminPage from './client/containers/admin-container';
@@ -18,58 +19,64 @@ import AdminFaqPage from './client/containers/admin-faq-container';
 import AdminProductsPage from './client/containers/admin-products-container';
 import AdminProductPage from './client/containers/admin-product-container';
 
-export default [{
-  ...App,
-  routes: [
-    {
-      ...ProductPage,
-      path: '/products/product/:productId',
-    },
-    {
-      ...ProductsPage,
-      path: '/products',
-    },
-    {
-      ...ContactPage,
-      path: '/contact',
-    },
-    {
-      ...HomePage,
-      path: '/',
-      exact: true,
-    },
-    {
-      ...AboutPage,
-      path: '/about',
-    },
-    {
-      ...FaqPage,
-      path: '/faq',
-    },
-    {
-      ...LoginPage,
-      path: '/login',
-    },
-    {
-      ...AdminPage,
-      path: '/admin',
-    },
-    {
-      ...AdminAboutUsPage,
-      path: '/admin-about',
-    },
-    {
-      ...AdminFaqPage,
-      path: '/admin-faq',
-    },
-    {
-      ...AdminProductsPage,
-      path: '/admin-products',
-    },
-    {
-      ...AdminProductPage,
-      path: '/admin-product/:productId?',
-    },
-    { ...NotFoundPage },
-  ],
-}];
+export default [
+  {
+    ...App,
+    routes: [
+      {
+        ...ProductPage,
+        path: '/products/product/:productId',
+      },
+      {
+        ...ProductsPage,
+        path: '/products',
+      },
+      {
+        ...ContactPage,
+        path: '/contact',
+      },
+      {
+        ...HomePage,
+        path: '/',
+        exact: true,
+      },
+      {
+        ...AboutPage,
+        path: '/about',
+      },
+      {
+        ...FaqPage,
+        path: '/faq',
+      },
+      {
+        ...LoginPage,
+        path: '/login',
+      },
+      {
+        ...AdminPage,
+        path: '/admin',
+      },
+      {
+        ...AdminAboutUsPage,
+        path: '/admin-about',
+      },
+      {
+        ...AdminFaqPage,
+        path: '/admin-faq',
+      },
+      {
+        ...AdminProductsPage,
+        path: '/admin-products',
+      },
+      {
+        ...AdminProductPage,
+        path: '/admin-product/:productId?',
+      },
+      {
+        ...CartPage,
+        path: '/cart',
+      },
+      { ...NotFoundPage },
+    ],
+  },
+];

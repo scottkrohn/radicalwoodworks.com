@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import routes from './server/routes/routes';
 import passport from 'passport';
@@ -29,6 +30,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
 
 // Setup Passport
 passportConfig(passport);

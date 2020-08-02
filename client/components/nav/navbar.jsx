@@ -32,6 +32,7 @@ const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
 
   useEffect(() => {
     // TODO: look for cart by customer id if there's no cart in the session and a user is logged in.
+    // TODO: make the app itself load the cart on server render
     const cartId = Cookie.get('cartId');
     if (cartId) {
       getCartById(cartId);

@@ -8,6 +8,7 @@ export default async function (req, res, next) {
   const cartBli = new CartBLI();
   const cartId = req.params.cartId;
   const cid = req.query.cid;
+  const cookieCartId = get(req, 'cookies.cartId', null);
 
   try {
     if (req.method === REQUEST.method.get) {
@@ -16,6 +17,9 @@ export default async function (req, res, next) {
         res.send(cart);
       } else if (cid) {
         const cart = await cartBli.getCartByCustomerId(cid);
+        res.send(cart);
+      } else if (cookieCartId) {
+        const cart = await cartBli.getCartById(cookieCartId);
         res.send(cart);
       } else {
         res.status(400).send(EXCEPTIONS.apiError(EXCEPTIONS.cartNotFound, 400));

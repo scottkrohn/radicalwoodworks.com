@@ -7,7 +7,7 @@ import CartItem from '@model/cart-item';
 const getCartFromState = (state) => state.cart.cart;
 export const getLoading = (state) => state.cart.loading;
 
-export const getCart = createSelector([getCartFromState], (cartData) => {
+export const selectCart = createSelector([getCartFromState], (cartData) => {
   let cartModel = {};
 
   if (!isEmpty(cartData)) {
@@ -32,7 +32,7 @@ export const getCart = createSelector([getCartFromState], (cartData) => {
   return cartModel;
 });
 
-export const selectItemCount = createSelector([getCart], (cartModel) => {
+export const selectItemCount = createSelector([selectCart], (cartModel) => {
   if (!cartModel || !cartModel.getItems) {
     return 0;
   }

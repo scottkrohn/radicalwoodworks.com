@@ -10,7 +10,7 @@ import { addItemToCart, getCartById, createCart } from 'client/actions/cart-acti
 
 // Selectors
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
-import { getCart, getLoading as getCartLoading } from 'client/selectors/cart-selectors';
+import { selectCart, getLoading as getCartLoading } from 'client/selectors/cart-selectors';
 
 // Component
 import Pricing from 'client/components/product/pricing';
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
   return {
     product: getProductSelector(state),
     loading: getLoading(state) || getCartLoading(state),
-    cart: getCart(state),
+    cart: selectCart(state),
   };
 };
 
