@@ -22,9 +22,6 @@ import Drawer from '../drawer/drawer';
 import { logout } from 'client/actions/auth-actions';
 import { getCartById } from 'client/actions/cart-actions';
 
-// Helpers
-import { getSession } from '@helpers/session-helper';
-
 // Selectors
 import { selectItemCount } from '@selectors/cart-selectors';
 
@@ -35,7 +32,7 @@ const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
 
   useEffect(() => {
     // TODO: look for cart by customer id if there's no cart in the session and a user is logged in.
-    const cartId = getSession('cartId');
+    const cartId = Cookie.get('cartId');
     if (cartId) {
       getCartById(cartId);
     }

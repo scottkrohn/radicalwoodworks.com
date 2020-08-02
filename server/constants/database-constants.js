@@ -62,7 +62,7 @@ const DATABASE = {
         id: 'id',
         createdTs: 'created_ts',
         updatedTs: 'updated_ts',
-        expirationTs: 'updated_ts',
+        expirationTs: 'expiration_ts',
         customerId: 'customer_id',
         isExpired: 'is_expired',
       },

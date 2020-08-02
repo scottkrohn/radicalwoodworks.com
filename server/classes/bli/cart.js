@@ -165,8 +165,14 @@ class CartBLI extends BaseBLI {
       }
     });
 
+    // Set updated timestamp on cart
+    cart.setUpdatedTs(Date.now());
+    if (this._assignCartValues(cart)) {
+      const whereClause = `WHERE ${DB.tables.carts.columns.id} = ${cart.getId()}`;
+      this.db.update(DB.tables.carts.name, whereClause);
+    }
+
     return Promise.all(itemPromises);
-    // return result;
   };
 
   markCartExpired = (cartId) => {

@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { getSession, setSession } from '@helpers/session-helper';
+import Cookie from 'js-cookie';
 
 // Constants
 import ACTIONS from 'constants/action-constants';
@@ -17,7 +17,7 @@ export const createCart = (productId, quantity, customerId = null) => {
       .post('/api/cart', body)
       .then((response) => {
         const cartId = get(response, 'data.data.id');
-        cartId && setSession('cartId', cartId);
+        cartId && Cookie.set('cartId', cartId), { expires: 2 };
         dispatch(createCartSuccess(response.data));
       })
       .catch((error) => {
@@ -34,7 +34,7 @@ export const getCartById = (cartId) => {
       .get(`/api/cart/${cartId}`)
       .then((response) => {
         const cartId = get(response, 'data.data.id');
-        cartId && setSession('cartId', cartId);
+        cartId && Cookie.set('cartId', cartId), { expires: 2 };
         dispatch(getCartSuccess(response.data));
       })
       .catch((error) => {
