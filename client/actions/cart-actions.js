@@ -39,7 +39,7 @@ export const getCartById = (cartId) => {
           resolve();
         })
         .catch((error) => {
-          dispatch(getCartError(error));
+          dispatch(getCartError(error.data));
           reject();
         });
     });

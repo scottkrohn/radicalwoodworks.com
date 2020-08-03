@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { get } from 'lodash';
 import cx from 'classnames';
 import Cookie from 'js-cookie';
@@ -29,15 +29,6 @@ const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;
-
-  useEffect(() => {
-    // TODO: look for cart by customer id if there's no cart in the session and a user is logged in.
-    // TODO: make the app itself load the cart on server render
-    const cartId = Cookie.get('cartId');
-    if (cartId) {
-      getCartById(cartId);
-    }
-  }, []);
 
   const NavbarLink = ({ className, label, path, onClick }) => {
     const classes = cx(styles.NavbarLink, className && className);

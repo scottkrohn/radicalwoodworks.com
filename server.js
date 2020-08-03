@@ -43,20 +43,24 @@ app.use('/public', express.static('public'));
 app.get('*', (req, res) => {
   const store = createStore({}, req);
 
-  const loadDataPromises = matchRoutes(Routes, req.path)
-    .map(({ route }) => {
-      const pathParts = req.path.split('/').filter((part) => part);
-      return route.loadData ? route.loadData(store, pathParts) : null;
-    })
-    .map((promise) => {
-      if (promise) {
-        return new Promise((resolve, reject) => {
-          promise.then(resolve).catch(resolve);
-        });
-      }
-    });
+  const serverRenderPromises = [];
+  matchRoutes(Routes, req.path).forEach(({ route }) => {
+    const pathParts = req.path.split('/').filter((part) => part);
+    const loadDataPromise = route.loadData ? route.loadData(store, pathParts) : null;
 
-  Promise.all(loadDataPromises).then(() => {
+    if (loadDataPromise) {
+      const promiseArray = Array().concat(loadDataPromise); // Force to be an array
+      promiseArray.forEach((promise) => {
+        serverRenderPromises.push(
+          new Promise((resolve, reject) => {
+            promise.then(resolve).catch(resolve);
+          }),
+        );
+      });
+    }
+  });
+
+  Promise.all(serverRenderPromises).then((data) => {
     const context = {};
     const content = serverRenderer(req, store, context);
 
