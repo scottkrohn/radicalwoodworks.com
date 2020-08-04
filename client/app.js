@@ -37,9 +37,13 @@ export default {
 
 /**
  *
- * Mobile/General
- * 1. Make every page mobile friendly.
- * 2. Handle loading/completed/error states for all pages that need them.
+ * Style add cart button on product page
+ * Allow adding multiple quantity of product from product page
+ * Add add to cart button to product-mini
+ * Work on cart page
+ *  - Remove from cart API and reduce quantity
+ * Clean up API
+ * Handle cart errors elegantly (add error, remove error)
  *
  * Misc
  */

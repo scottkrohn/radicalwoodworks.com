@@ -32,11 +32,11 @@ const ProductContainer = ({ addItemToCart, cart, createCart, getCartById, getPro
     }
   }, []);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, quantity) => {
     if (isEmpty(cart)) {
-      createCart(product.getId(), 1);
+      createCart(product.getId(), quantity);
     } else {
-      addItemToCart(cart.getId(), product.getId(), 1);
+      addItemToCart(cart.getId(), product.getId(), quantity);
     }
   };
 

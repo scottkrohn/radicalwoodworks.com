@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   .Price {
     text-align: center;
@@ -34,29 +35,66 @@
 
   .EtsyButton {
     text-align: center;
-    margin-top: 50px;
 
-    .AddToCartLink {
+    .EtsyLink {
       text-decoration: none;
     }
   }
 
-  .AddToCartLabel {
+  .OrHeader {
+    color: $black;
+    font-size: 20px;
+    margin: 15px 0;
+  }
+
+  .AddToCart {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .AddToCartButton {
+      width: 200px;
+      margin-right: 10px;
+    }
+
+    .QuantityInput {
+      width: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+  }
+
+  .EtsyLabel {
     margin-right: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 2em;
+    font-size: 1.3em;
     vertical-align: middle;
     color: $black;
   }
 
-  .AddToCartImage {
-    width: 110px;
+  .EtsyImage {
+    width: 70px;
   }
 
   @media (max-width: 992px) {
     .Title {
       font-size: 3em;
+    }
+
+    .AddToCart {
+      .AddToCartButton {
+        width: 300px;
+      }
+
+      .QuantityInput {
+        height: 98px;
+        width: 90px;
+      }
     }
 
     .Shipping {
@@ -73,12 +111,12 @@
       }
     }
 
-    .AddToCartLabel {
+    .EtsyLabel {
       font-size: 3em;
       margin-right: 20px;
     }
 
-    .AddToCartImage {
+    .EtsyImage {
       width: 150px;
     }
   }

@@ -9,6 +9,7 @@ module.exports = {
       ['@constants-server']: path.resolve(__dirname, './server/constants'),
       ['@controller']: path.resolve(__dirname, './server/controllers'),
       ['@db']: path.resolve(__dirname, './server/db'),
+      ['@forms']: path.resolve(__dirname, './client/components/form'),
       ['@helpers']: path.resolve(__dirname, './client/utils/helpers'),
       ['@model']: path.resolve(__dirname, './model'),
       ['@reducers']: path.resolve(__dirname, './client/reducers'),

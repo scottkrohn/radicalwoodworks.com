@@ -8,8 +8,9 @@
       "@constants/*": ["./constants/*"],
       "@constants-server/*": ["./server/constants/*"],
       "@controller/*": ["./server/controllers/*"],
-      "@helpers/*": ["./client/utils/helpers/*"],
       "@db/*": ["./server/db/*"],
+      "@forms/*": ["./client/components/form/*"],
+      "@helpers/*": ["./client/utils/helpers/*"],
       "@model/*": ["./model/*"],
       "@reducers/*": ["./client/*"],
       "@selectors/*": ["./client/selectors*"]
