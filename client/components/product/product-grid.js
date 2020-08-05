@@ -46,7 +46,7 @@ const ProductGrid = (props) => {
               className={styles.Show}
               key={uniqueId()}
             >
-              <ProductMini product={product} />
+              <ProductMini product={product} onAddToCart={props.onAddToCart} />
             </div>
           );
 

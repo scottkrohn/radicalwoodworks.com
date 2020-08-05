@@ -5,13 +5,14 @@ import { get, isEmpty } from 'lodash';
 import IMAGE from 'constants/image-constants';
 
 import MissingImage from 'client/components/missing-image/missing-image';
+import Button from 'client/components/button/button';
 
 // Styles
 import styles from 'components/product/product-mini.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import { Link } from 'react-router-dom';
 
-const ProductMini = ({ product }) => {
+const ProductMini = ({ onAddToCart, product }) => {
   useStyles(styles);
   // For now this just grabs the first image.
   const getMainImageUrl = () => {
@@ -42,10 +43,7 @@ const ProductMini = ({ product }) => {
       <div>
         {imageUrl ? (
           <div className={styles.ImageWrap}>
-            <img
-              className={styles.ProductImage}
-              src={IMAGE.getFullUrl(imageUrl)}
-            />
+            <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
           </div>
         ) : (
           <div className={styles.NoImage}>
@@ -76,14 +74,16 @@ const ProductMini = ({ product }) => {
 
   return (
     <div className={styles.ProductMiniContainer}>
-      <Link
-        to={productPageLink}
-        className={styles.Link}
-      >
+      <Link to={productPageLink} className={styles.Link}>
         {renderImage()}
         {renderTitle()}
         {renderPrice()}
       </Link>
+      <div className={styles.AddToCart}>
+        <Button className={styles.AddToCartButton} primary onClick={() => onAddToCart(product, 1)}>
+          Add To Cart
+        </Button>
+      </div>
     </div>
   );
 };

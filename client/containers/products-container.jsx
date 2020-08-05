@@ -10,16 +10,27 @@ import Spinner from '../components/spinner/spinner';
 
 // Actions
 import { getProducts } from 'actions/products-actions';
+import { addItemToCart, createCart } from 'client/actions/cart-actions';
 
 // Selectors
 import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
+import { selectCart, getLoading as getCartLoading } from 'client/selectors/cart-selectors';
 
-const ProductsContainer = ({ getProducts, loading, products }) => {
+const ProductsContainer = ({ addItemToCart, cart, createCart, getProducts, loading, products }) => {
   useEffect(() => {
     if (isEmpty(products)) {
       getProducts();
     }
   }, []);
+
+  const handleAddToCart = (product, quantity) => {
+    console.log('adding');
+    if (isEmpty(cart)) {
+      createCart(product.getId(), quantity);
+    } else {
+      addItemToCart(cart.getId(), product.getId(), quantity);
+    }
+  };
 
   const productsLength = get(products, 'length', 0);
   const productsLoaded = productsLength > 0;
@@ -28,13 +39,10 @@ const ProductsContainer = ({ getProducts, loading, products }) => {
     <div className="container-fluid">
       <div className="col-12">
         <Spinner spinning={loading} />
-        <PageHeader
-          headerText="Radical Woodworks Products"
-          showButton={false}
-        />
+        <PageHeader headerText="Radical Woodworks Products" showButton={false} />
       </div>
 
-      {productsLoaded && <ProductGrid products={products} />}
+      {productsLoaded && <ProductGrid products={products} onAddToCart={handleAddToCart} />}
     </div>
   );
 };
@@ -46,18 +54,18 @@ ProductsContainer.propTypes = {
 const mapStateToProps = (state) => {
   return {
     products: getProductsSelector(state),
-    loading: getLoading(state),
+    loading: getLoading(state) || getCartLoading(state),
+    cart: selectCart(state),
   };
 };
 
 const mapActionsToProps = {
+  addItemToCart,
+  createCart,
   getProducts,
 };
 
 export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(ProductsContainer),
+  component: connect(mapStateToProps, mapActionsToProps)(ProductsContainer),
   loadData: (store) => store.dispatch(getProducts()),
 };

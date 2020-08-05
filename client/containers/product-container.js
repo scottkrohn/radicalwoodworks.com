@@ -6,7 +6,7 @@ import cx from 'classnames';
 
 // Actions
 import { getProduct } from 'client/actions/product-actions';
-import { addItemToCart, getCartById, createCart } from 'client/actions/cart-actions';
+import { addItemToCart, createCart } from 'client/actions/cart-actions';
 
 // Selectors
 import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
@@ -22,7 +22,7 @@ import ImageCarousel from '../components/image-carousel/image-carousel';
 import styles from './product-container.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ProductContainer = ({ addItemToCart, cart, createCart, getCartById, getProduct, loading, match, product }) => {
+const ProductContainer = ({ addItemToCart, cart, createCart, getProduct, loading, match, product }) => {
   useStyles(styles);
   const productId = get(match, 'params.productId');
 
@@ -75,7 +75,6 @@ ProductContainer.propTypes = {
 const mapActionsToProps = {
   addItemToCart,
   createCart,
-  getCartById,
   getProduct,
 };
 
