@@ -23,7 +23,7 @@ import {
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
-import styles from 'client/containers/admin-products-page.scss';
+import styles from '@pages/admin-products-page.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const AdminProductsContainer = ({

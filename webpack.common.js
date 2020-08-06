@@ -12,7 +12,7 @@ module.exports = {
       ['@forms']: path.resolve(__dirname, './client/components/form'),
       ['@helpers']: path.resolve(__dirname, './client/utils/helpers'),
       ['@model']: path.resolve(__dirname, './model'),
-      ['@pages']: path.resolve(__dirname, './client/containers'),
+      ['@pages']: path.resolve(__dirname, './client/pages'),
       ['@reducers']: path.resolve(__dirname, './client/reducers'),
       ['@selectors']: path.resolve(__dirname, './client/selectors'),
     },

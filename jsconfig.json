@@ -12,7 +12,7 @@
       "@forms/*": ["./client/components/form/*"],
       "@helpers/*": ["./client/utils/helpers/*"],
       "@model/*": ["./model/*"],
-      "@pages/*": ["./client/containers"],
+      "@pages/*": ["./client/pages"],
       "@reducers/*": ["./client/*"],
       "@selectors/*": ["./client/selectors*"]
     }
