@@ -9,8 +9,14 @@ import { getProduct } from 'client/actions/product-actions';
 import { addItemToCart, createCart } from 'client/actions/cart-actions';
 
 // Selectors
-import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
-import { selectCart, getLoading as getCartLoading } from 'client/selectors/cart-selectors';
+import {
+  getProduct as getProductSelector,
+  getLoading,
+} from 'client/selectors/product-selectors';
+import {
+  selectCart,
+  getLoading as getCartLoading,
+} from 'client/selectors/cart-selectors';
 
 // Component
 import Pricing from 'client/components/product/pricing';
@@ -19,10 +25,18 @@ import Spinner from '../components/spinner/spinner';
 import ImageCarousel from '../components/image-carousel/image-carousel';
 
 // Styles
-import styles from './product-container.scss';
+import styles from './product-page.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ProductContainer = ({ addItemToCart, cart, createCart, getProduct, loading, match, product }) => {
+const ProductContainer = ({
+  addItemToCart,
+  cart,
+  createCart,
+  getProduct,
+  loading,
+  match,
+  product,
+}) => {
   useStyles(styles);
   const productId = get(match, 'params.productId');
 
@@ -45,16 +59,24 @@ const ProductContainer = ({ addItemToCart, cart, createCart, getProduct, loading
   return (
     <div className={cx(styles.ProductContainer, 'container-fluid mt-1')}>
       <Spinner spinning={loading}>
-        {productLoaded && parseInt(product.getId(), 10) === parseInt(productId, 10) && (
-          <Fragment>
-            <div className={styles.ImagePricingSection}>
-              <ImageCarousel className={cx(styles.ImageCarousel)} images={product.getImages()} />
-              <Pricing className={styles.Pricing} product={product} onAddToCart={handleAddToCart} />
-            </div>
-            <hr />
-            <ItemInfo product={product} />
-          </Fragment>
-        )}
+        {productLoaded &&
+          parseInt(product.getId(), 10) === parseInt(productId, 10) && (
+            <Fragment>
+              <div className={styles.ImagePricingSection}>
+                <ImageCarousel
+                  className={cx(styles.ImageCarousel)}
+                  images={product.getImages()}
+                />
+                <Pricing
+                  className={styles.Pricing}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
+              </div>
+              <hr />
+              <ItemInfo product={product} />
+            </Fragment>
+          )}
       </Spinner>
     </div>
   );
@@ -81,7 +103,10 @@ const mapActionsToProps = {
 export default {
   component: connect(mapStateToProps, mapActionsToProps)(ProductContainer),
   loadData: (store, pathParts) => {
-    const productId = pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
-    return productId !== null ? store.dispatch(getProduct(productId)) : Promise.resolve();
+    const productId =
+      pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
+    return productId !== null
+      ? store.dispatch(getProduct(productId))
+      : Promise.resolve();
   },
 };

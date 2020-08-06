@@ -12,6 +12,7 @@ module.exports = {
       ['@forms']: path.resolve(__dirname, './client/components/form'),
       ['@helpers']: path.resolve(__dirname, './client/utils/helpers'),
       ['@model']: path.resolve(__dirname, './model'),
+      ['@pages']: path.resolve(__dirname, './client/containers'),
       ['@reducers']: path.resolve(__dirname, './client/reducers'),
       ['@selectors']: path.resolve(__dirname, './client/selectors'),
     },
@@ -26,7 +27,13 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { browsers: ['last 2 versions'] } }]],
+          presets: [
+            '@babel/preset-react',
+            [
+              '@babel/preset-env',
+              { targets: { browsers: ['last 2 versions'] } },
+            ],
+          ],
           plugins: ['@babel/plugin-proposal-class-properties'],
         },
       },

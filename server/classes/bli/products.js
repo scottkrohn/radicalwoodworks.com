@@ -30,8 +30,10 @@ class ProductsBLI extends BaseBLI {
   };
 
   // At some point add limit/offset to this function.
-  getProducts = async () => {
-    const productRows = await this.db.selectAll(DB.tables.products.name);
+  getProducts = async (ids) => {
+    const whereClause =
+      Array.isArray(ids) && ids.length ? `WHERE ${DB.tables.products.columns.id} in (${ids.join(',')})` : '';
+    const productRows = await this.db.selectAll(DB.tables.products.name, whereClause);
     const productIds = productRows.map((productRow) => productRow.id);
     const imagesBli = new ImagesBLI();
 

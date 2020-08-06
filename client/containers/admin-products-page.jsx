@@ -14,16 +14,26 @@ import { getProducts } from 'actions/products-actions';
 import { deleteProduct, clearProduct } from 'actions/product-actions';
 
 // Selectors
-import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
+import {
+  getProducts as getProductsSelector,
+  getLoading,
+} from 'selectors/products-selectors';
 
 // HOCs
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
-import styles from 'client/containers/admin-products-container.scss';
+import styles from 'client/containers/admin-products-page.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const AdminProductsContainer = ({ clearProduct, deleteProduct, getProducts, history, loading, products }) => {
+const AdminProductsContainer = ({
+  clearProduct,
+  deleteProduct,
+  getProducts,
+  history,
+  loading,
+  products,
+}) => {
   useStyles(styles);
   const [deletingProduct, setDeletingProduct] = useState(false);
   const [notificationContent, setNotificationContent] = useState({});

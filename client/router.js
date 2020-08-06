@@ -4,56 +4,32 @@ import Cookie from 'js-cookie';
 import PropTypes from 'prop-types';
 
 // Containers
-import HomepageContainer from 'containers/homepage-container';
-import ProductsContainer from 'client/containers/products-container';
-import AboutContainer from 'client/containers/about-container';
-import ContactContainer from 'containers/contact-container';
-import ProductContainer from 'containers/product-container';
-import FaqContainer from 'containers/faq-container';
-import LoginContainer from 'containers/login-container';
+import HomepageContainer from '@reducers/containers/home-page';
+import ProductsContainer from '@reducers/containers/products-page';
+import AboutContainer from 'client/containers/about-page';
+import ContactContainer from '@reducers/containers/contact-page';
+import ProductContainer from '@reducers/containers/product-page';
+import FaqContainer from '@reducers/containers/faq-page';
+import LoginContainer from '@reducers/containers/login-page';
 
 // Protected Containers
-import AdminContainer from 'containers/admin-container';
-import AdminAboutUsContainer from 'containers/admin-about-us-container';
-import AdminFaqContainer from 'containers/admin-faq-container';
-import AdminProductsContainer from 'client/containers/admin-products-container';
-import AdminProductContainer from 'client/containers/admin-product-container';
+import AdminContainer from '@reducers/containers/admin-page';
+import AdminAboutUsContainer from '@reducers/containers/admin-about-us-page';
+import AdminFaqContainer from '@reducers/containers/admin-faq-page';
+import AdminProductsContainer from '@reducers/containers/admin-products-page';
+import AdminProductContainer from '@reducers/containers/admin-product-page';
 
 // 404 Container
-import NotFoundContainer from 'containers/not-found-container';
+import NotFoundContainer from '@reducers/containers/not-found-page';
 
 const Router = () => (
   <Switch>
-    <Route
-      exact
-      path="/"
-      component={HomepageContainer}
-    />
-    <Route
-      exact
-      path="/about"
-      component={AboutContainer}
-    />
-    <Route
-      exact
-      path="/contact"
-      component={ContactContainer}
-    />
-    <Route
-      exact
-      path="/faq"
-      component={FaqContainer}
-    />
-    <Route
-      exact
-      path="/login"
-      component={LoginContainer}
-    />
-    <Route
-      exact
-      path="/products"
-      component={ProductsContainer}
-    />
+    <Route exact path="/" component={HomepageContainer} />
+    <Route exact path="/about" component={AboutContainer} />
+    <Route exact path="/contact" component={ContactContainer} />
+    <Route exact path="/faq" component={FaqContainer} />
+    <Route exact path="/login" component={LoginContainer} />
+    <Route exact path="/products" component={ProductsContainer} />
     <Route
       exact
       path="/products/product/:productId"
@@ -61,21 +37,13 @@ const Router = () => (
     />
 
     {/* Protected Routes */}
-    <ProtectedRoute
-      exact
-      path="/admin"
-      component={AdminContainer}
-    />
+    <ProtectedRoute exact path="/admin" component={AdminContainer} />
     <ProtectedRoute
       exact
       path="/admin-about"
       component={AdminAboutUsContainer}
     />
-    <ProtectedRoute
-      exact
-      path="/admin-faq"
-      component={AdminFaqContainer}
-    />
+    <ProtectedRoute exact path="/admin-faq" component={AdminFaqContainer} />
     <ProtectedRoute
       exact
       path="/admin-products"

@@ -13,12 +13,22 @@ import Notification from 'client/components/notification/notification';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
-import { getProduct, createProduct, updateProduct } from 'client/actions/product-actions';
+import {
+  getProduct,
+  createProduct,
+  updateProduct,
+} from 'client/actions/product-actions';
 import { getProducts } from 'client/actions/products-actions';
-import { deleteImage, updateProductImageMapping } from 'client/actions/image-actions';
+import {
+  deleteImage,
+  updateProductImageMapping,
+} from 'client/actions/image-actions';
 
 // Selectors
-import { getProduct as getProductSelector, getLoading } from 'client/selectors/product-selectors';
+import {
+  getProduct as getProductSelector,
+  getLoading,
+} from 'client/selectors/product-selectors';
 import { getUploading } from 'client/selectors/image-upload-selector';
 
 // Models
@@ -28,7 +38,7 @@ import Product from 'model/product';
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
-import styles from 'client/containers/admin-product-container.scss';
+import styles from 'client/containers/admin-product-page.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const AdminProductContainer = ({
@@ -115,7 +125,11 @@ const AdminProductContainer = ({
     })();
   };
 
-  const handleUpdateImageMapping = (imageId, isPrimary = null, hidden = null) => {
+  const handleUpdateImageMapping = (
+    imageId,
+    isPrimary = null,
+    hidden = null
+  ) => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       (async () => {
@@ -163,9 +177,17 @@ const AdminProductContainer = ({
       if (ignoredFields.includes(property)) {
         continue;
       } else if (createMode && !productData[property]) {
-        invalidFields[property] = { isDirty: true, isValid: false, message: 'Required' };
+        invalidFields[property] = {
+          isDirty: true,
+          isValid: false,
+          message: 'Required',
+        };
       } else if (productData[property] === '') {
-        invalidFields[property] = { isDirty: true, isValid: false, message: 'Required' };
+        invalidFields[property] = {
+          isDirty: true,
+          isValid: false,
+          message: 'Required',
+        };
       }
     }
 
@@ -194,7 +216,9 @@ const AdminProductContainer = ({
     updatedProductObj.setCost(updatedProductData.cost);
     updatedProductObj.setDescription(updatedProductData.description);
     updatedProductObj.setTitle(updatedProductData.title);
-    updatedProductObj.setIncludeShippingInPrice(updatedProductData.includeShippingInPrice);
+    updatedProductObj.setIncludeShippingInPrice(
+      updatedProductData.includeShippingInPrice
+    );
     updatedProductObj.setLength(updatedProductData.length);
     updatedProductObj.setWidth(updatedProductData.width);
     updatedProductObj.setDefaultColor(updatedProductData.defaultColor);
@@ -247,13 +271,19 @@ const AdminProductContainer = ({
     const productLoaded = !isEmpty(product);
 
     const origDescription = productLoaded ? product.getDescription() : '';
-    const description = isNull(updatedProduct.description) ? origDescription : updatedProduct.description;
+    const description = isNull(updatedProduct.description)
+      ? origDescription
+      : updatedProduct.description;
 
     const origTitle = productLoaded ? product.getTitle() : '';
-    const title = isNull(updatedProduct.title) ? origTitle : updatedProduct.title;
+    const title = isNull(updatedProduct.title)
+      ? origTitle
+      : updatedProduct.title;
 
     const origPrice = productLoaded ? product.getPrice() : '';
-    const price = isNull(updatedProduct.price) ? origPrice : updatedProduct.price;
+    const price = isNull(updatedProduct.price)
+      ? origPrice
+      : updatedProduct.price;
 
     const origType = productLoaded ? product.getType() : '';
     const type = isNull(updatedProduct.type) ? origType : updatedProduct.type;
@@ -262,24 +292,38 @@ const AdminProductContainer = ({
     const cost = isNull(updatedProduct.cost) ? origCost : updatedProduct.cost;
 
     const origShipping = productLoaded ? product.getShippingPrice() : '';
-    const shipping = isNull(updatedProduct.shipping) ? origShipping : updatedProduct.shipping;
+    const shipping = isNull(updatedProduct.shipping)
+      ? origShipping
+      : updatedProduct.shipping;
 
     const origEtsyUrl = productLoaded ? product.getEtsyUrl() : '';
-    const etsyUrl = isNull(updatedProduct.etsyUrl) ? origEtsyUrl : updatedProduct.etsyUrl;
+    const etsyUrl = isNull(updatedProduct.etsyUrl)
+      ? origEtsyUrl
+      : updatedProduct.etsyUrl;
 
     const origLength = productLoaded ? product.getLength() : '';
-    const length = isNull(updatedProduct.length) ? origLength : updatedProduct.length;
+    const length = isNull(updatedProduct.length)
+      ? origLength
+      : updatedProduct.length;
 
     const origWidth = productLoaded ? product.getWidth() : '';
-    const width = isNull(updatedProduct.width) ? origWidth : updatedProduct.width;
+    const width = isNull(updatedProduct.width)
+      ? origWidth
+      : updatedProduct.width;
 
     const origFrameWidth = productLoaded ? product.getFrameWidth() : '';
-    const frameWidth = isNull(updatedProduct.frameWidth) ? origFrameWidth : updatedProduct.frameWidth;
+    const frameWidth = isNull(updatedProduct.frameWidth)
+      ? origFrameWidth
+      : updatedProduct.frameWidth;
 
     const origDefaultColor = productLoaded ? product.getDefaultColor() : '';
-    const defaultColor = isNull(updatedProduct.defaultColor) ? origDefaultColor : updatedProduct.defaultColor;
+    const defaultColor = isNull(updatedProduct.defaultColor)
+      ? origDefaultColor
+      : updatedProduct.defaultColor;
 
-    const origIncludeShippingInPrice = productLoaded ? product.getIncludeShippingInPrice() : 0;
+    const origIncludeShippingInPrice = productLoaded
+      ? product.getIncludeShippingInPrice()
+      : 0;
     const includeShippingInPrice = isNull(updatedProduct.includeShippingInPrice)
       ? origIncludeShippingInPrice
       : updatedProduct.includeShippingInPrice;
@@ -327,7 +371,9 @@ const AdminProductContainer = ({
               onImageDelete={handleDeleteImage}
               onImageMappingUpdate={handleUpdateImageMapping}
               hideAddButton={createMode}
-              missingImageMessage={createMode ? 'Create the product to add images' : ''}
+              missingImageMessage={
+                createMode ? 'Create the product to add images' : ''
+              }
             />
           </div>
 
@@ -402,7 +448,10 @@ export default {
     mapActionsToProps
   )(withAuthValidation(withRouter(AdminProductContainer))),
   loadData: (store, pathParts) => {
-    const productId = pathParts.length === 2 ? parseInt(pathParts[1], 10) : null;
-    return productId !== null ? store.dispatch(getProduct(productId)) : Promise.resolve();
+    const productId =
+      pathParts.length === 2 ? parseInt(pathParts[1], 10) : null;
+    return productId !== null
+      ? store.dispatch(getProduct(productId))
+      : Promise.resolve();
   },
 };

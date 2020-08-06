@@ -29,10 +29,7 @@ const ContactContainer = ({ contact, sendContact }) => {
   return (
     <div className="container-fluid">
       <div className="col-xs-12">
-        <PageHeader
-          headerText="Contact Us"
-          showButton={false}
-        />
+        <PageHeader headerText="Contact Us" showButton={false} />
       </div>
 
       <ContactForm
@@ -52,8 +49,5 @@ const mapActionsToProps = {
 };
 
 export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(ContactContainer),
+  component: connect(mapStateToProps, mapActionsToProps)(ContactContainer),
 };

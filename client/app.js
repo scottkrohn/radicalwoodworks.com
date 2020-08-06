@@ -36,10 +36,8 @@ export default {
 };
 
 /**
+ * Add 'cartProducts' to the cart reducer. Port the getProducts function with ids to cart-actions.
  *
- * Style add cart button on product page
- * Allow adding multiple quantity of product from product page
- * Add add to cart button to product-mini
  * Work on cart page
  *  - Remove from cart API and reduce quantity
  * Clean up API

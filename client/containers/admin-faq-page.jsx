@@ -17,16 +17,26 @@ import { getAllContent, updateContent } from 'client/actions/content-actions';
 import { verifyLogin } from 'client/actions/admin-actions';
 
 // Selectors
-import { getAllContent as getAllContentObjects, getContentType, getLoading } from 'client/selectors/content-selector';
+import {
+  getAllContent as getAllContentObjects,
+  getContentType,
+  getLoading,
+} from 'client/selectors/content-selector';
 
 // HOC
 import { withAuthValidation } from 'client/hoc/auth';
 
 // Styles
-import styles from './admin-faq-container.scss';
+import styles from './admin-faq-page.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const AdminFaqContainer = ({ content, contentType, getAllContent, loading, updateContent }) => {
+const AdminFaqContainer = ({
+  content,
+  contentType,
+  getAllContent,
+  loading,
+  updateContent,
+}) => {
   useStyles(styles);
   const [selectedContent, setSelectedContent] = useState(null);
   const [notificationContent, setNotificationContent] = useState({});
@@ -55,22 +65,24 @@ const AdminFaqContainer = ({ content, contentType, getAllContent, loading, updat
       } catch (error) {
         setNotificationContent({
           header: 'Error',
-          message: 'There was an error while saving this update, please try again.',
+          message:
+            'There was an error while saving this update, please try again.',
           showing: true,
         });
       }
     })();
   };
 
-  const policyContent = content.filter((contentObject) => contentObject.getCategory() === 'POLICY');
+  const policyContent = content.filter(
+    (contentObject) => contentObject.getCategory() === 'POLICY'
+  );
 
   return (
-    <div className={cx('container-fluid text-center', styles.AdminFaqContainer)}>
+    <div
+      className={cx('container-fluid text-center', styles.AdminFaqContainer)}
+    >
       <Spinner spinning={loading}>
-        <PageHeader
-          headerText="Edit FAQ"
-          showButton={false}
-        />
+        <PageHeader headerText="Edit FAQ" showButton={false} />
         <Grid>
           {policyContent.length > 0 &&
             policyContent.map((contentObj) => {
@@ -88,10 +100,9 @@ const AdminFaqContainer = ({ content, contentType, getAllContent, loading, updat
         </Grid>
 
         <div className={styles.EditorContainer}>
-          {selectedContent && <ContentEditor
-            handleSave={handleSave}
-            content={selectedContent}
-                              />}
+          {selectedContent && (
+            <ContentEditor handleSave={handleSave} content={selectedContent} />
+          )}
         </div>
       </Spinner>
 

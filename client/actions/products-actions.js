@@ -3,16 +3,24 @@
 // Constants
 import ACTIONS from 'constants/action-constants';
 
-export const getProducts = () => {
+export const getProducts = (ids, isForCart = false) => {
   return (dispatch, getState, axios) => {
-    dispatch(getProductsRequest());
+    dispatch(isForCart ? getCartProductsRequest() : getProductsRequest());
+
+    const url = `/api/products${
+      Array.isArray(ids) && ids.length ? `?productIds=${ids.join(',')}` : ''
+    }`;
 
     return new Promise((resolve, reject) => {
       axios
-        .get('/api/products')
+        .get(encodeURI(url))
         .then((response) => {
           if (response.status === 200) {
-            dispatch(getProductsSuccess(response.data));
+            dispatch(
+              isForCart
+                ? getCartProductsSuccess(response.data)
+                : getProductsSuccess(response.data)
+            );
             resolve(response);
           } else {
             // Throw if we didn't get a 200 back.
@@ -20,7 +28,7 @@ export const getProducts = () => {
           }
         })
         .catch((error) => {
-          dispatch(getProductsError());
+          dispatch(isForCart ? getCartProductsError : getProductsError());
           reject(error);
         });
     });
@@ -50,6 +58,31 @@ const getProductsSuccess = (results) => {
 const getProductsError = (error) => {
   return {
     type: ACTIONS.GET_PRODUCTS_ERROR,
+    payload: {
+      error,
+    },
+  };
+};
+
+const getCartProductsRequest = () => {
+  return {
+    type: ACTIONS.GET_CART_PRODUCTS_REQUEST,
+    payload: {},
+  };
+};
+
+const getCartProductsSuccess = (results) => {
+  return {
+    type: ACTIONS.GET_CART_PRODUCTS_SUCCESS,
+    payload: {
+      cartProducts: results,
+    },
+  };
+};
+
+const getCartProductsError = (error) => {
+  return {
+    type: ACTIONS.GET_CART_PRODUCTS_ERROR,
     payload: {
       error,
     },

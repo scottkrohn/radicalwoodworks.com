@@ -16,8 +16,13 @@ export default (req, res, next) => {
         })
         .catch((error) => {});
     } else {
+      const { productIds } = req.query || {};
+      const ids = productIds
+        ? productIds.split(',').map((id) => parseInt(id))
+        : null;
+
       productsBli
-        .getProducts()
+        .getProducts(ids)
         .then((result) => {
           res.send(result);
         })

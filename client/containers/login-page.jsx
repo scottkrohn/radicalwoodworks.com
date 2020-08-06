@@ -41,10 +41,7 @@ const LoginContainer = ({ auth, login }) => {
   return (
     <div className="container-fluid">
       <div className="col-xs-12">
-        <PageHeader
-          headerText="Radical Woodworks Login"
-          showButton={false}
-        />
+        <PageHeader headerText="Radical Woodworks Login" showButton={false} />
 
         <LoginForm
           handleLogin={handleLogin}
@@ -68,8 +65,5 @@ const mapActionsToProps = {
 };
 
 export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(LoginContainer),
+  component: connect(mapStateToProps, mapActionsToProps)(LoginContainer),
 };

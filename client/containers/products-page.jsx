@@ -13,10 +13,23 @@ import { getProducts } from 'actions/products-actions';
 import { addItemToCart, createCart } from 'client/actions/cart-actions';
 
 // Selectors
-import { getProducts as getProductsSelector, getLoading } from 'selectors/products-selectors';
-import { selectCart, getLoading as getCartLoading } from 'client/selectors/cart-selectors';
+import {
+  getProducts as getProductsSelector,
+  getLoading,
+} from 'selectors/products-selectors';
+import {
+  selectCart,
+  getLoading as getCartLoading,
+} from 'client/selectors/cart-selectors';
 
-const ProductsContainer = ({ addItemToCart, cart, createCart, getProducts, loading, products }) => {
+const ProductsContainer = ({
+  addItemToCart,
+  cart,
+  createCart,
+  getProducts,
+  loading,
+  products,
+}) => {
   useEffect(() => {
     if (isEmpty(products)) {
       getProducts();
@@ -24,7 +37,6 @@ const ProductsContainer = ({ addItemToCart, cart, createCart, getProducts, loadi
   }, []);
 
   const handleAddToCart = (product, quantity) => {
-    console.log('adding');
     if (isEmpty(cart)) {
       createCart(product.getId(), quantity);
     } else {
@@ -39,10 +51,15 @@ const ProductsContainer = ({ addItemToCart, cart, createCart, getProducts, loadi
     <div className="container-fluid">
       <div className="col-12">
         <Spinner spinning={loading} />
-        <PageHeader headerText="Radical Woodworks Products" showButton={false} />
+        <PageHeader
+          headerText="Radical Woodworks Products"
+          showButton={false}
+        />
       </div>
 
-      {productsLoaded && <ProductGrid products={products} onAddToCart={handleAddToCart} />}
+      {productsLoaded && (
+        <ProductGrid products={products} onAddToCart={handleAddToCart} />
+      )}
     </div>
   );
 };

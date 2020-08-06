@@ -5,12 +5,14 @@ const initialState = {};
 const productsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ACTIONS.GET_PRODUCTS_REQUEST:
+    case ACTIONS.GET_CART_PRODUCTS_REQUEST:
       return {
         ...state,
         loading: true,
         error: false,
       };
     case ACTIONS.GET_PRODUCTS_SUCCESS:
+    case ACTIONS.GET_CART_PRODUCTS_SUCCESS:
       return {
         ...state,
         ...payload,
@@ -18,6 +20,7 @@ const productsReducer = (state = initialState, { type, payload }) => {
         error: false,
       };
     case ACTIONS.GET_PRODUCTS_ERROR:
+    case ACTIONS.GET_CART_PRODUCTS_ERROR:
       return {
         ...state,
         loading: false,
