@@ -5,12 +5,12 @@ import cx from 'classnames';
 import { isEmpty } from 'lodash';
 
 // Components
-import Spinner from 'client/components/spinner/spinner';
-import Button from 'client/components/button/button';
-import Grid from 'client/components/grid/grid';
-import ContentEditor from 'client/components/content-editor/content-editor';
-import PageHeader from 'client/components/page-header/page-header';
-import Notification from 'client/components/notification/notification';
+import Spinner from '@components/spinner/spinner';
+import Button from '@components/button/button';
+import Grid from '@components/grid/grid';
+import ContentEditor from '@components/content-editor/content-editor';
+import PageHeader from '@components/page-header/page-header';
+import Notification from '@components/notification/notification';
 
 // Actions
 import { getAllContent, updateContent } from 'client/actions/content-actions';

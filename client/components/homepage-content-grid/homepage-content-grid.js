@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // Styles
-import styles from 'client/components/homepage-content-grid/homepage-content-grid.scss';
+import styles from '@components/homepage-content-grid/homepage-content-grid.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Components
-import Button from 'client/components/button/button';
+import Button from '@components/button/button';
 
 // Utils
 import { observerIsIntersecting } from 'client/utils/observers';
@@ -20,7 +20,11 @@ const HomepageImageGrid = (props) => {
   const myRefs = {};
   props.homepageContent.forEach((content) => {
     const ref = React.createRef();
-    myRefs[`url_${content.key}`] = { ref, url: content.url, text: content.text };
+    myRefs[`url_${content.key}`] = {
+      ref,
+      url: content.url,
+      text: content.text,
+    };
   });
 
   const setObservers = () => {
@@ -61,11 +65,13 @@ const HomepageImageGrid = (props) => {
     <div className={styles.ImageGridContainer}>
       {props.homepageContent.map((content) => {
         if (content.type === 'image') {
-          return <img
-            key={content.key}
-            ref={myRefs[`url_${content.key}`].ref}
-            className={styles.Content}
-                 />;
+          return (
+            <img
+              key={content.key}
+              ref={myRefs[`url_${content.key}`].ref}
+              className={styles.Content}
+            />
+          );
         } else if (content.type === 'content') {
           return (
             <div

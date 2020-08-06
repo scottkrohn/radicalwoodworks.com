@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Table from 'client/components/table/table';
-import TableHead from 'client/components/table/table-head';
-import TableBody from 'client/components/table/table-body';
-import TableRow from 'client/components/table/table-row';
-import TableCell from 'client/components/table/table-cell';
-import ProductsTableRow from 'client/components/products-table/products-table-row';
+import Table from '@components/table/table';
+import TableHead from '@components/table/table-head';
+import TableBody from '@components/table/table-body';
+import TableRow from '@components/table/table-row';
+import TableCell from '@components/table/table-cell';
+import ProductsTableRow from '@components/products-table/products-table-row';
 
 // Styles
-import styles from 'client/components/products-table/products-table.scss';
+import styles from '@components/products-table/products-table.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const ProductsTable = ({ handleDeleteProduct, products }) => {
@@ -40,11 +40,13 @@ const ProductsTable = ({ handleDeleteProduct, products }) => {
       </TableHead>
       <TableBody>
         {products.map((product) => {
-          return <ProductsTableRow
-            key={product.getId()}
-            handleDeleteProduct={handleDeleteProduct}
-            product={product}
-                 />;
+          return (
+            <ProductsTableRow
+              key={product.getId()}
+              handleDeleteProduct={handleDeleteProduct}
+              product={product}
+            />
+          );
         })}
       </TableBody>
     </Table>

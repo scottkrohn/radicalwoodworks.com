@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // Components
-import TableRow from 'client/components/table/table-row';
-import TableCell from 'client/components/table/table-cell';
+import TableRow from '@components/table/table-row';
+import TableCell from '@components/table/table-cell';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
-import Button from 'client/components/button/button';
-import MissingImage from 'client/components/missing-image/missing-image';
+import Modal, { ModalContent, ModalTrigger } from '@components/modal/modal';
+import Button from '@components/button/button';
+import MissingImage from '@components/missing-image/missing-image';
 
 // Styles
-import styles from 'client/components/products-table/products-table.scss';
+import styles from '@components/products-table/products-table.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Constants
@@ -26,10 +26,7 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
 
   return (
     <React.Fragment>
-      <TableRow
-        hover
-        className={styles.ProductsTableRowContainer}
-      >
+      <TableRow hover className={styles.ProductsTableRowContainer}>
         <TableCell className={styles.Cell}>
           {primaryImageUrl ? (
             <img
@@ -47,31 +44,36 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
           <span className={styles.Text}>${product.getFormattedPrice()}</span>
         </TableCell>
         <TableCell className={styles.Cell}>
-          <span className={styles.Text}>${product.getFormattedShippingPrice()}</span>
+          <span className={styles.Text}>
+            ${product.getFormattedShippingPrice()}
+          </span>
         </TableCell>
         <TableCell className={styles.Cell}>
-          <span className={styles.Text}>{product.getIncludeShippingInPrice() ? 'Yes' : 'No'}</span>
+          <span className={styles.Text}>
+            {product.getIncludeShippingInPrice() ? 'Yes' : 'No'}
+          </span>
         </TableCell>
         <TableCell className={styles.Cell}>
-          <span className={styles.Text}>${product.getFormattedFinalPrice()}</span>
+          <span className={styles.Text}>
+            ${product.getFormattedFinalPrice()}
+          </span>
         </TableCell>
         <TableCell className={iconClasses}>
           <div className={styles.Icons}>
             <Link to={`/admin-product/${product.getId()}`}>
-              <FontAwesomeIcon
-                icon={faEdit}
-                className={styles.ActionIcon}
-              />
+              <FontAwesomeIcon icon={faEdit} className={styles.ActionIcon} />
             </Link>
           </div>
           <Modal headerLabel="Delete Product">
             <ModalTrigger>
               {({ hide, show }) => {
-                return <FontAwesomeIcon
-                  onClick={() => show()}
-                  icon={faTrash}
-                  className={styles.ActionIcon}
-                       />;
+                return (
+                  <FontAwesomeIcon
+                    onClick={() => show()}
+                    icon={faTrash}
+                    className={styles.ActionIcon}
+                  />
+                );
               }}
             </ModalTrigger>
             <ModalContent>
@@ -87,10 +89,7 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
                       >
                         Yes
                       </Button>
-                      <Button
-                        className="flex-basis-33"
-                        onClick={hide}
-                      >
+                      <Button className="flex-basis-33" onClick={hide}>
                         Cancel
                       </Button>
                     </div>

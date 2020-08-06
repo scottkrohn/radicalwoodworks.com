@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import styles from 'client/components/product/pricing.scss';
+import styles from '@components/product/pricing.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import Product from 'model/product';
-import Button from 'client/components/button/button';
+import Button from '@components/button/button';
 import SelectInput from '@forms/select-input';
 
 // Constants
@@ -23,15 +23,23 @@ const Pricing = ({ className, onAddToCart, product }) => {
   const getShippingValue = () => {
     const shippingValue = product.getShippingPrice();
     const includeShipping = product.getIncludeShippingInPrice();
-    return shippingValue > 0 && !includeShipping ? `$${shippingValue.toFixed(2)}` : 'Free!';
+    return shippingValue > 0 && !includeShipping
+      ? `$${shippingValue.toFixed(2)}`
+      : 'Free!';
   };
 
   const getEtsyButton = () => {
-    const etsyUrl = product.getEtsyUrl() || 'https://www.etsy.com/shop/radicalwoodworks/';
+    const etsyUrl =
+      product.getEtsyUrl() || 'https://www.etsy.com/shop/radicalwoodworks/';
     const etsyLogo = IMAGE.getFullUrl(IMAGE.imagePaths.etsyLogo);
 
     return (
-      <a href={etsyUrl} target="_blank" rel="noopener noreferrer" className={styles.AddToCartLink}>
+      <a
+        href={etsyUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.AddToCartLink}
+      >
         <span className={styles.EtsyLabel}>Buy on</span>
         <img src={etsyLogo} className={styles.EtsyImage} />
       </a>
@@ -58,7 +66,11 @@ const Pricing = ({ className, onAddToCart, product }) => {
         <span className={styles.ShippingValue}>{getShippingValue()}</span>
       </div>
       <div className={styles.AddToCart}>
-        <Button className={styles.AddToCartButton} primary onClick={() => onAddToCart(product, quantity)}>
+        <Button
+          className={styles.AddToCartButton}
+          primary
+          onClick={() => onAddToCart(product, quantity)}
+        >
           Add To Cart
         </Button>
         <SelectInput

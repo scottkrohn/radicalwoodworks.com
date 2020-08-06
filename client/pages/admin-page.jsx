@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Components
-import Grid from 'client/components/grid/grid';
-import AdminSection from 'client/components/admin-section/admin-section';
-import PageHeader from 'client/components/page-header/page-header';
+import Grid from '@components/grid/grid';
+import AdminSection from '@components/admin-section/admin-section';
+import PageHeader from '@components/page-header/page-header';
 
 // HOC
 import { withAuthValidation } from 'client/hoc/auth';

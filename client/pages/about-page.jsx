@@ -6,12 +6,16 @@ import { isEmpty } from 'lodash';
 import { getAllContent } from 'client/actions/content-actions';
 
 // Selectors
-import { getAllContent as getAllContentObjects, getContentType, getLoading } from 'client/selectors/content-selector';
+import {
+  getAllContent as getAllContentObjects,
+  getContentType,
+  getLoading,
+} from 'client/selectors/content-selector';
 
 // Components
-import AboutUsInfo from 'client/components/about-us/about-us-info';
+import AboutUsInfo from '@components/about-us/about-us-info';
 import Spinner from '../components/spinner/spinner';
-import PageHeader from 'client/components/page-header/page-header';
+import PageHeader from '@components/page-header/page-header';
 
 const AboutContainer = ({ content, contentType, getAllContent, loading }) => {
   useEffect(() => {
@@ -25,10 +29,7 @@ const AboutContainer = ({ content, contentType, getAllContent, loading }) => {
       <div className="col-xs-12">
         <div className="text-center">
           <Spinner spinning={loading} />
-          <PageHeader
-            headerText="About Radical Woodworks"
-            showButton={false}
-          />
+          <PageHeader headerText="About Radical Woodworks" showButton={false} />
           {contentType === 'ABOUT' && <AboutUsInfo content={content} />}
         </div>
       </div>
@@ -49,10 +50,7 @@ const mapActionsToProps = {
 };
 
 export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(AboutContainer),
+  component: connect(mapStateToProps, mapActionsToProps)(AboutContainer),
   loadData: (store) => {
     return store.dispatch(getAllContent('ABOUT'));
   },

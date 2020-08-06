@@ -5,6 +5,7 @@
     "paths": {
       "@actions/*": ["./client/actions/*"],
       "@bli/*": ["./server/classes/bli/*"],
+      "@components/*": ["./client/components/*"],
       "@constants/*": ["./constants/*"],
       "@constants-server/*": ["./server/constants/*"],
       "@controller/*": ["./server/controllers/*"],

@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 
 // Components
-import Spinner from 'client/components/spinner/spinner';
-import ContentEditor from 'client/components/content-editor/content-editor';
-import PageHeader from 'client/components/page-header/page-header';
-import Notification from 'client/components/notification/notification';
+import Spinner from '@components/spinner/spinner';
+import ContentEditor from '@components/content-editor/content-editor';
+import PageHeader from '@components/page-header/page-header';
+import Notification from '@components/notification/notification';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
@@ -19,7 +19,13 @@ import { getLoading, getAboutContent } from 'client/selectors/content-selector';
 // HOC
 import { withAuthValidation } from 'client/hoc/auth';
 
-const AdminAboutUs = ({ loading, content, contentType, updateContent, getAllContent }) => {
+const AdminAboutUs = ({
+  loading,
+  content,
+  contentType,
+  updateContent,
+  getAllContent,
+}) => {
   const [notificationContent, setNotificationContent] = useState({});
   useEffect(() => {
     if (isEmpty(content) || contentType !== 'ABOUT') {
@@ -41,7 +47,8 @@ const AdminAboutUs = ({ loading, content, contentType, updateContent, getAllCont
       } catch (error) {
         setNotificationContent({
           header: 'Error',
-          message: 'There was an error while saving this update, please try again.',
+          message:
+            'There was an error while saving this update, please try again.',
           showing: true,
         });
       }
@@ -50,14 +57,10 @@ const AdminAboutUs = ({ loading, content, contentType, updateContent, getAllCont
 
   return (
     <div className="container-fluid text-center">
-      <PageHeader
-        headerText="Edit About Us"
-        showButton={false}
-      />
-      <Spinner spinning={loading}>{content && <ContentEditor
-        handleSave={handleSave}
-        content={content}
-                                              />}</Spinner>
+      <PageHeader headerText="Edit About Us" showButton={false} />
+      <Spinner spinning={loading}>
+        {content && <ContentEditor handleSave={handleSave} content={content} />}
+      </Spinner>
       <Notification
         content={notificationContent}
         hide={() => setNotificationContent({ showing: false })}

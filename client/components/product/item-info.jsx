@@ -6,7 +6,7 @@ import { get } from 'lodash';
 import Product from 'model/product';
 
 // Styles
-import styles from 'client/components/product/item-info.scss';
+import styles from '@components/product/item-info.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const ItemInfo = ({ product }) => {
@@ -32,7 +32,9 @@ const ItemInfo = ({ product }) => {
     return (
       <ul className={styles.ItemDetailsList}>
         {validDimensions && <li>{`Dimensions: ${length}" x ${width}"`}</li>}
-        {validInnerDimensions && <li>{`Inner Dimensions: ${innerLength}" x ${innerWidth}"`}</li>}
+        {validInnerDimensions && (
+          <li>{`Inner Dimensions: ${innerLength}" x ${innerWidth}"`}</li>
+        )}
         {defaultColor && <li>{`Default Color: ${defaultColorUi}`}</li>}
       </ul>
     );

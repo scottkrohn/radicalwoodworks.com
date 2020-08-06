@@ -2,14 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import Button from 'client/components/button/button';
+import Button from '@components/button/button';
 import { Link } from 'react-router-dom';
 
 // Styles
-import styles from 'client/components/admin-section/admin-section.scss';
+import styles from '@components/admin-section/admin-section.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const AdminSection = ({ onClickHandler, title, text, buttonHref, buttonText }) => {
+const AdminSection = ({
+  onClickHandler,
+  title,
+  text,
+  buttonHref,
+  buttonText,
+}) => {
   useStyles(styles);
 
   const handleButtonClick = () => {
@@ -24,10 +30,7 @@ const AdminSection = ({ onClickHandler, title, text, buttonHref, buttonText }) =
       <div className={styles.TextContainer}>{text}</div>
       <div className={styles.ButtonContainer}>
         <Link to={buttonHref}>
-          <Button
-            primary
-            onClick={handleButtonClick}
-          >
+          <Button primary onClick={handleButtonClick}>
             {buttonText}
           </Button>
         </Link>

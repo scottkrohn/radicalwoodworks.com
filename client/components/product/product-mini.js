@@ -4,8 +4,8 @@ import { get, isEmpty } from 'lodash';
 // Constants
 import IMAGE from 'constants/image-constants';
 
-import MissingImage from 'client/components/missing-image/missing-image';
-import Button from 'client/components/button/button';
+import MissingImage from '@components/missing-image/missing-image';
+import Button from '@components/button/button';
 
 // Styles
 import styles from 'components/product/product-mini.less';
@@ -43,7 +43,10 @@ const ProductMini = ({ onAddToCart, product }) => {
       <div>
         {imageUrl ? (
           <div className={styles.ImageWrap}>
-            <img className={styles.ProductImage} src={IMAGE.getFullUrl(imageUrl)} />
+            <img
+              className={styles.ProductImage}
+              src={IMAGE.getFullUrl(imageUrl)}
+            />
           </div>
         ) : (
           <div className={styles.NoImage}>
@@ -59,7 +62,9 @@ const ProductMini = ({ onAddToCart, product }) => {
       return '';
     }
 
-    return <div className={styles.Price}>${product.getFormattedFinalPrice()}</div>;
+    return (
+      <div className={styles.Price}>${product.getFormattedFinalPrice()}</div>
+    );
   };
 
   const renderTitle = () => {
@@ -80,7 +85,11 @@ const ProductMini = ({ onAddToCart, product }) => {
         {renderPrice()}
       </Link>
       <div className={styles.AddToCart}>
-        <Button className={styles.AddToCartButton} primary onClick={() => onAddToCart(product, 1)}>
+        <Button
+          className={styles.AddToCartButton}
+          primary
+          onClick={() => onAddToCart(product, 1)}
+        >
           Add To Cart
         </Button>
       </div>

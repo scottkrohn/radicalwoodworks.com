@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { isEmpty, get } from 'lodash';
 
 // Components
-import ProductGrid from 'client/components/product/product-grid';
-import PageHeader from 'client/components/page-header/page-header';
-import Spinner from '../components/spinner/spinner';
+import ProductGrid from '@components/product/product-grid';
+import PageHeader from '@components/page-header/page-header';
+import Spinner from '@components/spinner/spinner';
 
 // Actions
-import { getProducts } from 'actions/products-actions';
-import { addItemToCart, createCart } from 'client/actions/cart-actions';
+import { getProducts } from '@actions/products-actions';
+import { addItemToCart, createCart } from '@actions/cart-actions';
 
 // Selectors
 import {

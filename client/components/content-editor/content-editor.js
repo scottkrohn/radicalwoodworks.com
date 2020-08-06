@@ -4,10 +4,10 @@ import classNames from 'classnames';
 
 // Components
 import Quill from '../quill-wrapper/quill-wrapper';
-import Button from 'client/components/button/button';
+import Button from '@components/button/button';
 
 // Styles
-import styles from 'client/components/content-editor/content-editor.scss';
+import styles from '@components/content-editor/content-editor.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const ContentEditor = (props) => {
@@ -37,10 +37,7 @@ const ContentEditor = (props) => {
   return (
     <div className={styles.ContentEditorContainer}>
       <h5 className={styles.Header}>{props.content.getType()}</h5>
-      <Quill
-        value={text}
-        onChange={onEditorChange}
-      />
+      <Quill value={text} onChange={onEditorChange} />
 
       <div className={styles.Buttons}>
         <div className="offset-lg-4 offset-md-0 col-lg-4 col-md-6">

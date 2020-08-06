@@ -5,6 +5,7 @@ module.exports = {
     alias: {
       ['@actions']: path.resolve(__dirname, './client/actions'),
       ['@bli']: path.resolve(__dirname, './server/classes/bli'),
+      ['@components']: path.resolve(__dirname, './client/components'),
       ['@constants']: path.resolve(__dirname, './constants'),
       ['@constants-server']: path.resolve(__dirname, './server/constants'),
       ['@controller']: path.resolve(__dirname, './server/controllers'),

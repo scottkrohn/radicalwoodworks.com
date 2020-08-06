@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from 'client/components/grid/grid.scss';
+import styles from '@components/grid/grid.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const Grid = ({ children }) => {
@@ -10,7 +10,11 @@ const Grid = ({ children }) => {
 };
 
 Grid.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.bool, PropTypes.array, PropTypes.object]),
+  children: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.array,
+    PropTypes.object,
+  ]),
 };
 
 export default Grid;

@@ -4,8 +4,8 @@ import { get, findIndex, isEmpty } from 'lodash';
 
 import CarouselNavButton from './carousel-nav-button';
 import CarouselDots from './carousel-dots';
-import Modal, { ModalContent, ModalTrigger } from 'client/components/modal/modal';
-import Button from 'client/components/button/button';
+import Modal, { ModalContent, ModalTrigger } from '@components/modal/modal';
+import Button from '@components/button/button';
 
 // Constants
 import IMAGES from '../../constants/image-constants';
@@ -13,7 +13,14 @@ import IMAGES from '../../constants/image-constants';
 import styles from './image-carousel.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate, showOptions, showHidden }) => {
+const ImageCarousel = ({
+  className,
+  images,
+  onImageDelete,
+  onImageMappingUpdate,
+  showOptions,
+  showHidden,
+}) => {
   useStyles(styles);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -60,14 +67,20 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
       setCurrentIndex(0);
       setTranslateX(0);
     } else {
-      const translateCoefficient = getCurrentImageWidth() * Math.abs(currentIndex - index);
+      const translateCoefficient =
+        getCurrentImageWidth() * Math.abs(currentIndex - index);
       setCurrentIndex(index);
-      setTranslateX(translateX - (index < currentIndex ? -translateCoefficient : translateCoefficient));
+      setTranslateX(
+        translateX -
+          (index < currentIndex ? -translateCoefficient : translateCoefficient)
+      );
     }
   };
 
   const getCurrentImageWidth = () => {
-    return document.getElementById(`carousel_image_${imageData[currentIndex].id}`).clientWidth;
+    return document.getElementById(
+      `carousel_image_${imageData[currentIndex].id}`
+    ).clientWidth;
   };
 
   const sortImages = () => {
@@ -146,7 +159,10 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
                           className={styles.ImageWrapper}
                         >
                           <img
-                            className={cx(styles.Image, currentIndex === index && styles.Active)}
+                            className={cx(
+                              styles.Image,
+                              currentIndex === index && styles.Active
+                            )}
                             onClick={show}
                             src={image.url}
                           />
@@ -163,10 +179,24 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
                                         OPTIONS
                                       </div>
                                       {Boolean(image.isPrimary) && (
-                                        <div className={cx(styles.Primary, styles.Attribute)}>PRIMARY</div>
+                                        <div
+                                          className={cx(
+                                            styles.Primary,
+                                            styles.Attribute
+                                          )}
+                                        >
+                                          PRIMARY
+                                        </div>
                                       )}
                                       {Boolean(image.hidden) && (
-                                        <div className={cx(styles.Danger, styles.Attribute)}>HIDDEN</div>
+                                        <div
+                                          className={cx(
+                                            styles.Danger,
+                                            styles.Attribute
+                                          )}
+                                        >
+                                          HIDDEN
+                                        </div>
                                       )}
                                     </div>
                                   );
@@ -180,7 +210,11 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
                                         <Button
                                           onClick={() => {
                                             hide();
-                                            onImageMappingUpdate(image.id, true, image.hidden);
+                                            onImageMappingUpdate(
+                                              image.id,
+                                              true,
+                                              image.hidden
+                                            );
                                           }}
                                         >
                                           Make Primary
@@ -190,7 +224,11 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
                                         <Button
                                           onClick={() => {
                                             hide();
-                                            onImageMappingUpdate(image.id, image.isPrimary, false);
+                                            onImageMappingUpdate(
+                                              image.id,
+                                              image.isPrimary,
+                                              false
+                                            );
                                           }}
                                         >
                                           Unhide Image
@@ -200,7 +238,11 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
                                         <Button
                                           onClick={() => {
                                             hide();
-                                            onImageMappingUpdate(image.id, image.isPrimary, true);
+                                            onImageMappingUpdate(
+                                              image.id,
+                                              image.isPrimary,
+                                              true
+                                            );
                                           }}
                                         >
                                           Hide Image
@@ -226,11 +268,13 @@ const ImageCarousel = ({ className, images, onImageDelete, onImageMappingUpdate,
                   </ModalTrigger>
                   <ModalContent>
                     {({ hide }) => {
-                      return <img
-                        className={styles.FullSizeImage}
-                        src={image.url}
-                        onClick={hide}
-                             />;
+                      return (
+                        <img
+                          className={styles.FullSizeImage}
+                          src={image.url}
+                          onClick={hide}
+                        />
+                      );
                     }}
                   </ModalContent>
                 </Modal>

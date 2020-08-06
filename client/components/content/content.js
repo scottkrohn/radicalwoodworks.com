@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from 'client/components/content/content.less';
+import styles from '@components/content/content.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const Content = ({ content }) => {

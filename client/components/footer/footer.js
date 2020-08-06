@@ -1,9 +1,9 @@
 import React from 'react';
 
 // Components
-import SocialIcons from 'client/components/social-icons/social-icons';
+import SocialIcons from '@components/social-icons/social-icons';
 // Styles
-import styles from 'client/components/footer/footer.less';
+import styles from '@components/footer/footer.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const handleBackToTop = () => {
@@ -15,11 +15,10 @@ const Footer = () => {
   return (
     <div className={styles.FooterContainer}>
       <SocialIcons />
-      <div
-        onClick={handleBackToTop}
-        className={styles.BackToTop}
-      ></div>
-      <div className={styles.Copyright}>{new Date().getFullYear()} Radical Woodworks</div>
+      <div onClick={handleBackToTop} className={styles.BackToTop}></div>
+      <div className={styles.Copyright}>
+        {new Date().getFullYear()} Radical Woodworks
+      </div>
     </div>
   );
 };

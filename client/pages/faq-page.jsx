@@ -7,12 +7,16 @@ import { isEmpty } from 'lodash';
 import { getAllContent } from 'client/actions/content-actions';
 
 // Selectors
-import { getAllContent as getAllContentObjects, getContentType, getLoading } from 'client/selectors/content-selector';
+import {
+  getAllContent as getAllContentObjects,
+  getContentType,
+  getLoading,
+} from 'client/selectors/content-selector';
 
 // Components
-import Content from 'client/components/content/content';
-import Spinner from '../components/spinner/spinner';
-import PageHeader from 'client/components/page-header/page-header';
+import Content from '@components/content/content';
+import Spinner from '@components/spinner/spinner';
+import PageHeader from '@components/page-header/page-header';
 
 const FaqContainer = ({ content, contentType, getAllContent, loading }) => {
   useEffect(() => {
@@ -57,9 +61,6 @@ const mapActionsToProps = {
 };
 
 export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(FaqContainer),
+  component: connect(mapStateToProps, mapActionsToProps)(FaqContainer),
   loadData: (store) => store.dispatch(getAllContent('POLICY')),
 };

@@ -11,10 +11,17 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { uploadImage } from 'client/actions/upload-actions';
 
 // Styles
-import styles from 'client/components/image-upload/image-upload.less';
+import styles from '@components/image-upload/image-upload.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-const ImageUpload = ({ children, className, uploadImage, productId, onImageUploadSuccess, type }) => {
+const ImageUpload = ({
+  children,
+  className,
+  uploadImage,
+  productId,
+  onImageUploadSuccess,
+  type,
+}) => {
   useStyles(styles);
   const inputRef = useRef(null);
 
@@ -39,10 +46,7 @@ const ImageUpload = ({ children, className, uploadImage, productId, onImageUploa
     if (type === 'box') {
       inputButton = (
         <div className={styles.FileInputBox}>
-          <FontAwesomeIcon
-            className={styles.FileInputPlus}
-            icon={faPlus}
-          />
+          <FontAwesomeIcon className={styles.FileInputPlus} icon={faPlus} />
         </div>
       );
     } else {
@@ -58,10 +62,7 @@ const ImageUpload = ({ children, className, uploadImage, productId, onImageUploa
   });
 
   return (
-    <div
-      onClick={handleImageUploadClick}
-      className={wrapperClasses}
-    >
+    <div onClick={handleImageUploadClick} className={wrapperClasses}>
       <input
         className={styles.HiddenInput}
         onChange={onImageUpload}
@@ -90,7 +91,4 @@ const mapActionsToProps = {
   uploadImage,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(ImageUpload);
+export default connect(mapStateToProps, mapActionsToProps)(ImageUpload);

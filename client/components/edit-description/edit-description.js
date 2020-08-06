@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 import Quill from '../quill-wrapper/quill-wrapper';
 
 // Styles
-import styles from 'client/components/edit-description/edit-description.less';
+import styles from '@components/edit-description/edit-description.less';
 
 class EditDescription extends PureComponent {
   constructor(props) {
@@ -17,10 +17,7 @@ class EditDescription extends PureComponent {
     return (
       <div className={styles.EditDescriptionContainer}>
         <div className={styles.SectionHeader}>Description</div>
-        <Quill
-          value={this.props.description}
-          onChange={this.props.onChange}
-        />
+        <Quill value={this.props.description} onChange={this.props.onChange} />
       </div>
     );
   };

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { getCartById } from '@actions/cart-actions';
 import { connect } from 'react-redux';
 import { selectCart } from '@selectors/cart-selectors';
-import PageHeader from 'client/components/page-header/page-header';
+import PageHeader from '@components/page-header/page-header';
 import { getProducts } from '@actions/products-actions';
 
 const CartPage = ({ cart, getProducts }) => {

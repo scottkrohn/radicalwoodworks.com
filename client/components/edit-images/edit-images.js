@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 // Components
-import ImageUpload from 'client/components/image-upload/image-upload';
-import ImageCarousel from '../image-carousel/image-carousel';
-import Button from 'client/components/button/button';
-import MissingImage from 'client/components/missing-image/missing-image';
+import ImageUpload from '@components/image-upload/image-upload';
+import ImageCarousel from '@components/image-carousel/image-carousel';
+import Button from '@components/button/button';
+import MissingImage from '@components/missing-image/missing-image';
 
 // Styles
-import styles from 'client/components/edit-images/edit-images.less';
+import styles from '@components/edit-images/edit-images.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const EditImages = ({

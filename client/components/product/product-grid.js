@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { get, uniqueId } from 'lodash';
 
 // Components
-import ProductMini from 'client/components/product/product-mini';
+import ProductMini from '@components/product/product-mini';
 
 // Styles
-import styles from 'client/components/product/product-grid.less';
+import styles from '@components/product/product-grid.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Utils

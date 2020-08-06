@@ -19,10 +19,10 @@ import {
 } from 'client/selectors/cart-selectors';
 
 // Component
-import Pricing from 'client/components/product/pricing';
-import ItemInfo from 'client/components/product/item-info';
-import Spinner from '../components/spinner/spinner';
-import ImageCarousel from '../components/image-carousel/image-carousel';
+import Pricing from '@components/product/pricing';
+import ItemInfo from '@components/product/item-info';
+import Spinner from '@components/spinner/spinner';
+import ImageCarousel from '@components/image-carousel/image-carousel';
 
 // Styles
 import styles from './product-page.scss';

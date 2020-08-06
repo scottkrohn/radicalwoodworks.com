@@ -15,7 +15,7 @@ import Spinner from '../spinner/spinner';
 import RequiredValidator from '../../utils/validators/required-validator';
 
 // Styles
-import styles from 'client/components/login-form/login-form.scss';
+import styles from '@components/login-form/login-form.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
@@ -39,7 +39,12 @@ const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
   };
 
   return (
-    <div className={cx(styles.LoginFormContainer, 'flex flex-dir-col align-items-center')}>
+    <div
+      className={cx(
+        styles.LoginFormContainer,
+        'flex flex-dir-col align-items-center'
+      )}
+    >
       <Spinner spinning={sending} />
       {error && (
         <div className={styles.LoginError}>

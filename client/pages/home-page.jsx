@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { shuffle } from 'lodash';
 
 // Components
-import PageHeader from 'client/components/page-header/page-header';
-import TextBlurb from 'client/components/text-blurb/text-blurb';
-import HomepageContentGrid from 'client/components/homepage-content-grid/homepage-content-grid';
+import PageHeader from '@components/page-header/page-header';
+import TextBlurb from '@components/text-blurb/text-blurb';
+import HomepageContentGrid from '@components/homepage-content-grid/homepage-content-grid';
 
 // Constants
 import IMAGES from 'client/constants/image-constants';

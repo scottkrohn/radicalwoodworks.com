@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Components
-import Spinner from 'client/components/spinner/spinner';
-import PageHeader from 'client/components/page-header/page-header';
-import ProductsTable from 'client/components/products-table/products-table';
+import Spinner from '@components/spinner/spinner';
+import PageHeader from '@components/page-header/page-header';
+import ProductsTable from '@components/products-table/products-table';
 import Notification from '../components/notification/notification';
 
 // Actions

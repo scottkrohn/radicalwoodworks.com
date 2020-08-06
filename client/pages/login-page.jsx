@@ -6,8 +6,8 @@ import Cookie from 'js-cookie';
 import { login } from 'client/actions/auth-actions';
 
 // Component
-import LoginForm from 'client/components/login-form/login-form';
-import PageHeader from 'client/components/page-header/page-header';
+import LoginForm from '@components/login-form/login-form';
+import PageHeader from '@components/page-header/page-header';
 import { Redirect } from 'react-router-dom';
 
 const LoginContainer = ({ auth, login }) => {

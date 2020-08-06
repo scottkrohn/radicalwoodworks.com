@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { get, isNull, isEmpty } from 'lodash';
 
 // Components
-import EditImages from 'client/components/edit-images/edit-images';
-import EditProductDetails from 'client/components/edit-product-details/edit-product-details';
-import EditDescription from 'client/components/edit-description/edit-description';
-import Spinner from 'client/components/spinner/spinner';
-import PageHeader from 'client/components/page-header/page-header';
-import Notification from 'client/components/notification/notification';
+import EditImages from '@components/edit-images/edit-images';
+import EditProductDetails from '@components/edit-product-details/edit-product-details';
+import EditDescription from '@components/edit-description/edit-description';
+import Spinner from '@components/spinner/spinner';
+import PageHeader from '@components/page-header/page-header';
+import Notification from '@components/notification/notification';
 
 // Actions
 import { verifyLogin } from 'client/actions/admin-actions';
