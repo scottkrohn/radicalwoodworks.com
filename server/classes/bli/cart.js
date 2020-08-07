@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, keyBy } from 'lodash';
 import BaseBLI from '@bli/base';
 import Cart from '@model/cart';
 import CartItem from '@model/cart-item';
@@ -13,11 +13,12 @@ class CartBLI extends BaseBLI {
     super();
   }
 
-  getCartById = async (cartId) => {
+  getCartById = async (cartId, includeProducts) => {
     const whereClause = `WHERE ${DB.tables.carts.columns.id} = ${cartId}`;
 
     const cartPromise = this.db.selectOne(DB.tables.carts.name, whereClause);
-    const cartItemsPromise = this.getCartItemsByCartId(cartId);
+    const cartItemsPromise = this.getCartItemsByCartId(cartId, includeProducts);
+    console.log();
 
     const cartRow = await cartPromise;
     const cartItemModels = await cartItemsPromise;
@@ -48,7 +49,10 @@ class CartBLI extends BaseBLI {
     const cartModel = new Cart();
     cartModel.setValues(cartData, true);
 
-    const cartItemModels = await this.getCartItemsByCartId(cartModel.getId());
+    const cartItemModels = await this.getCartItemsByCartId(
+      cartModel.getId(),
+      includeProducts
+    );
     cartModel.setItems(cartItemModels);
 
     if (this._isCartExpired(cartModel)) {
@@ -63,7 +67,7 @@ class CartBLI extends BaseBLI {
     }
   };
 
-  getCartItemsByCartId = async (cartId) => {
+  getCartItemsByCartId = async (cartId, includeProducts) => {
     const cartItemCols = DB.tables.cartItems.columns;
     const productCols = DB.tables.products.columns;
 
@@ -86,6 +90,22 @@ class CartBLI extends BaseBLI {
       cartItem.setValues(cartItemData, true);
       return cartItem;
     });
+
+    if (includeProducts) {
+      const productBli = new ProductBLI();
+      const productIds = cartItemModels.map((itemModel) =>
+        itemModel.getProductId()
+      );
+      const products = await productBli.getProducts(productIds);
+      const productsById = keyBy(products, (product) => {
+        return product.getId();
+      });
+
+      cartItemModels.forEach((itemModel) => {
+        const productModel = productsById[itemModel.getProductId()];
+        itemModel.setProduct(productModel);
+      });
+    }
 
     return cartItemModels;
   };
@@ -147,10 +167,14 @@ class CartBLI extends BaseBLI {
 
       if (existingItem) {
         existingItem.addQuantity(item.quantity);
-        const whereClause = `WHERE ${DB.tables.cartItems.columns.id} = ${existingItem.getId()}`;
+        const whereClause = `WHERE ${
+          DB.tables.cartItems.columns.id
+        } = ${existingItem.getId()}`;
 
         if (this._assignItemValues(existingItem, true)) {
-          itemPromises.push(this.db.update(DB.tables.cartItems.name, whereClause));
+          itemPromises.push(
+            this.db.update(DB.tables.cartItems.name, whereClause)
+          );
         }
       } else {
         const itemModel = new CartItem();
@@ -168,7 +192,9 @@ class CartBLI extends BaseBLI {
     // Set updated timestamp on cart
     cart.setUpdatedTs(Date.now());
     if (this._assignCartValues(cart)) {
-      const whereClause = `WHERE ${DB.tables.carts.columns.id} = ${cart.getId()}`;
+      const whereClause = `WHERE ${
+        DB.tables.carts.columns.id
+      } = ${cart.getId()}`;
       this.db.update(DB.tables.carts.name, whereClause);
     }
 
@@ -183,7 +209,10 @@ class CartBLI extends BaseBLI {
   };
 
   _isCartExpired = (cartModel) => {
-    return !cartModel.getIsExpired() && Date.now() - cartModel.getUpdatedTs() > CART.expiration48Hours;
+    return (
+      !cartModel.getIsExpired() &&
+      Date.now() - cartModel.getUpdatedTs() > CART.expiration48Hours
+    );
   };
 
   _assignItemValues = (item, ignoreNull = true) => {

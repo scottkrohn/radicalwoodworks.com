@@ -9,17 +9,19 @@ export default async function (req, res, next) {
   const cartId = req.params.cartId;
   const cid = req.query.cid;
   const cookieCartId = get(req, 'cookies.cartId', null);
+  const includeProducts =
+    get(req, 'query.includeProducts', '').toLowerCase() === 'true';
 
   try {
     if (req.method === REQUEST.method.get) {
       if (cartId) {
-        const cart = await cartBli.getCartById(cartId);
+        const cart = await cartBli.getCartById(cartId, includeProducts);
         res.send(cart);
       } else if (cid) {
-        const cart = await cartBli.getCartByCustomerId(cid);
+        const cart = await cartBli.getCartByCustomerId(cid, includeProducts);
         res.send(cart);
       } else if (cookieCartId) {
-        const cart = await cartBli.getCartById(cookieCartId);
+        const cart = await cartBli.getCartById(cookieCartId, includeProducts);
         res.send(cart);
       } else {
         res.status(400).send(EXCEPTIONS.apiError(EXCEPTIONS.cartNotFound, 400));

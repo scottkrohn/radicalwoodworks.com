@@ -26,12 +26,17 @@ export const createCart = (productId, quantity, customerId = null) => {
   };
 };
 
-export const getCartById = (cartId) => {
+export const getCartById = (cartId, includeProducts = false) => {
   return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(getCartRequest());
+
+      const url = `/api/cart${
+        cartId ? `/${cartId}` : ''
+      }?includeProducts=${includeProducts}`;
+
       axios
-        .get(`/api/cart${cartId ? `/${cartId}` : ''}`)
+        .get(encodeURI(url))
         .then((response) => {
           const cartId = get(response, 'data.data.id');
           cartId && Cookie.set('cartId', cartId), { expires: 2 };

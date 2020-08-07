@@ -82,10 +82,6 @@ const ACTIONS = {
   GET_CART_REQUEST: 'cart:getCartRequest',
   GET_CART_SUCCESS: 'cart:getCartSuccess',
   GET_CART_ERROR: 'cart:getCartError',
-
-  GET_CART_PRODUCTS_REQUEST: 'product:getCartProductsRequest',
-  GET_CART_PRODUCTS_SUCCESS: 'product:getCartProductsSuccess',
-  GET_CART_PRODUCTS_ERROR: 'product:getCartProductsError',
 };
 
 export default ACTIONS;

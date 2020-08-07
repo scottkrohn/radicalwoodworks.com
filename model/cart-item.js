@@ -1,4 +1,6 @@
 import Model from '@model/model';
+import { get } from 'lodash';
+import Product from './product';
 
 class CartItem extends Model {
   constructor() {
@@ -10,6 +12,10 @@ class CartItem extends Model {
       productId: null,
       quantity: null,
       isDeleted: null,
+    };
+
+    this.children = {
+      product: null,
     };
   }
 
@@ -53,11 +59,37 @@ class CartItem extends Model {
     return this.data.isDeleted;
   };
 
+  /* Children Getters & Setters */
+  /******************************/
+
+  setProduct = (productModel) => {
+    this.children.product = productModel;
+  };
+
+  getProduct = () => {
+    return this.children.product;
+  };
+
+  /* Helper Functions           */
+  /******************************/
   addQuantity = (quantity) => {
     if (this.data.quantity) {
-      this.data.quantity + quantity >= 0 ? (this.data.quantity += quantity) : (this.data.quantity = 0);
+      this.data.quantity + quantity >= 0
+        ? (this.data.quantity += quantity)
+        : (this.data.quantity = 0);
     } else {
       this.data.quantity = quantity > 0 ? quantity : 0;
+    }
+  };
+
+  buildCartItemModel = (data, children) => {
+    this.setValues(data);
+
+    const product = get(children, 'product', null);
+    if (product) {
+      const productModel = new Product();
+      productModel.buildProductModel(product.data, product.children);
+      this.setProduct(productModel);
     }
   };
 }

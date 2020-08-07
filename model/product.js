@@ -1,5 +1,6 @@
 import Model from './model';
-import { isEmpty } from 'lodash';
+import ImageModel from '@model/image';
+import { get, isEmpty } from 'lodash';
 
 // Constants
 import PRODUCTS from '../constants/product-contants';
@@ -51,7 +52,9 @@ class Product extends Model {
     this.data.shipping_price = this.__getNullOrFloat(shipping_price);
   };
   setIncludeShippingInPrice = (include_shipping_in_price) => {
-    this.data.include_shipping_in_price = this.__getBoolean(include_shipping_in_price);
+    this.data.include_shipping_in_price = this.__getBoolean(
+      include_shipping_in_price
+    );
   };
   setEtsyUrl = (etsy_url) => {
     this.data.etsy_url = etsy_url;
@@ -119,27 +122,46 @@ class Product extends Model {
     return this.children.images;
   };
 
+  addImage = (image) => {
+    if (Array.isArray(this.children.images)) {
+      this.children.images.push(image);
+    } else {
+      this.children.images = [image];
+    }
+  };
+
   /* Derived Data*/
   /*****************/
 
   getFormattedPrice = () => {
-    return isNaN(this.getPrice()) ? this.getPrice() : this.getPrice().toFixed(2);
+    return isNaN(this.getPrice())
+      ? this.getPrice()
+      : this.getPrice().toFixed(2);
   };
 
   getFormattedShippingPrice = () => {
-    return isNaN(this.getShippingPrice()) ? this.getShippingPrice() : this.getShippingPrice().toFixed(2);
+    return isNaN(this.getShippingPrice())
+      ? this.getShippingPrice()
+      : this.getShippingPrice().toFixed(2);
   };
 
   getFormattedFinalPrice = () => {
-    return isNaN(this.getFinalPrice()) ? this.getFinalPrice() : this.getFinalPrice().toFixed(2);
+    return isNaN(this.getFinalPrice())
+      ? this.getFinalPrice()
+      : this.getFinalPrice().toFixed(2);
   };
 
   getFinalPrice = () => {
-    return !this.getIncludeShippingInPrice() ? this.getPrice() : this.getPrice() + this.getShippingPrice();
+    return !this.getIncludeShippingInPrice()
+      ? this.getPrice()
+      : this.getPrice() + this.getShippingPrice();
   };
 
   getDefaultColorUi = () => {
-    return PRODUCTS.getLabelForValue(PRODUCTS.chalkboards.stains, this.getDefaultColor());
+    return PRODUCTS.getLabelForValue(
+      PRODUCTS.chalkboards.stains,
+      this.getDefaultColor()
+    );
   };
 
   getPrimaryImageUrl = () => {
@@ -156,6 +178,17 @@ class Product extends Model {
     } else if (!isEmpty(images[0])) {
       return images[0].getThumbUrl();
     }
+  };
+
+  buildProductModel = (data, children) => {
+    this.setValues(data);
+
+    const images = get(children, 'images', []);
+    images.forEach((image) => {
+      const imageModel = new ImageModel();
+      imageModel.setValues(image.data);
+      this.addImage(imageModel);
+    });
   };
 }
 

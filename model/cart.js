@@ -1,5 +1,6 @@
-import { find } from 'lodash';
+import { find, get } from 'lodash';
 import Model from '@model/model';
+import CartItem from '@model/cart-item';
 
 class Cart extends Model {
   constructor() {
@@ -86,7 +87,22 @@ class Cart extends Model {
   };
 
   getItem = (productId) => {
-    return find(this.children.items, (item) => item.getProductId() === productId);
+    return find(
+      this.children.items,
+      (item) => item.getProductId() === productId
+    );
+  };
+
+  buildCartModel = (data, children) => {
+    this.setValues(data);
+
+    const items = get(children, 'items', []);
+
+    items.forEach((item) => {
+      const itemModel = new CartItem();
+      itemModel.buildCartItemModel(item.data, item.children);
+      this.addItem(itemModel);
+    });
   };
 }
 

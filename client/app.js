@@ -30,6 +30,7 @@ export default {
   component: App,
   loadData: (store) => {
     const loginPromise = store.dispatch(verifyLogin());
+    // TODO: eventually get cart by customer ID if the user is logged in?
     const cartPromise = store.dispatch(getCartById(null));
     return [cartPromise, loginPromise];
   },

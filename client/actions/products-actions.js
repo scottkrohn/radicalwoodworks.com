@@ -3,9 +3,9 @@
 // Constants
 import ACTIONS from 'constants/action-constants';
 
-export const getProducts = (ids, isForCart = false) => {
+export const getProducts = (ids) => {
   return (dispatch, getState, axios) => {
-    dispatch(isForCart ? getCartProductsRequest() : getProductsRequest());
+    dispatch(getProductsRequest());
 
     const url = `/api/products${
       Array.isArray(ids) && ids.length ? `?productIds=${ids.join(',')}` : ''
@@ -16,11 +16,7 @@ export const getProducts = (ids, isForCart = false) => {
         .get(encodeURI(url))
         .then((response) => {
           if (response.status === 200) {
-            dispatch(
-              isForCart
-                ? getCartProductsSuccess(response.data)
-                : getProductsSuccess(response.data)
-            );
+            dispatch(getProductsSuccess(response.data));
             resolve(response);
           } else {
             // Throw if we didn't get a 200 back.
@@ -28,7 +24,7 @@ export const getProducts = (ids, isForCart = false) => {
           }
         })
         .catch((error) => {
-          dispatch(isForCart ? getCartProductsError : getProductsError());
+          dispatch(getProductsError());
           reject(error);
         });
     });
@@ -58,31 +54,6 @@ const getProductsSuccess = (results) => {
 const getProductsError = (error) => {
   return {
     type: ACTIONS.GET_PRODUCTS_ERROR,
-    payload: {
-      error,
-    },
-  };
-};
-
-const getCartProductsRequest = () => {
-  return {
-    type: ACTIONS.GET_CART_PRODUCTS_REQUEST,
-    payload: {},
-  };
-};
-
-const getCartProductsSuccess = (results) => {
-  return {
-    type: ACTIONS.GET_CART_PRODUCTS_SUCCESS,
-    payload: {
-      cartProducts: results,
-    },
-  };
-};
-
-const getCartProductsError = (error) => {
-  return {
-    type: ACTIONS.GET_CART_PRODUCTS_ERROR,
     payload: {
       error,
     },
