@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+.CartSidebarContainer {
+  height: 100%;
+  border: 1px solid $light-gray;
+
+  .Header {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .LineItemTotalList {
+    padding: 0;
+    .LineItemTotal {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .Totals {
+    .SubTotal {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .ShippingTotal {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .GrandTotal {
+    display: flex;
+    justify-content: space-between;
+  }
+}

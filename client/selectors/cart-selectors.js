@@ -7,7 +7,7 @@ export const getLoading = (state) => state.cart.loading;
 
 export const selectCart = createSelector([getCartFromState], (cartData) => {
   if (isEmpty(cartData)) {
-    return {};
+    return null;
   }
 
   const cartModel = new Cart();

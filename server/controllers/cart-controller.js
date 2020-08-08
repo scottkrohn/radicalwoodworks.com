@@ -24,7 +24,7 @@ export default async function (req, res, next) {
         const cart = await cartBli.getCartById(cookieCartId, includeProducts);
         res.send(cart);
       } else {
-        res.status(400).send(EXCEPTIONS.apiError(EXCEPTIONS.cartNotFound, 400));
+        res.send(null);
       }
     } else if (req.method === REQUEST.method.post) {
       const customerId = get(req, 'body.customerId', null);

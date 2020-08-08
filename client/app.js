@@ -37,8 +37,8 @@ export default {
 };
 
 /**
- * Add 'cartProducts' to the cart reducer. Port the getProducts function with ids to cart-actions.
  *
+ * create promos
  * Work on cart page
  *  - Remove from cart API and reduce quantity
  * Clean up API
