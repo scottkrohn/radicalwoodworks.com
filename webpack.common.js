@@ -7,6 +7,7 @@ module.exports = {
       ['@bli']: path.resolve(__dirname, './server/classes/bli'),
       ['@components']: path.resolve(__dirname, './client/components'),
       ['@constants']: path.resolve(__dirname, './constants'),
+      ['@constants-client']: path.resolve(__dirname, './client/constants'),
       ['@constants-server']: path.resolve(__dirname, './server/constants'),
       ['@controller']: path.resolve(__dirname, './server/controllers'),
       ['@db']: path.resolve(__dirname, './server/db'),

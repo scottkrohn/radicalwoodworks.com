@@ -7,6 +7,7 @@
       "@bli/*": ["./server/classes/bli/*"],
       "@components/*": ["./client/components/*"],
       "@constants/*": ["./constants/*"],
+      "@constants-client/*": ["./client/constants/*"],
       "@constants-server/*": ["./server/constants/*"],
       "@controller/*": ["./server/controllers/*"],
       "@db/*": ["./server/db/*"],

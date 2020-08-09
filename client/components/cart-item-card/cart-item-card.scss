@@ -1,7 +1,49 @@
 @import '../../styles/variables.scss';
 
 .CartItemCardContainer {
+  display: flex;
+  flex-direction: row;
   border: 1px solid $light-gray;
   border-radius: 3px;
   height: 200px;
+  padding: 20px;
+
+  .ImageContainer {
+    margin-right: 15px;
+    .Image {
+      border: 1px solid $gray;
+      height: 150px;
+      width: 150px;
+    }
+  }
+
+  .MissingImage {
+    color: $black;
+    height: 150px;
+    width: 150px;
+  }
+
+  .ItemInfo {
+    .ItemTitle {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .InfoInfoBody {
+      margin-top: 15px;
+    }
+  }
+
+  .Price {
+    .PriceAmount {
+      color: $moneyGreen;
+    }
+  }
+
+  .Shipping {
+    .FreeShipping {
+      color: $peacock-blue;
+      font-weight: 600;
+    }
+  }
 }

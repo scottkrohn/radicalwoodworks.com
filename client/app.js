@@ -38,11 +38,15 @@ export default {
 
 /**
  *
- * create promos
+ * Make cart page mobile friendly
+ * Quantity contols on cart
+ * Clear cart button
+ * Remove from cart button
+ * Create promos
  * Work on cart page
- *  - Remove from cart API and reduce quantity
  * Clean up API
  * Handle cart errors elegantly (add error, remove error)
  *
- * Misc
+ * BUGS
+ * setting free shipping in admin edit product doesn't work
  */
