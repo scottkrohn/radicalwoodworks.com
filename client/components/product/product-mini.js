@@ -11,6 +11,7 @@ import Button from '@components/button/button';
 import styles from 'components/product/product-mini.less';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import { Link } from 'react-router-dom';
+import CurrencyHelper from '@helpers/currency-helper';
 
 const ProductMini = ({ onAddToCart, product }) => {
   useStyles(styles);
@@ -63,7 +64,9 @@ const ProductMini = ({ onAddToCart, product }) => {
     }
 
     return (
-      <div className={styles.Price}>${product.getFormattedFinalPrice()}</div>
+      <div className={styles.Price}>
+        {CurrencyHelper.formatCurrency(product.getFinalPrice())}
+      </div>
     );
   };
 

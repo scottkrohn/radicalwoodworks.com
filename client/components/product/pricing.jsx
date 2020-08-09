@@ -8,7 +8,7 @@ import Product from 'model/product';
 import Button from '@components/button/button';
 import SelectInput from '@forms/select-input';
 
-// Constants
+import CurrencyHelper from '@helpers/currency-helper';
 import IMAGE from 'client/constants/image-constants';
 import PRODUCT from '@constants/product-contants';
 
@@ -17,14 +17,14 @@ const Pricing = ({ className, onAddToCart, product }) => {
   useStyles(styles);
   const getPriceValue = () => {
     const priceValue = product.getFinalPrice();
-    return `$${priceValue.toFixed(2)}`;
+    return CurrencyHelper.formatCurrency(priceValue);
   };
 
   const getShippingValue = () => {
     const shippingValue = product.getShippingPrice();
     const includeShipping = product.getIncludeShippingInPrice();
     return shippingValue > 0 && !includeShipping
-      ? `$${shippingValue.toFixed(2)}`
+      ? CurrencyHelper.formatCurrency(shippingValue)
       : 'Free!';
   };
 
@@ -47,11 +47,9 @@ const Pricing = ({ className, onAddToCart, product }) => {
   };
 
   const handleQuantityChange = (name) => (event) => {
-    console.log(event.target.value);
     setQuantity(parseInt(event.target.value));
   };
 
-  console.log(quantity);
   return (
     <div className={cx(styles.PricingContainer, className)}>
       <div className={styles.Title}>

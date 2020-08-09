@@ -2,6 +2,8 @@ import React from 'react';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import styles from './cart-sidebar.scss';
 import cx from 'classnames';
+import Button from '@components/button/button';
+import CurrencyHelper from '@helpers/currency-helper';
 
 const CartSidebar = ({ items, className }) => {
   useStyles(styles);
@@ -17,6 +19,7 @@ const CartSidebar = ({ items, className }) => {
           label: item.getProduct().getTitle(),
           quantity: item.getQuantity(),
           price: itemPrice,
+          productId: item.getProduct().getId(),
         };
 
         return {
@@ -41,12 +44,13 @@ const CartSidebar = ({ items, className }) => {
       <hr />
 
       <div className={styles.Items}>
+        <span className={styles.ItemsHeader}>Items</span>
         <ul className={styles.LineItemTotalList}>
           {lineItemTotals.map((total) => {
             return (
-              <li className={styles.LineItemTotal}>
+              <li key={total.productId} className={styles.LineItemTotal}>
                 <div>{`${total.label} x${total.quantity}`}</div>
-                <div>{total.price}</div>
+                <div>{CurrencyHelper.formatCurrency(total.price)}</div>
               </li>
             );
           })}
@@ -57,16 +61,21 @@ const CartSidebar = ({ items, className }) => {
       <div className={styles.Totals}>
         <div className={styles.SubTotal}>
           <div>Item Subtotal:</div>
-          <div>{itemTotal}</div>
+          <div>{CurrencyHelper.formatCurrency(itemTotal)}</div>
         </div>
         <div className={styles.ShippingTotal}>
           <div>Shipping Total:</div>
-          <div>{shippingTotal}</div>
+          <div>{CurrencyHelper.formatCurrency(shippingTotal)}</div>
         </div>
       </div>
       <div className={styles.GrandTotal}>
         <div>Grand Total: </div>
-        <div>{itemTotal + shippingTotal}</div>
+        <div>{CurrencyHelper.formatCurrency(itemTotal + shippingTotal)}</div>
+      </div>
+      <div className={styles.CheckoutButtonContainer}>
+        <Button primary className={styles.CheckoutButton}>
+          Check Out
+        </Button>
       </div>
     </div>
   );
