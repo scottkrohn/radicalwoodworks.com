@@ -75,6 +75,20 @@ export const addItemToCart = (cartId, productId, quantity) => {
   };
 };
 
+export const clearCart = (cartId) => {
+  return (dispatch, getState, axios) => {
+    dispatch(clearCartRequest());
+    axios
+      .delete(`/api/cart/${cartId}`)
+      .then((response) => {
+        dispatch(clearCartSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(clearCartError(error));
+      });
+  };
+};
+
 /*******************/
 /* Action Creators */
 /*******************/
@@ -138,6 +152,27 @@ const createCartSuccess = (cart) => {
 const createCartError = (error) => {
   return {
     type: ACTIONS.CREATE_CART_ERROR,
+    payload: error,
+  };
+};
+
+const clearCartRequest = () => {
+  return {
+    type: ACTIONS.CLEAR_CART_REQUEST,
+    payload: {},
+  };
+};
+
+const clearCartSuccess = (cart) => {
+  return {
+    type: ACTIONS.CLEAR_CART_SUCCESS,
+    payload: cart,
+  };
+};
+
+const clearCartError = (error) => {
+  return {
+    type: ACTIONS.CLEAR_CART_ERROR,
     payload: error,
   };
 };

@@ -82,6 +82,10 @@ const ACTIONS = {
   GET_CART_REQUEST: 'cart:getCartRequest',
   GET_CART_SUCCESS: 'cart:getCartSuccess',
   GET_CART_ERROR: 'cart:getCartError',
+
+  CLEAR_CART_REQUEST: 'cart:clearCartRequest',
+  CLEAR_CART_SUCCESS: 'cart:clearCartSuccess',
+  CLEAR_CART_ERROR: 'cart:clearCartError',
 };
 
 export default ACTIONS;

@@ -1,11 +1,15 @@
 @import '../../styles/variables.scss';
 
 .NavbarContainer {
+  position: sticky;
+  top: 0;
+  background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid $light-gray;
   min-height: 40px;
+  z-index: $z-index-navbar;
 
   .Drawer {
     min-height: 725px;

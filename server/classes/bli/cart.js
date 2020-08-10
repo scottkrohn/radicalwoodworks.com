@@ -13,12 +13,15 @@ class CartBLI extends BaseBLI {
     super();
   }
 
-  getCartById = async (cartId, includeProducts) => {
+  getCartById = async (cartId, includeProducts, excludeZeroQuantity = true) => {
     const whereClause = `WHERE ${DB.tables.carts.columns.id} = ${cartId}`;
 
     const cartPromise = this.db.selectOne(DB.tables.carts.name, whereClause);
-    const cartItemsPromise = this.getCartItemsByCartId(cartId, includeProducts);
-    console.log();
+    const cartItemsPromise = this.getCartItemsByCartId(
+      cartId,
+      includeProducts,
+      excludeZeroQuantity
+    );
 
     const cartRow = await cartPromise;
     const cartItemModels = await cartItemsPromise;
@@ -67,11 +70,36 @@ class CartBLI extends BaseBLI {
     }
   };
 
-  getCartItemsByCartId = async (cartId, includeProducts) => {
+  clearCart = async (cartId) => {
+    const cart = await this.getCartById(cartId, false);
+
+    if (!cart) {
+      throw EXCEPTIONS.apiError(EXCEPTIONS.cartNotFound, 404);
+    }
+
+    const updateSql = `
+      UPDATE
+        ${DB.tables.cartItems.name}
+      SET
+        ${DB.tables.cartItems.columns.quantity} = 0
+      WHERE
+        ${DB.tables.cartItems.columns.cartId} = ${cart.getId()}
+    `;
+
+    await this.db.query(updateSql);
+    cart.setItems([]);
+    return cart;
+  };
+
+  getCartItemsByCartId = async (
+    cartId,
+    includeProducts = false,
+    excludeZeroQuantity = true
+  ) => {
     const cartItemCols = DB.tables.cartItems.columns;
     const productCols = DB.tables.products.columns;
 
-    const sql = `
+    let sql = `
       SELECT
         ci.*
       FROM 
@@ -83,6 +111,10 @@ class CartBLI extends BaseBLI {
       AND
         ci.${cartItemCols.cartId} = ${cartId}
     `;
+
+    if (excludeZeroQuantity) {
+      sql += ` AND ci.${cartItemCols.quantity} > 0`;
+    }
 
     const cartItemRows = await this.db.query(sql);
     const cartItemModels = cartItemRows.map((cartItemData) => {

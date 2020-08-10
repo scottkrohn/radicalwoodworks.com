@@ -49,4 +49,6 @@ export default {
  *
  * BUGS
  * setting free shipping in admin edit product doesn't work
+ * clearing the cart and adding the same item back adds a new cart_line entry instead of updating the existing one with quantity 0
+ *
  */

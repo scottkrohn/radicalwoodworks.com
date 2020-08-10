@@ -1,5 +1,8 @@
 import React, { useRef, useMemo, useState } from 'react';
-import { getModalRootContainer, createPortal } from '../../utils/services/portal-service';
+import {
+  getModalRootContainer,
+  createPortal,
+} from '../../utils/services/portal-service';
 import cx from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -66,10 +69,18 @@ const Modal = ({ children, headerLabel = '' }) => {
       {showing && (
         <div>
           {createPortal(
-            <div className={cx(styles.ModalOverlay, hiding && styles.HidingOverlay)}>
+            <div
+              className={cx(
+                styles.ModalOverlay,
+                hiding && styles.HidingOverlay
+              )}
+            >
               <div
                 ref={contentRef}
-                className={cx(styles.ModalContent, hiding && styles.HidingContent)}
+                className={cx(
+                  styles.ModalContent,
+                  hiding && styles.HidingContent
+                )}
               >
                 <div className={styles.ContentHeader}>
                   {headerLabel}
