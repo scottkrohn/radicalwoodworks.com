@@ -1,6 +1,10 @@
 import { isEmpty } from 'lodash';
 import React, { useEffect, useState, Fragment } from 'react';
-import { clearCart, getCartById } from '@actions/cart-actions';
+import {
+  clearCart,
+  getCartById,
+  addOrUpdateCartItem,
+} from '@actions/cart-actions';
 import { connect } from 'react-redux';
 import { getLoading, selectCart } from '@selectors/cart-selectors';
 import PageHeader from '@components/page-header/page-header';
@@ -11,7 +15,13 @@ import styles from './cart-page.scss';
 import cx from 'classnames';
 import Spinner from '@components/spinner/spinner';
 
-const CartPage = ({ cart, clearCart, getCartById, loading }) => {
+const CartPage = ({
+  addOrUpdateCartItem,
+  cart,
+  clearCart,
+  getCartById,
+  loading,
+}) => {
   const [cartLoaded, setCartLoaded] = useState(false);
   const items = isEmpty(cart) ? [] : cart.getItems();
   useStyles(styles);
@@ -29,7 +39,12 @@ const CartPage = ({ cart, clearCart, getCartById, loading }) => {
         <Fragment>
           {Array.isArray(items) && items.length ? (
             <div className={styles.CartPageBody}>
-              <CartItemCardList className={styles.CartCards} items={items} />
+              <CartItemCardList
+                className={styles.CartCards}
+                items={items}
+                updateCartItem={addOrUpdateCartItem}
+                cartId={cart.getId()}
+              />
               <CartSidebar
                 items={items}
                 className={styles.CartSidebar}
@@ -51,6 +66,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionsToProps = {
+  addOrUpdateCartItem,
   clearCart,
   getCartById,
 };

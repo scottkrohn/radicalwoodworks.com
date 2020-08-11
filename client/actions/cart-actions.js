@@ -51,7 +51,7 @@ export const getCartById = (cartId, includeProducts = false) => {
   };
 };
 
-export const addItemToCart = (cartId, productId, quantity) => {
+export const addOrUpdateCartItem = (cartId, productId, quantity) => {
   return (dispatch, getState, axios) => {
     dispatch(addToCartRequest());
 
@@ -95,21 +95,21 @@ export const clearCart = (cartId) => {
 
 const addToCartRequest = () => {
   return {
-    type: ACTIONS.ADD_TO_CART_REQUEST,
+    type: ACTIONS.ADD_OR_UPDATE_CART_ITEM_REQUEST,
     payload: {},
   };
 };
 
 const addToCartSuccess = (cart) => {
   return {
-    type: ACTIONS.ADD_TO_CART_SUCCESS,
+    type: ACTIONS.ADD_OR_UPDATE_CART_ITEM_SUCCESS,
     payload: cart,
   };
 };
 
 const addToCartError = (error) => {
   return {
-    type: ACTIONS.ADD_TO_CART_ERROR,
+    type: ACTIONS.ADD_OR_UPDATE_CART_ITEM_ERROR,
     payload: error,
   };
 };

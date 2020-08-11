@@ -8,7 +8,7 @@ const initialState = {
 
 const cartReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case ACTIONS.ADD_TO_CART_REQUEST:
+    case ACTIONS.ADD_OR_UPDATE_CART_ITEM_REQUEST:
     case ACTIONS.CREATE_CART_REQUEST:
     case ACTIONS.GET_CART_REQUEST:
     case ACTIONS.CLEAR_CART_REQUEST:
@@ -17,7 +17,7 @@ const cartReducer = (state = initialState, { type, payload }) => {
         loading: true,
         error: false,
       };
-    case ACTIONS.ADD_TO_CART_SUCCESS:
+    case ACTIONS.ADD_OR_UPDATE_CART_ITEM_SUCCESS:
     case ACTIONS.CREATE_CART_SUCCESS:
     case ACTIONS.GET_CART_SUCCESS:
     case ACTIONS.CLEAR_CART_SUCCESS:
@@ -27,7 +27,7 @@ const cartReducer = (state = initialState, { type, payload }) => {
         error: false,
         cart: payload,
       };
-    case ACTIONS.ADD_TO_CART_ERROR:
+    case ACTIONS.ADD_OR_UPDATE_CART_ITEM_ERROR:
     case ACTIONS.CREATE_CART_ERROR:
     case ACTIONS.GET_CART_ERROR:
     case ACTIONS.CLEAR_CART_ERROR:

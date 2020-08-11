@@ -10,7 +10,7 @@ import Spinner from '@components/spinner/spinner';
 
 // Actions
 import { getProducts } from '@actions/products-actions';
-import { addItemToCart, createCart } from '@actions/cart-actions';
+import { addOrUpdateCartItem, createCart } from '@actions/cart-actions';
 
 // Selectors
 import {
@@ -23,7 +23,7 @@ import {
 } from 'client/selectors/cart-selectors';
 
 const ProductsContainer = ({
-  addItemToCart,
+  addOrUpdateCartItem,
   cart,
   createCart,
   getProducts,
@@ -40,7 +40,7 @@ const ProductsContainer = ({
     if (isEmpty(cart)) {
       createCart(product.getId(), quantity);
     } else {
-      addItemToCart(cart.getId(), product.getId(), quantity);
+      addOrUpdateCartItem(cart.getId(), product.getId(), quantity);
     }
   };
 
@@ -77,7 +77,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionsToProps = {
-  addItemToCart,
+  addOrUpdateCartItem,
   createCart,
   getProducts,
 };

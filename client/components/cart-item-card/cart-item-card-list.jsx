@@ -4,7 +4,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import cx from 'classnames';
 import styles from './cart-item-card-list.scss';
 
-const CartItemCardList = ({ className, items }) => {
+const CartItemCardList = ({ cartId, className, items, updateCartItem }) => {
   useStyles(styles);
 
   return Array.isArray(items) && items.length ? (
@@ -15,6 +15,8 @@ const CartItemCardList = ({ className, items }) => {
             className={styles.CardListItem}
             key={item.getId()}
             item={item}
+            updateCartItem={updateCartItem}
+            cartId={cartId}
           />
         );
       })}

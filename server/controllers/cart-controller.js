@@ -32,12 +32,12 @@ export default async function (req, res, next) {
       const cart = await cartBli.createCart(customerId, items);
       res.send(cart);
     } else if (req.method === REQUEST.method.put) {
-      let cart = await cartBli.getCartById(cartId, false, false);
+      let cart = await cartBli.getCartById(cartId, true, false);
       const items = get(req, 'body.items', []);
 
       try {
         await cartBli.addOrUpdateCartItems(cart, items);
-        cart = await cartBli.getCartById(cartId);
+        cart = await cartBli.getCartById(cartId, true, true);
         res.send(cart);
       } catch (error) {
         res.status(error.status).send(error);

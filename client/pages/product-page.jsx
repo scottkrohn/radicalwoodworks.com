@@ -6,7 +6,7 @@ import cx from 'classnames';
 
 // Actions
 import { getProduct } from 'client/actions/product-actions';
-import { addItemToCart, createCart } from 'client/actions/cart-actions';
+import { addOrUpdateCartItem, createCart } from 'client/actions/cart-actions';
 
 // Selectors
 import {
@@ -29,7 +29,7 @@ import styles from './product-page.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 const ProductContainer = ({
-  addItemToCart,
+  addOrUpdateCartItem,
   cart,
   createCart,
   getProduct,
@@ -50,7 +50,7 @@ const ProductContainer = ({
     if (isEmpty(cart)) {
       createCart(product.getId(), quantity);
     } else {
-      addItemToCart(cart.getId(), product.getId(), quantity);
+      addOrUpdateCartItem(cart.getId(), product.getId(), quantity);
     }
   };
 
@@ -95,7 +95,7 @@ ProductContainer.propTypes = {
 };
 
 const mapActionsToProps = {
-  addItemToCart,
+  addOrUpdateCartItem,
   createCart,
   getProduct,
 };

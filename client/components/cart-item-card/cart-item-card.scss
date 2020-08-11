@@ -24,6 +24,8 @@
   }
 
   .ItemInfo {
+    width: 100%;
+
     .ItemTitle {
       font-size: 18px;
       font-weight: 500;
@@ -31,6 +33,28 @@
 
     .InfoInfoBody {
       margin-top: 15px;
+      display: flex;
+
+      .QuantityInput {
+        width: 80px;
+
+        select {
+          border-radius: 3px;
+        }
+      }
+
+      .RemoveItemButton {
+        margin-top: 5px;
+        border: none;
+        background: transparent;
+        padding: 0;
+        font-size: 11px;
+        color: $primary;
+
+        &:hover {
+          color: $primary-hover;
+        }
+      }
     }
   }
 

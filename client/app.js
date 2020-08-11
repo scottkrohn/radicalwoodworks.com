@@ -46,6 +46,11 @@ export default {
  * Work on cart page
  * Clean up API
  * Handle cart errors elegantly (add error, remove error)
+ * cart empty page
+ *
+ * FUTURE
+ * Add sections/filters to products page
+ * Search?
  *
  * BUGS
  * setting free shipping in admin edit product doesn't work

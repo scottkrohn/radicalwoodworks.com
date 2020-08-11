@@ -71,9 +71,9 @@ const ACTIONS = {
   UPDATE_IMAGE_MAPPING_ERROR: 'image:imageMappingError',
 
   // Cart Actions
-  ADD_TO_CART_REQUEST: 'cart:addToCartRequest',
-  ADD_TO_CART_SUCCESS: 'cart:addToCartSuccess',
-  ADD_TO_CART_ERROR: 'cart:addToCartError',
+  ADD_OR_UPDATE_CART_ITEM_REQUEST: 'cart:addOrUpdateCartItemRequest',
+  ADD_OR_UPDATE_CART_ITEM_SUCCESS: 'cart:addOrUpdateCartItemSuccess',
+  ADD_OR_UPDATE_CART_ITEM_ERROR: 'cart:addOrUpdateCartItemError',
 
   CREATE_CART_REQUEST: 'cart:createCartRequest',
   CREATE_CART_SUCCESS: 'cart:createCartSuccess',

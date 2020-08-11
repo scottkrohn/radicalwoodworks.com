@@ -60,11 +60,15 @@
     }
 
     .QuantityInput {
-      width: 40px;
+      width: 65px;
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 18px;
+
+      select {
+        border-radius: 3px;
+      }
     }
   }
 
