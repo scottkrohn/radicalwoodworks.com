@@ -199,6 +199,11 @@ class CartBLI extends BaseBLI {
 
       if (existingItem) {
         existingItem.addQuantity(item.quantity);
+
+        if (typeof item.notes === 'string') {
+          existingItem.setNotes(item.notes);
+        }
+
         const whereClause = `WHERE ${
           DB.tables.cartItems.columns.id
         } = ${existingItem.getId()}`;
@@ -275,6 +280,9 @@ class CartBLI extends BaseBLI {
         case cartItemColumns.isDeleted:
           this.db.assignBoolean(field, cartItemDatabaseMapping[field]);
           fieldsAssigned = true;
+          break;
+        case cartItemColumns.notes:
+          this.db.assignStr(field, cartItemDatabaseMapping[field]);
           break;
       }
     }

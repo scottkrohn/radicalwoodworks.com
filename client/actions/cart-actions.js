@@ -29,7 +29,7 @@ export const createCart = (productId, quantity, customerId = null) => {
 export const getCartById = (cartId, includeProducts = false) => {
   return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
-      dispatch(getCartRequest());
+      dispatch(addOrUpdateCartItemRequest());
 
       const url = `/api/cart${
         cartId ? `/${cartId}` : ''
@@ -51,27 +51,32 @@ export const getCartById = (cartId, includeProducts = false) => {
   };
 };
 
-export const addOrUpdateCartItem = (cartId, productId, quantity) => {
+export const addOrUpdateCartItem = (cartId, productId, quantity, notes) => {
   return (dispatch, getState, axios) => {
-    dispatch(addToCartRequest());
+    return new Promise((resolve, reject) => {
+      dispatch(addToCartRequest());
 
-    const body = {
-      items: [
-        {
-          productId,
-          quantity,
-        },
-      ],
-    };
+      const body = {
+        items: [
+          {
+            productId,
+            quantity,
+            notes,
+          },
+        ],
+      };
 
-    axios
-      .put(`/api/cart/${cartId}`, body)
-      .then((response) => {
-        dispatch(addToCartSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(addToCartError(error));
-      });
+      axios
+        .put(`/api/cart/${cartId}`, body)
+        .then((response) => {
+          dispatch(addOrUpdateCartItemSuccess(response.data));
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(addOrUpdateCartItemError(error));
+          reject();
+        });
+    });
   };
 };
 
@@ -100,21 +105,21 @@ const addToCartRequest = () => {
   };
 };
 
-const addToCartSuccess = (cart) => {
+const addOrUpdateCartItemSuccess = (cart) => {
   return {
     type: ACTIONS.ADD_OR_UPDATE_CART_ITEM_SUCCESS,
     payload: cart,
   };
 };
 
-const addToCartError = (error) => {
+const addOrUpdateCartItemError = (error) => {
   return {
     type: ACTIONS.ADD_OR_UPDATE_CART_ITEM_ERROR,
     payload: error,
   };
 };
 
-const getCartRequest = () => {
+const addOrUpdateCartItemRequest = () => {
   return {
     type: ACTIONS.GET_CART_REQUEST,
     payload: {},

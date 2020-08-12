@@ -12,6 +12,7 @@ class CartItem extends Model {
       productId: null,
       quantity: null,
       isDeleted: null,
+      notes: null,
     };
 
     this.children = {
@@ -39,6 +40,10 @@ class CartItem extends Model {
     this.data.isDeleted = isDeleted;
   };
 
+  setNotes = (notes) => {
+    this.data.notes = notes;
+  };
+
   getId = () => {
     return this.data.id;
   };
@@ -57,6 +62,10 @@ class CartItem extends Model {
 
   getIsDeleted = () => {
     return this.data.isDeleted;
+  };
+
+  getNotes = () => {
+    return this.data.notes;
   };
 
   /* Children Getters & Setters */

@@ -29,13 +29,19 @@ const TextInput = ({ value = '', ...props }) => {
       <span className={styles.TextInputLabel}>{label}</span>
       <Input
         type={password && 'password'}
-        className={cx(styles.TextInput, textArea && styles.TextArea, validationError && styles.Error)}
-        onChange={onChange(fieldName)}
+        className={cx(
+          styles.TextInput,
+          textArea && styles.TextArea,
+          validationError && styles.Error
+        )}
+        onChange={onChange && onChange(fieldName)}
         value={value}
         rows={rows}
         onKeyDown={typeof onKeyDown === 'function' ? onKeyDown : null}
       />
-      {showValidationMessage && <span className={styles.ErrorMessage}>{message}</span>}
+      {showValidationMessage && (
+        <span className={styles.ErrorMessage}>{message}</span>
+      )}
     </div>
   );
 };

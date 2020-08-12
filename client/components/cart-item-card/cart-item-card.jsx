@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import styles from './cart-item-card.scss';
 import cx from 'classnames';
@@ -10,8 +10,11 @@ import SelectInput from '@forms/select-input';
 import PRODUCT from '@constants/product-contants';
 import Modal, { ModalContent, ModalTrigger } from '@components/modal/modal';
 import Button from '@components/button/button';
+import TextInput from '@forms/text-input';
 
 const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
+  const [showNoteInput, setShowNoteInput] = useState(false);
+  const [updatedNote, setUpdatedNote] = useState(null);
   useStyles(styles);
 
   const getImage = () => {
@@ -37,6 +40,16 @@ const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
     updateCartItem(cartId, item.getProductId(), -item.getQuantity());
   };
 
+  const handleNoteUpdate = () => (event) => {
+    setUpdatedNote(event.target.value);
+  };
+
+  const handleSaveNotes = () => {
+    updateCartItem(cartId, item.getProductId(), 0, updatedNote).then(() => {
+      setShowNoteInput(false);
+    });
+  };
+
   const product = item.getProduct();
   const isFreeShipping = product.getIncludeShippingInPrice();
   const productPageLink = `/products/product/${product.getId()}`;
@@ -49,7 +62,6 @@ const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
 
       <div className={styles.ItemInfo}>
         <div className={styles.ItemTitle}>{product.getTitle()}</div>
-
         <div className={styles.ItemInfoBody}>
           <div className="flex-grow-2">
             <div className={styles.Price}>
@@ -63,7 +75,6 @@ const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
               Shipping:
               <span
                 className={cx({
-                  [styles.ShippingAmount]: true,
                   [styles.FreeShipping]: isFreeShipping,
                 })}
               >
@@ -120,6 +131,42 @@ const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
               </ModalContent>
             </Modal>
           </div>
+        </div>
+        <div className={styles.NotesContainer}>
+          {!showNoteInput && (
+            <div>
+              <button
+                className={styles.EditNotesButton}
+                onClick={() => {
+                  setShowNoteInput(!showNoteInput);
+                }}
+              >
+                {`${item.getNotes() ? 'Edit' : 'Add'} Notes`}
+              </button>
+              {item.getNotes() && (
+                <div className={styles.NotesPreview}>
+                  Notes: {item.getNotes()}
+                </div>
+              )}
+            </div>
+          )}
+          {showNoteInput && (
+            <div>
+              <TextInput
+                value={updatedNote !== null ? updatedNote : item.getNotes()}
+                onChange={handleNoteUpdate}
+                textArea
+                rows={2}
+              />
+              <Button
+                save
+                className={styles.SaveButton}
+                onClick={handleSaveNotes}
+              >
+                Save Notes
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

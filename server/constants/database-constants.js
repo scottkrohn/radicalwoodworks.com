@@ -75,6 +75,7 @@ const DATABASE = {
         productId: 'product_id',
         quantity: 'quantity',
         isDeleted: 'is_deleted',
+        notes: 'notes',
       },
     },
   },
@@ -125,6 +126,7 @@ DATABASE.getCartItemDatabaseFieldsMapping = (cartItem) => {
     [cartItemColumns.productId]: cartItem.getProductId(),
     [cartItemColumns.quantity]: cartItem.getQuantity(),
     [cartItemColumns.isDeleted]: cartItem.getIsDeleted(),
+    [cartItemColumns.notes]: cartItem.getNotes(),
   };
 };
 export default DATABASE;
