@@ -14,6 +14,9 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import styles from './cart-page.scss';
 import cx from 'classnames';
 import Spinner from '@components/spinner/spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSadTear } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const CartPage = ({
   addOrUpdateCartItem,
@@ -53,7 +56,16 @@ const CartPage = ({
               />
             </div>
           ) : (
-            <div>Cart be empty, yo!</div>
+            <div className={styles.EmptyCart}>
+              <h4>
+                Your cart is empty
+                <FontAwesomeIcon className={styles.SadFace} icon={faSadTear} />
+              </h4>
+              <p className={styles.GoToProducts}>
+                Head over the <Link to="/products">products</Link> page and add
+                something awesome to your cart!
+              </p>
+            </div>
           )}
         </Fragment>
       )}

@@ -38,15 +38,11 @@ export default {
 
 /**
  *
- * Make cart page mobile friendly
- * Quantity contols on cart
- * Clear cart button
- * Remove from cart button
+ * create orders lol
+ * add special notes to cart line item
  * Create promos
- * Work on cart page
  * Clean up API
  * Handle cart errors elegantly (add error, remove error)
- * cart empty page
  *
  * FUTURE
  * Add sections/filters to products page
