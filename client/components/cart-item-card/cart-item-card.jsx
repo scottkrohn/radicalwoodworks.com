@@ -50,7 +50,7 @@ const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
       <div className={styles.ItemInfo}>
         <div className={styles.ItemTitle}>{product.getTitle()}</div>
 
-        <div className={styles.InfoInfoBody}>
+        <div className={styles.ItemInfoBody}>
           <div className="flex-grow-2">
             <div className={styles.Price}>
               Price:

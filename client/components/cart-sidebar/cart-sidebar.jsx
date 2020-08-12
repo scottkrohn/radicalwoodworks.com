@@ -43,8 +43,8 @@ const CartSidebar = ({ items, cartId, className, clearCart }) => {
     <div className={cx(styles.CartSidebarContainer, className)}>
       <div className={styles.CartSidebarBox}>
         <h3 className={styles.Header}>Order Summary</h3>
-        <hr />
         <div className={styles.Items}>
+          <hr />
           <div className="flex justify-content-between align-items-center">
             <div className={styles.ItemsHeader}>Items</div>
             <Modal>
@@ -92,8 +92,8 @@ const CartSidebar = ({ items, cartId, className, clearCart }) => {
               );
             })}
           </ul>
+          <hr />
         </div>
-        <hr />
         <div className={styles.Totals}>
           <div className={styles.SubTotal}>
             <div>Item Subtotal:</div>

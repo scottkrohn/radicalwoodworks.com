@@ -1,7 +1,11 @@
+@import '../styles/variables.scss';
+
 .CartPageContainer {
   .CartPageBody {
     display: flex;
-    flex-direction: col;
+    @media (max-width: $mobile) {
+      flex-direction: column-reverse;
+    }
   }
 
   .CartCards {
@@ -10,10 +14,16 @@
   }
 
   .CartSidebar {
-    max-width: 400px;
+    max-width: 500px;
     margin-top: 10px;
     position: sticky;
     top: 55px;
     flex-grow: 1;
+
+    @media (max-width: $mobile) {
+      max-width: 100%;
+      background: white;
+      top: 105px;
+    }
   }
 }

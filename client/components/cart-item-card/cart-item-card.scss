@@ -8,12 +8,21 @@
   height: 200px;
   padding: 20px;
 
+  @media (max-width: $mobile) {
+    height: 100%;
+  }
   .ImageContainer {
     margin-right: 15px;
+
     .Image {
       border: 1px solid $gray;
       height: 150px;
       width: 150px;
+
+      @media (max-width: $mobile) {
+        height: 280px;
+        width: 280px;
+      }
     }
   }
 
@@ -21,6 +30,11 @@
     color: $black;
     height: 150px;
     width: 150px;
+
+    @media (max-width: $mobile) {
+      height: 280px;
+      width: 280px;
+    }
   }
 
   .ItemInfo {
@@ -29,17 +43,34 @@
     .ItemTitle {
       font-size: 18px;
       font-weight: 500;
+
+      @media (max-width: $mobile) {
+        font-size: 2.5em;
+      }
     }
 
-    .InfoInfoBody {
+    .ItemInfoBody {
       margin-top: 15px;
       display: flex;
+      align-items: center;
 
       .QuantityInput {
         width: 80px;
 
+        @media (max-width: $mobile) {
+          width: 100px;
+          span {
+            font-size: 1.5em;
+          }
+        }
+
         select {
           border-radius: 3px;
+          text-indent: 15px;
+
+          @media (max-width: $mobile) {
+            font-size: 2.9em;
+          }
         }
       }
 
@@ -51,6 +82,10 @@
         font-size: 11px;
         color: $primary;
 
+        @media (max-width: $mobile) {
+          font-size: 2em;
+        }
+
         &:hover {
           color: $primary-hover;
         }
@@ -59,12 +94,20 @@
   }
 
   .Price {
+    @media (max-width: $mobile) {
+      font-size: 2.5em;
+    }
+
     .PriceAmount {
       color: $moneyGreen;
     }
   }
 
   .Shipping {
+    @media (max-width: $mobile) {
+      font-size: 2.5em;
+    }
+
     .FreeShipping {
       color: $peacock-blue;
       font-weight: 600;

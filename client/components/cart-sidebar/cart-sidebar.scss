@@ -23,6 +23,16 @@
   .Header {
     margin-top: 10px;
     text-align: center;
+
+    @media (max-width: $mobile) {
+      display: none;
+    }
+  }
+
+  .Items {
+    @media (max-width: $mobile) {
+      display: none;
+    }
   }
 
   .ItemsHeader {
@@ -35,6 +45,7 @@
   .LineItemTotalList {
     padding: 0;
     margin-bottom: 0;
+
     .LineItemTotal {
       display: flex;
       justify-content: space-between;
@@ -44,6 +55,11 @@
   .Totals {
     font-size: 18px;
     font-weight: 600;
+
+    @media (max-width: $mobile) {
+      font-size: 2.7em;
+    }
+
     .SubTotal {
       display: flex;
       justify-content: space-between;
@@ -60,6 +76,10 @@
     justify-content: space-between;
     font-size: 20px;
     font-weight: 700;
+
+    @media (max-width: $mobile) {
+      font-size: 3em;
+    }
   }
 
   .CheckoutButtonContainer {
