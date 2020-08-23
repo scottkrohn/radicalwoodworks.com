@@ -5,7 +5,7 @@ import cx from 'classnames';
 import IMAGE from '@constants-client/image-constants';
 import MissingImage from '@components/missing-image/missing-image';
 import { Link } from 'react-router-dom';
-import CurrencyHelper from '@helpers/currency-helper';
+import CurrencyHelper from 'lib/helpers/currency-helper';
 import SelectInput from '@forms/select-input';
 import PRODUCT from '@constants/product-contants';
 import Modal, { ModalContent, ModalTrigger } from '@components/modal/modal';

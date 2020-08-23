@@ -16,13 +16,17 @@ import cx from 'classnames';
 import Spinner from '@components/spinner/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSadTear } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { createOrUpdateOrder } from '@actions/order-actions';
+import { getLoading as getOrderLoading } from '@selectors/order-selectors';
 
 const CartPage = ({
   addOrUpdateCartItem,
   cart,
   clearCart,
+  createOrUpdateOrder,
   getCartById,
+  history,
   loading,
 }) => {
   const [cartLoaded, setCartLoaded] = useState(false);
@@ -33,6 +37,12 @@ const CartPage = ({
     const cartId = cart ? cart.getId() : null;
     getCartById(cartId, true).then(() => setCartLoaded(true));
   }, []);
+
+  const handleCheckout = () => {
+    createOrUpdateOrder(cart.getId()).then(() => {
+      history.push('/checkout');
+    });
+  };
 
   return (
     <div className={cx(styles.CartPageContainer, 'container-fluid')}>
@@ -49,10 +59,10 @@ const CartPage = ({
                 cartId={cart.getId()}
               />
               <CartSidebar
-                items={items}
+                cart={cart}
                 className={styles.CartSidebar}
                 clearCart={clearCart}
-                cartId={cart.getId()}
+                handleCheckout={handleCheckout}
               />
             </div>
           ) : (
@@ -74,15 +84,19 @@ const CartPage = ({
 };
 
 const mapStateToProps = (state) => {
-  return { cart: selectCart(state), loading: getLoading(state) };
+  return {
+    cart: selectCart(state),
+    loading: getLoading(state) || getOrderLoading(state),
+  };
 };
 
 const mapActionsToProps = {
   addOrUpdateCartItem,
   clearCart,
+  createOrUpdateOrder,
   getCartById,
 };
 
 export default {
-  component: connect(mapStateToProps, mapActionsToProps)(CartPage),
+  component: connect(mapStateToProps, mapActionsToProps)(withRouter(CartPage)),
 };

@@ -1,5 +1,5 @@
 import Model from './model';
-import ImageModel from '@model/image';
+import ImageModel from '@models/image';
 import { get, isEmpty } from 'lodash';
 
 // Constants

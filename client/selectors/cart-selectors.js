@@ -1,6 +1,6 @@
 import { get, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
-import Cart from '@model/cart';
+import Cart from '@models/cart';
 
 const getCartFromState = (state) => state.cart.cart;
 export const getLoading = (state) => state.cart.loading;

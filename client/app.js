@@ -39,7 +39,6 @@ export default {
 /**
  *
  * create orders lol
- * add special notes to cart line item
  * Create promos
  * Clean up API
  * Handle cart errors elegantly (add error, remove error)

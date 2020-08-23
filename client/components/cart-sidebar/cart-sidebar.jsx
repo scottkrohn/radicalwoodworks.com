@@ -5,39 +5,17 @@ import cx from 'classnames';
 import Button from '@components/button/button';
 import CurrencyHelper from '@helpers/currency-helper';
 import Modal, { ModalContent, ModalTrigger } from '@components/modal/modal';
+import CartHelper from '@helpers/cart-helper';
 
-const CartSidebar = ({ items, cartId, className, clearCart }) => {
+const CartSidebar = ({ cart, className, clearCart, handleCheckout }) => {
   useStyles(styles);
 
-  const calculateCartTotals = () => {
-    return items.reduce(
-      (totals, item) => {
-        const itemPrice = item.getProduct().getPrice() * item.getQuantity();
-        const shippingPrice =
-          item.getProduct().getShippingPrice() * item.getQuantity();
-
-        const lineItemTotal = {
-          label: item.getProduct().getTitle(),
-          quantity: item.getQuantity(),
-          price: itemPrice,
-          productId: item.getProduct().getId(),
-        };
-
-        return {
-          itemTotal: (totals.itemTotal += itemPrice),
-          shippingTotal: (totals.shippingTotal += shippingPrice),
-          lineItemTotals: [...totals.lineItemTotals, lineItemTotal],
-        };
-      },
-      {
-        lineItemTotals: [],
-        itemTotal: 0,
-        shippingTotal: 0,
-      }
-    );
-  };
-
-  const { lineItemTotals, itemTotal, shippingTotal } = calculateCartTotals();
+  const cartHelper = new CartHelper();
+  const {
+    lineItemTotals,
+    itemTotal,
+    shippingTotal,
+  } = cartHelper.calculateCartTotals(cart);
 
   return (
     <div className={cx(styles.CartSidebarContainer, className)}>
@@ -67,7 +45,7 @@ const CartSidebar = ({ items, cartId, className, clearCart }) => {
                           className="flex-basis-33"
                           danger
                           onClick={() => {
-                            clearCart(cartId);
+                            clearCart(cart.getId());
                           }}
                         >
                           Yes
@@ -109,7 +87,11 @@ const CartSidebar = ({ items, cartId, className, clearCart }) => {
           <div>{CurrencyHelper.formatCurrency(itemTotal + shippingTotal)}</div>
         </div>
         <div className={styles.CheckoutButtonContainer}>
-          <Button primary className={styles.CheckoutButton}>
+          <Button
+            primary
+            onClick={handleCheckout}
+            className={styles.CheckoutButton}
+          >
             Check Out
           </Button>
         </div>

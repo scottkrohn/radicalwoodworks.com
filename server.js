@@ -25,7 +25,8 @@ app.use(
     secret: getConfig('passportSecret'),
     resave: true,
     saveUninitialized: true,
-  }),
+    key: 'sessid',
+  })
 );
 
 app.use(passport.initialize());
@@ -46,7 +47,9 @@ app.get('*', (req, res) => {
   const serverRenderPromises = [];
   matchRoutes(Routes, req.path).forEach(({ route }) => {
     const pathParts = req.path.split('/').filter((part) => part);
-    const loadDataPromise = route.loadData ? route.loadData(store, pathParts) : null;
+    const loadDataPromise = route.loadData
+      ? route.loadData(store, pathParts)
+      : null;
 
     if (loadDataPromise) {
       const promiseArray = Array().concat(loadDataPromise); // Force to be an array
@@ -54,7 +57,7 @@ app.get('*', (req, res) => {
         serverRenderPromises.push(
           new Promise((resolve, reject) => {
             promise.then(resolve).catch(resolve);
-          }),
+          })
         );
       });
     }

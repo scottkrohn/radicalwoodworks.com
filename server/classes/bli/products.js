@@ -5,7 +5,7 @@ import ImagesBLI from '@bli/images';
 
 // Constants
 import DB from '@constants-server/database-constants';
-import Product from '@model/product';
+import Product from '@models/product';
 
 class ProductsBLI extends BaseBLI {
   constructor() {
@@ -22,7 +22,9 @@ class ProductsBLI extends BaseBLI {
 
   updateProduct = (product) => {
     if (this._assignProductValues(product, true)) {
-      const whereClause = `WHERE \`${DB.tables.products.columns.id}\`  = ${product.getId()}`;
+      const whereClause = `WHERE \`${
+        DB.tables.products.columns.id
+      }\`  = ${product.getId()}`;
       return this.db.update(DB.tables.products.name, whereClause);
     }
 
@@ -32,8 +34,13 @@ class ProductsBLI extends BaseBLI {
   // At some point add limit/offset to this function.
   getProducts = async (ids) => {
     const whereClause =
-      Array.isArray(ids) && ids.length ? `WHERE ${DB.tables.products.columns.id} in (${ids.join(',')})` : '';
-    const productRows = await this.db.selectAll(DB.tables.products.name, whereClause);
+      Array.isArray(ids) && ids.length
+        ? `WHERE ${DB.tables.products.columns.id} in (${ids.join(',')})`
+        : '';
+    const productRows = await this.db.selectAll(
+      DB.tables.products.name,
+      whereClause
+    );
     const productIds = productRows.map((productRow) => productRow.id);
     const imagesBli = new ImagesBLI();
 
@@ -41,8 +48,12 @@ class ProductsBLI extends BaseBLI {
 
     const productObjects = [];
     for (const productRow of productRows) {
-      const imagesForProduct = images.filter((image) => image.product_id === productRow.id);
-      productObjects.push(this.buildProductObject(productRow, imagesForProduct));
+      const imagesForProduct = images.filter(
+        (image) => image.product_id === productRow.id
+      );
+      productObjects.push(
+        this.buildProductObject(productRow, imagesForProduct)
+      );
     }
 
     return productObjects;
@@ -51,7 +62,10 @@ class ProductsBLI extends BaseBLI {
   getProduct = async (productId) => {
     const whereClause = `WHERE ${DB.tables.products.columns.id} = ${productId}`;
 
-    const productRow = await this.db.selectOne(DB.tables.products.name, whereClause);
+    const productRow = await this.db.selectOne(
+      DB.tables.products.name,
+      whereClause
+    );
     const productData = get(productRow, '[0]', {});
 
     const imagesBli = new ImagesBLI();

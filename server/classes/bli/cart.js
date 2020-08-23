@@ -1,7 +1,7 @@
 import { get, keyBy } from 'lodash';
 import BaseBLI from '@bli/base';
-import Cart from '@model/cart';
-import CartItem from '@model/cart-item';
+import Cart from '@models/cart';
+import CartItem from '@models/cart-item';
 import ProductBLI from '@bli/products';
 
 import DB from '@constants-server/database-constants';

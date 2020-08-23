@@ -11,6 +11,7 @@ import LoginPage from '@pages/login-page';
 import NotFoundPage from '@pages/not-found-page';
 import ProductPage from '@pages/product-page';
 import CartPage from '@pages/cart-page';
+import CheckoutPage from '@pages/checkout-page';
 
 // Admin Pages
 import AdminPage from '@pages/admin-page';
@@ -75,6 +76,10 @@ export default [
       {
         ...CartPage,
         path: '/cart',
+      },
+      {
+        ...CheckoutPage,
+        path: '/checkout',
       },
       { ...NotFoundPage },
     ],

@@ -1,4 +1,4 @@
-import ACTIONS from 'client/constants/action-constants';
+import ACTIONS from '@constants-client/action-constants';
 
 const initialState = {
   loading: false,

@@ -86,6 +86,15 @@ const ACTIONS = {
   CLEAR_CART_REQUEST: 'cart:clearCartRequest',
   CLEAR_CART_SUCCESS: 'cart:clearCartSuccess',
   CLEAR_CART_ERROR: 'cart:clearCartError',
+
+  // Order Actions
+  CREATE_OR_UPDATE_ORDER_REQUEST: 'order:createOrUpdateOrderRequest',
+  CREATE_OR_UPDATE_ORDER_SUCCESS: 'order:createOrUpdateOrderSuccess',
+  CREATE_OR_UPDATE_ORDER_ERROR: 'order:createOrUpdateOrderError',
+
+  GET_ORDER_REQUEST: 'order:getOrderRequest',
+  GET_ORDER_SUCCESS: 'order:getOrderSuccess',
+  GET_ORDER_ERROR: 'order:getOrderRequestError',
 };
 
 export default ACTIONS;

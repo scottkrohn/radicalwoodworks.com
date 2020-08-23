@@ -12,8 +12,8 @@
       "@controller/*": ["./server/controllers/*"],
       "@db/*": ["./server/db/*"],
       "@forms/*": ["./client/components/form/*"],
-      "@helpers/*": ["./client/utils/helpers/*"],
-      "@model/*": ["./model/*"],
+      "@helpers/*": ["./lib/helpers/*"],
+      "@models/*": ["./model/*"],
       "@pages/*": ["./client/pages"],
       "@reducers/*": ["./client/*"],
       "@selectors/*": ["./client/selectors*"]

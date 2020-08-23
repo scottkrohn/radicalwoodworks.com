@@ -7,6 +7,7 @@ import AuthReducer from '@reducers/auth-reducer';
 import ImageUploadReducer from '@reducers/image-upload-reducer';
 import ImagesReducer from '@reducers/images-reducer';
 import CartReducer from '@reducers/cart-reducer';
+import OrderReducer from '@reducers/order-reducer';
 
 const reducers = {
   cart: CartReducer,
@@ -17,6 +18,7 @@ const reducers = {
   auth: AuthReducer,
   upload: ImageUploadReducer,
   images: ImagesReducer,
+  order: OrderReducer,
 };
 
 export default combineReducers(reducers);

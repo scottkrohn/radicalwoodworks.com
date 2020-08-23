@@ -1,6 +1,6 @@
 import { find, get } from 'lodash';
-import Model from '@model/model';
-import CartItem from '@model/cart-item';
+import Model from '@models/model';
+import CartItem from '@models/cart-item';
 
 class Cart extends Model {
   constructor() {

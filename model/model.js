@@ -15,7 +15,9 @@ class Model {
 
   setValues = (values, convertToCamelCase = false) => {
     for (var field in values) {
-      const property = convertToCamelCase ? this.__convertSnakeToCamel(field) : field;
+      const property = convertToCamelCase
+        ? this.__convertSnakeToCamel(field)
+        : field;
       if (has(this.data, property)) {
         this.data[property] = values[field];
       }

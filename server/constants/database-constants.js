@@ -1,4 +1,4 @@
-import CartItem from '@model/cart-item';
+import CartItem from '@models/cart-item';
 
 const DATABASE = {
   tables: {
@@ -78,6 +78,39 @@ const DATABASE = {
         notes: 'notes',
       },
     },
+    orders: {
+      name: 'orders',
+      columns: {
+        id: 'id',
+        createdTs: 'created_ts',
+        updatedTs: 'updated_ts',
+        customerId: 'customer_id',
+        promoCode: 'promo_code',
+        promoDiscount: 'promo_discount',
+        subtotal: 'subtotal',
+        shippingTotal: 'shipping_total',
+        taxTotal: 'tax_total',
+        grandTotal: 'grand_total',
+        cartId: 'cart_id',
+        status: 'status',
+        fulfillmentStatus: 'fulfillment_status',
+        addressId: 'address_id',
+        trackingNumber: 'tracking_number',
+        trackingProvider: 'tracking_provider',
+      },
+    },
+    orderItems: {
+      name: 'order_items',
+      columns: {
+        id: 'id',
+        shippingPrice: 'shipping_price',
+        itemPrice: 'item_price',
+        productId: 'product_id',
+        quantity: 'quantity',
+        notes: 'notes',
+        orderId: 'order_id',
+      },
+    },
   },
 };
 
@@ -129,4 +162,41 @@ DATABASE.getCartItemDatabaseFieldsMapping = (cartItem) => {
     [cartItemColumns.notes]: cartItem.getNotes(),
   };
 };
+
+DATABASE.getOrderDatabaseFieldsMapping = (order) => {
+  const orderColumns = DATABASE.tables.orders.columns;
+
+  return {
+    [orderColumns.id]: order.getId(),
+    [orderColumns.createdTs]: order.getCreatedTs(),
+    [orderColumns.updatedTs]: order.getUpdatedTs(),
+    [orderColumns.customerId]: order.getCustomerId(),
+    [orderColumns.promoCode]: order.getPromoCode(),
+    [orderColumns.promoDiscount]: order.getPromoDiscount(),
+    [orderColumns.subtotal]: order.getSubtotal(),
+    [orderColumns.shippingTotal]: order.getShippingTotal(),
+    [orderColumns.taxTotal]: order.getTaxTotal(),
+    [orderColumns.grandTotal]: order.getGrandTotal(),
+    [orderColumns.cartId]: order.getCartId(),
+    [orderColumns.status]: order.getStatus(),
+    [orderColumns.fulfillmentStatus]: order.getFulfillmentStatus(),
+    [orderColumns.addressId]: order.getAddressId(),
+    [orderColumns.trackingNumber]: order.getTrackingNumber(),
+    [orderColumns.trackingProvider]: order.getTrackingProvider(),
+  };
+};
+
+DATABASE.getOrderItemDatabaseFieldsMapping = (orderItem) => {
+  const orderItemColumns = DATABASE.tables.orderItems.columns;
+  return {
+    [orderItemColumns.id]: orderItem.getId(),
+    [orderItemColumns.shippingPrice]: orderItem.getShippingPrice(),
+    [orderItemColumns.itemPrice]: orderItem.getItemPrice(),
+    [orderItemColumns.quantity]: orderItem.getQuantity(),
+    [orderItemColumns.notes]: orderItem.getNotes(),
+    [orderItemColumns.productId]: orderItem.getProductId(),
+    [orderItemColumns.orderId]: orderItem.getOrderId(),
+  };
+};
+
 export default DATABASE;

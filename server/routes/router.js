@@ -11,6 +11,7 @@ import productImageUploadCtrl from '@controller/product-image-upload-controller'
 import productsCtrl from '@controller/products-controller';
 import productCtrl from '@controller/product-controller';
 import signupCtrl from '@controller/signup-controller';
+import orderCtrl from '@controller/order-controller';
 
 // Products Routes
 router.route('/products/:productId').get(productsCtrl).delete(productCtrl);
@@ -37,6 +38,9 @@ router.route('/contact/send').all(contactCtrl);
 
 // Cart Routes
 router.route('/cart/:cartId?').all(cartCtrl);
+
+// Order Routes
+router.route('/order/:orderId?').all(orderCtrl);
 
 // /* Authentication Routes
 // /***********************/
