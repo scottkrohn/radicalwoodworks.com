@@ -9,6 +9,7 @@ export default async function (req, res, next) {
   const cartId = get(req, 'body.cartId', null);
   const customerId = get(req, 'body.customerId', null);
   const cookieOrderId = get(req, 'cookies.orderId', null);
+  const orderId = req.params.orderId;
 
   try {
     if (req.method === REQUEST.method.post) {
@@ -23,10 +24,9 @@ export default async function (req, res, next) {
         throw error;
       }
     } else if (req.method === REQUEST.method.get) {
-      // TODO: handle when the order ID is passed thru the path
-      // TODO: handle throwing an error if the order is not found.
       try {
-        const order = await orderBli.getOrderByOrderId(cookieOrderId);
+        const id = orderId || cookieOrderId;
+        const order = await orderBli.getOrderByOrderId(id);
         res.send(order);
       } catch (error) {
         if (error.status) {

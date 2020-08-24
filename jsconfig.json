@@ -17,6 +17,7 @@
       "@pages/*": ["./client/pages"],
       "@reducers/*": ["./client/*"],
       "@selectors/*": ["./client/selectors*"]
+      "@validators/*": ["./client/utils/validators/*"]
     }
   }
 }

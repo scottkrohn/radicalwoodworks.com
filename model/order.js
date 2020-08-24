@@ -27,6 +27,7 @@ class Order extends Model {
 
     this.children = {
       items: null,
+      customer: null,
     };
   }
 
@@ -165,8 +166,16 @@ class Order extends Model {
     this.children.items = items;
   };
 
+  setCustomer = (customer) => {
+    this.children.customer = customer;
+  };
+
   getItems = () => {
     return this.children.items;
+  };
+
+  getCustomer = () => {
+    return this.children.customer;
   };
 
   addItem = (item) => {
@@ -193,6 +202,9 @@ class Order extends Model {
       itemModel.buildOrderItemModel(item.data, item.children);
       this.addItem(itemModel);
     });
+
+    const customer = get(children, 'customer', []);
+    this.setCustomer(customer);
   };
 }
 

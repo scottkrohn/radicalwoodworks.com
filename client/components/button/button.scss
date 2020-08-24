@@ -8,6 +8,7 @@
     color: $white;
     background: $default;
     transition: background 300ms ease-in-out;
+    border: 1px solid black;
 
     &:focus,
     &:hover {

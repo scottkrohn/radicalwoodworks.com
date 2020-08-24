@@ -24,7 +24,8 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
   useStyles(styles);
   const [notificationContent, setNotificationContent] = useState({});
 
-  const handleSubmit = (getFormValues) => () => {
+  const handleSubmit = (getFormValues) => (event) => {
+    event.preventDefault();
     const { fields, isValid } = getFormValues(true);
     if (isValid) {
       const { message, name, email, subject } = fields;
@@ -60,10 +61,7 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
 
   return (
     <div className="flex flex-dir-col align-items-center">
-      <Spinner
-        className="flex justify-content-center"
-        spinning={sending}
-      >
+      <Spinner className="flex justify-content-center" spinning={sending}>
         {sent ? (
           <div className="flex flex-dir-col align-items-center">
             <p>Your message has been sent.</p>
@@ -82,7 +80,13 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
               },
               subject: {
                 value: '',
-                validators: [RequiredValidator('subject required'), MinLengthValidator(10, 'Subject must be at least 10 characters.')],
+                validators: [
+                  RequiredValidator('subject required'),
+                  MinLengthValidator(
+                    10,
+                    'Subject must be at least 10 characters.'
+                  ),
+                ],
               },
               message: {
                 value: '',

@@ -30,7 +30,8 @@ const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
     const errorMessage = EXCEPTIONS.getMessageForErrorCode(errorCode);
   };
 
-  const handleLoginClick = (getFormValues) => () => {
+  const handleLoginClick = (getFormValues) => (event) => {
+    event.preventDefault();
     const { fields, isValid } = getFormValues(true);
     if (isValid) {
       const { username, password } = fields;

@@ -42,6 +42,7 @@ export default {
  * Create promos
  * Clean up API
  * Handle cart errors elegantly (add error, remove error)
+ * Fix styling on contact and login form
  *
  * FUTURE
  * Add sections/filters to products page

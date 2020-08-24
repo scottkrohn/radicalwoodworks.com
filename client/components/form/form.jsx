@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { every, values, mapValues } from 'lodash';
 
-const Form = ({ children, fields }) => {
+const Form = ({ children, fields, onSubmit }) => {
   const [formFields, setFormFields] = useState({});
 
   useEffect(() => {
@@ -103,7 +103,11 @@ const Form = ({ children, fields }) => {
     handleEnterKey,
   };
 
-  return typeof children === 'function' ? children(formData) : children;
+  return (
+    <form>
+      {typeof children === 'function' ? children(formData) : children}
+    </form>
+  );
 };
 
 export default Form;

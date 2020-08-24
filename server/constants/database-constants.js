@@ -111,6 +111,22 @@ const DATABASE = {
         orderId: 'order_id',
       },
     },
+    customers: {
+      name: 'customers',
+      columns: {
+        id: 'id',
+        type: 'type',
+        firstName: 'first_name',
+        lastName: 'last_name',
+        address: 'address',
+        aptSuite: 'apt_suite',
+        zip: 'zip',
+        city: 'city',
+        state: 'state',
+        email: 'email',
+        userId: 'user_id',
+      },
+    },
   },
 };
 
@@ -196,6 +212,24 @@ DATABASE.getOrderItemDatabaseFieldsMapping = (orderItem) => {
     [orderItemColumns.notes]: orderItem.getNotes(),
     [orderItemColumns.productId]: orderItem.getProductId(),
     [orderItemColumns.orderId]: orderItem.getOrderId(),
+  };
+};
+
+DATABASE.getCustomerDatabaseFieldsMapping = (customer) => {
+  const customerColumns = DATABASE.tables.customers.columns;
+
+  return {
+    [customerColumns.id]: customer.getId(),
+    [customerColumns.type]: customer.getType(),
+    [customerColumns.firstName]: customer.getFirstName(),
+    [customerColumns.lastName]: customer.getLastName(),
+    [customerColumns.address]: customer.getAddress(),
+    [customerColumns.aptSuite]: customer.getAptSuite(),
+    [customerColumns.zip]: customer.getZip(),
+    [customerColumns.city]: customer.getCity(),
+    [customerColumns.state]: customer.getState(),
+    [customerColumns.email]: customer.getEmail(),
+    [customerColumns.userId]: customer.getUserId(),
   };
 };
 
