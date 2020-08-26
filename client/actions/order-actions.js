@@ -47,21 +47,21 @@ export const createOrUpdateOrder = (cartId, customerId) => {
   };
 };
 
-const createOrUpdateOrderRequest = () => {
+export const createOrUpdateOrderRequest = () => {
   return {
     type: ACTIONS.CREATE_OR_UPDATE_ORDER_REQUEST,
     payload: {},
   };
 };
 
-const createOrUpdateOrderSuccess = (order) => {
+export const createOrUpdateOrderSuccess = (order) => {
   return {
     type: ACTIONS.CREATE_OR_UPDATE_ORDER_SUCCESS,
     payload: order,
   };
 };
 
-const createOrUpdateOrderError = (error) => {
+export const createOrUpdateOrderError = (error) => {
   return {
     type: ACTIONS.CREATE_OR_UPDATE_ORDER_ERROR,
     payload: error,

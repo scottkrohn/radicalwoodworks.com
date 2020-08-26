@@ -12,8 +12,16 @@ import SelectInput from '@forms/select-input';
 import Button from '@components/button/button';
 import RequiredValidator from '@validators/required-validator';
 import STATES from '@constants/state-constants';
+import Customer from '@models/customer';
+import { addCustomerToOrder } from '@actions/checkout-actions';
 
-const CheckoutPage = ({ getOrder, history, loading, order }) => {
+const CheckoutPage = ({
+  addCustomerToOrder,
+  getOrder,
+  history,
+  loading,
+  order,
+}) => {
   useEffect(() => {
     if (!order) {
       getOrder().catch((error) => {
@@ -24,7 +32,15 @@ const CheckoutPage = ({ getOrder, history, loading, order }) => {
 
   const handleSubmit = (getFormValues) => (event) => {
     event.preventDefault();
-    console.log(getFormValues(true));
+    const { isValid, fields } = getFormValues(true);
+    if (isValid) {
+      const customer = new Customer();
+      customer.setValues(fields);
+      customer.setType('GUEST'); // TODO: Update once login accounts exist.
+      addCustomerToOrder(customer, order.getId()).then((response) => {
+        console.log('Added, go to paypal!');
+      });
+    }
   };
 
   const formInitialValues = {
@@ -105,23 +121,23 @@ const CheckoutPage = ({ getOrder, history, loading, order }) => {
                   />
                   <div className="flex justify-content-between">
                     <TextInput
-                      className="mt-3 flex-basis-33"
-                      label="Zip Code"
-                      onChange={onChange}
-                      {...fieldProps('zip')}
-                    />
-                    <TextInput
-                      className="mt-3 flex-basis-33"
+                      className="mt-3 flex-basis-32"
                       label="City"
                       onChange={onChange}
                       {...fieldProps('city')}
                     />
                     <SelectInput
-                      className="mt-3 flex-basis-33"
+                      className="mt-3 flex-basis-32"
                       label="State"
                       onChange={onChange}
                       options={STATES.states}
                       {...fieldProps('state')}
+                    />
+                    <TextInput
+                      className="mt-3 flex-basis-32"
+                      label="Zip Code"
+                      onChange={onChange}
+                      {...fieldProps('zip')}
                     />
                   </div>
                   <Button
@@ -149,7 +165,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapActionsToProps = { getOrder };
+const mapActionsToProps = { addCustomerToOrder, getOrder };
 
 export default {
   component: connect(
