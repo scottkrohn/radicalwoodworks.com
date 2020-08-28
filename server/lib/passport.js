@@ -18,7 +18,7 @@ export default (passport) => {
       id
     )}`;
     db.selectOne(DB.tables.users.name, whereClause).then((result, error) => {
-      done(error, result[0]);
+      return done(error, result[0] || null);
     });
   });
 
@@ -39,7 +39,7 @@ export default (passport) => {
         db.selectOne(DB.tables.users.name, whereClause)
           .then((result) => {
             if (result.length) {
-              return done(null, false);
+              return done(null, false, { conflict: true });
             } else {
               // Create a new user with these credentials.
               const newUser = {

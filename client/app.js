@@ -38,6 +38,7 @@ export default {
 
 /**
  *
+ * create sign up form + reducer + actions
  * Create promos
  * Fix styling on contact and login form
  * better handle cart failures due to incorrect sid. Clear the users cookies and cart and send back to homepage?

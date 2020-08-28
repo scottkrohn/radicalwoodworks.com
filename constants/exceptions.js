@@ -43,6 +43,10 @@ const EXCEPTIONS = {
     code: 1009,
     message: 'Order not found',
   },
+  usernameConflict: {
+    code: 1010,
+    message: 'Username already exists',
+  },
 };
 
 EXCEPTIONS.apiError = (error, status = 500) => {
