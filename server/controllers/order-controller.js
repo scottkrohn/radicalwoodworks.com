@@ -9,12 +9,13 @@ export default async function (req, res, next) {
   const cartId = get(req, 'body.cartId', null);
   const customerId = get(req, 'body.customerId', null);
   const cookieOrderId = get(req, 'cookies.orderId', null);
+  const sid = get(req, 'cookies.sid', null);
   const orderId = req.params.orderId;
 
   try {
     if (req.method === REQUEST.method.post) {
       try {
-        const order = await orderBli.createOrUpdateOrder(cartId);
+        const order = await orderBli.createOrUpdateOrder(cartId, sid);
         res.send(order);
       } catch (error) {
         if (error.status) {
@@ -26,7 +27,7 @@ export default async function (req, res, next) {
     } else if (req.method === REQUEST.method.get) {
       try {
         const id = orderId || cookieOrderId;
-        const order = await orderBli.getOrderByOrderId(id);
+        const order = await orderBli.getOrderByOrderId(id, sid);
         res.send(order);
       } catch (error) {
         if (error.status) {

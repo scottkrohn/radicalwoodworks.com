@@ -65,6 +65,7 @@ const DATABASE = {
         expirationTs: 'expiration_ts',
         customerId: 'customer_id',
         isExpired: 'is_expired',
+        sid: 'sid',
       },
     },
     cartItems: {
@@ -97,6 +98,7 @@ const DATABASE = {
         addressId: 'address_id',
         trackingNumber: 'tracking_number',
         trackingProvider: 'tracking_provider',
+        sid: 'sid',
       },
     },
     orderItems: {
@@ -163,6 +165,7 @@ DATABASE.getCartDatabaseFieldsMapping = (cart) => {
     [cartColumns.expirationTs]: cart.getExpirationTs(),
     [cartColumns.customerId]: cart.getCustomerId(),
     [cartColumns.isExpired]: cart.getIsExpired(),
+    [cartColumns.sid]: cart.getSid(),
   };
 };
 
@@ -199,6 +202,7 @@ DATABASE.getOrderDatabaseFieldsMapping = (order) => {
     [orderColumns.addressId]: order.getAddressId(),
     [orderColumns.trackingNumber]: order.getTrackingNumber(),
     [orderColumns.trackingProvider]: order.getTrackingProvider(),
+    [orderColumns.sid]: order.getSid(),
   };
 };
 

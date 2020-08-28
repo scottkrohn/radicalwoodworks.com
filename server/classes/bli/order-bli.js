@@ -1,5 +1,5 @@
 import BaseBLI from '@bli/base';
-import CartBLI from '@bli/cart';
+import CartBLI from '@bli/cart-bli';
 import EXCEPTIONS from '@constants/exceptions';
 import OrderModel from '@models/order';
 import CartHelper from '@helpers/cart-helper';
@@ -17,15 +17,29 @@ class OrderBLI extends BaseBLI {
     super();
   }
 
-  getOrderByCartId = async (cartId) => {
-    const whereClause = `WHERE ${DB.tables.orders.columns.cartId} = ${cartId}`;
+  getOrderByCartId = async (cartId, sid = null) => {
+    let whereClause = `WHERE ${DB.tables.orders.columns.cartId} = ${cartId}`;
+
+    if (sid) {
+      whereClause += ` AND ${DB.tables.orders.columns.sid} = ${this.escape(
+        sid
+      )}`;
+    }
     const order = await this.db.selectOne(DB.tables.orders.name, whereClause);
 
+    console.log(order);
     return order;
   };
 
-  getOrderByOrderId = async (orderId) => {
-    const orderWhereClause = `WHERE ${DB.tables.orders.columns.id} = ${orderId}`;
+  getOrderByOrderId = async (orderId, sid = null) => {
+    let orderWhereClause = `WHERE ${DB.tables.orders.columns.id} = ${orderId}`;
+
+    if (sid) {
+      orderWhereClause += ` AND ${DB.tables.orders.columns.sid} = ${this.escape(
+        sid
+      )}`;
+    }
+
     const orderPromise = this.db.selectOne(
       DB.tables.orders.name,
       orderWhereClause
@@ -64,7 +78,7 @@ class OrderBLI extends BaseBLI {
     return order;
   };
 
-  createOrUpdateOrder = async (cartId) => {
+  createOrUpdateOrder = async (cartId, sid = null) => {
     const cartBli = new CartBLI();
     const cart = await cartBli.getCartById(cartId, true, true);
 
@@ -73,7 +87,7 @@ class OrderBLI extends BaseBLI {
     }
 
     // Check if an order already exists for this cart id.
-    const orderRow = await this.getOrderByCartId(cart.getId());
+    const orderRow = await this.getOrderByCartId(cart.getId(), sid);
     const orderData = get(orderRow, '[0]', null);
 
     let order;
@@ -183,6 +197,7 @@ class OrderBLI extends BaseBLI {
     order.setGrandTotal(itemTotal + taxTotal + shippingTotal);
     order.setStatus(ORDER.STATUS.ABANDONED);
     order.setCartId(cart.getId());
+    order.setSid(cart.getSid());
 
     return order;
   };
@@ -244,6 +259,7 @@ class OrderBLI extends BaseBLI {
         case orderColumns.fulfillmentStatus:
         case orderColumns.trackingProvider:
         case orderColumns.trackingProvider:
+        case orderColumns.sid:
           this.db.assignStr(field, value);
           fieldsAssigned = true;
           break;

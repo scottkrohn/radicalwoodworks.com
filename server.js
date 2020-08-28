@@ -12,8 +12,19 @@ import requestLogger from './lib/request-logger';
 import Routes from './routes';
 import 'babel-polyfill';
 
+import connectRedis from 'connect-redis';
+import redis from 'redis';
+const RedisStore = connectRedis(session);
+
+const redisOptions = {
+  host: getConfig('redisHost'),
+  port: getConfig('redisPort'),
+  password: getConfig('redisPass'),
+};
+
+const redisClient = redis.createClient(redisOptions);
+
 const app = express();
-const env = app.get('env');
 var bodyParser = require('body-parser');
 
 // Apply Middleware
@@ -22,10 +33,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   session({
+    cookie: {}, // TODO: set secure: true for production
     secret: getConfig('passportSecret'),
     resave: true,
     saveUninitialized: true,
-    key: 'sessid',
+    key: 'sid',
+    store: new RedisStore({ client: redisClient }),
   })
 );
 

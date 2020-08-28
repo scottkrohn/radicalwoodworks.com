@@ -13,6 +13,7 @@ class Cart extends Model {
       expirationTs: null,
       customerId: null,
       isExpired: null,
+      sid: null,
     };
 
     this.children = {
@@ -44,6 +45,10 @@ class Cart extends Model {
     this.data.isExpired = isExpired;
   };
 
+  setSid = (sid) => {
+    this.data.sid = sid;
+  };
+
   getId = () => {
     return this.data.id;
   };
@@ -66,6 +71,10 @@ class Cart extends Model {
 
   getIsExpired = () => {
     return this.data.isExpired;
+  };
+
+  getSid = () => {
+    return this.data.sid;
   };
 
   /* Children Getters & Setters */

@@ -12,7 +12,6 @@ export const addCustomerToOrder = (customer, orderId) => {
       axios
         .post(`/api/checkout/customer/${orderId}`, customer.data)
         .then((response) => {
-          console.log(response);
           dispatch(createOrUpdateOrderSuccess(response.data));
           resolve(response.data);
         })

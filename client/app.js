@@ -38,11 +38,11 @@ export default {
 
 /**
  *
- * create orders lol
+ * Add sid to orders
  * Create promos
- * Clean up API
- * Handle cart errors elegantly (add error, remove error)
  * Fix styling on contact and login form
+ * better handle cart failures due to incorrect sid. Clear the users cookies and cart and send back to homepage?
+ *
  *
  * FUTURE
  * Add sections/filters to products page

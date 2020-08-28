@@ -23,6 +23,7 @@ class Order extends Model {
       addressId: null,
       trackingNumber: null,
       trackingProvider: null,
+      sid: null,
     };
 
     this.children = {
@@ -95,6 +96,10 @@ class Order extends Model {
     this.data.trackingProvider = trackingProvider;
   };
 
+  setSid = (sid) => {
+    this.data.sid = sid;
+  };
+
   getId = () => {
     return this.data.id;
   };
@@ -157,6 +162,10 @@ class Order extends Model {
 
   getTrackingProvider = () => {
     return this.data.trackingProvider;
+  };
+
+  getSid = () => {
+    return this.data.sid;
   };
 
   /* Children Getters & Setters */

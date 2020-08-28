@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import CartBLI from '@bli/cart';
+import CartBLI from '@bli/cart-bli';
 
 import REQUEST from '@constants-server/request-constants';
 import EXCEPTIONS from '@constants/exceptions';
@@ -9,19 +9,38 @@ export default async function (req, res, next) {
   const cartId = req.params.cartId;
   const cid = req.query.cid;
   const cookieCartId = get(req, 'cookies.cartId', null);
+  const sid = get(req, 'cookies.sid', null);
   const includeProducts =
     get(req, 'query.includeProducts', '').toLowerCase() === 'true';
 
   try {
     if (req.method === REQUEST.method.get) {
       if (cartId) {
-        const cart = await cartBli.getCartById(cartId, includeProducts);
+        const cart = await cartBli.getCartById(
+          cartId,
+          includeProducts,
+          true,
+          sid
+        );
+
         res.send(cart);
       } else if (cid) {
-        const cart = await cartBli.getCartByCustomerId(cid, includeProducts);
+        const cart = await cartBli.getCartByCustomerId(
+          cid,
+          includeProducts,
+          true,
+          sid
+        );
+
         res.send(cart);
       } else if (cookieCartId) {
-        const cart = await cartBli.getCartById(cookieCartId, includeProducts);
+        const cart = await cartBli.getCartById(
+          cookieCartId,
+          includeProducts,
+          true,
+          sid
+        );
+
         res.send(cart);
       } else {
         res.send(null);
@@ -29,15 +48,19 @@ export default async function (req, res, next) {
     } else if (req.method === REQUEST.method.post) {
       const customerId = get(req, 'body.customerId', null);
       const items = get(req, 'body.items', []);
-      const cart = await cartBli.createCart(customerId, items);
+      const cart = await cartBli.createCart(customerId, items, sid);
       res.send(cart);
     } else if (req.method === REQUEST.method.put) {
-      let cart = await cartBli.getCartById(cartId, true, false);
+      let cart = await cartBli.getCartById(cartId, true, false, sid);
       const items = get(req, 'body.items', []);
+      if (!cart) {
+        res.status(400).send(EXCEPTIONS.cartNotFound);
+        return;
+      }
 
       try {
         await cartBli.addOrUpdateCartItems(cart, items);
-        cart = await cartBli.getCartById(cartId, true, true);
+        cart = await cartBli.getCartById(cartId, true, true, sid);
         res.send(cart);
       } catch (error) {
         res.status(error.status).send(error);
@@ -49,7 +72,7 @@ export default async function (req, res, next) {
       }
 
       try {
-        const cart = await cartBli.clearCart(cartId);
+        const cart = await cartBli.clearCart(cartId, sid);
         res.send(cart);
       } catch (error) {
         res.status(error.status).send(error);

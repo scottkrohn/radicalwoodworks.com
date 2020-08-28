@@ -13,8 +13,21 @@ class CartBLI extends BaseBLI {
     super();
   }
 
-  getCartById = async (cartId, includeProducts, excludeZeroQuantity = true) => {
-    const whereClause = `WHERE ${DB.tables.carts.columns.id} = ${cartId}`;
+  getCartById = async (
+    cartId,
+    includeProducts,
+    excludeZeroQuantity = true,
+    sid = null
+  ) => {
+    let whereClause = `WHERE ${DB.tables.carts.columns.id} = ${this.escape(
+      cartId
+    )}`;
+
+    if (sid) {
+      whereClause += ` AND ${DB.tables.carts.columns.sid} = ${this.escape(
+        sid
+      )}`;
+    }
 
     const cartPromise = this.db.selectOne(DB.tables.carts.name, whereClause);
     const cartItemsPromise = this.getCartItemsByCartId(
@@ -45,7 +58,9 @@ class CartBLI extends BaseBLI {
   };
 
   getCartByCustomerId = async (cid) => {
-    const whereClause = `WHERE ${DB.tables.carts.columns.customerId} = ${cid} AND ${DB.tables.carts.columns.isExpired} = 0`;
+    const whereClause = `WHERE ${
+      DB.tables.carts.columns.customerId
+    } = ${this.escape(cid)} AND ${DB.tables.carts.columns.isExpired} = 0`;
     const cartRow = await this.db.selectOne(DB.tables.carts.name, whereClause);
 
     const cartData = get(cartRow, '[0]', {});
@@ -70,20 +85,20 @@ class CartBLI extends BaseBLI {
     }
   };
 
-  clearCart = async (cartId) => {
-    const cart = await this.getCartById(cartId, false);
+  clearCart = async (cartId, sid) => {
+    const cart = await this.getCartById(cartId, false, true, sid);
 
     if (!cart) {
       throw EXCEPTIONS.apiError(EXCEPTIONS.cartNotFound, 404);
     }
 
-    const updateSql = `
+    let updateSql = `
       UPDATE
         ${DB.tables.cartItems.name}
       SET
         ${DB.tables.cartItems.columns.quantity} = 0
       WHERE
-        ${DB.tables.cartItems.columns.cartId} = ${cart.getId()}
+        ${DB.tables.cartItems.columns.cartId} = ${this.escape(cart.getId())}
     `;
 
     await this.db.query(updateSql);
@@ -149,13 +164,14 @@ class CartBLI extends BaseBLI {
    * @param {array} items
    * @returns {Cart} cart
    */
-  createCart = async (customerId, items) => {
+  createCart = async (customerId, items, sid) => {
     const cart = new Cart();
     cart.setCustomerId(customerId);
     cart.setCreatedTs(Date.now());
     cart.setUpdatedTs(Date.now());
     cart.setExpirationTs(Date.now() + CART.expiration48Hours);
     cart.setIsExpired(false);
+    cart.setSid(sid);
 
     const cartPromise = this._assignCartValues(cart, true)
       ? this.db.insert(DB.tables.carts.name)
@@ -318,6 +334,11 @@ class CartBLI extends BaseBLI {
 
         case cartColumns.isExpired:
           this.db.assignBoolean(field, cartDatabaseMapping[field]);
+          fieldsAssigned = true;
+          break;
+
+        case cartColumns.sid:
+          this.db.assignStr(field, cartDatabaseMapping[field]);
           fieldsAssigned = true;
           break;
       }
