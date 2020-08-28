@@ -48,12 +48,13 @@ const DATABASE = {
         updatedTs: 'updated_ts',
       },
     },
-    admin_users: {
-      name: 'admin_users',
+    users: {
+      name: 'users',
       columns: {
         id: 'id',
         username: 'username',
         password: 'password',
+        type: 'type',
       },
     },
     carts: {
