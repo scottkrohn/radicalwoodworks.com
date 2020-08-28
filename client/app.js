@@ -38,11 +38,9 @@ export default {
 
 /**
  *
- * Add sid to orders
  * Create promos
  * Fix styling on contact and login form
  * better handle cart failures due to incorrect sid. Clear the users cookies and cart and send back to homepage?
- *
  *
  * FUTURE
  * Add sections/filters to products page

@@ -2,6 +2,7 @@ import { get } from 'lodash';
 
 import ProductsBLI from '../classes/bli/products';
 import Product from '../../model/product';
+import AuthHelper from '@helpers/auth-helper';
 
 // Constants
 import REQUEST from '../constants/request-constants';
@@ -13,12 +14,12 @@ export default (req, res, next) => {
   const product = new Product();
   product.setValues(req.body.data);
 
-  if (req.method === REQUEST.method.post) {
-    if (!req.isAuthenticated()) {
-      res.status(403).send(EXCEPTIONS.unauthorized);
-      return;
-    }
+  if (!AuthHelper.isAuthenticatedAdmin(req)) {
+    res.status(403).send(EXCEPTIONS.unauthorized);
+    return;
+  }
 
+  if (req.method === REQUEST.method.post) {
     productsBli
       .createProduct(product)
       .then((result) => {
@@ -29,11 +30,6 @@ export default (req, res, next) => {
         res.status(500).send(EXCEPTIONS.internalError);
       });
   } else if (req.method === REQUEST.method.put) {
-    if (!req.isAuthenticated()) {
-      res.status(403).send(EXCEPTIONS.unauthorized);
-      return;
-    }
-
     productsBli
       .updateProduct(product)
       .then((result) => {

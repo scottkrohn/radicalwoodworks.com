@@ -2,6 +2,7 @@ import EXCEPTIONS from '../../constants/exceptions';
 import ContentBLI from '../classes/bli/content';
 import REQUEST from '../constants/request-constants';
 import Content from '../../model/content';
+import AuthHelper from '@helpers/auth-helper';
 
 export default (req, res, next) => {
   const contentBli = new ContentBLI();
@@ -18,7 +19,7 @@ export default (req, res, next) => {
         .catch((error) => {});
     }
   } else if (req.method === REQUEST.method.put) {
-    if (!req.isAuthenticated()) {
+    if (!AuthHelper.isAuthenticatedAdmin(req)) {
       res.status(403).send(EXCEPTIONS.unauthorized);
       return;
     }
