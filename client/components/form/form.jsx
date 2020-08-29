@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { every, values, mapValues } from 'lodash';
+import cx from 'classnames';
 
-const Form = ({ children, fields, onSubmit }) => {
+const Form = ({ children, className, fields, onSubmit }) => {
   const [formFields, setFormFields] = useState({});
 
   useEffect(() => {
@@ -80,6 +81,7 @@ const Form = ({ children, fields, onSubmit }) => {
     return {
       ...formFields[fieldName],
       fieldName,
+      onChange,
     };
   };
 
@@ -104,7 +106,7 @@ const Form = ({ children, fields, onSubmit }) => {
   };
 
   return (
-    <form>
+    <form className={cx(className)}>
       {typeof children === 'function' ? children(formData) : children}
     </form>
   );

@@ -55,6 +55,9 @@ const DATABASE = {
         username: 'username',
         password: 'password',
         type: 'type',
+        email: 'email',
+        firstName: 'first_name',
+        lastName: 'last_name',
       },
     },
     carts: {

@@ -71,7 +71,9 @@ const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
               key={link.path}
               label={link.label}
               path={link.path}
-              className={getCurrentPageName() === link.value && styles.ActiveLink}
+              className={
+                getCurrentPageName() === link.value && styles.ActiveLink
+              }
             />
           );
         })}
@@ -107,7 +109,11 @@ const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
         />
       </div>
 
-      <Drawer showing={hamburgerMenuShowing} hide={hideHamburgerMenu} className={styles.Drawer}>
+      <Drawer
+        showing={hamburgerMenuShowing}
+        hide={hideHamburgerMenu}
+        className={styles.Drawer}
+      >
         {({ hide }) => {
           return (
             <div className={cx('flex', 'flex-dir-col')}>
@@ -118,7 +124,9 @@ const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
                     label={link.label}
                     path={link.path}
                     onClick={hideHamburgerMenu}
-                    className={getCurrentPageName() === link.value && styles.ActiveLink}
+                    className={
+                      getCurrentPageName() === link.value && styles.ActiveLink
+                    }
                   />
                 );
               })}

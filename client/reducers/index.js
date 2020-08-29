@@ -8,6 +8,7 @@ import ImageUploadReducer from '@reducers/image-upload-reducer';
 import ImagesReducer from '@reducers/images-reducer';
 import CartReducer from '@reducers/cart-reducer';
 import OrderReducer from '@reducers/order-reducer';
+import UserReducer from '@reducers/user-reducer';
 
 const reducers = {
   cart: CartReducer,
@@ -19,6 +20,7 @@ const reducers = {
   upload: ImageUploadReducer,
   images: ImagesReducer,
   order: OrderReducer,
+  user: UserReducer,
 };
 
 export default combineReducers(reducers);

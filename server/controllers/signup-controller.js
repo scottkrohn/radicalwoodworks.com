@@ -7,7 +7,6 @@ import EXCEPTIONS from '@constants/exceptions';
 export default (req, res, next) => {
   if (req.method === REQUEST.method.post) {
     passport.authenticate('local-signup', (err, user, info) => {
-      console.log(info);
       if (user) {
         res.send({ username: user.username, id: user.id });
         return;

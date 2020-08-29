@@ -49,13 +49,20 @@ export default (passport) => {
 
               const encryptedPassword = bcrypt.hashSync(password);
 
+              const { email, firstName, lastName } = req.body;
+
               db.clear();
               db.assignStr(DB.tables.users.columns.username, username);
               db.assignStr(DB.tables.users.columns.password, encryptedPassword);
+              db.assignStr(DB.tables.users.columns.email, email);
+              db.assignStr(DB.tables.users.columns.firstName, firstName);
+              db.assignStr(DB.tables.users.columns.lastName, lastName);
+
               db.assignStr(
                 DB.tables.users.columns.type,
                 AUTH.USER_TYPES.CUSTOMER
               );
+
               db.insert(DB.tables.users.name).then((result) => {
                 newUser.id = result.insertId;
                 return done(null, newUser);

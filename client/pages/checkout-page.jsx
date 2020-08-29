@@ -84,59 +84,51 @@ const CheckoutPage = ({
       <div className="flex justify-content-center">
         <div>
           <Form fields={formInitialValues}>
-            {({ onChange, fieldProps, getFormValues, handleEnterKey }) => {
+            {({ fieldProps, getFormValues }) => {
               return (
                 <Fragment>
                   <div className="flex justify-content-between">
                     <TextInput
                       className="mt-3 flex-basis-49"
                       label="First Name"
-                      onChange={onChange}
                       {...fieldProps('firstName')}
                     />
                     <TextInput
                       className="mt-3 flex-basis-49"
                       label="Last Name"
-                      onChange={onChange}
                       {...fieldProps('lastName')}
                     />
                   </div>
                   <TextInput
                     className="mt-3"
                     label="E-Mail Address"
-                    onChange={onChange}
                     {...fieldProps('email')}
                   />
                   <TextInput
                     className="mt-3"
                     label="Street Address"
-                    onChange={onChange}
                     {...fieldProps('address')}
                   />
                   <TextInput
                     className="mt-3"
                     label="Apt / Suite / Other"
-                    onChange={onChange}
                     {...fieldProps('apt')}
                   />
                   <div className="flex justify-content-between">
                     <TextInput
                       className="mt-3 flex-basis-32"
                       label="City"
-                      onChange={onChange}
                       {...fieldProps('city')}
                     />
                     <SelectInput
                       className="mt-3 flex-basis-32"
                       label="State"
-                      onChange={onChange}
                       options={STATES.states}
                       {...fieldProps('state')}
                     />
                     <TextInput
                       className="mt-3 flex-basis-32"
                       label="Zip Code"
-                      onChange={onChange}
                       {...fieldProps('zip')}
                     />
                   </div>

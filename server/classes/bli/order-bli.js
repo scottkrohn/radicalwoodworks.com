@@ -27,7 +27,6 @@ class OrderBLI extends BaseBLI {
     }
     const order = await this.db.selectOne(DB.tables.orders.name, whereClause);
 
-    console.log(order);
     return order;
   };
 
