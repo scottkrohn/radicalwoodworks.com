@@ -43,9 +43,9 @@ const ACTIONS = {
   SEND_LOGIN_SUCCESS: 'login:sendLoginSuccess',
   SEND_LOGIN_ERROR: 'login:sendLoginError',
 
-  VERIFY_LOGIN_REQUEST: 'verify:sendLoginRequest',
-  VERIFY_LOGIN_SUCCESS: 'verify:sendLoginSuccess',
-  VERIFY_LOGIN_ERROR: 'verify:sendLoginError',
+  VERIFY_LOGIN_REQUEST: 'verify:verifyLoginRequest',
+  VERIFY_LOGIN_SUCCESS: 'verify:verifyLoginSuccess',
+  VERIFY_LOGIN_ERROR: 'verify:verifyLoginError',
 
   // Logout Actions
   SEND_LOGOUT_REQUEST: 'logout:sendLogoutRequest',

@@ -35,10 +35,10 @@ const authReducer = (state = initialState, { type, payload }) => {
     case ACTIONS.VERIFY_LOGIN_SUCCESS:
       return {
         ...state,
-        ...payload,
         sending: false,
         error: false,
         loggedIn: true,
+        user: payload,
       };
     case ACTIONS.SEND_LOGOUT_REQUEST:
       return {

@@ -16,15 +16,25 @@ import {
 } from '@selectors/user-selectors';
 import cx from 'classnames';
 import { withRouter } from 'react-router-dom';
+import { verifyLogin } from '@actions/auth-actions';
 
-const SignupPage = ({ createAccount, error, history, loading, user }) => {
+const SignupPage = ({
+  createAccount,
+  error,
+  history,
+  loading,
+  user,
+  verifyLogin,
+}) => {
   useStyles(styles);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      history.push('/account');
-    }
+    verifyLogin().then(() => {
+      if (user) {
+        history.push('/account');
+      }
+    });
   }, [user]);
 
   useEffect(() => {
@@ -160,7 +170,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapActionsToProps = { createAccount };
+const mapActionsToProps = { createAccount, verifyLogin };
 
 export default {
   component: connect(

@@ -17,6 +17,8 @@ const userReducer = (state = initialState, { payload, type }) => {
       };
 
     case ACTIONS.CREATE_USER_ACCOUNT_SUCCESS:
+    case ACTIONS.VERIFY_LOGIN_SUCCESS:
+    case ACTIONS.SEND_LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -25,6 +27,7 @@ const userReducer = (state = initialState, { payload, type }) => {
       };
 
     case ACTIONS.CREATE_USER_ACCOUNT_ERROR:
+    case ACTIONS.SEND_LOGOUT_REQUEST:
       return {
         ...state,
         loading: false,

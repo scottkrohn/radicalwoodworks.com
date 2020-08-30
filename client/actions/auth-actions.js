@@ -22,8 +22,8 @@ export const login = (username, password) => {
       axios
         .post('/auth/login', qs.stringify(postBody), config)
         .then((response) => {
-          const token = get(response, 'data.token');
-          dispatch(loginSuccess(token));
+          const token = get(response.data, 'data.token');
+          dispatch(loginSuccess(response.data.userModel));
           resolve(token);
         })
         .catch((error) => {
@@ -62,7 +62,7 @@ export const verifyLogin = () => {
       axios
         .get('/admin/verify')
         .then((response) => {
-          dispatch(verifyLoginSuccess());
+          dispatch(verifyLoginSuccess(response.data));
           resolve();
         })
         .catch((error) => {
@@ -90,10 +90,10 @@ const verifyLoginError = (error) => {
     payload: { error },
   };
 };
-const verifyLoginSuccess = () => {
+const verifyLoginSuccess = (user) => {
   return {
     type: ACTIONS.VERIFY_LOGIN_SUCCESS,
-    payload: {},
+    payload: user,
   };
 };
 
@@ -104,12 +104,10 @@ const loginRequest = () => {
   };
 };
 
-const loginSuccess = (token) => {
+const loginSuccess = (user) => {
   return {
     type: ACTIONS.SEND_LOGIN_SUCCESS,
-    payload: {
-      token,
-    },
+    payload: user,
   };
 };
 const loginError = (errorCode) => {

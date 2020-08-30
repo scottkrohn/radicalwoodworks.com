@@ -3,6 +3,7 @@ import REQUEST from '../constants/request-constants';
 import EXCEPTIONS from '../../constants/exceptions';
 import jwt from 'jsonwebtoken';
 import { getConfig } from '../../lib/protected';
+import User from '@models/user';
 
 export default (req, res, next) => {
   if (req.method === REQUEST.method.post) {
@@ -21,9 +22,10 @@ export default (req, res, next) => {
           res.status(401).send(info);
         }
 
-        // Successful login, let's send the user back to the front end.
         const token = jwt.sign(user, getConfig('jwtSecret'));
-        res.send({ token });
+        const userModel = new User();
+        userModel.setValues(req.user, true);
+        res.send({ token, userModel });
       });
     })(req, res, next);
   } else if (req.method === REQUEST.method.put) {

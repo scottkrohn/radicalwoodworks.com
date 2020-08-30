@@ -38,9 +38,8 @@ export default {
 
 /**
  *
- *
+ * on login from login page, direct to admin vs account page based on user type
  * on refresh set the user in the redux session (pull form utoken in app.js login promise above if logged in)
- * on refresh make sure the app knows the user is logged in (auth.loggedIn needs to be set)
  * make sure e-mail addresses are unique on sign up
  *
  * Create promos
