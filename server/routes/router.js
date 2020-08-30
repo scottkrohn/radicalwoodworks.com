@@ -10,7 +10,7 @@ import imagesCtrl from '@controller/images-controller';
 import productImageUploadCtrl from '@controller/product-image-upload-controller';
 import productsCtrl from '@controller/products-controller';
 import productCtrl from '@controller/product-controller';
-import signupCtrl from '@controller/signup-controller';
+import userCtrl from '@controller/user-controller';
 import orderCtrl from '@controller/order-controller';
 import checkoutCtrl from '@controller/checkout-controller';
 
@@ -46,10 +46,11 @@ router.route('/order/:orderId?').all(orderCtrl);
 // Checkout Routes
 router.route('/checkout/customer/:orderId').all(checkoutCtrl);
 
+// User Routes
+router.route('/signup').post(userCtrl);
+
 // /* Authentication Routes
 // /***********************/
-
-router.route('/signup').post(signupCtrl);
 
 router.route('/login').post(authCtrl);
 

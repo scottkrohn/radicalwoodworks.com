@@ -42,14 +42,18 @@ export default (passport) => {
               return done(null, false, { conflict: true });
             } else {
               // Create a new user with these credentials.
+              const { email, firstName, lastName } = req.body;
+
               const newUser = {
                 username,
                 password,
+                email,
+                firstName,
+                lastName,
+                type: AUTH.USER_TYPES.CUSTOMER,
               };
 
               const encryptedPassword = bcrypt.hashSync(password);
-
-              const { email, firstName, lastName } = req.body;
 
               db.clear();
               db.assignStr(DB.tables.users.columns.username, username);
@@ -110,13 +114,10 @@ export default (passport) => {
               return done(null, false, EXCEPTIONS.invalidCredentials);
             }
 
-            const userResponse = {
-              username: user.username,
-              id: user.id,
-            };
+            delete user.password;
 
             console.log(`${user.username} successfully logged in!`);
-            return done(null, userResponse);
+            return done(null, { ...user });
           }
         );
       }

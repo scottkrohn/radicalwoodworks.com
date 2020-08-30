@@ -1,4 +1,7 @@
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import { getConfig } from '../../lib/protected';
+import User from '@models/user';
 
 // Constants
 import REQUEST from '../constants/request-constants';
@@ -8,7 +11,15 @@ export default (req, res, next) => {
   if (req.method === REQUEST.method.post) {
     passport.authenticate('local-signup', (err, user, info) => {
       if (user) {
-        res.send({ username: user.username, id: user.id });
+        req.login(user, () => {
+          delete user.password;
+
+          const token = jwt.sign(user, getConfig('jwtSecret'));
+          res.cookie('utoken', token);
+          const userModel = new User();
+          userModel.setValues(user);
+          res.send(userModel);
+        });
         return;
       } else if (info && info.conflict) {
         res.status(409).send(EXCEPTIONS.usernameConflict);

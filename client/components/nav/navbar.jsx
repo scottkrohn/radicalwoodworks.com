@@ -25,7 +25,7 @@ import { getCartById } from 'client/actions/cart-actions';
 // Selectors
 import { selectItemCount } from '@selectors/cart-selectors';
 
-const Navbar = ({ auth, getCartById, itemCount, logout, location }) => {
+const Navbar = ({ auth, itemCount, logout, location }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;

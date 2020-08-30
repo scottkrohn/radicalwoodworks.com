@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { every, values, mapValues } from 'lodash';
 import cx from 'classnames';
 
-const Form = ({ children, className, fields, onSubmit }) => {
+const Form = ({ children, className, fields, onFieldsUpdate, onSubmit }) => {
   const [formFields, setFormFields] = useState({});
 
   useEffect(() => {
     setFormFields(setupFieldInitialValues());
-  }, [fields]);
+  }, []);
 
   const setupFieldInitialValues = () => {
     return mapValues(fields, (field) => {
@@ -22,7 +22,7 @@ const Form = ({ children, className, fields, onSubmit }) => {
   const onChange = (fieldName) => (event) => {
     const newValue = event.target.value;
 
-    setFormFields({
+    const newFormFieldValues = {
       ...formFields,
       [fieldName]: {
         ...formFields[fieldName],
@@ -30,7 +30,15 @@ const Form = ({ children, className, fields, onSubmit }) => {
         ...validateField(fieldName, newValue),
         isDirty: true,
       },
-    });
+    };
+
+    onFieldsUpdate &&
+      onFieldsUpdate({
+        fieldName,
+        fields: newFormFieldValues,
+      });
+
+    setFormFields(newFormFieldValues);
   };
 
   const isFormValid = () => {

@@ -13,6 +13,7 @@ import ProductPage from '@pages/product-page';
 import CartPage from '@pages/cart-page';
 import CheckoutPage from '@pages/checkout-page';
 import SignupPage from '@pages/signup-page';
+import AccountPage from '@pages/account-page';
 
 // Admin Pages
 import AdminPage from '@pages/admin-page';
@@ -85,6 +86,10 @@ export default [
       {
         ...SignupPage,
         path: '/signup',
+      },
+      {
+        ...AccountPage,
+        path: '/account',
       },
       { ...NotFoundPage },
     ],
