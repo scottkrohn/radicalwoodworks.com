@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { isEmpty } from 'lodash';
 import User from '@models/user';
+import AUTH from '@constants/auth-constants';
 
 export const getLoading = (state) => state.user.loading;
 export const selectErrorCode = (state) => state.user.error.code;
@@ -16,4 +17,12 @@ export const selectUser = createSelector([getUserFromState], (userData) => {
   userModel.setValues(userData.data);
 
   return userModel;
+});
+
+export const selectIsAdmin = createSelector([selectUser], (user) => {
+  if (isEmpty(user)) {
+    return false;
+  }
+
+  return user.getType() === AUTH.USER_TYPES.ADMIN;
 });

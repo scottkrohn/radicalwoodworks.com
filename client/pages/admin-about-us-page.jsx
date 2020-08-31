@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
+import AUTH from '@constants/auth-constants';
 
 // Components
 import Spinner from '@components/spinner/spinner';
@@ -95,6 +96,6 @@ export default {
   component: connect(
     mapStateToProps,
     mapActionsToProps
-  )(withAuthValidation(AdminAboutUs)),
+  )(withAuthValidation(AUTH.USER_TYPES.ADMIN)(AdminAboutUs)),
   loadData: (store) => store.dispatch(getAllContent('ABOUT')),
 };

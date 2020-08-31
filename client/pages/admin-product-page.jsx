@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, isNull, isEmpty } from 'lodash';
+import AUTH from '@constants/auth-constants';
 
 // Components
 import EditImages from '@components/edit-images/edit-images';
@@ -446,7 +447,9 @@ export default {
   component: connect(
     mapStateToProps,
     mapActionsToProps
-  )(withAuthValidation(withRouter(AdminProductContainer))),
+  )(
+    withAuthValidation(AUTH.USER_TYPES.ADMIN)(withRouter(AdminProductContainer))
+  ),
   loadData: (store, pathParts) => {
     const productId =
       pathParts.length === 2 ? parseInt(pathParts[1], 10) : null;

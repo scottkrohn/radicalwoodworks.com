@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AUTH from '@constants/auth-constants';
 
 // Components
 import Grid from '@components/grid/grid';
@@ -53,5 +54,7 @@ const mapStateToProps = (state) => {
 };
 
 export default {
-  component: connect(mapStateToProps)(withAuthValidation(AdminContainer)),
+  component: connect(mapStateToProps)(
+    withAuthValidation(AUTH.USER_TYPES.ADMIN)(AdminContainer)
+  ),
 };

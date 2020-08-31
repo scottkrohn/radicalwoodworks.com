@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
+import AUTH from '@constants/auth-constants';
 
 // Components
 import Spinner from '@components/spinner/spinner';
@@ -141,6 +142,6 @@ export default {
   component: connect(
     mapStateToProps,
     mapActionsToProps
-  )(withAuthValidation(AdminFaqContainer)),
+  )(withAuthValidation(AUTH.USER_TYPES.ADMIN)(AdminFaqContainer)),
   loadData: (store) => store.dispatch(getAllContent('POLICY')),
 };

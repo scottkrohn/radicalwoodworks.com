@@ -4,7 +4,7 @@ import DB from '../constants/database-constants';
 import bcrypt from 'bcrypt-nodejs';
 import EXCEPTIONS from '../../constants/exceptions';
 import { get } from 'lodash';
-import AUTH from '@constants-server/auth-constants';
+import AUTH from '@constants/auth-constants';
 
 export default (passport) => {
   const db = new Database();

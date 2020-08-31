@@ -24,8 +24,9 @@ import { getCartById } from 'client/actions/cart-actions';
 
 // Selectors
 import { selectItemCount } from '@selectors/cart-selectors';
+import { selectIsAdmin, selectUser } from '@selectors/user-selectors';
 
-const Navbar = ({ auth, itemCount, logout, location }) => {
+const Navbar = ({ auth, itemCount, isAdmin, logout, location, user }) => {
   useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;
@@ -94,10 +95,16 @@ const Navbar = ({ auth, itemCount, logout, location }) => {
             path={NavConstants.navBarLinks.accountNav.login.path}
           />
         )}
-        {isLoggedIn && (
+        {isLoggedIn && isAdmin && (
           <NavbarLink
             label={NavConstants.navBarLinks.accountNav.admin.label}
             path={NavConstants.navBarLinks.accountNav.admin.path}
+          />
+        )}
+        {isLoggedIn && !isAdmin && (
+          <NavbarLink
+            label={NavConstants.navBarLinks.accountNav.account.label}
+            path={NavConstants.navBarLinks.accountNav.account.path}
           />
         )}
       </div>
@@ -160,6 +167,8 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     itemCount: selectItemCount(state),
+    user: selectUser(state),
+    isAdmin: selectIsAdmin(state),
   };
 };
 

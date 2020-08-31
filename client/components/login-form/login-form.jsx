@@ -68,12 +68,9 @@ const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
           },
         }}
       >
-        {({ onChange, fieldProps, getFormValues, handleEnterKey }) => {
+        {({ onChange, fieldProps, getFormValues }) => {
           return (
-            <div
-              className={styles.LoginFormFields}
-              onKeyDown={handleEnterKey(handleLoginClick)}
-            >
+            <div className={styles.LoginFormFields}>
               <TextInput
                 className="mt-3"
                 label="Username"

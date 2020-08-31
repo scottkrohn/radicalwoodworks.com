@@ -40,6 +40,11 @@ const NAV = {
       label: 'Admin',
       path: 'admin',
     },
+    account: {
+      key: 'account',
+      label: 'My Account',
+      path: 'account',
+    },
   },
   navBarLinks: {
     mainNav: [
@@ -84,6 +89,11 @@ const NAV = {
         label: 'Logout',
         path: '/',
         value: 'logout',
+      },
+      account: {
+        label: 'My Account',
+        key: 'account',
+        path: '/account',
       },
     },
   },

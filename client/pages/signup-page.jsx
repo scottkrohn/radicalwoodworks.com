@@ -30,11 +30,15 @@ const SignupPage = ({
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    verifyLogin().then(() => {
-      if (user) {
-        history.push('/account');
-      }
-    });
+    verifyLogin()
+      .then(() => {
+        if (user) {
+          history.push('/account');
+        }
+      })
+      .catch(() => {
+        // Do Nothing
+      });
   }, [user]);
 
   useEffect(() => {

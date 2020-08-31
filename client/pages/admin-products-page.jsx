@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import AUTH from '@constants/auth-constants';
 
 // Components
 import Spinner from '@components/spinner/spinner';
@@ -127,6 +128,10 @@ export default {
   component: connect(
     mapStateToProps,
     mapActionsToProps
-  )(withAuthValidation(withRouter(AdminProductsContainer))),
+  )(
+    withAuthValidation(AUTH.USER_TYPES.ADMIN)(
+      withRouter(AdminProductsContainer)
+    )
+  ),
   loadData: (store) => store.dispatch(getProducts()),
 };
