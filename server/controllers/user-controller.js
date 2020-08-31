@@ -22,7 +22,7 @@ export default (req, res, next) => {
         });
         return;
       } else if (info && info.conflict) {
-        res.status(409).send(EXCEPTIONS.usernameConflict);
+        res.status(409).send(info.conflict);
       } else {
         res.status(500).send(EXCEPTIONS.internalError);
       }

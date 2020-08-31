@@ -17,6 +17,7 @@ export default (passport) => {
     const whereClause = `WHERE ${DB.tables.users.columns.id} = ${db.escape(
       id
     )}`;
+
     db.selectOne(DB.tables.users.name, whereClause).then((result, error) => {
       return done(error, result[0] || null);
     });
@@ -31,18 +32,25 @@ export default (passport) => {
         passReqToCallback: true,
       },
       (req, username, password, done) => {
+        const { email, firstName, lastName } = req.body;
         const whereClause = `WHERE ${
           DB.tables.users.columns.username
-        } = ${db.escape(username)}`;
+        } = ${db.escape(username)} OR ${
+          DB.tables.users.columns.email
+        } = ${db.escape(email)}`;
 
         // Check if the user already exists with this username. If so we won't create a new user.
         db.selectOne(DB.tables.users.name, whereClause)
           .then((result) => {
             if (result.length) {
-              return done(null, false, { conflict: true });
+              const existingUserEmail = get(result, '[0].email', null);
+              const reason =
+                existingUserEmail === email
+                  ? EXCEPTIONS.emailConflict
+                  : EXCEPTIONS.usernameConflict;
+              return done(null, false, { conflict: reason });
             } else {
               // Create a new user with these credentials.
-              const { email, firstName, lastName } = req.body;
 
               const newUser = {
                 username,

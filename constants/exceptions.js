@@ -47,6 +47,10 @@ const EXCEPTIONS = {
     code: 1010,
     message: 'Username already exists',
   },
+  emailConflict: {
+    code: 1011,
+    message: 'Email already exists',
+  },
 };
 
 EXCEPTIONS.apiError = (error, status = 500) => {
