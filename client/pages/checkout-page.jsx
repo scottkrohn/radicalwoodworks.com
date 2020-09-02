@@ -12,7 +12,7 @@ import SelectInput from '@forms/select-input';
 import Button from '@components/button/button';
 import RequiredValidator from '@validators/required-validator';
 import STATES from '@constants/state-constants';
-import Customer from '@models/customer';
+import Customer from '@models/address';
 import { addCustomerToOrder } from '@actions/checkout-actions';
 
 const CheckoutPage = ({

@@ -67,7 +67,7 @@ const DATABASE = {
         createdTs: 'created_ts',
         updatedTs: 'updated_ts',
         expirationTs: 'expiration_ts',
-        customerId: 'customer_id',
+        userId: 'user_id',
         isExpired: 'is_expired',
         sid: 'sid',
       },
@@ -89,7 +89,7 @@ const DATABASE = {
         id: 'id',
         createdTs: 'created_ts',
         updatedTs: 'updated_ts',
-        customerId: 'customer_id',
+        userId: 'user_id',
         promoCode: 'promo_code',
         promoDiscount: 'promo_discount',
         subtotal: 'subtotal',
@@ -117,8 +117,8 @@ const DATABASE = {
         orderId: 'order_id',
       },
     },
-    customers: {
-      name: 'customers',
+    addresses: {
+      name: 'addresses',
       columns: {
         id: 'id',
         type: 'type',
@@ -167,7 +167,7 @@ DATABASE.getCartDatabaseFieldsMapping = (cart) => {
     [cartColumns.createdTs]: cart.getCreatedTs(),
     [cartColumns.updatedTs]: cart.getUpdatedTs(),
     [cartColumns.expirationTs]: cart.getExpirationTs(),
-    [cartColumns.customerId]: cart.getCustomerId(),
+    [cartColumns.userId]: cart.getUserId(),
     [cartColumns.isExpired]: cart.getIsExpired(),
     [cartColumns.sid]: cart.getSid(),
   };
@@ -193,7 +193,7 @@ DATABASE.getOrderDatabaseFieldsMapping = (order) => {
     [orderColumns.id]: order.getId(),
     [orderColumns.createdTs]: order.getCreatedTs(),
     [orderColumns.updatedTs]: order.getUpdatedTs(),
-    [orderColumns.customerId]: order.getCustomerId(),
+    [orderColumns.userId]: order.getUserId(),
     [orderColumns.promoCode]: order.getPromoCode(),
     [orderColumns.promoDiscount]: order.getPromoDiscount(),
     [orderColumns.subtotal]: order.getSubtotal(),
@@ -223,21 +223,21 @@ DATABASE.getOrderItemDatabaseFieldsMapping = (orderItem) => {
   };
 };
 
-DATABASE.getCustomerDatabaseFieldsMapping = (customer) => {
-  const customerColumns = DATABASE.tables.customers.columns;
+DATABASE.getAddressDatabaseFieldsMapping = (customer) => {
+  const addressColumns = DATABASE.tables.addresses.columns;
 
   return {
-    [customerColumns.id]: customer.getId(),
-    [customerColumns.type]: customer.getType(),
-    [customerColumns.firstName]: customer.getFirstName(),
-    [customerColumns.lastName]: customer.getLastName(),
-    [customerColumns.address]: customer.getAddress(),
-    [customerColumns.aptSuite]: customer.getAptSuite(),
-    [customerColumns.zip]: customer.getZip(),
-    [customerColumns.city]: customer.getCity(),
-    [customerColumns.state]: customer.getState(),
-    [customerColumns.email]: customer.getEmail(),
-    [customerColumns.userId]: customer.getUserId(),
+    [addressColumns.id]: customer.getId(),
+    [addressColumns.type]: customer.getType(),
+    [addressColumns.firstName]: customer.getFirstName(),
+    [addressColumns.lastName]: customer.getLastName(),
+    [addressColumns.address]: customer.getAddress(),
+    [addressColumns.aptSuite]: customer.getAptSuite(),
+    [addressColumns.zip]: customer.getZip(),
+    [addressColumns.city]: customer.getCity(),
+    [addressColumns.state]: customer.getState(),
+    [addressColumns.email]: customer.getEmail(),
+    [addressColumns.userId]: customer.getUserId(),
   };
 };
 

@@ -10,7 +10,7 @@ class Order extends Model {
       id: null,
       createdTs: null,
       updatedTs: null,
-      customerId: null,
+      userId: null,
       promoCode: null,
       promoDiscount: null,
       subtotal: null,
@@ -28,7 +28,7 @@ class Order extends Model {
 
     this.children = {
       items: null,
-      customer: null,
+      address: null,
     };
   }
 
@@ -44,8 +44,8 @@ class Order extends Model {
     this.data.updatedTs = updatedTs;
   };
 
-  setCustomerId = (customerId) => {
-    this.data.customerId = customerId;
+  setUserId = (userId) => {
+    this.data.userId = userId;
   };
 
   setPromoCode = (promoCode) => {
@@ -112,8 +112,8 @@ class Order extends Model {
     return this.data.updatedTs;
   };
 
-  getCustomerId = () => {
-    return this.data.customerId;
+  getAddressId = () => {
+    return this.data.addressId;
   };
 
   getPromoCode = () => {
@@ -168,6 +168,10 @@ class Order extends Model {
     return this.data.sid;
   };
 
+  getUserId = () => {
+    return this.data.userId;
+  };
+
   /* Children Getters & Setters */
   /******************************/
 
@@ -175,16 +179,16 @@ class Order extends Model {
     this.children.items = items;
   };
 
-  setCustomer = (customer) => {
-    this.children.customer = customer;
+  setAddress = (address) => {
+    this.children.address = address;
   };
 
   getItems = () => {
     return this.children.items;
   };
 
-  getCustomer = () => {
-    return this.children.customer;
+  getAddress = () => {
+    return this.children.address;
   };
 
   addItem = (item) => {
@@ -212,8 +216,8 @@ class Order extends Model {
       this.addItem(itemModel);
     });
 
-    const customer = get(children, 'customer', []);
-    this.setCustomer(customer);
+    const address = get(children, 'address', []);
+    this.setAddress(address);
   };
 }
 

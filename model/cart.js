@@ -11,7 +11,7 @@ class Cart extends Model {
       createdTs: null,
       updatedTs: null,
       expirationTs: null,
-      customerId: null,
+      userId: null,
       isExpired: null,
       sid: null,
     };
@@ -37,8 +37,8 @@ class Cart extends Model {
     this.data.expirationTs = expirationTs;
   };
 
-  setCustomerId = (customerId) => {
-    this.data.customerId = customerId;
+  setUserId = (userId) => {
+    this.data.userId = userId;
   };
 
   setIsExpired = (isExpired) => {
@@ -65,8 +65,8 @@ class Cart extends Model {
     return this.data.expirationTs;
   };
 
-  getCustomerId = () => {
-    return this.data.customerId;
+  getUserId = () => {
+    return this.data.userId;
   };
 
   getIsExpired = () => {

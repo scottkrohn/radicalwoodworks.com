@@ -95,6 +95,11 @@ const NAV = {
         key: 'account',
         path: '/account',
       },
+      signup: {
+        label: 'Create Account',
+        key: 'signup',
+        path: '/signup',
+      },
     },
   },
 };

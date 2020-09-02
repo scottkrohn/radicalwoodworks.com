@@ -10,7 +10,7 @@ import CartItem from '@models/cart-item';
 import DB from '@constants-server/database-constants';
 import { get, isEmpty } from 'lodash';
 import Order from '@models/order';
-import CustomerBLI from '@bli/customer-bli';
+import AddressBLI from '@bli/address-bli';
 
 class OrderBLI extends BaseBLI {
   constructor() {
@@ -68,10 +68,10 @@ class OrderBLI extends BaseBLI {
     order.setValues(orderData, true);
     order.setItems(orderItemModels);
 
-    if (order.getCustomerId()) {
-      const customerBli = new CustomerBLI();
-      const customer = await customerBli.getCustomer(order.getCustomerId());
-      order.setCustomer(customer);
+    if (order.getAddressId()) {
+      const addressBli = new AddressBLI();
+      const address = await addressBli.getAddress(order.getAddressId());
+      order.setAddress(address);
     }
 
     return order;
@@ -161,14 +161,14 @@ class OrderBLI extends BaseBLI {
     return Promise.all(orderItemPromises);
   };
 
-  addCustomerIdToOrder = async (orderId, customerId) => {
+  addAddressIdToOrder = async (orderId, addressId) => {
     const sql = `
       UPDATE
         ${DB.tables.orders.name}
       SET
-        ${DB.tables.orders.columns.customerId} = ${parseInt(customerId)}
+        ${DB.tables.orders.columns.addressId} = ${this.escape(addressId)}
       WHERE
-        ${DB.tables.orders.columns.id} = ${parseInt(orderId)}
+        ${DB.tables.orders.columns.id} = ${this.escape(orderId)}
     `;
 
     return this.db.query(sql);
@@ -189,7 +189,7 @@ class OrderBLI extends BaseBLI {
 
     order.setCreatedTs(Date.now());
     order.setUpdatedTs(Date.now());
-    order.setCustomerId(cart.getCustomerId());
+    order.setUserId(cart.getUserId());
     order.setSubtotal(itemTotal);
     order.setTaxTotal(taxTotal);
     order.setShippingTotal(shippingTotal);

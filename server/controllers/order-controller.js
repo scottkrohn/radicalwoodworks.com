@@ -39,6 +39,7 @@ export default async function (req, res, next) {
       }
     }
   } catch (error) {
+    console.log(error);
     res.status(500).send(EXCEPTIONS.internalError);
   }
 }

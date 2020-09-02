@@ -83,18 +83,6 @@ const Navbar = ({ auth, itemCount, isAdmin, logout, location, user }) => {
         <div className={styles.CartContainer}>
           <CartIcon itemCount={itemCount} />
         </div>
-        {isLoggedIn ? (
-          <NavbarLink
-            label={NavConstants.navBarLinks.accountNav.logout.label}
-            path={NavConstants.navBarLinks.accountNav.logout.path}
-            onClick={handleLogout}
-          />
-        ) : (
-          <NavbarLink
-            label={NavConstants.navBarLinks.accountNav.login.label}
-            path={NavConstants.navBarLinks.accountNav.login.path}
-          />
-        )}
         {isLoggedIn && isAdmin && (
           <NavbarLink
             label={NavConstants.navBarLinks.accountNav.admin.label}
@@ -106,6 +94,24 @@ const Navbar = ({ auth, itemCount, isAdmin, logout, location, user }) => {
             label={NavConstants.navBarLinks.accountNav.account.label}
             path={NavConstants.navBarLinks.accountNav.account.path}
           />
+        )}
+        {isLoggedIn ? (
+          <NavbarLink
+            label={NavConstants.navBarLinks.accountNav.logout.label}
+            path={NavConstants.navBarLinks.accountNav.logout.path}
+            onClick={handleLogout}
+          />
+        ) : (
+          <React.Fragment>
+            <NavbarLink
+              label={NavConstants.navBarLinks.accountNav.signup.label}
+              path={NavConstants.navBarLinks.accountNav.signup.path}
+            />
+            <NavbarLink
+              label={NavConstants.navBarLinks.accountNav.login.label}
+              path={NavConstants.navBarLinks.accountNav.login.path}
+            />
+          </React.Fragment>
         )}
       </div>
       <div className={styles.HamburgerContainer}>

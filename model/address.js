@@ -1,6 +1,6 @@
 import Model from '@models/model';
 
-class Customer extends Model {
+class Address extends Model {
   constructor() {
     super();
 
@@ -108,4 +108,4 @@ class Customer extends Model {
   };
 }
 
-export default Customer;
+export default Address;

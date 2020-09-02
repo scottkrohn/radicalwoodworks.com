@@ -57,9 +57,9 @@ class CartBLI extends BaseBLI {
     }
   };
 
-  getCartByCustomerId = async (cid) => {
+  getCartByUserId = async (userId) => {
     const whereClause = `WHERE ${
-      DB.tables.carts.columns.customerId
+      DB.tables.carts.columns.userId
     } = ${this.escape(cid)} AND ${DB.tables.carts.columns.isExpired} = 0`;
     const cartRow = await this.db.selectOne(DB.tables.carts.name, whereClause);
 
@@ -160,13 +160,13 @@ class CartBLI extends BaseBLI {
   /**
    * Add a new cart to the database.
    *
-   * @param {number} customerId
+   * @param {number} userId
    * @param {array} items
    * @returns {Cart} cart
    */
-  createCart = async (customerId, items, sid) => {
+  createCart = async (userId, items, sid) => {
     const cart = new Cart();
-    cart.setCustomerId(customerId);
+    cart.setUserId(userId);
     cart.setCreatedTs(Date.now());
     cart.setUpdatedTs(Date.now());
     cart.setExpirationTs(Date.now() + CART.expiration48Hours);
@@ -325,7 +325,7 @@ class CartBLI extends BaseBLI {
 
       switch (field) {
         case cartColumns.createdTs:
-        case cartColumns.customerId:
+        case cartColumns.userId:
         case cartColumns.updatedTs:
         case cartColumns.expirationTs:
           this.db.assign(field, cartDatabaseMapping[field]);

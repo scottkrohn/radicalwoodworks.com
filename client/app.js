@@ -38,10 +38,7 @@ export default {
 
 /**
  *
- * on login from login page, direct to admin vs account page based on user type
- * change admin link to "account" link when logged in as a customer
- * prevent admin/guest from getting to /account page
- * prevent customer from getting to /admin
+ * add sidebar to checkout page
  *
  * hook users up to carts and orders
  *

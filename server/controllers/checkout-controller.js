@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import CustomerBLI from '@bli/customer-bli';
+import CustomerBLI from '@bli/address-bli';
 import EXCEPTIONS from '@constants/exceptions';
 import REQUEST from '@constants-server/request-constants';
 
@@ -9,10 +9,11 @@ export default async function (req, res, next) {
 
   try {
     if (req.method === REQUEST.method.post) {
-      const order = await customerBli.createOrUpdateCustomer(req.body, orderId);
+      const order = await customerBli.createOrUpdateAddress(req.body, orderId);
       res.send(order);
     }
   } catch (error) {
+    console.log(error);
     res.status(error.status || 500).send(error);
     return;
   }
