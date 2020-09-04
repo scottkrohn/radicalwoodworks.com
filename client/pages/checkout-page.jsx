@@ -15,6 +15,10 @@ import STATES from '@constants/state-constants';
 import Address from '@models/address';
 import { addAddressToOrder } from '@actions/checkout-actions';
 import { selectUser } from '@selectors/user-selectors';
+import OrderSidebar from '@components/order-sidebar/order-sidebar';
+import useStyles from 'isomorphic-style-loader/useStyles';
+import styles from './checkout-page.scss';
+import cx from 'classnames';
 
 import ORDER from '@constants/order-constants';
 
@@ -26,6 +30,7 @@ const CheckoutPage = ({
   order,
   user,
 }) => {
+  useStyles(styles);
   useEffect(() => {
     if (!order) {
       getOrder().catch((error) => {
@@ -89,8 +94,13 @@ const CheckoutPage = ({
     <div className="container-fluid">
       <Spinner spinning={loading} />
       <PageHeader headerText="Checkout" showButton={false} />
-      <div className="flex justify-content-center">
-        <div>
+      <div
+        className={cx(
+          'flex justify-content-center',
+          styles.CheckoutPageContainer
+        )}
+      >
+        <div className={styles.Form}>
           <Form fields={formInitialValues}>
             {({ fieldProps, getFormValues }) => {
               return (
@@ -152,7 +162,7 @@ const CheckoutPage = ({
             }}
           </Form>
         </div>
-        <div>Order Totals</div>
+        <OrderSidebar className={styles.OrderSidebar} order={order} />
       </div>
     </div>
   );

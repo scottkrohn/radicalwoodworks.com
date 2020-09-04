@@ -39,9 +39,6 @@ export default {
 /**
  *
  * add sidebar to checkout page
- * add/remove the userid from the order on "Continue to payment" click
- *
- * hook users up to carts and orders
  *
  * Create promos
  * Fix styling on contact and login form

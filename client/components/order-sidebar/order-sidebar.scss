@@ -1,0 +1,51 @@
+@import '../../styles/variables.scss';
+
+.OrderSidebarContainer {
+  margin-top: 35px;
+  height: 100%;
+  width: 100%;
+  border: 1px solid $gray;
+  border-radius: 3px;
+  padding: 5px;
+
+  .Subtotal {
+    .Header {
+      font-size: 15px;
+    }
+
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .ShippingTotal {
+    .Header {
+      font-size: 15px;
+    }
+
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .TaxTotal {
+    .Header {
+      font-size: 15px;
+    }
+
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .GrandTotal {
+    margin-top: 10px;
+    .Header {
+      font-size: 20px;
+    }
+
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+  }
+}
