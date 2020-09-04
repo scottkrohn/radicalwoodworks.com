@@ -44,7 +44,7 @@ router.route('/cart/:cartId?').all(cartCtrl);
 router.route('/order/:orderId?').all(orderCtrl);
 
 // Checkout Routes
-router.route('/checkout/customer/:orderId').all(checkoutCtrl);
+router.route('/checkout/address/:orderId').all(checkoutCtrl);
 
 // User Routes
 router.route('/signup').post(userCtrl);

@@ -22,13 +22,13 @@ export const getOrder = (orderId = null) => {
   };
 };
 
-export const createOrUpdateOrder = (cartId, customerId) => {
+export const createOrUpdateOrder = (cartId, userId) => {
   return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(createOrUpdateOrderRequest());
       const body = {
+        userId,
         cartId,
-        customerId,
       };
 
       axios

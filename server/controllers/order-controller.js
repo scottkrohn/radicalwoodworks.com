@@ -7,7 +7,7 @@ import EXCEPTIONS from '@constants/exceptions';
 export default async function (req, res, next) {
   const orderBli = new OrderBLI();
   const cartId = get(req, 'body.cartId', null);
-  const customerId = get(req, 'body.customerId', null);
+  const userId = get(req, 'body.userId', null);
   const cookieOrderId = get(req, 'cookies.orderId', null);
   const sid = get(req, 'cookies.sid', null);
   const orderId = req.params.orderId;
@@ -15,7 +15,7 @@ export default async function (req, res, next) {
   try {
     if (req.method === REQUEST.method.post) {
       try {
-        const order = await orderBli.createOrUpdateOrder(cartId, sid);
+        const order = await orderBli.createOrUpdateOrder(cartId, userId, sid);
         res.send(order);
       } catch (error) {
         if (error.status) {

@@ -77,7 +77,7 @@ class OrderBLI extends BaseBLI {
     return order;
   };
 
-  createOrUpdateOrder = async (cartId, sid = null) => {
+  createOrUpdateOrder = async (cartId, userId = null, sid = null) => {
     const cartBli = new CartBLI();
     const cart = await cartBli.getCartById(cartId, true, true);
 
@@ -100,6 +100,8 @@ class OrderBLI extends BaseBLI {
       order = this._buildOrderFromCart(cart);
     }
 
+    order.setUserId(userId);
+
     // Save the order into the DB.
     let orderPromise = Promise.resolve(null);
     if (this._assignOrderValues(order)) {
@@ -107,6 +109,11 @@ class OrderBLI extends BaseBLI {
         const whereClause = `WHERE ${
           DB.tables.orders.columns.id
         } = ${order.getId()}`;
+
+        if (!order.getUserId()) {
+          this.db.assign(DB.tables.orders.columns.userId, null);
+        }
+
         orderPromise = this.db.update(DB.tables.orders.name, whereClause);
       } else {
         orderPromise = this.db.insert(DB.tables.orders.name);
@@ -189,7 +196,6 @@ class OrderBLI extends BaseBLI {
 
     order.setCreatedTs(Date.now());
     order.setUpdatedTs(Date.now());
-    order.setUserId(cart.getUserId());
     order.setSubtotal(itemTotal);
     order.setTaxTotal(taxTotal);
     order.setShippingTotal(shippingTotal);
@@ -265,7 +271,7 @@ class OrderBLI extends BaseBLI {
 
         case orderColumns.createdTs:
         case orderColumns.updatedTs:
-        case orderColumns.customerId:
+        case orderColumns.userId:
         case orderColumns.promoDiscount:
         case orderColumns.subtotal:
         case orderColumns.shippingTotal:

@@ -25,8 +25,13 @@ class AddressBLI extends BaseBLI {
           DB.tables.addresses.columns.id
         } = ${parseInt(order.getAddressId())}`;
 
+        if (addressModel.getUserId() === null) {
+          this.db.assign(DB.tables.addresses.columns.userId, null);
+        }
+
         await this.db.update(DB.tables.addresses.name, whereClause);
 
+        console.log(addressModel);
         addressModel.setId(order.getAddressId());
         order.setAddress(addressModel);
 

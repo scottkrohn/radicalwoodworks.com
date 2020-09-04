@@ -4,13 +4,13 @@ import {
   createOrUpdateOrderError,
 } from '@actions/order-actions';
 
-export const addCustomerToOrder = (customer, orderId) => {
+export const addAddressToOrder = (address, orderId) => {
   return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(createOrUpdateOrderRequest());
 
       axios
-        .post(`/api/checkout/customer/${orderId}`, customer.data)
+        .post(`/api/checkout/address/${orderId}`, address.data)
         .then((response) => {
           dispatch(createOrUpdateOrderSuccess(response.data));
           resolve(response.data);

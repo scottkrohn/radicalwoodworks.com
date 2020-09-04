@@ -4,12 +4,12 @@ import Cookie from 'js-cookie';
 // Constants
 import ACTIONS from 'constants/action-constants';
 
-export const createCart = (productId, quantity, customerId = null) => {
+export const createCart = (productId, quantity, userId = null) => {
   return (dispatch, getState, axios) => {
     dispatch(createCartRequest());
 
     const body = {
-      customerId,
+      userId,
       items: [{ productId, quantity }],
     };
 

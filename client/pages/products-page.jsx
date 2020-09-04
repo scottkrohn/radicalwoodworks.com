@@ -21,6 +21,7 @@ import {
   selectCart,
   getLoading as getCartLoading,
 } from 'client/selectors/cart-selectors';
+import { selectUser } from '@selectors/user-selectors';
 
 const ProductsContainer = ({
   addOrUpdateCartItem,
@@ -29,6 +30,7 @@ const ProductsContainer = ({
   getProducts,
   loading,
   products,
+  user,
 }) => {
   useEffect(() => {
     if (isEmpty(products)) {
@@ -38,7 +40,8 @@ const ProductsContainer = ({
 
   const handleAddToCart = (product, quantity) => {
     if (isEmpty(cart)) {
-      createCart(product.getId(), quantity);
+      const userId = user ? user.getId() : null;
+      createCart(product.getId(), quantity, userId);
     } else {
       addOrUpdateCartItem(cart.getId(), product.getId(), quantity);
     }
@@ -73,6 +76,7 @@ const mapStateToProps = (state) => {
     products: getProductsSelector(state),
     loading: getLoading(state) || getCartLoading(state),
     cart: selectCart(state),
+    user: selectUser(state),
   };
 };
 

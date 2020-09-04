@@ -9,6 +9,10 @@ const ORDER = {
     PENDING: 'PENDING',
     SHIPPED: 'SHIPPED',
   },
+  ADDRESS_TYPES: {
+    GUEST: 'GUEST',
+    USER: 'USER',
+  },
 };
 
 export default ORDER;

@@ -19,6 +19,7 @@ import { faSadTear } from '@fortawesome/free-solid-svg-icons';
 import { Link, withRouter } from 'react-router-dom';
 import { createOrUpdateOrder } from '@actions/order-actions';
 import { getLoading as getOrderLoading } from '@selectors/order-selectors';
+import { selectUser } from '@selectors/user-selectors';
 
 const CartPage = ({
   addOrUpdateCartItem,
@@ -28,6 +29,7 @@ const CartPage = ({
   getCartById,
   history,
   loading,
+  user,
 }) => {
   const [cartLoaded, setCartLoaded] = useState(false);
   const items = isEmpty(cart) ? [] : cart.getItems();
@@ -39,7 +41,8 @@ const CartPage = ({
   }, []);
 
   const handleCheckout = () => {
-    createOrUpdateOrder(cart.getId()).then(() => {
+    const userId = user ? user.getId() : null;
+    createOrUpdateOrder(cart.getId(), userId).then(() => {
       history.push('/checkout');
     });
   };
@@ -87,6 +90,7 @@ const mapStateToProps = (state) => {
   return {
     cart: selectCart(state),
     loading: getLoading(state) || getOrderLoading(state),
+    user: selectUser(state),
   };
 };
 

@@ -46,9 +46,9 @@ export default async function (req, res, next) {
         res.send(null);
       }
     } else if (req.method === REQUEST.method.post) {
-      const customerId = get(req, 'body.customerId', null);
+      const userId = get(req, 'body.userId', null);
       const items = get(req, 'body.items', []);
-      const cart = await cartBli.createCart(customerId, items, sid);
+      const cart = await cartBli.createCart(userId, items, sid);
       res.send(cart);
     } else if (req.method === REQUEST.method.put) {
       let cart = await cartBli.getCartById(cartId, true, false, sid);

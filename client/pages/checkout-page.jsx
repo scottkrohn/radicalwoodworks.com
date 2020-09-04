@@ -12,15 +12,19 @@ import SelectInput from '@forms/select-input';
 import Button from '@components/button/button';
 import RequiredValidator from '@validators/required-validator';
 import STATES from '@constants/state-constants';
-import Customer from '@models/address';
-import { addCustomerToOrder } from '@actions/checkout-actions';
+import Address from '@models/address';
+import { addAddressToOrder } from '@actions/checkout-actions';
+import { selectUser } from '@selectors/user-selectors';
+
+import ORDER from '@constants/order-constants';
 
 const CheckoutPage = ({
-  addCustomerToOrder,
+  addAddressToOrder,
   getOrder,
   history,
   loading,
   order,
+  user,
 }) => {
   useEffect(() => {
     if (!order) {
@@ -34,10 +38,14 @@ const CheckoutPage = ({
     event.preventDefault();
     const { isValid, fields } = getFormValues(true);
     if (isValid) {
-      const customer = new Customer();
-      customer.setValues(fields);
-      customer.setType('GUEST'); // TODO: Update once login accounts exist.
-      addCustomerToOrder(customer, order.getId()).then((response) => {
+      const address = new Address();
+      address.setValues(fields);
+      address.setUserId(user ? user.getId() : null);
+      address.setType(
+        user ? ORDER.ADDRESS_TYPES.USER : ORDER.ADDRESS_TYPES.GUEST
+      );
+
+      addAddressToOrder(address, order.getId()).then((response) => {
         console.log('Added, go to paypal!');
       });
     }
@@ -154,10 +162,11 @@ const mapStateToProps = (state) => {
   return {
     order: selectOrder(state),
     loading: getLoading(state),
+    user: selectUser(state),
   };
 };
 
-const mapActionsToProps = { addCustomerToOrder, getOrder };
+const mapActionsToProps = { addAddressToOrder, getOrder };
 
 export default {
   component: connect(
