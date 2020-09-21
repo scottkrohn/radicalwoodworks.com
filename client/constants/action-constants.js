@@ -100,6 +100,10 @@ const ACTIONS = {
   CREATE_USER_ACCOUNT_REQUEST: 'user:createUserAccountRequest',
   CREATE_USER_ACCOUNT_SUCCESS: 'user:createUserAccountSuccess',
   CREATE_USER_ACCOUNT_ERROR: 'user:createUserAccountError',
+
+  UPDATE_USER_REQUEST: 'user:updateAccountRequest',
+  UPDATE_USER_SUCCESS: 'user:updateAccountSuccess',
+  UPDATE_USER_ERROR: 'user:updateAccountError',
 };
 
 export default ACTIONS;

@@ -13,7 +13,6 @@ export default async function (req, res, next) {
       res.send(order);
     }
   } catch (error) {
-    console.log(error);
     res.status(error.status || 500).send(error);
     return;
   }

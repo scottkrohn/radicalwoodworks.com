@@ -11,6 +11,12 @@ class User extends Model {
       email: null,
       firstName: null,
       lastName: null,
+      address: null,
+      addressTwo: null,
+      zip: null,
+      aptSuite: null,
+      city: null,
+      state: null,
     };
   }
 
@@ -37,6 +43,29 @@ class User extends Model {
   setLastName = (lastName) => {
     this.data.lastName = lastName;
   };
+  setAddress = (address) => {
+    this.data.address = address;
+  };
+
+  setAddressTwo = (addressTwo) => {
+    this.data.addressTwo = addressTwo;
+  };
+
+  setZip = (zip) => {
+    this.data.zip = zip;
+  };
+
+  setAptSuite = (aptSuite) => {
+    this.data.aptSuite = aptSuite;
+  };
+
+  setCity = (city) => {
+    this.data.city = city;
+  };
+
+  setState = (state) => {
+    this.data.state = state;
+  };
 
   getId = () => {
     return this.data.id;
@@ -60,6 +89,34 @@ class User extends Model {
 
   getLastName = () => {
     return this.data.lastName;
+  };
+
+  getAddress = () => {
+    return this.data.address;
+  };
+
+  getAddressTwo = () => {
+    return this.data.addressTwo;
+  };
+
+  getZip = () => {
+    return this.data.zip;
+  };
+
+  getAptSuite = () => {
+    return this.data.aptSuite;
+  };
+
+  getCity = () => {
+    return this.data.city;
+  };
+
+  getState = () => {
+    return this.data.state;
+  };
+
+  getFullName = () => {
+    return `${this.data.firstName} ${this.data.lastName}`;
   };
 }
 

@@ -58,6 +58,12 @@ const DATABASE = {
         email: 'email',
         firstName: 'first_name',
         lastName: 'last_name',
+        address: 'address',
+        addressTwo: 'address_two',
+        zip: 'zip',
+        aptSuite: 'apt_suite',
+        city: 'city',
+        state: 'state',
       },
     },
     carts: {
@@ -125,6 +131,7 @@ const DATABASE = {
         firstName: 'first_name',
         lastName: 'last_name',
         address: 'address',
+        addressTwo: 'address_two',
         aptSuite: 'apt_suite',
         zip: 'zip',
         city: 'city',
@@ -232,12 +239,32 @@ DATABASE.getAddressDatabaseFieldsMapping = (customer) => {
     [addressColumns.firstName]: customer.getFirstName(),
     [addressColumns.lastName]: customer.getLastName(),
     [addressColumns.address]: customer.getAddress(),
+    [addressColumns.addressTwo]: customer.getAddressTwo(),
     [addressColumns.aptSuite]: customer.getAptSuite(),
     [addressColumns.zip]: customer.getZip(),
     [addressColumns.city]: customer.getCity(),
     [addressColumns.state]: customer.getState(),
     [addressColumns.email]: customer.getEmail(),
     [addressColumns.userId]: customer.getUserId(),
+  };
+};
+
+DATABASE.getUserDatabaseFieldsMapping = (user) => {
+  const usersColumns = DATABASE.tables.users.columns;
+
+  return {
+    [usersColumns.id]: user.getId(),
+    [usersColumns.username]: user.getUsername(),
+    [usersColumns.type]: user.getType(),
+    [usersColumns.email]: user.getEmail(),
+    [usersColumns.firstName]: user.getFirstName(),
+    [usersColumns.lastName]: user.getLastName(),
+    [usersColumns.address]: user.getAddress(),
+    [usersColumns.addressTwo]: user.getAddressTwo(),
+    [usersColumns.zip]: user.getZip(),
+    [usersColumns.aptSuite]: user.getAptSuite(),
+    [usersColumns.city]: user.getCity(),
+    [usersColumns.state]: user.getState(),
   };
 };
 

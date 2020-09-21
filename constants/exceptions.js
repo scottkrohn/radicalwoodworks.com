@@ -51,6 +51,10 @@ const EXCEPTIONS = {
     code: 1011,
     message: 'Email already exists',
   },
+  userNotFound: {
+    code: 1012,
+    message: 'User not found',
+  },
 };
 
 EXCEPTIONS.apiError = (error, status = 500) => {

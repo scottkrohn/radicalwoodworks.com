@@ -16,9 +16,17 @@ const userReducer = (state = initialState, { payload, type }) => {
         user: null,
       };
 
+    case ACTIONS.UPDATE_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+
     case ACTIONS.CREATE_USER_ACCOUNT_SUCCESS:
     case ACTIONS.VERIFY_LOGIN_SUCCESS:
     case ACTIONS.SEND_LOGIN_SUCCESS:
+    case ACTIONS.UPDATE_USER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -28,6 +36,7 @@ const userReducer = (state = initialState, { payload, type }) => {
 
     case ACTIONS.CREATE_USER_ACCOUNT_ERROR:
     case ACTIONS.SEND_LOGOUT_REQUEST:
+    case ACTIONS.UPDATE_USER_ERROR:
       return {
         ...state,
         loading: false,

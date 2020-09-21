@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { every, values, mapValues } from 'lodash';
+import { every, isEmpty, values, mapValues } from 'lodash';
 import cx from 'classnames';
 
 const Form = ({ children, className, fields, onFieldsUpdate, onSubmit }) => {
@@ -14,7 +14,9 @@ const Form = ({ children, className, fields, onFieldsUpdate, onSubmit }) => {
       return {
         ...field,
         isDirty: false,
-        isValid: !field.validators, // If there's no validators then it's always valid.
+        isValid:
+          !field.validators ||
+          validateField(null, field.value, field.validators), // If there's no validators then it's always valid.
       };
     });
   };
@@ -47,8 +49,11 @@ const Form = ({ children, className, fields, onFieldsUpdate, onSubmit }) => {
     });
   };
 
-  const validateField = (fieldName, value) => {
-    const validators = formFields[fieldName].validators;
+  const validateField = (fieldName, value, initialValidators = []) => {
+    const validators = isEmpty(initialValidators)
+      ? formFields[fieldName].validators
+      : initialValidators;
+
     if (validators && validators.length) {
       for (const validator of validators) {
         if (!validator.validate(value)) {

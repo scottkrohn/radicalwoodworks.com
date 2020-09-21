@@ -73,6 +73,9 @@ const CheckoutPage = ({
       value: '',
       validators: [RequiredValidator('Street address required')],
     },
+    addressTwo: {
+      value: '',
+    },
     apt: {
       value: '',
     },
@@ -126,6 +129,11 @@ const CheckoutPage = ({
                     className="mt-3"
                     label="Street Address"
                     {...fieldProps('address')}
+                  />
+                  <TextInput
+                    className="mt-3"
+                    label="Street Address - Line 2"
+                    {...fieldProps('addressTwo')}
                   />
                   <TextInput
                     className="mt-3"

@@ -31,7 +31,6 @@ class AddressBLI extends BaseBLI {
 
         await this.db.update(DB.tables.addresses.name, whereClause);
 
-        console.log(addressModel);
         addressModel.setId(order.getAddressId());
         order.setAddress(addressModel);
 
@@ -99,6 +98,7 @@ class AddressBLI extends BaseBLI {
         case addressColumns.firstName:
         case addressColumns.lastName:
         case addressColumns.address:
+        case addressColumns.addressTwo:
         case addressColumns.aptSuite:
         case addressColumns.zip:
         case addressColumns.city:

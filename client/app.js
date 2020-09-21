@@ -30,19 +30,20 @@ export default {
   component: App,
   loadData: (store) => {
     const loginPromise = store.dispatch(verifyLogin());
-    // TODO: eventually get cart by customer ID if the user is logged in?
     const cartPromise = store.dispatch(getCartById(null));
     return [cartPromise, loginPromise];
   },
 };
 
 /**
+ * user account page (edit user info, view orders, etc)
+ * admin orders page
+ * admin order page
+ * paypal ec integration
+ * create promos
  *
- * add sidebar to checkout page
- *
- * Create promos
- * Fix styling on contact and login form
- * better handle cart failures due to incorrect sid. Clear the users cookies and cart and send back to homepage?
+ * copy tables to prod
+ * release carts branch onto new tld to test
  *
  * FUTURE
  * Add sections/filters to products page

@@ -1,0 +1,42 @@
+@import '../styles/variables.scss';
+
+.AccountPageContainer {
+  .AccountSections {
+    display: flex;
+    justify-content: center;
+
+    div {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .AccountInfo {
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+    }
+
+    .AccountActions {
+      button {
+        border: none;
+        background: none;
+        color: $primary;
+
+        font-size: 18px;
+        margin-bottom: 5px;
+
+        &:hover {
+          color: $primary-hover;
+        }
+      }
+    }
+
+    div:last-child {
+      border-left: 1px solid $black;
+    }
+  }
+}

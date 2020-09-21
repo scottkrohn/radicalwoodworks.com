@@ -10,6 +10,7 @@ class Address extends Model {
       firstName: null,
       lastName: null,
       address: null,
+      addressTwo: null,
       aptSuite: null,
       zip: null,
       city: null,
@@ -37,6 +38,10 @@ class Address extends Model {
 
   setAddress = (address) => {
     this.data.address = address;
+  };
+
+  setAddressTwo = (addressTwo) => {
+    this.data.addressTwo = addressTwo;
   };
 
   setAptSuite = (aptSuite) => {
@@ -81,6 +86,10 @@ class Address extends Model {
 
   getAddress = () => {
     return this.data.address;
+  };
+
+  getAddressTwo = () => {
+    return this.data.addressTwo;
   };
 
   getAptSuite = () => {

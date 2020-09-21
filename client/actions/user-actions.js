@@ -19,6 +19,25 @@ export const createAccount = (userData) => {
   };
 };
 
+export const updateAccount = (userData) => {
+  return (dispatch, getState, axios) => {
+    return new Promise((resolve, reject) => {
+      dispatch(updateAccountRequest());
+
+      axios
+        .put('/api/user', userData)
+        .then((response) => {
+          dispatch(updateAccountSuccess(response.data));
+          resolve(response.data);
+        })
+        .catch((error) => {
+          dispatch(updateAccountError(error.response.data));
+          reject(error.response.data);
+        });
+    });
+  };
+};
+
 const createUserAccountRequest = () => {
   return {
     type: ACTIONS.CREATE_USER_ACCOUNT_REQUEST,
@@ -36,6 +55,27 @@ const createUserAccountSuccess = (user) => {
 const createUserAccountError = (error) => {
   return {
     type: ACTIONS.CREATE_USER_ACCOUNT_ERROR,
+    payload: error,
+  };
+};
+
+const updateAccountRequest = () => {
+  return {
+    type: ACTIONS.UPDATE_USER_REQUEST,
+    payload: {},
+  };
+};
+
+const updateAccountSuccess = (user) => {
+  return {
+    type: ACTIONS.UPDATE_USER_SUCCESS,
+    payload: user,
+  };
+};
+
+const updateAccountError = (error) => {
+  return {
+    type: ACTIONS.UPDATE_USER_ERROR,
     payload: error,
   };
 };

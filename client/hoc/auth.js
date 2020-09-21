@@ -9,7 +9,7 @@ export const withAuthValidation = (type = AUTH.USER_TYPES.ADMIN) => (
 ) => {
   const RequireAuth = ({ auth, user, ...props }) => {
     return auth.loggedIn && user && user.getType() === type ? (
-      <WrappedComponent {...props} />
+      <WrappedComponent {...props} user={user} />
     ) : (
       <Redirect to="/" />
     );

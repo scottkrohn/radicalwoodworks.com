@@ -48,6 +48,7 @@ router.route('/checkout/address/:orderId').all(checkoutCtrl);
 
 // User Routes
 router.route('/signup').post(userCtrl);
+router.route('/user').put(userCtrl);
 
 // /* Authentication Routes
 // /***********************/
