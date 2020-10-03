@@ -17,7 +17,7 @@ const EXCEPTIONS = {
   },
   unauthorized: {
     code: 1003,
-    message: "You're not logged in",
+    message: 'Unauthorized',
   },
   routeNotFound: {
     code: 1004,
@@ -54,6 +54,10 @@ const EXCEPTIONS = {
   userNotFound: {
     code: 1012,
     message: 'User not found',
+  },
+  invalidRequest: {
+    code: 1013,
+    message: 'Invalid request body',
   },
 };
 

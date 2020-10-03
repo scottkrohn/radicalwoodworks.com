@@ -14,6 +14,7 @@ import CartPage from '@pages/cart-page';
 import CheckoutPage from '@pages/checkout-page';
 import SignupPage from '@pages/signup-page';
 import AccountPage from '@pages/account-page';
+import OrdersPage from '@pages/orders-page';
 
 // Admin Pages
 import AdminPage from '@pages/admin-page';
@@ -90,6 +91,10 @@ export default [
       {
         ...AccountPage,
         path: '/account',
+      },
+      {
+        ...OrdersPage,
+        path: '/orders',
       },
       { ...NotFoundPage },
     ],

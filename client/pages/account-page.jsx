@@ -10,6 +10,10 @@ import { updateAccount } from '@actions/user-actions';
 import { getLoading } from '@selectors/user-selectors';
 import Spinner from '@components/spinner/spinner';
 import useStyles from 'isomorphic-style-loader/useStyles';
+import { Link } from 'react-router-dom';
+
+// TODO: Add endpoint to change password.
+// Enabled the password change section on the UI.
 
 const UserPage = ({ loading, updateAccount, user }) => {
   useStyles(styles);
@@ -52,11 +56,16 @@ const UserPage = ({ loading, updateAccount, user }) => {
             </ul>
           </div>
           <div className={styles.AccountActions}>
-            <button>My Orders</button>
-            <button onClick={changeSectionView('accountInfo')}>
+            <Link to="/orders" className={styles.AccountNavOption}>
+              My Orders
+            </Link>
+            <button
+              onClick={changeSectionView('accountInfo')}
+              className={styles.AccountNavOption}
+            >
               Edit Account Info
             </button>
-            <button>Change Password</button>
+            <button className={styles.AccountNavOption}>Change Password</button>
           </div>
         </div>
       )}

@@ -49,14 +49,13 @@ router.route('/checkout/address/:orderId').all(checkoutCtrl);
 // User Routes
 router.route('/signup').post(userCtrl);
 router.route('/user').put(userCtrl);
+router.route('/user/reset').put(userCtrl);
 
 // /* Authentication Routes
 // /***********************/
 
 router.route('/login').post(authCtrl);
-
 router.route('/logout').put(authCtrl);
-
 router.route('/verify').all(adminCtrl);
 
 export default router;

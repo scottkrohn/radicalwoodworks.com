@@ -21,7 +21,7 @@
     }
 
     .AccountActions {
-      button {
+      .AccountNavOption {
         border: none;
         background: none;
         color: $primary;
@@ -31,6 +31,7 @@
 
         &:hover {
           color: $primary-hover;
+          text-decoration: none;
         }
       }
     }

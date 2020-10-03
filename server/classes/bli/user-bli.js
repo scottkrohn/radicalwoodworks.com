@@ -3,6 +3,7 @@ import BaseBLI from '@bli/base';
 import { get } from 'lodash';
 import User from '@models/user';
 import EXCEPTIONS from '@constants/exceptions';
+import bcrypt from 'bcrypt-nodejs';
 
 class UserBLI extends BaseBLI {
   constructor() {
@@ -11,8 +12,7 @@ class UserBLI extends BaseBLI {
 
   updateUser = async (userData) => {
     const { id } = userData || {};
-    const existingUserRows = await this.getUserById(id);
-    const existingUserData = get(existingUserRows, '[0]', null);
+    const existingUserData = await this.getUserById(id);
 
     if (!existingUserData) {
       throw EXCEPTIONS.apiError(EXCEPTIONS.userNotFound);
@@ -37,12 +37,42 @@ class UserBLI extends BaseBLI {
     }
   };
 
+  updateUserPassword = async (username, newPassword, oldPassword, user) => {
+    if (!username || !newPassword) {
+      throw new EXCEPTIONS.apiError(EXCEPTIONS.invalidRequest, 400);
+    }
+
+    if (!bcrypt.compareSync(oldPassword, user.password)) {
+      throw new EXCEPTIONS.apiError(EXCEPTIONS.unauthorized, 401);
+    }
+
+    const encryptedPassword = bcrypt.hashSync(newPassword);
+
+    this.db.clear();
+    this.db.assignStr(DB.tables.users.columns.password, encryptedPassword);
+
+    const whereClause = `WHERE ${
+      DB.tables.users.columns.username
+    } = ${this.escape(username)} AND ${
+      DB.tables.users.columns.id
+    } = ${this.escape(user.id)}`;
+
+    await this.db.update(DB.tables.users.name, whereClause);
+    const updatedUser = await this.getUserById(user.id);
+    return updatedUser;
+  };
+
   getUserById = async (userId) => {
     const whereClause = `WHERE ${DB.tables.users.columns.id} = ${this.escape(
       userId
     )}`;
 
-    return this.db.selectOne(DB.tables.users.name, whereClause);
+    const resultRow = await this.db.selectOne(
+      DB.tables.users.name,
+      whereClause
+    );
+
+    return get(resultRow, '[0]', null);
   };
 
   _assignUserValues = (user, ignoreNull = true) => {
