@@ -4,20 +4,20 @@ import AUTH from '@constants/auth-constants';
 import PageHeader from '@components/page-header/page-header';
 import { connect } from 'react-redux';
 import AccountEditForm from '@components/account-edit-form/account-edit-form';
+import ChangePasswordForm from '@components/change-password-form/change-password-form';
 import styles from './account-page.scss';
 import cx from 'classnames';
-import { updateAccount } from '@actions/user-actions';
+import { updateAccount, updatePassword } from '@actions/user-actions';
 import { getLoading } from '@selectors/user-selectors';
 import Spinner from '@components/spinner/spinner';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import { Link } from 'react-router-dom';
+import Notification from '@components/notification/notification';
 
-// TODO: Add endpoint to change password.
-// Enabled the password change section on the UI.
-
-const UserPage = ({ loading, updateAccount, user }) => {
+const UserPage = ({ loading, updateAccount, updatePassword, user }) => {
   useStyles(styles);
   const [updateSectionName, setUpdateSectionName] = useState(null);
+  const [notificationContent, setNotificationContent] = useState({});
 
   const changeSectionView = (name) => () => {
     setUpdateSectionName(name);
@@ -30,6 +30,31 @@ const UserPage = ({ loading, updateAccount, user }) => {
   const onUpdateAccount = (accountInfo) => {
     updateAccount(accountInfo).then(() => {
       setUpdateSectionName(null);
+      setNotificationContent({
+        header: 'Account Updated',
+        message: 'Account successfully updated!',
+        showing: true,
+      });
+    });
+  };
+
+  const onPasswordUpdate = (passwordInfo) => {
+    const { newPassword, currentPassword } = passwordInfo;
+    return new Promise((resolve, reject) => {
+      updatePassword(user.getUsername(), currentPassword, newPassword)
+        .then(() => {
+          setUpdateSectionName(null);
+          resolve();
+
+          setNotificationContent({
+            header: 'Password Changed',
+            message: 'Password successfully changed!',
+            showing: true,
+          });
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
   };
 
@@ -65,7 +90,12 @@ const UserPage = ({ loading, updateAccount, user }) => {
             >
               Edit Account Info
             </button>
-            <button className={styles.AccountNavOption}>Change Password</button>
+            <button
+              onClick={changeSectionView('changePassword')}
+              className={styles.AccountNavOption}
+            >
+              Change Password
+            </button>
           </div>
         </div>
       )}
@@ -77,6 +107,19 @@ const UserPage = ({ loading, updateAccount, user }) => {
           onCancel={cancelUpdateSection}
         />
       )}
+
+      {updateSectionName === 'changePassword' && (
+        <ChangePasswordForm
+          className={styles.ChangePasswordForm}
+          onSubmit={onPasswordUpdate}
+          onCancel={cancelUpdateSection}
+        />
+      )}
+
+      <Notification
+        content={notificationContent}
+        hide={() => setNotificationContent({ showing: false })}
+      />
     </div>
   );
 };
@@ -89,6 +132,7 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   updateAccount,
+  updatePassword,
 };
 
 export default {

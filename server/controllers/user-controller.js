@@ -71,7 +71,10 @@ export default async function (req, res, next) {
 
         // Log the user in after the password has been changed.
         req.login(updatedUser, (err) => {});
-        res.send(req.user);
+
+        const updatedUserModel = new User();
+        updatedUserModel.setValues(req.user);
+        res.send(updatedUserModel);
         return;
       } catch (error) {
         res.status(error.status || 500).send(error);

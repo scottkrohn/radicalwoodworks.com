@@ -40,4 +40,13 @@
       border-left: 1px solid $black;
     }
   }
+
+  .ChangePasswordForm {
+    margin: auto;
+    width: 50%;
+
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
 }

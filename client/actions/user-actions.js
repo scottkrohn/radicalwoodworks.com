@@ -38,6 +38,30 @@ export const updateAccount = (userData) => {
   };
 };
 
+export const updatePassword = (username, oldPassword, newPassword) => {
+  return (dispatch, getState, axios) => {
+    return new Promise((resolve, reject) => {
+      dispatch(updatePasswordRequest());
+      const body = {
+        username,
+        password: newPassword,
+        oldPassword,
+      };
+
+      axios
+        .put('/api/user/reset', body)
+        .then((response) => {
+          dispatch(updatePasswordSuccess(response.data));
+          resolve(response.data);
+        })
+        .catch((error) => {
+          dispatch(updatePasswordError(error.response.data));
+          reject(error.response.data);
+        });
+    });
+  };
+};
+
 const createUserAccountRequest = () => {
   return {
     type: ACTIONS.CREATE_USER_ACCOUNT_REQUEST,
@@ -76,6 +100,27 @@ const updateAccountSuccess = (user) => {
 const updateAccountError = (error) => {
   return {
     type: ACTIONS.UPDATE_USER_ERROR,
+    payload: error,
+  };
+};
+
+const updatePasswordRequest = () => {
+  return {
+    type: ACTIONS.UPDATE_PASSWORD_REQUEST,
+    payload: {},
+  };
+};
+
+const updatePasswordSuccess = (user) => {
+  return {
+    type: ACTIONS.UPDATE_PASSWORD_SUCCESS,
+    payload: user,
+  };
+};
+
+const updatePasswordError = (error) => {
+  return {
+    type: ACTIONS.UPDATE_PASSWORD_ERROR,
     payload: error,
   };
 };

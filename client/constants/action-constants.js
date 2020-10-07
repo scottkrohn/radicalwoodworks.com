@@ -104,6 +104,10 @@ const ACTIONS = {
   UPDATE_USER_REQUEST: 'user:updateAccountRequest',
   UPDATE_USER_SUCCESS: 'user:updateAccountSuccess',
   UPDATE_USER_ERROR: 'user:updateAccountError',
+
+  UPDATE_PASSWORD_REQUEST: 'user:updatePasswordRequest',
+  UPDATE_PASSWORD_SUCCESS: 'user:updatePasswordSuccess',
+  UPDATE_PASSWORD_ERROR: 'user:updatePasswordError',
 };
 
 export default ACTIONS;
