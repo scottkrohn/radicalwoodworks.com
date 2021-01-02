@@ -11,10 +11,30 @@ import DB from '@constants-server/database-constants';
 import { get, isEmpty } from 'lodash';
 import Order from '@models/order';
 import AddressBLI from '@bli/address-bli';
+import AUTH from '@constants/auth-constants';
 
 class OrderBLI extends BaseBLI {
   constructor() {
     super();
+  }
+
+  // TODO: Add limit/offset to this query
+  getOrders = async (user) => {
+    let whereClause = '';
+    if (user.getType() === AUTH.USER_TYPES.CUSTOMER) {
+    // TODO: If the user is a customer then only load orders for that customer id.
+    }
+
+    const orderRows = await this.db.selectAll(DB.tables.orders.name, whereClause);
+    const orders = [];
+
+    orderRows.forEach((orderRow) => {
+      const orderModel = new OrderModel();
+      orderModel.buildOrderModel(orderRow);
+      orders.push(orderModel);
+    });
+
+    return orders;
   }
 
   getOrderByCartId = async (cartId, sid = null) => {

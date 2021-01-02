@@ -1,5 +1,7 @@
 import { get } from 'lodash';
 import OrderBLI from '@bli/order-bli';
+import AuthHelper from '@helpers/auth-helper';
+import UserModel from '@models/user';
 
 import REQUEST from '@constants-server/request-constants';
 import EXCEPTIONS from '@constants/exceptions';
@@ -27,8 +29,22 @@ export default async function (req, res, next) {
     } else if (req.method === REQUEST.method.get) {
       try {
         const id = orderId || cookieOrderId;
-        const order = await orderBli.getOrderByOrderId(id, sid);
-        res.send(order);
+
+        if (id) {
+          const order = await orderBli.getOrderByOrderId(id, sid);
+          res.send(order);
+        } else {
+          // If no id was found this is will get all orders.
+          if (!AuthHelper.isAuthenticatedAdmin(req)) {
+            throw new EXCEPTIONS.apiError(EXCEPTIONS.unauthorized, 401);
+          }
+
+          const user = new UserModel();
+          user.buildUserModel(req.user);
+          const orders = await orderBli.getOrders(user);
+          res.send(orders);
+        }
+
       } catch (error) {
         if (error.status) {
           res.status(error.status).send(error);

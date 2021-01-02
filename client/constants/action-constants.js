@@ -96,6 +96,10 @@ const ACTIONS = {
   GET_ORDER_SUCCESS: 'order:getOrderSuccess',
   GET_ORDER_ERROR: 'order:getOrderRequestError',
 
+  GET_ORDERS_REQUEST: 'order:getOrdersRequest',
+  GET_ORDERS_SUCCESS: 'order:getOrdersSuccess',
+  GET_ORDERS_ERROR: 'order:getOrdersERROR',
+
   // User Actions
   CREATE_USER_ACCOUNT_REQUEST: 'user:createUserAccountRequest',
   CREATE_USER_ACCOUNT_SUCCESS: 'user:createUserAccountSuccess',

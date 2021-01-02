@@ -10,7 +10,7 @@ const orderReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ACTIONS.CREATE_OR_UPDATE_ORDER_REQUEST:
     case ACTIONS.GET_ORDER_REQUEST:
-      return {
+    return {
         ...state,
         loading: true,
         error: false,

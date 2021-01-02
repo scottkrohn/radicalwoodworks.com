@@ -118,6 +118,10 @@ class User extends Model {
   getFullName = () => {
     return `${this.data.firstName} ${this.data.lastName}`;
   };
+
+  buildUserModel = (data, children) => {
+    this.setValues(data);
+  }
 }
 
 export default User;

@@ -210,7 +210,7 @@ class Order extends Model {
     this.setValues(data);
 
     const items = get(children, 'items', []);
-    items.forEach((item) => {
+    items && items.forEach((item) => {
       const itemModel = new OrderItem();
       itemModel.buildOrderItemModel(item.data, item.children);
       this.addItem(itemModel);

@@ -38,6 +38,12 @@ const AdminContainer = () => {
             buttonText="Edit FAQ"
             buttonHref="/admin-faq"
           />
+          <AdminSection
+            title="Orders"
+            text="Click here to view orders"
+            buttonText="View Orders"
+            buttonHref="/admin-orders"
+          />
         </Grid>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { selectOrder } from '@selectors/order-selectors';
 import { getOrder } from '@actions/order-actions';
 import { withRouter } from 'react-router-dom';
@@ -30,7 +30,10 @@ const CheckoutPage = ({
   order,
   user,
 }) => {
+  // DEBUG CODE
+  const [paypalCompleteTemp, setPaypalCompleteTemp] = useState(false);
   useStyles(styles);
+
   useEffect(() => {
     if (!order) {
       getOrder().catch((error) => {
@@ -52,6 +55,7 @@ const CheckoutPage = ({
 
       addAddressToOrder(address, order.getId()).then((response) => {
         console.log('Added, go to paypal!');
+        setPaypalCompleteTemp(true);
       });
     }
   };
@@ -93,7 +97,11 @@ const CheckoutPage = ({
     },
   };
 
-  return (
+  const completeOrder = () => {
+    console.log('completing order!');
+  }
+
+  return order ? (
     <div className="container-fluid">
       <Spinner spinning={loading} />
       <PageHeader headerText="Checkout" showButton={false} />
@@ -172,8 +180,9 @@ const CheckoutPage = ({
         </div>
         <OrderSidebar className={styles.OrderSidebar} order={order} />
       </div>
+      {paypalCompleteTemp && <button onClick={completeOrder}>Complete Order!</button>}
     </div>
-  );
+  ): null;
 };
 
 const mapStateToProps = (state) => {
