@@ -6,7 +6,7 @@ export const getOrders = () => {
       dispatch(getOrdersRequest());
 
       axios
-        .get('/api/order/')
+        .get('/api/orders/')
         .then((response) => {
           dispatch(getOrdersSuccess(response.data));
           resolve(response.data);

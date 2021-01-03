@@ -12,6 +12,7 @@ import productsCtrl from '@controller/products-controller';
 import productCtrl from '@controller/product-controller';
 import userCtrl from '@controller/user-controller';
 import orderCtrl from '@controller/order-controller';
+import ordersCtrl from '@controller/orders-controller';
 import checkoutCtrl from '@controller/checkout-controller';
 
 // Products Routes
@@ -42,6 +43,7 @@ router.route('/cart/:cartId?').all(cartCtrl);
 
 // Order Routes
 router.route('/order/:orderId?').all(orderCtrl);
+router.route('/orders').all(ordersCtrl);
 
 // Checkout Routes
 router.route('/checkout/address/:orderId').all(checkoutCtrl);
