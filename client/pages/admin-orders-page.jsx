@@ -6,17 +6,23 @@ import cx from 'classnames';
 import PageHeader from '@components/page-header/page-header';
 import { getOrders } from '@actions/order-actions';
 import { selectOrders } from '@selectors/order-selectors';
+import { isEmpty } from 'lodash';
+import OrdersTable from '@components/orders-table/orders-table';
+
+// TODO: Add spinner when loading data.
+// TODO: Add styles
 
 const AdminOrdersPage = ({ getOrders, orders }) => {
   useEffect(() => {
-    getOrders();
+    if (isEmpty(orders)) {
+      getOrders();
+    }
   }, []);
-
-  console.log(orders);
 
   return (
     <div className={cx('container-fluid')}>
       <PageHeader headerText="View Orders" showButton={false} />
+      {orders && <OrdersTable orders={orders} />}
     </div>
   );
 };
@@ -31,4 +37,5 @@ export default {
   component: connect(mapStateToProps, { getOrders })(
     withAuthValidation(AUTH.USER_TYPES.ADMIN)(AdminOrdersPage)
   ),
+  loadData: (store) => store.dispatch(getOrders()),
 };

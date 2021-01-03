@@ -8,7 +8,6 @@ import AUTH from '@constants/auth-constants';
 
 const OrdersPage = (props) => {
   useStyles(styles);
-  console.log(props);
 
   return (
     <div className={cx('container-fluid', styles.OrdersPageContainer)}>

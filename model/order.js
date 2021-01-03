@@ -210,11 +210,12 @@ class Order extends Model {
     this.setValues(data);
 
     const items = get(children, 'items', []);
-    items && items.forEach((item) => {
-      const itemModel = new OrderItem();
-      itemModel.buildOrderItemModel(item.data, item.children);
-      this.addItem(itemModel);
-    });
+    items &&
+      items.forEach((item) => {
+        const itemModel = new OrderItem();
+        itemModel.buildOrderItemModel(item.data, item.children);
+        this.addItem(itemModel);
+      });
 
     const address = get(children, 'address', []);
     this.setAddress(address);

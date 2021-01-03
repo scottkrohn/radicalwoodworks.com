@@ -22,20 +22,23 @@ class OrderBLI extends BaseBLI {
   getOrders = async (user) => {
     let whereClause = '';
     if (user.getType() === AUTH.USER_TYPES.CUSTOMER) {
-    // TODO: If the user is a customer then only load orders for that customer id.
+      // TODO: If the user is a customer then only load orders for that customer id.
     }
 
-    const orderRows = await this.db.selectAll(DB.tables.orders.name, whereClause);
+    const orderRows = await this.db.selectAll(
+      DB.tables.orders.name,
+      whereClause
+    );
     const orders = [];
 
     orderRows.forEach((orderRow) => {
       const orderModel = new OrderModel();
-      orderModel.buildOrderModel(orderRow);
+      orderModel.setValues(orderRow, true);
       orders.push(orderModel);
     });
 
     return orders;
-  }
+  };
 
   getOrderByCartId = async (cartId, sid = null) => {
     let whereClause = `WHERE ${DB.tables.orders.columns.cartId} = ${cartId}`;
