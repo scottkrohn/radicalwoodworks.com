@@ -22,22 +22,6 @@ export const getOrder = (orderId = null) => {
   };
 };
 
-export const getOrders = () => {
-  return (dispatch, getState, axios) => {
-    return new Promise((resolve, reject) => {
-      dispatch(getOrdersRequest());
-
-      axios.get('/api/order/').then((response) => {
-        dispatch(getOrdersSuccess(response.data));
-        resolve(response.data);
-      }).catch((error) => {
-        dispatch(getOrdersError(error.response.data));
-        reject(error.response.data);
-      });
-    });
-  }
-};
-
 export const createOrUpdateOrder = (cartId, userId) => {
   return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
@@ -101,27 +85,6 @@ const getOrderSuccess = (order) => {
 const getOrderError = (error) => {
   return {
     type: ACTIONS.GET_ORDER_ERROR,
-    payload: error,
-  };
-};
-
-const getOrdersRequest = () => {
-  return {
-    type: ACTIONS.GET_ORDERS_REQUEST,
-    payload: {},
-  };
-};
-
-const getOrdersSuccess = (orders) => {
-  return {
-    type: ACTIONS.GET_ORDERS_SUCCESS,
-    payload: orders,
-  };
-};
-
-const getOrdersError = (error) => {
-  return {
-    type: ACTIONS.GET_ORDERS_ERROR,
     payload: error,
   };
 };
