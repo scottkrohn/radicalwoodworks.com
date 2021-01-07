@@ -15,7 +15,7 @@ import CheckoutPage from '@pages/checkout-page';
 import SignupPage from '@pages/signup-page';
 import AccountPage from '@pages/account-page';
 import OrdersPage from '@pages/orders-page';
-import AdminOrdersPage from '@pages/admin-orders-page';
+import OrderConfirmationPage from '@pages/order-confirmation-page';
 
 // Admin Pages
 import AdminPage from '@pages/admin-page';
@@ -23,6 +23,8 @@ import AdminAboutUsPage from '@pages/admin-about-us-page';
 import AdminFaqPage from '@pages/admin-faq-page';
 import AdminProductsPage from '@pages/admin-products-page';
 import AdminProductPage from '@pages/admin-product-page';
+import AdminOrdersPage from '@pages/admin-orders-page';
+import AdminOrderPage from '@pages/admin-order-page';
 
 export default [
   {
@@ -96,6 +98,14 @@ export default [
       {
         ...OrdersPage,
         path: '/orders',
+      },
+      {
+        ...OrderConfirmationPage,
+        path: '/order-confirmation/:orderId',
+      },
+      {
+        ...AdminOrderPage,
+        path: '/admin-order/:orderId',
       },
       {
         ...AdminOrdersPage,

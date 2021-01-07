@@ -42,7 +42,7 @@ class AddressBLI extends BaseBLI {
 
         addressModel.setId(addressId);
         order.setAddressId(addressId);
-        order.setAddressId(addressModel);
+        order.setAddress(addressModel);
 
         return order;
       }

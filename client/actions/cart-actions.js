@@ -168,7 +168,7 @@ const clearCartRequest = () => {
   };
 };
 
-const clearCartSuccess = (cart) => {
+export const clearCartSuccess = (cart) => {
   return {
     type: ACTIONS.CLEAR_CART_SUCCESS,
     payload: cart,

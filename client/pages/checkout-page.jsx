@@ -13,7 +13,7 @@ import Button from '@components/button/button';
 import RequiredValidator from '@validators/required-validator';
 import STATES from '@constants/state-constants';
 import Address from '@models/address';
-import { addAddressToOrder } from '@actions/checkout-actions';
+import { addAddressToOrder, submitCheckout } from '@actions/checkout-actions';
 import { selectUser } from '@selectors/user-selectors';
 import OrderSidebar from '@components/order-sidebar/order-sidebar';
 import useStyles from 'isomorphic-style-loader/useStyles';
@@ -28,6 +28,7 @@ const CheckoutPage = ({
   history,
   loading,
   order,
+  submitCheckout,
   user,
 }) => {
   // DEBUG CODE
@@ -97,9 +98,11 @@ const CheckoutPage = ({
     },
   };
 
-  const completeOrder = () => {
-    console.log('completing order!');
-  }
+  const completeCheckout = () => {
+    submitCheckout(order).then((response) => {
+      history.push(`/order-confirmation/${order.getId()}`);
+    });
+  };
 
   return order ? (
     <div className="container-fluid">
@@ -180,9 +183,11 @@ const CheckoutPage = ({
         </div>
         <OrderSidebar className={styles.OrderSidebar} order={order} />
       </div>
-      {paypalCompleteTemp && <button onClick={completeOrder}>Complete Order!</button>}
+      {paypalCompleteTemp && (
+        <button onClick={completeCheckout}>Complete Order!</button>
+      )}
     </div>
-  ): null;
+  ) : null;
 };
 
 const mapStateToProps = (state) => {
@@ -193,7 +198,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapActionsToProps = { addAddressToOrder, getOrder };
+const mapActionsToProps = { addAddressToOrder, getOrder, submitCheckout };
 
 export default {
   component: connect(

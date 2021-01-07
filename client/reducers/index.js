@@ -10,6 +10,7 @@ import CartReducer from '@reducers/cart-reducer';
 import OrderReducer from '@reducers/order-reducer';
 import OrdersReducer from '@reducers/orders-reducer';
 import UserReducer from '@reducers/user-reducer';
+import CheckoutReducer from '@reducers/checkout-reducer';
 
 const reducers = {
   cart: CartReducer,
@@ -23,6 +24,7 @@ const reducers = {
   order: OrderReducer,
   orders: OrdersReducer,
   user: UserReducer,
+  checkout: CheckoutReducer,
 };
 
 export default combineReducers(reducers);

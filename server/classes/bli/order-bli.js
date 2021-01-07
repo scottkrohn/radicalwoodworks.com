@@ -53,10 +53,10 @@ class OrderBLI extends BaseBLI {
     return order;
   };
 
-  getOrderByOrderId = async (orderId, sid = null) => {
+  getOrderByOrderId = async (orderId, sid = null, ignoreSid = false) => {
     let orderWhereClause = `WHERE ${DB.tables.orders.columns.id} = ${orderId}`;
 
-    if (sid) {
+    if (sid && !ignoreSid) {
       orderWhereClause += ` AND ${DB.tables.orders.columns.sid} = ${this.escape(
         sid
       )}`;
@@ -95,9 +95,29 @@ class OrderBLI extends BaseBLI {
       const addressBli = new AddressBLI();
       const address = await addressBli.getAddress(order.getAddressId());
       order.setAddress(address);
+      order.setAddressId(address.getId());
     }
 
     return order;
+  };
+
+  updateOrder = async (orderId, updatedOrderData) => {
+    const order = await this.getOrderByOrderId(orderId);
+    if (!order) {
+      throw new EXCEPTIONS.apiError(EXCEPTIONS.orderNotFound, 404);
+    }
+
+    order.setValues(updatedOrderData, true);
+    order.setUpdatedTs(Date.now());
+
+    if (this._assignOrderValues(order)) {
+      const whereClause = `WHERE ${
+        DB.tables.orders.columns.id
+      } = ${order.getId()}`;
+
+      await this.db.update(DB.tables.orders.name, whereClause);
+      return order;
+    }
   };
 
   createOrUpdateOrder = async (cartId, userId = null, sid = null) => {

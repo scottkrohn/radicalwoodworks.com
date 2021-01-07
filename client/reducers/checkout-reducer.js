@@ -1,4 +1,5 @@
-import ACTIONS from '@constants-client/action-constants';
+import ACTIONS from 'constants/action-constants';
+import { initial } from 'lodash';
 
 const initialState = {
   loading: false,
@@ -6,18 +7,15 @@ const initialState = {
   order: null,
 };
 
-const orderReducer = (state = initialState, { type, payload }) => {
+const checkoutReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case ACTIONS.CREATE_OR_UPDATE_ORDER_REQUEST:
-    case ACTIONS.GET_ORDER_REQUEST:
     case ACTIONS.SUBMIT_CHECKOUT_REQUEST:
       return {
         ...state,
         loading: true,
         error: false,
+        order: null,
       };
-    case ACTIONS.CREATE_OR_UPDATE_ORDER_SUCCESS:
-    case ACTIONS.GET_ORDER_SUCCESS:
     case ACTIONS.SUBMIT_CHECKOUT_SUCCESS:
       return {
         ...state,
@@ -25,17 +23,16 @@ const orderReducer = (state = initialState, { type, payload }) => {
         error: false,
         order: payload,
       };
-    case ACTIONS.CREATE_OR_UPDATE_ORDER_ERROR:
-    case ACTIONS.GET_ORDER_ERROR:
     case ACTIONS.SUBMIT_CHECKOUT_ERROR:
       return {
         ...state,
         loading: false,
         error: payload,
+        order: null,
       };
     default:
       return state;
   }
 };
 
-export default orderReducer;
+export default checkoutReducer;

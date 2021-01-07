@@ -43,6 +43,8 @@ router.route('/cart/:cartId?').all(cartCtrl);
 
 // Order Routes
 router.route('/order/:orderId?').all(orderCtrl);
+
+// Orders routes
 router.route('/orders').all(ordersCtrl);
 
 // Checkout Routes

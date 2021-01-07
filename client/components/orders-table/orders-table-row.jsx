@@ -1,10 +1,11 @@
 import React from 'react';
 import TableRow from '@components/table/table-row';
 import TableCell from '@components/table/table-cell';
+import CurrencyHelper from '@helpers/currency-helper';
 
-const OrdersTableRow = ({ order }) => {
+const OrdersTableRow = ({ order, onRowClick }) => {
   return (
-    <TableRow>
+    <TableRow onRowClick={onRowClick}>
       <TableCell>
         <span>{order.getId()}</span>
       </TableCell>
@@ -12,13 +13,13 @@ const OrdersTableRow = ({ order }) => {
         <span>Name Here</span>
       </TableCell>
       <TableCell>
-        <span>{order.getSubtotal()}</span>
+        <span>{CurrencyHelper.formatCurrency(order.getSubtotal())}</span>
       </TableCell>
       <TableCell>
-        <span>{order.getShippingTotal()}</span>
+        <span>{CurrencyHelper.formatCurrency(order.getShippingTotal())}</span>
       </TableCell>
       <TableCell>
-        <span>{order.getGrandTotal()}</span>
+        <span>{CurrencyHelper.formatCurrency(order.getGrandTotal())}</span>
       </TableCell>
       <TableCell>
         <span>{order.getStatus()}</span>

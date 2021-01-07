@@ -12,19 +12,25 @@ import Spinner from '@components/spinner/spinner';
 
 // TODO: Add spinner when loading data.
 // TODO: Add styles
+// TODO: Add highlighting on order row hover
+// TODO: Add pointer cursor on order row hover
 
-const AdminOrdersPage = ({ loading, getOrders, orders }) => {
+const AdminOrdersPage = ({ history, loading, getOrders, orders }) => {
   useEffect(() => {
     if (isEmpty(orders)) {
       getOrders();
     }
   }, []);
 
+  const onOrderRowClick = (order) => () => {
+    history.push(`/admin-order/${order.getId()}`);
+  };
+
   return (
     <div className={cx('container-fluid')}>
       <Spinner spinning={loading} />
       <PageHeader headerText="View Orders" showButton={false} />
-      {orders && <OrdersTable orders={orders} />}
+      {orders && <OrdersTable orders={orders} onRowClick={onOrderRowClick} />}
     </div>
   );
 };

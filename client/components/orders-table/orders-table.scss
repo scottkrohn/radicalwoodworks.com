@@ -1,0 +1,10 @@
+@import '../../styles/variables.scss';
+
+.OrdersTable {
+  tr {
+    cursor: pointer;
+    &:hover {
+      background: $light-gray;
+    }
+  }
+}

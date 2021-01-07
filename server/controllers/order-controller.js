@@ -2,6 +2,7 @@ import { get } from 'lodash';
 import OrderBLI from '@bli/order-bli';
 import REQUEST from '@constants-server/request-constants';
 import EXCEPTIONS from '@constants/exceptions';
+import AUTH from '@constants/auth-constants';
 
 export default async function (req, res, next) {
   const orderBli = new OrderBLI();
@@ -26,7 +27,8 @@ export default async function (req, res, next) {
     } else if (req.method === REQUEST.method.get) {
       try {
         const id = orderId || cookieOrderId;
-        const order = await orderBli.getOrderByOrderId(id, sid);
+        const isAdmin = req?.user?.type === AUTH.USER_TYPES.ADMIN;
+        const order = await orderBli.getOrderByOrderId(id, sid, isAdmin);
         res.send(order);
       } catch (error) {
         if (error.status) {
@@ -35,6 +37,17 @@ export default async function (req, res, next) {
         }
 
         throw error;
+      }
+    } else if (req.method === REQUEST.method.put) {
+      // TODO: Move this to the checkout controllrt
+      try {
+        const updatedOrder = await orderBli.updateOrder(orderId, req.body);
+        res.send(updatedOrder);
+      } catch (error) {
+        if (error.status) {
+          res.status(error.status).send(error);
+          return;
+        }
       }
     }
   } catch (error) {
