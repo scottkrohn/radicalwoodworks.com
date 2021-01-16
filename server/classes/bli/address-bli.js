@@ -65,7 +65,7 @@ class AddressBLI extends BaseBLI {
     }
 
     const address = new Address();
-    address.setValues(addressData);
+    address.setValues(addressData, true);
 
     return address;
   };

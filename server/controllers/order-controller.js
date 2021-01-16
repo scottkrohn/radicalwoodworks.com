@@ -28,7 +28,13 @@ export default async function (req, res, next) {
       try {
         const id = orderId || cookieOrderId;
         const isAdmin = req?.user?.type === AUTH.USER_TYPES.ADMIN;
-        const order = await orderBli.getOrderByOrderId(id, sid, isAdmin);
+        const includeProducts = req?.query?.includeProducts === 'true';
+        const order = await orderBli.getOrderByOrderId(
+          id,
+          sid,
+          isAdmin,
+          includeProducts
+        );
         res.send(order);
       } catch (error) {
         if (error.status) {

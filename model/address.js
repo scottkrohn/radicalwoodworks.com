@@ -7,7 +7,7 @@ class Address extends Model {
     this.data = {
       id: null,
       type: null,
-         firstName: null,
+      firstName: null,
       lastName: null,
       address: null,
       addressTwo: null,
@@ -114,6 +114,10 @@ class Address extends Model {
 
   getUserId = () => {
     return this.data.userId;
+  };
+
+  buildAddressModel = (data, children) => {
+    this.setValues(data, true);
   };
 }
 

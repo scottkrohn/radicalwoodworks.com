@@ -43,7 +43,7 @@ export default {
  * create promos
  * add paypal transaction table & order table row with transaction id
  * add limit/offset to orders query for admin page to limit amount of data loaded
- * order confirmation page
+ * add content for the confirmation page for messaging to buyer, and admin page to edit that content.
  *
  * copy tables to prod
  * release carts branch onto new tld to test

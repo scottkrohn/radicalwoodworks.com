@@ -53,8 +53,14 @@ class ImagesBLI extends BaseBLI {
     this.db.clear();
     this.db.assign(DB.tables.productImageMap.columns.productId, productId);
     this.db.assign(DB.tables.productImageMap.columns.imageId, image.getId());
-    this.db.assignBoolean(DB.tables.productImageMap.columns.hidden, image.getHidden());
-    this.db.assignBoolean(DB.tables.productImageMap.columns.isPrimary, image.getIsPrimary());
+    this.db.assignBoolean(
+      DB.tables.productImageMap.columns.hidden,
+      image.getHidden()
+    );
+    this.db.assignBoolean(
+      DB.tables.productImageMap.columns.isPrimary,
+      image.getIsPrimary()
+    );
 
     this.db.insert(DB.tables.productImageMap.name);
   };
@@ -79,7 +85,10 @@ class ImagesBLI extends BaseBLI {
         this.db.clear();
         let valueUpdated = false;
         if (!isNull(isPrimary)) {
-          this.db.assign(DB.tables.productImageMap.columns.isPrimary, isPrimary);
+          this.db.assign(
+            DB.tables.productImageMap.columns.isPrimary,
+            isPrimary
+          );
           valueUpdated = true;
         }
 
@@ -95,7 +104,10 @@ class ImagesBLI extends BaseBLI {
             AND
               ${DB.tables.productImageMap.columns.imageId} = ${imageId}
           `;
-          await this.db.update(DB.tables.productImageMap.name, setPrimaryWhereClause);
+          await this.db.update(
+            DB.tables.productImageMap.name,
+            setPrimaryWhereClause
+          );
         }
       } catch (error) {
         throw new Error('Error occured while upating product image mapping');
@@ -107,7 +119,10 @@ class ImagesBLI extends BaseBLI {
     return (async () => {
       try {
         const whereClause = `WHERE ${DB.tables.images.columns.id} = ${imageId}`;
-        const deleteImagePromise = this.db.delete(DB.tables.images.name, whereClause);
+        const deleteImagePromise = this.db.delete(
+          DB.tables.images.name,
+          whereClause
+        );
         const deleteMappingPromise = this.deleteProductImageMap(imageId);
 
         await deleteImagePromise;

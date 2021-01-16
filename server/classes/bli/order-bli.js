@@ -2,16 +2,18 @@ import BaseBLI from '@bli/base';
 import CartBLI from '@bli/cart-bli';
 import EXCEPTIONS from '@constants/exceptions';
 import OrderModel from '@models/order';
+import ProductBLI from '@bli/products';
 import CartHelper from '@helpers/cart-helper';
 import ORDER from '@constants/order-constants';
 import Cart from '@models/cart';
 import OrderItem from '@models/order-item';
 import CartItem from '@models/cart-item';
 import DB from '@constants-server/database-constants';
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty, keyBy } from 'lodash';
 import Order from '@models/order';
 import AddressBLI from '@bli/address-bli';
 import AUTH from '@constants/auth-constants';
+import ProductsBLI from '@bli/products';
 
 class OrderBLI extends BaseBLI {
   constructor() {
@@ -53,7 +55,12 @@ class OrderBLI extends BaseBLI {
     return order;
   };
 
-  getOrderByOrderId = async (orderId, sid = null, ignoreSid = false) => {
+  getOrderByOrderId = async (
+    orderId,
+    sid = null,
+    ignoreSid = false,
+    includeProducts = false
+  ) => {
     let orderWhereClause = `WHERE ${DB.tables.orders.columns.id} = ${orderId}`;
 
     if (sid && !ignoreSid) {
@@ -62,29 +69,21 @@ class OrderBLI extends BaseBLI {
       )}`;
     }
 
+    const orderItemPromise = this.getOrderItemsByOrderId(
+      orderId,
+      includeProducts
+    );
     const orderPromise = this.db.selectOne(
       DB.tables.orders.name,
       orderWhereClause
     );
-    const orderItemWhereClause = `WHERE ${DB.tables.orderItems.columns.orderId} = ${orderId}`;
-    const orderItemPromise = this.db.selectAll(
-      DB.tables.orderItems.name,
-      orderItemWhereClause
-    );
 
     const orderRow = await orderPromise;
-    const orderItemRows = await orderItemPromise;
+    const orderItemModels = await orderItemPromise;
 
     if (isEmpty(orderRow)) {
       throw new EXCEPTIONS.apiError(EXCEPTIONS.orderNotFound, 404);
     }
-
-    const orderItemModels = [];
-    orderItemRows.forEach((orderItemData) => {
-      const orderItem = new OrderItem();
-      orderItem.setValues(orderItemData);
-      orderItemModels.push(orderItem);
-    });
 
     const order = new Order();
     const orderData = get(orderRow, '[0]', null);
@@ -99,6 +98,40 @@ class OrderBLI extends BaseBLI {
     }
 
     return order;
+  };
+
+  getOrderItemsByOrderId = async (orderId, includeProducts = false) => {
+    const orderItemWhereClause = `WHERE ${DB.tables.orderItems.columns.orderId} = ${orderId}`;
+    const orderItemPromise = this.db.selectAll(
+      DB.tables.orderItems.name,
+      orderItemWhereClause
+    );
+
+    const orderItemRows = await orderItemPromise;
+
+    const orderItemModels = [];
+    const productIds = [];
+    orderItemRows.forEach((orderItemData) => {
+      const orderItem = new OrderItem();
+      orderItem.setValues(orderItemData, true);
+      orderItemModels.push(orderItem);
+      productIds.push(orderItem.getProductId());
+    });
+
+    if (includeProducts && !isEmpty(productIds)) {
+      const productsBli = new ProductsBLI();
+      const products = await productsBli.getProducts(productIds);
+      const productsById = keyBy(products, (product) => {
+        return product.getId();
+      });
+
+      orderItemModels.forEach((itemModel) => {
+        const productModel = productsById[itemModel.getProductId()];
+        itemModel.setProduct(productModel);
+      });
+    }
+
+    return orderItemModels;
   };
 
   updateOrder = async (orderId, updatedOrderData) => {

@@ -3,13 +3,17 @@ import ACTIONS from 'constants/action-constants';
 import Cookie from 'js-cookie';
 import { get } from 'lodash';
 
-export const getOrder = (orderId = null) => {
+export const getOrder = (orderId = null, includeProducts) => {
   return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(getOrderRequest());
 
+      const requestUrl = `/api/order${
+        orderId ? `/${orderId}` : ''
+      }?includeProducts=${includeProducts}`;
+
       axios
-        .get(`/api/order${orderId ? `/${orderId}` : ''}`)
+        .get(requestUrl)
         .then((response) => {
           dispatch(getOrderSuccess(response.data));
           resolve(response.data);

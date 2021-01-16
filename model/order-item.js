@@ -1,4 +1,6 @@
 import Model from '@models/model';
+import { get } from 'lodash';
+import Product from '@models/product';
 
 class OrderItem extends Model {
   constructor() {
@@ -12,6 +14,10 @@ class OrderItem extends Model {
       notes: null,
       productId: null,
       orderId: null,
+    };
+
+    this.children = {
+      product: null,
     };
   }
 
@@ -71,8 +77,26 @@ class OrderItem extends Model {
     return this.data.orderId;
   };
 
+  /* Children Getters & Setters */
+  /******************************/
+
+  setProduct = (productModel) => {
+    this.children.product = productModel;
+  };
+
+  getProduct = () => {
+    return this.children.product;
+  };
+
   buildOrderItemModel = (data, children) => {
     this.setValues(data);
+
+    const product = get(children, 'product', null);
+    if (product) {
+      const productModel = new Product();
+      productModel.buildProductModel(product.data, product.children);
+      this.setProduct(productModel);
+    }
   };
 }
 

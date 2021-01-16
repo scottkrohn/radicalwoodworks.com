@@ -1,0 +1,89 @@
+@import '../styles/variables.scss';
+
+.OrderConfirmationPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+
+  .ConfirmationContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .CheckIcon {
+    margin-top: 20px;
+    font-size: 50px;
+    color: $moneyGreen;
+  }
+
+  .SectionHeader {
+    font-weight: 700;
+  }
+
+  .Sidebar {
+    display: flex;
+    flex-direction: column;
+
+    .OrderTotals {
+      padding: 15px;
+      height: unset;
+      width: 400px;
+      margin-top: 0;
+    }
+
+    .OrderItems {
+      padding: 15px;
+      margin-top: 10px;
+      border: 1px solid $gray;
+
+      .ItemListContainer {
+        display: flex;
+        justify-content: space-between;
+
+        .ItemTitle,
+        .ItemQuantity {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .OrderDetails {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    border: 1px solid $gray;
+    border-radius: 3px;
+    margin-right: 10px;
+
+    .OrderDetailsHeader {
+      border-bottom: 1px solid $black;
+    }
+
+    .Section {
+      margin-top: 15px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+
+    .ShippingAddress,
+    .PaymentMethod,
+    .ShippingSpeed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .HoorayHeader {
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+}

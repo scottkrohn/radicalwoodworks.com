@@ -1,6 +1,7 @@
 import Model from '@models/model';
 import { get } from 'lodash';
 import OrderItem from '@models/order-item';
+import Address from './address';
 
 class Order extends Model {
   constructor() {
@@ -217,8 +218,12 @@ class Order extends Model {
         this.addItem(itemModel);
       });
 
-    const address = get(children, 'address', []);
-    this.setAddress(address);
+    const address = get(children, 'address', {});
+    if (address) {
+      const addressModel = new Address();
+      addressModel.buildAddressModel(address.data, address.children);
+      this.setAddress(addressModel);
+    }
   };
 }
 
