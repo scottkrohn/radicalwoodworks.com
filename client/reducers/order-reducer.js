@@ -8,6 +8,14 @@ const initialState = {
 
 const orderReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case ACTIONS.CLEAR_ORDER: {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        order: null,
+      };
+    }
     case ACTIONS.CREATE_OR_UPDATE_ORDER_REQUEST:
     case ACTIONS.GET_ORDER_REQUEST:
     case ACTIONS.SUBMIT_CHECKOUT_REQUEST:

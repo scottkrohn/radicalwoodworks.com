@@ -6,7 +6,17 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 const Spinner = ({ children, className, spinning }) => {
   useStyles(styles);
-  return <div className={cx(styles.SpinnerContainer, spinning && styles.Spinning, className)}>{children}</div>;
+  return (
+    <div
+      className={cx(
+        styles.SpinnerContainer,
+        spinning && styles.Spinning,
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Spinner;

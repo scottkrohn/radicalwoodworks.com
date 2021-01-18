@@ -51,6 +51,13 @@ export const createOrUpdateOrder = (cartId, userId) => {
   };
 };
 
+export const clearOrder = () => {
+  return {
+    type: ACTIONS.CLEAR_ORDER,
+    payload: {},
+  };
+};
+
 export const createOrUpdateOrderRequest = () => {
   return {
     type: ACTIONS.CREATE_OR_UPDATE_ORDER_REQUEST,

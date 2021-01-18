@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { selectOrder } from '@selectors/order-selectors';
-import { getOrder } from '@actions/order-actions';
+import { clearOrder, getOrder } from '@actions/order-actions';
 import { withRouter } from 'react-router-dom';
 import { getLoading } from '@selectors/order-selectors';
 import Spinner from '@components/spinner/spinner';
@@ -34,6 +35,7 @@ const CheckoutPage = ({
   // DEBUG CODE
   const [paypalCompleteTemp, setPaypalCompleteTemp] = useState(false);
   useStyles(styles);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!order) {
@@ -100,6 +102,7 @@ const CheckoutPage = ({
 
   const completeCheckout = () => {
     submitCheckout(order).then((response) => {
+      dispatch(clearOrder());
       history.push(`/order-confirmation/${order.getId()}`);
     });
   };

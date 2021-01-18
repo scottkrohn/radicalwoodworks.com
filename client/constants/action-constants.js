@@ -92,6 +92,8 @@ const ACTIONS = {
   CREATE_OR_UPDATE_ORDER_SUCCESS: 'order:createOrUpdateOrderSuccess',
   CREATE_OR_UPDATE_ORDER_ERROR: 'order:createOrUpdateOrderError',
 
+  CLEAR_ORDER: 'order:clearOrder',
+
   GET_ORDER_REQUEST: 'order:getOrderRequest',
   GET_ORDER_SUCCESS: 'order:getOrderSuccess',
   GET_ORDER_ERROR: 'order:getOrderRequestError',
