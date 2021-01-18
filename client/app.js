@@ -36,23 +36,28 @@ export default {
 };
 
 /**
+ * TODO:
+ * add limit/offset to orders query for admin page to limit amount of data loaded
+ * admin orders page (add column sorting, filters and reload button)
+ * admin order page (complete order, mark as shipped, cancel, etc)
+ *
+ *
+ * // IDEAS
  * user account page (edit user info, view orders, etc)
- * admin orders page
- * admin order page
  * paypal ec integration
  * create promos
  * add paypal transaction table & order table row with transaction id
- * add limit/offset to orders query for admin page to limit amount of data loaded
  * add content for the confirmation page for messaging to buyer, and admin page to edit that content.
  *
+ * // NEXT RELEASE
  * copy tables to prod
  * release carts branch onto new tld to test
  *
- * FUTURE
+ * // FUTURE
  * Add sections/filters to products page
- * Search?
+ * Search (set up elastic search)
  *
- * BUGS
+ * // BUGS
  * setting free shipping in admin edit product doesn't work
  *
  */
