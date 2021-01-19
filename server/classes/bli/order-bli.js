@@ -9,11 +9,12 @@ import Cart from '@models/cart';
 import OrderItem from '@models/order-item';
 import CartItem from '@models/cart-item';
 import DB from '@constants-server/database-constants';
-import { get, isEmpty, keyBy } from 'lodash';
+import { get, isEmpty, isNaN, keyBy } from 'lodash';
 import Order from '@models/order';
 import AddressBLI from '@bli/address-bli';
 import AUTH from '@constants/auth-constants';
 import ProductsBLI from '@bli/products';
+import StringHelper from '@helpers/string-helper';
 
 class OrderBLI extends BaseBLI {
   constructor() {
@@ -21,8 +22,14 @@ class OrderBLI extends BaseBLI {
   }
 
   // TODO: Add limit/offset to this query
-  getOrders = async (user) => {
-    let whereClause = '';
+  getOrders = async (user, limit, offset, sortCol) => {
+    const whereClause = StringHelper.addLimitOffsetOrder(
+      limit,
+      offset,
+      sortCol,
+      'orders'
+    );
+
     if (user.getType() === AUTH.USER_TYPES.CUSTOMER) {
       // TODO: If the user is a customer then only load orders for that customer id.
     }

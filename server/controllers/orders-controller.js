@@ -15,9 +15,10 @@ export default async function (req, res, next) {
 
       try {
         if (AuthHelper.isAuthenticatedAdmin(req)) {
+          const { limit, offset, sort } = req.query;
           const user = new UserModel();
           user.buildUserModel(req.user);
-          const orders = await orderBli.getOrders(user);
+          const orders = await orderBli.getOrders(user, limit, offset, sort);
           res.send(orders);
         } else {
           // TODO: load orders for regular user
