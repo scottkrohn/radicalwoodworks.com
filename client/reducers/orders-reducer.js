@@ -7,7 +7,14 @@ const initialState = {
 };
 
 const ordersReducer = (state = initialState, { type, payload }) => {
-  switch(type) {
+  switch (type) {
+    case ACTIONS.GET_ORDERS_COUNT_SUCCESS:
+      return {
+        ...state,
+        ordersCount: {
+          ...payload,
+        },
+      };
 
     case ACTIONS.GET_ORDERS_REQUEST:
       return {
@@ -19,7 +26,9 @@ const ordersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        orders: payload,
+        orders: payload.orders,
+        limit: payload.limit,
+        offset: payload.offset,
       };
 
     case ACTIONS.GET_ORDERS_ERROR:

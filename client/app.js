@@ -37,7 +37,7 @@ export default {
 
 /**
  * TODO:
- * add limit/offset to orders query for admin page to limit amount of data loaded
+ * add ability to set limit/offset/order on the admin orders page UI.
  * admin orders page (add column sorting, filters and reload button)
  * admin order page (complete order, mark as shipped, cancel, etc)
  *

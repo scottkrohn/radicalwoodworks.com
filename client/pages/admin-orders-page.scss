@@ -1,0 +1,37 @@
+@import '../styles/variables.scss';
+
+.AdminOrdersPageContainer {
+  .OrderControls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .PageIndicator {
+      margin-top: 20px;
+      margin-right: 10px;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .OrdersPerPageSelect {
+      margin-right: 10px;
+      select {
+        border: 1px solid $gray;
+        height: 30px;
+        border-radius: 3px;
+      }
+    }
+
+    .NextPageButton,
+    .PrevPageButton {
+      border: 1px solid $gray;
+      border-radius: 3px;
+      background: transparent;
+      height: 30px;
+      width: 100px;
+      margin-top: 20px;
+      margin-right: 10px;
+    }
+  }
+}

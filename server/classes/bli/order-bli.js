@@ -21,7 +21,25 @@ class OrderBLI extends BaseBLI {
     super();
   }
 
-  // TODO: Add limit/offset to this query
+  getOrdersCount = async (orderStatuses = []) => {
+    let whereClause = '';
+    if (Array.isArray(orderStatuses) && !isEmpty(orderStatuses)) {
+      const escapedOrderStatuses = orderStatuses.map((status) =>
+        this.escape(status)
+      );
+      whereClause = ` WHERE ${
+        DB.tables.orders.columns.status
+      } in (${escapedOrderStatuses.join(',')})`;
+    }
+
+    const result = await this.db.selectCount(
+      DB.tables.orders.name,
+      whereClause
+    );
+
+    return result;
+  };
+
   getOrders = async (user, limit, offset, sortCol) => {
     const whereClause = StringHelper.addLimitOffsetOrder(
       limit,
@@ -46,7 +64,7 @@ class OrderBLI extends BaseBLI {
       orders.push(orderModel);
     });
 
-    return orders;
+    return { orders, limit, offset };
   };
 
   getOrderByCartId = async (cartId, sid = null) => {

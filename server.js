@@ -60,8 +60,9 @@ app.get('*', (req, res) => {
   const serverRenderPromises = [];
   matchRoutes(Routes, req.path).forEach(({ route }) => {
     const pathParts = req.path.split('/').filter((part) => part);
+    const query = req.query || {};
     const loadDataPromise = route.loadData
-      ? route.loadData(store, pathParts)
+      ? route.loadData(store, pathParts, query)
       : null;
 
     if (loadDataPromise) {

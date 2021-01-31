@@ -3,16 +3,24 @@ import EXCEPTIONS from '@constants/exceptions';
 import OrderBLI from '@bli/order-bli';
 import AuthHelper from '@helpers/auth-helper';
 import UserModel from '@models/user';
+import { get } from 'lodash';
 
 export default async function (req, res, next) {
   const orderBli = new OrderBLI();
 
   try {
-    if (req.method === REQUEST.method.get) {
-      if (!req.isAuthenticated()) {
-        throw new EXCEPTIONS.apiError(EXCEPTIONS.unauthorized, 401);
-      }
+    if (!req.isAuthenticated()) {
+      console.log('blarg');
+      throw new EXCEPTIONS.apiError(EXCEPTIONS.unauthorized, 401);
+    }
 
+    if (req.path === '/orders/count' && req.method === REQUEST.method.get) {
+      const orderStatuses = get(req, 'query.orderStatuses', '')
+        .split(',')
+        .filter((elem) => elem);
+      const count = await orderBli.getOrdersCount(orderStatuses);
+      res.send({ count, orderStatuses });
+    } else if (req.method === REQUEST.method.get) {
       try {
         if (AuthHelper.isAuthenticatedAdmin(req)) {
           const { limit, offset, sort } = req.query;
@@ -33,7 +41,7 @@ export default async function (req, res, next) {
       }
     }
   } catch (error) {
-    res.status(500).send(EXCEPTIONS.internalError);
+    res.status(500).send(error || EXCEPTIONS.internalError);
     return;
   }
 }

@@ -102,6 +102,10 @@ const ACTIONS = {
   GET_ORDERS_SUCCESS: 'order:getOrdersSuccess',
   GET_ORDERS_ERROR: 'order:getOrdersERROR',
 
+  GET_ORDERS_COUNT_REQUEST: 'order:getOrdersCountRequest',
+  GET_ORDERS_COUNT_SUCCESS: 'order:getOrdersCountSuccess',
+  GET_ORDERS_COUNT_ERROR: 'order:getOrdersCountError',
+
   SUBMIT_CHECKOUT_REQUEST: 'order:submitOrderRequest',
   SUBMIT_CHECKOUT_SUCCESS: 'order:submitOrderSuccess',
   SUBMIT_CHECKOUT_ERROR: 'order:submitOrderError',

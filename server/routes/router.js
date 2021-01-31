@@ -46,6 +46,7 @@ router.route('/order/:orderId?').all(orderCtrl);
 
 // Orders routes
 router.route('/orders').all(ordersCtrl);
+router.route('/orders/count').all(ordersCtrl);
 
 // Checkout Routes
 router.route('/checkout/address/:orderId').all(checkoutCtrl);

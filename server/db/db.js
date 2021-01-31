@@ -2,6 +2,7 @@ import mysql from 'mysql';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import { get } from 'lodash';
 
 let connectionPool;
 
@@ -57,6 +58,13 @@ class Database {
   selectOne = (tableName, whereClause) => {
     const sql = `SELECT * FROM \`${tableName}\` ${whereClause} LIMIT 1`;
     return this.query(sql);
+  };
+
+  selectCount = async (tableName, whereClause = '') => {
+    const sql = `SELECT COUNT(*) FROM \`${tableName}\` ${whereClause}`;
+    const result = await this.query(sql);
+    const count = get(result, `[0]['COUNT(*)']`, null);
+    return Promise.resolve(count);
   };
 
   selectAll = (tableName, whereClause) => {
