@@ -11,6 +11,7 @@ class Order extends Model {
       id: null,
       createdTs: null,
       updatedTs: null,
+      placedTs: null,
       userId: null,
       promoCode: null,
       promoDiscount: null,
@@ -43,6 +44,10 @@ class Order extends Model {
 
   setUpdatedTs = (updatedTs) => {
     this.data.updatedTs = updatedTs;
+  };
+
+  setPlacedTs = (placedTs) => {
+    this.data.placedTs = placedTs;
   };
 
   setUserId = (userId) => {
@@ -107,6 +112,10 @@ class Order extends Model {
 
   getCreatedTs = () => {
     return this.data.createdTs;
+  };
+
+  getPlacedTs = () => {
+    return this.data.placedTs;
   };
 
   getUpdatedTs = () => {

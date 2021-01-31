@@ -44,7 +44,6 @@ export const submitCheckout = (order) => {
           resolve(response.data);
         })
         .catch((error) => {
-          console.log(error);
           dispatch(submitCheckoutError(error.response.data));
           reject(error.response.data);
         });

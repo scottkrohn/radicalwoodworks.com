@@ -29,6 +29,7 @@ const ordersReducer = (state = initialState, { type, payload }) => {
         orders: payload.orders,
         limit: payload.limit,
         offset: payload.offset,
+        sortCol: payload.sortCol,
       };
 
     case ACTIONS.GET_ORDERS_ERROR:

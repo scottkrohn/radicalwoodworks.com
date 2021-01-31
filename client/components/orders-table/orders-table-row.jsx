@@ -2,12 +2,16 @@ import React from 'react';
 import TableRow from '@components/table/table-row';
 import TableCell from '@components/table/table-cell';
 import CurrencyHelper from '@helpers/currency-helper';
+import moment from 'moment';
 
 const OrdersTableRow = ({ order, onRowClick }) => {
   return (
     <TableRow onRowClick={onRowClick}>
       <TableCell>
         <span>{order.getId()}</span>
+      </TableCell>
+      <TableCell>
+        <span>{moment(order.getPlacedTs()).format('MM/DD/YYYY')}</span>
       </TableCell>
       <TableCell>
         <span>Name Here</span>

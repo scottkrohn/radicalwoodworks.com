@@ -14,8 +14,6 @@ import SelectInput from '@components/form/select-input';
 import styles from './admin-orders-page.scss';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-// TODO: add pagination numbers
-
 const AdminOrdersPage = ({
   history,
   limitUsed,
@@ -24,11 +22,13 @@ const AdminOrdersPage = ({
   getOrderCount,
   offsetUsed,
   orders,
+  sortUsed,
   totalOrders,
 }) => {
   useStyles(styles);
   const query = queryString.parse(history.location.search);
   const [totalPages, setTotalPages] = useState(null);
+  const [sortType, setSortType] = useState('placedTs');
 
   useEffect(() => {
     const { page, rows } = isEmpty(query) ? { page: 1, rows: 10 } : query;
@@ -44,11 +44,12 @@ const AdminOrdersPage = ({
     const offset = (page - 1) * rows;
     const limitOrOffsetChanged =
       offset !== offsetUsed || parseInt(rows) !== limitUsed;
+    const sortChanged = sortType !== sortUsed;
 
-    if (limitOrOffsetChanged && page && rows) {
-      getOrders(offset, rows);
+    if ((sortChanged || limitOrOffsetChanged) && page && rows) {
+      getOrders(offset, rows, sortType);
     }
-  }, [history.location.search]);
+  }, [history.location.search, sortType]);
 
   useEffect(() => {
     const { rows } = query;
@@ -78,40 +79,57 @@ const AdminOrdersPage = ({
     updateQueryParams(1, parseInt(event.target.value));
   };
 
+  const handleOrderSortChange = () => (event) => {
+    setSortType(event.target.value);
+  };
+
   return (
     <div className={cx('container-fluid', styles.AdminOrdersPageContainer)}>
       <Spinner spinning={loading} />
       <PageHeader headerText="View Orders" showButton={false} />
-      <div className={styles.OrderControls}>
-        <SelectInput
-          className={styles.OrdersPerPageSelect}
-          label="Orders Per Page"
-          value={parseInt(query.rows)}
-          onChange={handleRowCountChange}
-          options={[
-            { label: '10', value: 10 },
-            { label: '25', value: 25 },
-            { label: '100', value: 100 },
-          ]}
-        />
-        <button
-          className={styles.PrevPageButton}
-          onClick={handlePageChange('prev')}
-        >
-          Prev Page
-        </button>
-        <button
-          className={styles.NextPageButton}
-          onClick={handlePageChange('next')}
-        >
-          Next Page
-        </button>
-        {query.page && totalPages ? (
-          <div
-            className={styles.PageIndicator}
-          >{`Page: ${query.page}/${totalPages}`}</div>
-        ) : null}
-      </div>
+      {query.rows && query.page ? (
+        <div className={styles.OrderControls}>
+          <SelectInput
+            className={styles.OrdersPerPageSelect}
+            label="Sort Orders By"
+            value={sortType}
+            onChange={handleOrderSortChange}
+            options={[
+              { label: 'Placed Date', value: 'placedTs' },
+              { label: 'Order Status', value: 'status' },
+              { label: 'Shipping Status', value: 'fulfillmentStatus' },
+            ]}
+          />
+          <SelectInput
+            className={styles.OrdersPerPageSelect}
+            label="Orders Per Page"
+            value={parseInt(query.rows)}
+            onChange={handleRowCountChange}
+            options={[
+              { label: '10', value: 10 },
+              { label: '25', value: 25 },
+              { label: '100', value: 100 },
+            ]}
+          />
+          <button
+            className={styles.PrevPageButton}
+            onClick={handlePageChange('prev')}
+          >
+            Prev Page
+          </button>
+          <button
+            className={styles.NextPageButton}
+            onClick={handlePageChange('next')}
+          >
+            Next Page
+          </button>
+          {query.page && totalPages ? (
+            <div
+              className={styles.PageIndicator}
+            >{`Page: ${query.page}/${totalPages}`}</div>
+          ) : null}
+        </div>
+      ) : null}
       {orders && <OrdersTable orders={orders} onRowClick={onOrderRowClick} />}
     </div>
   );
@@ -124,6 +142,7 @@ const mapStateToProps = (state) => {
     totalOrders: state.orders?.ordersCount?.count,
     limitUsed: parseInt(state?.orders?.limit),
     offsetUsed: parseInt(state?.orders?.offset),
+    sortUsed: state?.orders?.sortCol,
   };
 };
 
@@ -134,6 +153,6 @@ export default {
   loadData: (store, pathParts, query) => {
     const { page, rows } = query;
     const offset = (page - 1) * rows;
-    return store.dispatch(getOrders(offset, rows));
+    return store.dispatch(getOrders(offset, rows, 'placedTs'));
   },
 };

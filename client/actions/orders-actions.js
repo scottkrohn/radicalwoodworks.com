@@ -1,12 +1,12 @@
 import ACTIONS from 'constants/action-constants';
 import queryString from 'query-string';
 
-export const getOrders = (offset = 0, limit) => {
+export const getOrders = (offset = 0, limit, sort) => {
   return (dispatch, getState, axios) => {
     return new Promise((resolve, reject) => {
       dispatch(getOrdersRequest());
 
-      const query = queryString.stringify({ limit, offset });
+      const query = queryString.stringify({ limit, offset, sort });
 
       axios
         .get(`/api/orders${query && `?${query}`}`)

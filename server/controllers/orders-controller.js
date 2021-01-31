@@ -10,7 +10,6 @@ export default async function (req, res, next) {
 
   try {
     if (!req.isAuthenticated()) {
-      console.log('blarg');
       throw new EXCEPTIONS.apiError(EXCEPTIONS.unauthorized, 401);
     }
 

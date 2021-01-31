@@ -19,6 +19,9 @@ const OrdersTable = ({ orders, onRowClick }) => {
             <span>Order #</span>
           </TableCell>
           <TableCell>
+            <span>Placed</span>
+          </TableCell>
+          <TableCell>
             <span>Name</span>
           </TableCell>
           <TableCell>

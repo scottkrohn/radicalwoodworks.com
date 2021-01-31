@@ -64,7 +64,7 @@ class OrderBLI extends BaseBLI {
       orders.push(orderModel);
     });
 
-    return { orders, limit, offset };
+    return { orders, limit, offset, sortCol };
   };
 
   getOrderByCartId = async (cartId, sid = null) => {
