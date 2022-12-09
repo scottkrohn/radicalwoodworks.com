@@ -59,7 +59,7 @@
     "bootstrap": "^4.2.1",
     "classnames": "^2.2.6",
     "concurrently": "^4.1.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-http-proxy": "^1.5.1",
     "express-session": "^1.16.1",
     "file-loader": "^2.0.0",
