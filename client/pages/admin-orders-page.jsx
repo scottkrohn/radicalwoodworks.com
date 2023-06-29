@@ -12,7 +12,7 @@ import OrdersTable from '@components/orders-table/orders-table';
 import Spinner from '@components/spinner/spinner';
 import SelectInput from '@components/form/select-input';
 import styles from './admin-orders-page.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const AdminOrdersPage = ({
   history,
@@ -25,7 +25,7 @@ const AdminOrdersPage = ({
   sortUsed,
   totalOrders,
 }) => {
-  useStyles(styles);
+  
   const query = queryString.parse(history.location.search);
   const [totalPages, setTotalPages] = useState(null);
   const [sortType, setSortType] = useState('placedTs');

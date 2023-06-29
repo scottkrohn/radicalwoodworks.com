@@ -2,10 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 
 import styles from './text-input.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const TextInput = ({ value = '', ...props }) => {
-  useStyles(styles);
+  
   const {
     className,
     isDirty,

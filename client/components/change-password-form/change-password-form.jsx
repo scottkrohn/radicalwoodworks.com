@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import styles from './change-password-form.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import Form from '@forms/form';
 import TextInput from '@forms/text-input';
 import RequiredValidator from '@validators/required-validator';
@@ -9,7 +9,7 @@ import EXCEPTIONS from '@constants/exceptions';
 import cx from 'classnames';
 
 const ChangePasswordForm = ({ className, onCancel, onSubmit }) => {
-  useStyles(styles);
+  
   const [errorMessage, setErrorMessage] = useState(null);
 
   const formInitialValues = {

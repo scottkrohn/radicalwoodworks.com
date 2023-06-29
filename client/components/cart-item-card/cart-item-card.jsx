@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import styles from './cart-item-card.scss';
 import cx from 'classnames';
 import IMAGE from '@constants-client/image-constants';
@@ -15,7 +15,7 @@ import TextInput from '@forms/text-input';
 const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
   const [showNoteInput, setShowNoteInput] = useState(false);
   const [updatedNote, setUpdatedNote] = useState(null);
-  useStyles(styles);
+  
 
   const getImage = () => {
     const imageUrl = item.getProduct().getPrimaryImageUrl();

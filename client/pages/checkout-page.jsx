@@ -17,7 +17,7 @@ import Address from '@models/address';
 import { addAddressToOrder, submitCheckout } from '@actions/checkout-actions';
 import { selectUser } from '@selectors/user-selectors';
 import OrderSidebar from '@components/order-sidebar/order-sidebar';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import styles from './checkout-page.scss';
 import cx from 'classnames';
 
@@ -34,7 +34,7 @@ const CheckoutPage = ({
 }) => {
   // DEBUG CODE
   const [paypalCompleteTemp, setPaypalCompleteTemp] = useState(false);
-  useStyles(styles);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {

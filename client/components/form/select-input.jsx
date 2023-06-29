@@ -2,10 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 
 import styles from './select-input.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const SelectInput = (props) => {
-  useStyles(styles);
+  
 
   const { className, label, fieldName, options, onChange } = props;
 

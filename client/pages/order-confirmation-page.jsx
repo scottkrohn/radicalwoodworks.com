@@ -5,7 +5,7 @@ import { getLoading, selectOrder } from '@selectors/order-selectors';
 import { useDispatch } from 'react-redux';
 import styles from '@pages/order-confirmation-page.scss';
 import cx from 'classnames';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import OrderSidebar from '@components/order-sidebar/order-sidebar';
 import Spinner from '@components/spinner/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const OrderConfirmationPage = ({ getOrder, loading, order, match }) => {
   const [orderError, setOrderError] = useState(false);
-  useStyles(styles);
+  
   const dispatch = useDispatch();
   useEffect(() => {
     const { orderId } = match.params;

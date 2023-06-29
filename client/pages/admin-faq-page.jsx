@@ -29,7 +29,7 @@ import { withAuthValidation } from 'client/hoc/auth';
 
 // Styles
 import styles from './admin-faq-page.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const AdminFaqContainer = ({
   content,
@@ -38,7 +38,7 @@ const AdminFaqContainer = ({
   loading,
   updateContent,
 }) => {
-  useStyles(styles);
+  
   const [selectedContent, setSelectedContent] = useState(null);
   const [notificationContent, setNotificationContent] = useState({});
 

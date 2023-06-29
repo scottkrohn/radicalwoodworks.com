@@ -2,10 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 
 import styles from './table-cell.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const TableCell = ({ align = 'left', className, children }) => {
-  useStyles(styles);
+  
   const tableCellStyles = cx({
     [className]: true,
     [styles.TableCellContainer]: true,

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styles from './account-edit-form.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import Form from '@forms/form';
 import TextInput from '@forms/text-input';
 import SelectInput from '@forms/select-input';
@@ -10,7 +10,7 @@ import RequiredValidator from '@validators/required-validator';
 import cx from 'classnames';
 
 const AccountEditForm = ({ user, onCancel, onSubmit }) => {
-  useStyles(styles);
+  
 
   const handleSubmit = (getFormValues) => (event) => {
     event.preventDefault();

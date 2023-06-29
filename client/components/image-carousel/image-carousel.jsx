@@ -11,7 +11,7 @@ import Button from '@components/button/button';
 import IMAGES from '../../constants/image-constants';
 
 import styles from './image-carousel.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const ImageCarousel = ({
   className,
@@ -21,7 +21,7 @@ const ImageCarousel = ({
   showOptions,
   showHidden,
 }) => {
-  useStyles(styles);
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [swipeStart, setSwipeStart] = useState(null);

@@ -12,7 +12,7 @@ import { uploadImage } from 'client/actions/upload-actions';
 
 // Styles
 import styles from '@components/image-upload/image-upload.less';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const ImageUpload = ({
   children,
@@ -22,7 +22,7 @@ const ImageUpload = ({
   onImageUploadSuccess,
   type,
 }) => {
-  useStyles(styles);
+  
   const inputRef = useRef(null);
 
   const onImageUpload = (e) => {

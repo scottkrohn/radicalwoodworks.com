@@ -6,10 +6,10 @@ import TableRow from '@components/table/table-row';
 import TableCell from '@components/table/table-cell';
 import OrdersTableRow from '@components/orders-table/orders-table-row';
 import styles from '@components/orders-table/orders-table.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const OrdersTable = ({ orders, onRowClick }) => {
-  useStyles(styles);
+  
 
   return (
     <Table className={styles.OrdersTable}>

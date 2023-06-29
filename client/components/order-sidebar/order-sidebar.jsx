@@ -1,11 +1,11 @@
 import React from 'react';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import styles from './order-sidebar.scss';
 import cx from 'classnames';
 import CurrencyHelper from '@helpers/currency-helper';
 
 const OrderSidebar = ({ className, order }) => {
-  useStyles(styles);
+  
 
   return (
     <div className={cx(styles.OrderSidebarContainer, className)}>

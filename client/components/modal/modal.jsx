@@ -9,12 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './modal.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
 import useKeyPressHandler from '../../utils/hooks/useKeyPressHandler';
 
 const Modal = ({ children, headerLabel = '' }) => {
-  useStyles(styles);
+  
   const [showing, setShowing] = useState(false);
   const [hiding, setHiding] = useState(false);
 

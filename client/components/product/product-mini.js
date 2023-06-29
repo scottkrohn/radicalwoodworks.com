@@ -9,12 +9,12 @@ import Button from '@components/button/button';
 
 // Styles
 import styles from 'components/product/product-mini.less';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import { Link } from 'react-router-dom';
 import CurrencyHelper from '@helpers/currency-helper';
 
 const ProductMini = ({ onAddToCart, product }) => {
-  useStyles(styles);
+  
   // For now this just grabs the first image.
   const getMainImageUrl = () => {
     if (!product) {

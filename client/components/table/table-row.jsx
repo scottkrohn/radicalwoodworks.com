@@ -2,10 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 
 import styles from './table-row.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const TableRow = ({ className, children, head, onRowClick }) => {
-  useStyles(styles);
+  
   const RowType = head ? 'th' : 'td';
 
   return (

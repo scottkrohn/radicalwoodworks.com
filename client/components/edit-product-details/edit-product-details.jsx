@@ -10,10 +10,10 @@ import PRODUCTS from 'constants/product-contants';
 
 // Styles
 import styles from './edit-product-details.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const EditProductDetails = ({ onChange, invalidFields, ...props }) => {
-  useStyles(styles);
+  
 
   return (
     <div className={cx(styles.EditProductDetailsContainer, 'flex flex-dir-col')}>

@@ -40,7 +40,7 @@ import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
 import styles from '@pages/admin-product-page.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const AdminProductContainer = ({
   createProduct,
@@ -55,7 +55,7 @@ const AdminProductContainer = ({
   updateProductImageMapping,
   uploadingImage,
 }) => {
-  useStyles(styles);
+  
   const [loading, setLoading] = useState(false);
   const [createMode, setCreateMode] = useState(false);
   const [invalidFields, setInvalidFields] = useState({});

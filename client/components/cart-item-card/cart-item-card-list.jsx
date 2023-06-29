@@ -1,11 +1,11 @@
 import React from 'react';
 import CartProductCard from '@components/cart-item-card/cart-item-card';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import cx from 'classnames';
 import styles from './cart-item-card-list.scss';
 
 const CartItemCardList = ({ cartId, className, items, updateCartItem }) => {
-  useStyles(styles);
+  
 
   return Array.isArray(items) && items.length ? (
     <div className={cx(styles.CartItemCardListContainer, className)}>

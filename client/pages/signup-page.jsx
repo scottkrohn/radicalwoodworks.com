@@ -5,7 +5,7 @@ import Form from '@forms/form';
 import Button from '@components/button/button';
 import TextInput from '@forms/text-input';
 import RequiredValidator from '@validators/required-validator';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import styles from './signup-page.scss';
 import Spinner from '@components/spinner/spinner';
 import { createAccount } from '@actions/user-actions';
@@ -26,7 +26,7 @@ const SignupPage = ({
   user,
   verifyLogin,
 }) => {
-  useStyles(styles);
+  
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {

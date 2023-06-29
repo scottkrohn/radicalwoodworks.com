@@ -1,5 +1,5 @@
 import React from 'react';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import styles from './cart-sidebar.scss';
 import cx from 'classnames';
 import Button from '@components/button/button';
@@ -8,7 +8,7 @@ import Modal, { ModalContent, ModalTrigger } from '@components/modal/modal';
 import CartHelper from '@helpers/cart-helper';
 
 const CartSidebar = ({ cart, className, clearCart, handleCheckout }) => {
-  useStyles(styles);
+  
 
   const cartHelper = new CartHelper();
   const {

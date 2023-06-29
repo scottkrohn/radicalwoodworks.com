@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 // Styles
 import styles from '@components/admin-section/admin-section.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const AdminSection = ({
   onClickHandler,
@@ -16,7 +16,7 @@ const AdminSection = ({
   buttonHref,
   buttonText,
 }) => {
-  useStyles(styles);
+  
 
   const handleButtonClick = () => {
     if (typeof onClickHandler === 'function') {

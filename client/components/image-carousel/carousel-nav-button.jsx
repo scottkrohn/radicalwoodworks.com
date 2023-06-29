@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './carousel-nav-button.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const CarouselNavButton = ({ className, onClick, direction }) => {
-  useStyles(styles);
+  
   return (
     <div
       onClick={onClick}

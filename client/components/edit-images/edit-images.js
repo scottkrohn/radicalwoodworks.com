@@ -10,7 +10,7 @@ import MissingImage from '@components/missing-image/missing-image';
 
 // Styles
 import styles from '@components/edit-images/edit-images.less';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const EditImages = ({
   onImageUpload,
@@ -20,7 +20,7 @@ const EditImages = ({
   hideAddButton,
   onImageMappingUpdate,
 }) => {
-  useStyles(styles);
+  
 
   const handleImageUpload = (image) => {
     if (typeof onImageUpload === 'function') {

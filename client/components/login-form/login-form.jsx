@@ -16,10 +16,10 @@ import RequiredValidator from '../../utils/validators/required-validator';
 
 // Styles
 import styles from '@components/login-form/login-form.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const LoginForm = ({ error, errorCode, handleLogin, sending }) => {
-  useStyles(styles);
+  
   useEffect(() => {
     if (error) {
       renderLoginError();

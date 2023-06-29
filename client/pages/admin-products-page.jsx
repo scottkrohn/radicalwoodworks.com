@@ -25,7 +25,7 @@ import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
 import styles from '@pages/admin-products-page.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const AdminProductsContainer = ({
   clearProduct,
@@ -35,7 +35,7 @@ const AdminProductsContainer = ({
   loading,
   products,
 }) => {
-  useStyles(styles);
+  
   const [deletingProduct, setDeletingProduct] = useState(false);
   const [notificationContent, setNotificationContent] = useState({});
 

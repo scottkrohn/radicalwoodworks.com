@@ -15,7 +15,7 @@ import Link from 'next/link';
 import CartIcon from '../cart-icon/cart-icon';
 
 // Styles
-import styles from './navbar.scss';
+import styles from './navbar.module.scss';
 import Drawer from '../drawer/drawer';
 
 // Actions
@@ -26,15 +26,18 @@ import { getCartById } from 'client/actions/cart-actions';
 import { selectItemCount } from '@selectors/cart-selectors';
 import { selectIsAdmin, selectUser } from '@selectors/user-selectors';
 
-const Navbar = ({ auth, itemCount, isAdmin, logout, location, user }) => {
+import { usePathname } from 'next/navigation'
+
+const Navbar = ({ auth, itemCount, isAdmin, logout, user }) => {
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;
+  const pathname = usePathname();
 
   const NavbarLink = ({ className, label, path, onClick }) => {
     const classes = cx(styles.NavbarLink, className && className);
 
     return (
-      <Link className={classes} to={path} onClick={onClick}>
+      <Link className={classes} href={path} onClick={onClick}>
         {label}
       </Link>
     );
@@ -43,8 +46,8 @@ const Navbar = ({ auth, itemCount, isAdmin, logout, location, user }) => {
   const getCurrentPageName = () => {
     let currentPage = NavConstants.pages.home.key;
 
-    if (location && location.pathname) {
-      const pathParts = location.pathname.split('/').filter((str) => str);
+    if (pathname) {
+      const pathParts = pathname.split('/').filter((str) => str);
       if (pathParts.length) {
         currentPage = get(pathParts, '[0]');
       }

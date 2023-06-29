@@ -14,13 +14,13 @@ import MissingImage from '@components/missing-image/missing-image';
 
 // Styles
 import styles from '@components/products-table/products-table.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 // Constants
 import IMAGES from 'client/constants/image-constants';
 
 const ProductsTableRow = ({ handleDeleteProduct, product }) => {
-  useStyles(styles);
+  
   const iconClasses = classNames(styles.Cell, styles.Icons);
   const primaryImageUrl = product.getPrimaryImageUrl();
 

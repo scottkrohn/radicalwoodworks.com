@@ -10,7 +10,7 @@ import { getLoading, selectCart } from '@selectors/cart-selectors';
 import PageHeader from '@components/page-header/page-header';
 import CartItemCardList from '@components/cart-item-card/cart-item-card-list';
 import CartSidebar from '@components/cart-sidebar/cart-sidebar';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import styles from './cart-page.scss';
 import cx from 'classnames';
 import Spinner from '@components/spinner/spinner';
@@ -33,7 +33,7 @@ const CartPage = ({
 }) => {
   const [cartLoaded, setCartLoaded] = useState(false);
   const items = isEmpty(cart) ? [] : cart.getItems();
-  useStyles(styles);
+  
 
   useEffect(() => {
     const cartId = cart ? cart.getId() : null;

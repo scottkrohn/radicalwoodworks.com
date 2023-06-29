@@ -8,10 +8,10 @@ import Button from '@components/button/button';
 
 // Styles
 import styles from '@components/content-editor/content-editor.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const ContentEditor = (props) => {
-  useStyles(styles);
+  
   const [text, setText] = useState('');
   const [showPreview, setShowPreview] = useState('');
 

@@ -18,10 +18,10 @@ import { Link } from 'react-router-dom';
 // Styles
 import cx from 'classnames';
 import styles from './contact-form.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const ContactForm = ({ handleSendContact, error, sending, sent }) => {
-  useStyles(styles);
+  
   const [notificationContent, setNotificationContent] = useState({});
 
   const handleSubmit = (getFormValues) => (event) => {

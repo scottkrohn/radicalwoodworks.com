@@ -10,12 +10,12 @@ import cx from 'classnames';
 import { updateAccount, updatePassword } from '@actions/user-actions';
 import { getLoading } from '@selectors/user-selectors';
 import Spinner from '@components/spinner/spinner';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import { Link } from 'react-router-dom';
 import Notification from '@components/notification/notification';
 
 const UserPage = ({ loading, updateAccount, updatePassword, user }) => {
-  useStyles(styles);
+  
   const [updateSectionName, setUpdateSectionName] = useState(null);
   const [notificationContent, setNotificationContent] = useState({});
 

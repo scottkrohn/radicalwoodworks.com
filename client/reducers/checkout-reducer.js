@@ -1,4 +1,4 @@
-import ACTIONS from 'constants/action-constants';
+import ACTIONS from '../constants/action-constants';
 import { initial } from 'lodash';
 
 const initialState = {

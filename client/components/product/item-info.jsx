@@ -7,10 +7,10 @@ import Product from 'model/product';
 
 // Styles
 import styles from '@components/product/item-info.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const ItemInfo = ({ product }) => {
-  useStyles(styles);
+  
   const renderItemDetails = () => {
     if (!product) {
       return null;

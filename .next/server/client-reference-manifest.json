@@ -72,6 +72,14 @@
         "async": false
       }
     },
+    "(app-client)/./app/layout.tsx": {
+      "*": {
+        "id": "(sc_client)/./app/layout.tsx",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
     "(app-client)/./client/components/footer/footer.js": {
       "*": {
         "id": "(sc_client)/./client/components/footer/footer.js",
@@ -275,6 +283,14 @@
       ],
       "async": false
     },
+    "/Users/scottkrohn/dev/radicalwoodworks.com/app/layout.tsx": {
+      "id": "(app-client)/./app/layout.tsx",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
     "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/footer/footer.js": {
       "id": "(app-client)/./client/components/footer/footer.js",
       "name": "*",
@@ -306,11 +322,13 @@
     },
     "/Users/scottkrohn/dev/radicalwoodworks.com/app/layout": {
       "modules": [
+        "/Users/scottkrohn/dev/radicalwoodworks.com/node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+        "/Users/scottkrohn/dev/radicalwoodworks.com/node_modules/bootstrap/dist/css/bootstrap.min.css",
         "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/cart-icon/cart-icon.scss",
         "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/drawer/drawer.scss",
         "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/footer/footer.scss",
-        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/nav/navbar.scss",
-        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/social-icons/social-icons.scss"
+        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/social-icons/social-icons.scss",
+        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/nav/navbar.module.scss"
       ],
       "files": [
         "static/css/app/layout.css"

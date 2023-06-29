@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import styles from '@components/product/pricing.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 import Product from 'model/product';
 import Button from '@components/button/button';
 import SelectInput from '@forms/select-input';
@@ -14,7 +14,7 @@ import PRODUCT from '@constants/product-contants';
 
 const Pricing = ({ className, onAddToCart, product }) => {
   const [quantity, setQuantity] = useState(1);
-  useStyles(styles);
+  
   const getPriceValue = () => {
     const priceValue = product.getFinalPrice();
     return CurrencyHelper.formatCurrency(priceValue);

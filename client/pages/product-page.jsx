@@ -27,7 +27,7 @@ import ImageCarousel from '@components/image-carousel/image-carousel';
 
 // Styles
 import styles from './product-page.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const ProductContainer = ({
   addOrUpdateCartItem,
@@ -39,7 +39,7 @@ const ProductContainer = ({
   product,
   user,
 }) => {
-  useStyles(styles);
+  
   const productId = get(match, 'params.productId');
 
   useEffect(() => {

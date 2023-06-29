@@ -9,10 +9,10 @@ import ProductsTableRow from '@components/products-table/products-table-row';
 
 // Styles
 import styles from '@components/products-table/products-table.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const ProductsTable = ({ handleDeleteProduct, products }) => {
-  useStyles(styles);
+  
   return (
     <Table>
       <TableHead>

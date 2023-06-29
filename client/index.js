@@ -7,6 +7,8 @@ import { renderRoutes } from 'react-router-config';
 import Routes from '../routes';
 import 'typeface-roboto';
 import 'babel-polyfill';
+import 'node_modules/@fortawesome/fontawesome-svg-core/styles.css';
+import 'node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // Redux Imports
 import { Provider } from 'react-redux';

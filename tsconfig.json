@@ -23,7 +23,9 @@
       "@constants/*": ["./constants/*"],
       "@constants-client/*": ["client/constants/*"],
       "@models/*": ["./model/*"],
+      "@reducers/*": ["client/reducers/*"],
       "@selectors/*": ["client/selectors/*"],
+      "@lib/*": ["./lib/*"],
     },
     "plugins": [
       {

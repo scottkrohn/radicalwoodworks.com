@@ -6,10 +6,10 @@ import IMAGE from 'client/constants/image-constants';
 
 // Styles
 import styles from 'client/components/about-us/about-us-info.less';
-import useStyles from 'isomorphic-style-loader/useStyles';
+
 
 const AboutUsInfo = ({ content }) => {
-  useStyles(styles);
+  
   const renderContent = () => {
     return (
       <div className={styles.AboutUsContent}>
