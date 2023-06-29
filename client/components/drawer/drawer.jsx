@@ -3,7 +3,6 @@ import cx from 'classnames';
 import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
 
 import styles from './drawer.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +11,6 @@ const Drawer = ({ children, className, hide, showing }) => {
   const drawerRef = useRef(null);
 
   useOutsideClickHandler(drawerRef, hide);
-  useStyles(styles);
 
   const drawerClasses = cx({
     [styles.DrawerContainer]: true,

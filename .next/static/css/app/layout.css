@@ -1,0 +1,197 @@
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[3].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[3].oneOf[13].use[5]!./client/components/cart-icon/cart-icon.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.CartIconContainer {
+  position: relative;
+}
+.CartIconContainer .CartIcon {
+  font-size: 30px;
+  color: #646464;
+}
+.CartIconContainer .CartCountContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  font-size: 13px;
+  height: 18px;
+  width: 18px;
+  background: #1890ff;
+  color: #fefefe;
+  border-radius: 10px;
+  top: -3px;
+  right: -3px;
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[3].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[3].oneOf[13].use[5]!./client/components/nav/navbar.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.NavbarContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+  min-height: 40px;
+  z-index: 9999;
+}
+.NavbarContainer .Drawer {
+  min-height: 725px;
+}
+@media (max-width: 992px) {
+  .NavbarContainer {
+    min-height: 100px;
+  }
+}
+.NavbarContainer .NavbarLinks {
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 992px) {
+  .NavbarContainer .NavbarLinks {
+    display: none;
+  }
+}
+.NavbarContainer .HamburgerContainer {
+  display: none;
+}
+@media (max-width: 992px) {
+  .NavbarContainer .HamburgerContainer {
+    display: flex;
+    font-size: 6em;
+    align-items: center;
+    padding-left: 10px;
+  }
+}
+.NavbarContainer .HamburgerContainer .HamburgerIcon {
+  cursor: pointer;
+}
+.NavbarContainer .CartContainer {
+  display: flex;
+  align-items: center;
+}
+.NavbarContainer .NavbarLink {
+  text-decoration: none;
+  padding: 10px 25px;
+  font-size: 0.9em;
+  border-bottom: 2px solid transparent;
+  color: #646464;
+  transition: all 300ms;
+}
+@media (min-width: 992px) {
+  .NavbarContainer .NavbarLink:hover {
+    border-bottom: 2px solid #1890ff;
+    color: #1890ff;
+  }
+}
+@media (max-width: 992px) {
+  .NavbarContainer .NavbarLink {
+    font-size: 4em;
+  }
+}
+.NavbarContainer .ActiveLink {
+  color: #1890ff;
+}
+@media (min-width: 992px) {
+  .NavbarContainer .ActiveLink {
+    border-bottom: 2px solid #1890ff;
+  }
+}
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[3].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[3].oneOf[13].use[5]!./client/components/drawer/drawer.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.DrawerContainer {
+  position: fixed;
+  left: 0;
+  top: -850;
+  min-height: 600px;
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #a0a0a0;
+  z-index: 10000;
+  transition: top 200ms;
+  box-shadow: 0px 1px 5px 0px;
+}
+.DrawerContainer .CloseIcon {
+  font-size: 4em;
+  font-weight: 300;
+  color: #a0a0a0;
+  position: absolute;
+  bottom: 45px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.Showing {
+  top: 0;
+}
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[3].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[3].oneOf[13].use[5]!./client/components/social-icons/social-icons.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.SocialIconsContainer {
+  display: flex;
+  align-items: center;
+}
+.SocialIconsContainer .SocialLink {
+  color: #646464;
+}
+.SocialIconsContainer .SocialLink:hover {
+  color: #87919e;
+}
+.SocialIconsContainer .Icon {
+  font-size: 2em;
+  margin: 5px 15px;
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .SocialIconsContainer .Icon {
+    font-size: 3em;
+  }
+}
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[3].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[3].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[3].oneOf[13].use[5]!./client/components/footer/footer.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+.FooterContainer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+.FooterContainer .Copyright {
+  margin-right: 10px;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.FooterContainer .Copyright::before {
+  content: "©";
+  margin-right: 2px;
+}
+.FooterContainer .BackToTop {
+  display: block;
+}
+.FooterContainer .BackToTop::before {
+  content: "↑";
+  cursor: pointer;
+  font-size: 2em;
+}
+
+@media (max-width: 992px) {
+  .FooterContainer .Copyright {
+    font-size: 1.5em;
+  }
+  .FooterContainer .Copyright::before {
+    content: "©";
+    margin-right: 2px;
+  }
+  .FooterContainer .BackToTop::before {
+    font-size: 3em;
+  }
+}

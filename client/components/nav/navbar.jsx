@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { get } from 'lodash';
 import cx from 'classnames';
@@ -10,12 +11,11 @@ import NavConstants from '../../constants/nav-constants';
 // Components
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import CartIcon from '../cart-icon/cart-icon';
 
 // Styles
 import styles from './navbar.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
 import Drawer from '../drawer/drawer';
 
 // Actions
@@ -27,7 +27,6 @@ import { selectItemCount } from '@selectors/cart-selectors';
 import { selectIsAdmin, selectUser } from '@selectors/user-selectors';
 
 const Navbar = ({ auth, itemCount, isAdmin, logout, location, user }) => {
-  useStyles(styles);
   const [hamburgerMenuShowing, setHamburgerMenuShowing] = useState(false);
   const isLoggedIn = auth.loggedIn;
 

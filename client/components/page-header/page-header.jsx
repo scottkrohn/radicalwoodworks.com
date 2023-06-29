@@ -4,13 +4,12 @@ import cx from 'classnames';
 
 // Components
 import Button from '@components/button/button';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 
 // Styles
 import styles from '@components/page-header/page-header.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
 
 const PageHeader = ({
   className,
@@ -21,13 +20,12 @@ const PageHeader = ({
   onButtonClick,
   showButton,
 }) => {
-  useStyles(styles);
 
   return (
     <div className={cx(className, styles.PageHeaderContainer)}>
       <div className={styles.LeftLink}>
         {text && href ? (
-          <Link to={href}>
+          <Link href={href}>
             <FontAwesomeIcon
               className={styles.HamburgerIcon}
               icon={faLongArrowAltLeft}

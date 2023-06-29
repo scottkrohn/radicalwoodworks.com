@@ -1,17 +1,17 @@
+'use client';
 import React from 'react';
 
 // Components
 import SocialIcons from '@components/social-icons/social-icons';
 // Styles
-import styles from '@components/footer/footer.less';
-import useStyles from 'isomorphic-style-loader/useStyles';
+import styles from '@components/footer/footer.scss';
 
 const handleBackToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const Footer = () => {
-  useStyles(styles);
+
   return (
     <div className={styles.FooterContainer}>
       <SocialIcons />

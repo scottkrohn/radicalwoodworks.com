@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { get } from 'lodash';
 
-import ACTIONS from 'constants/action-constants';
+import ACTIONS from '../constants/action-constants';
 
 export const login = (username, password) => {
   return (dispatch, getState, axios) => {

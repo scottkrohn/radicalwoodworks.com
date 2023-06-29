@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // Styles
-import styles from '@components/text-blurb/text-blurb.less';
-import useStyles from 'isomorphic-style-loader/useStyles';
+import styles from '@components/text-blurb/text-blurb.scss';
+
 
 const TextBlurb = ({ className, text }) => {
-  useStyles(styles);
 
   const textBlurbClasses = classNames({
     [styles.TextBlurbContainer]: true,

@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import Cookie from 'js-cookie';
 
 // Constants
-import ACTIONS from 'constants/action-constants';
+import ACTIONS from '../constants/action-constants';
 
 export const createCart = (productId, quantity, userId = null) => {
   return (dispatch, getState, axios) => {

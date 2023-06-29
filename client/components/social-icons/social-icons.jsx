@@ -12,13 +12,11 @@ import {
 
 // Styles
 import styles from '@components/social-icons/social-icons.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Constants
 import URL from 'client/constants/url-constants';
 
 const SocialIcons = () => {
-  useStyles(styles);
   return (
     <div className={styles.SocialIconsContainer}>
       <a

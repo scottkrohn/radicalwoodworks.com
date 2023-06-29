@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 // Styles
 import styles from '@components/homepage-content-grid/homepage-content-grid.scss';
-import useStyles from 'isomorphic-style-loader/useStyles';
 
 // Components
 import Button from '@components/button/button';
@@ -11,11 +10,7 @@ import Button from '@components/button/button';
 // Utils
 import { observerIsIntersecting } from 'client/utils/observers';
 
-// HOCs
-import { withRouter } from 'react-router-dom';
-
 const HomepageImageGrid = (props) => {
-  useStyles(styles);
 
   const myRefs = {};
   props.homepageContent.forEach((content) => {
@@ -96,4 +91,4 @@ HomepageImageGrid.defaultProps = {
   homepageContent: [],
 };
 
-export default withRouter(HomepageImageGrid);
+export default HomepageImageGrid;

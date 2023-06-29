@@ -1,16 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import useStyles from 'isomorphic-style-loader/useStyles';
 
 import styles from './cart-icon.scss';
 
 const CartIcon = ({ itemCount }) => {
-  useStyles(styles);
+
   return (
     <div className={styles.CartIconContainer}>
-      <Link to="/cart">
+      <Link href="/cart">
         <FontAwesomeIcon className={styles.CartIcon} icon={faShoppingCart} />
         {itemCount && itemCount > 0 ? (
           <div className={styles.CartCountContainer}>
