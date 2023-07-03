@@ -8,7 +8,6 @@
     "build": "next build",
     "start": "next start",
     "server": "webpack --config webpack.server.js --watch",
-
     "api-dev": "npm-run-all --parallel dev:*",
     "dev:build-server": "webpack --config webpack.server.js --watch",
     "dev:server": "nodemon --watch build --watch public --exec \"node build/bundle.js\""

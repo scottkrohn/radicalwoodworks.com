@@ -7,7 +7,7 @@ export const getProducts = (ids) => {
   return (dispatch, getState, axios) => {
     dispatch(getProductsRequest());
 
-    const url = `/api/products${
+    const url = `http://localhost:3003/api/products${
       Array.isArray(ids) && ids.length ? `?productIds=${ids.join(',')}` : ''
     }`;
 

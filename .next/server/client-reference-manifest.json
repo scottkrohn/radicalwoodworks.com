@@ -103,14 +103,6 @@
         "chunks": [],
         "async": false
       }
-    },
-    "(app-client)/./app/home-page.jsx": {
-      "*": {
-        "id": "(sc_client)/./app/home-page.jsx",
-        "name": "*",
-        "chunks": [],
-        "async": false
-      }
     }
   },
   "edgeSSRModuleMapping": {},
@@ -295,7 +287,7 @@
       "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "*",
       "chunks": [
-        "app/page:static/chunks/app/page.js"
+        "app/layout:static/chunks/app/layout.js"
       ],
       "async": false
     },
@@ -303,7 +295,7 @@
       "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "*",
       "chunks": [
-        "app/page:static/chunks/app/page.js"
+        "app/layout:static/chunks/app/layout.js"
       ],
       "async": false
     },
@@ -328,14 +320,6 @@
       "name": "*",
       "chunks": [
         "app/layout:static/chunks/app/layout.js"
-      ],
-      "async": false
-    },
-    "/Users/scottkrohn/dev/radicalwoodworks.com/app/home-page.jsx": {
-      "id": "(app-client)/./app/home-page.jsx",
-      "name": "*",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
       ],
       "async": false
     }
@@ -366,17 +350,6 @@
       ],
       "files": [
         "static/css/app/layout.css"
-      ]
-    },
-    "/Users/scottkrohn/dev/radicalwoodworks.com/app/page": {
-      "modules": [
-        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/button/button.scss",
-        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/homepage-content-grid/homepage-content-grid.scss",
-        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/page-header/page-header.scss",
-        "/Users/scottkrohn/dev/radicalwoodworks.com/client/components/text-blurb/text-blurb.scss"
-      ],
-      "files": [
-        "static/css/app/page.css"
       ]
     }
   }
