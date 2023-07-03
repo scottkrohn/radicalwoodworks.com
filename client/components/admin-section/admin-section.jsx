@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import Button from '@components/button/button';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 // Styles
 import styles from '@components/admin-section/admin-section.scss';
@@ -29,7 +29,7 @@ const AdminSection = ({
       <div className={styles.TitleContainer}>{title}</div>
       <div className={styles.TextContainer}>{text}</div>
       <div className={styles.ButtonContainer}>
-        <Link to={buttonHref}>
+        <Link href={buttonHref}>
           <Button primary onClick={handleButtonClick}>
             {buttonText}
           </Button>

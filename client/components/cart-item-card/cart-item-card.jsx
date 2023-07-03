@@ -4,7 +4,7 @@ import styles from './cart-item-card.scss';
 import cx from 'classnames';
 import IMAGE from '@constants-client/image-constants';
 import MissingImage from '@components/missing-image/missing-image';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import CurrencyHelper from 'lib/helpers/currency-helper';
 import SelectInput from '@forms/select-input';
 import PRODUCT from '@constants/product-contants';
@@ -57,7 +57,7 @@ const CartItemCard = ({ cartId, className, item, updateCartItem }) => {
   return (
     <div className={cx(className, styles.CartItemCardContainer)}>
       <div className={styles.ImageContainer}>
-        <Link to={productPageLink}>{getImage()}</Link>
+        <Link href={productPageLink}>{getImage()}</Link>
       </div>
 
       <div className={styles.ItemInfo}>

@@ -37,6 +37,7 @@ class ProductsBLI extends BaseBLI {
       Array.isArray(ids) && ids.length
         ? `WHERE ${DB.tables.products.columns.id} in (${ids.join(',')})`
         : '';
+
     const productRows = await this.db.selectAll(
       DB.tables.products.name,
       whereClause

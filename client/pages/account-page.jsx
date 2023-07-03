@@ -11,7 +11,7 @@ import { updateAccount, updatePassword } from '@actions/user-actions';
 import { getLoading } from '@selectors/user-selectors';
 import Spinner from '@components/spinner/spinner';
 
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Notification from '@components/notification/notification';
 
 const UserPage = ({ loading, updateAccount, updatePassword, user }) => {
@@ -81,7 +81,7 @@ const UserPage = ({ loading, updateAccount, updatePassword, user }) => {
             </ul>
           </div>
           <div className={styles.AccountActions}>
-            <Link to="/orders" className={styles.AccountNavOption}>
+            <Link href="/orders" className={styles.AccountNavOption}>
               My Orders
             </Link>
             <button

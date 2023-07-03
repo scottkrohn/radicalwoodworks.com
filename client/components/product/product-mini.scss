@@ -1,0 +1,122 @@
+@import '../../styles/variables.scss';
+
+.ProductMiniContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .Link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .Price {
+    font-weight: 500;
+    color: $moneyGreen;
+    font-size: 1.2em;
+  }
+
+  .ProductTitle {
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  .ProductImage {
+    box-sizing: border-box;
+    height: 450px;
+    width: 450px;
+    border: solid $gray 1px;
+    border-radius: 3px;
+    position: relative;
+
+    &:hover {
+      opacity: 0.5;
+      transition: opacity ease-in 300ms;
+    }
+  }
+
+  .ImageWrap {
+    box-sizing: border-box;
+    border-radius: 3px;
+    position: relative;
+
+    &:hover {
+      background-color: black;
+    }
+
+    &::before,
+    &::after {
+      box-sizing: border-box;
+      border-radius: 3px;
+      pointer-events: none;
+      content: '';
+      position: absolute;
+      top: 1.25em;
+      left: 1.25em;
+      right: 1.25em;
+      bottom: 1.25em;
+      z-index: 10;
+    }
+
+    &::before {
+      content: 'View Product';
+      justify-content: center;
+      align-items: center;
+      color: $light-gray;
+      display: flex;
+      border-top: 1px solid $light-gray;
+      border-bottom: 1px solid $light-gray;
+      transform: scale(0, 1);
+    }
+
+    &::after {
+      border-left: 1px solid $light-gray;
+      border-right: 1px solid $light-gray;
+      transform: scale(1, 0);
+    }
+
+    &:hover::before,
+    &:hover::after {
+      transform: scale(1, 1);
+      transition: transform ease-out 300ms;
+    }
+  }
+
+  .NoImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid $gray 1px;
+    background: $light-gray;
+    border-radius: 3px;
+    width: 450px;
+    height: 450px;
+
+    .NoImageIcon {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 1175px) {
+    .Price,
+    .ProductTitle {
+      font-size: 2.2em;
+    }
+
+    .ProductImage {
+      width: 380px;
+      height: 380px;
+    }
+  }
+
+  @media (max-width: 950px) {
+    .NoImage,
+    .ProductImage {
+      width: 550px;
+      height: 550px;
+    }
+  }
+}

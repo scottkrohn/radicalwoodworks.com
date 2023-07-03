@@ -13,7 +13,7 @@ import TextInput from '../form/text-input';
 import Button from '../button/button';
 import Notification from '../notification/notification';
 import Spinner from '../spinner/spinner';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 // Styles
 import cx from 'classnames';
@@ -65,7 +65,7 @@ const ContactForm = ({ handleSendContact, error, sending, sent }) => {
         {sent ? (
           <div className="flex flex-dir-col align-items-center">
             <p>Your message has been sent.</p>
-            <Link to="/">Back To Home</Link>
+            <Link href="/">Back To Home</Link>
           </div>
         ) : (
           <Form

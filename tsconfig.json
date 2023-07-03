@@ -19,9 +19,11 @@
     "jsx": "preserve",
     "paths": {
       "@/*": ["src/*"],
+      "@actions/*": ["client/actions/*"],
       "@components/*": ["client/components/*"],
       "@constants/*": ["./constants/*"],
       "@constants-client/*": ["client/constants/*"],
+      "@helpers/*": ["./lib/helpers/*"],
       "@models/*": ["./model/*"],
       "@reducers/*": ["client/reducers/*"],
       "@selectors/*": ["client/selectors/*"],

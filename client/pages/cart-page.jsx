@@ -75,7 +75,7 @@ const CartPage = ({
                 <FontAwesomeIcon className={styles.SadFace} icon={faSadTear} />
               </h4>
               <p className={styles.GoToProducts}>
-                Head over the <Link to="/products">products</Link> page and add
+                Head over the <Link href="/products">products</Link> page and add
                 something awesome to your cart!
               </p>
             </div>

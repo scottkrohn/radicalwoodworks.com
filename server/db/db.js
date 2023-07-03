@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import { get } from 'lodash';
+import {getConfig} from '../../lib/protected';
 
 let connectionPool;
 
@@ -94,12 +95,34 @@ class Database {
 
   _connectToDatabase = () => {
     const configPath = path.join(__dirname, '../../config/config.yaml');
-    const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+    // const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+    const configPrefix = process.env.NODE_ENV === 'production' ? '' : 'dev_';
+    const config = {
+      host: getConfig(`${configPrefix}host`),
+      user: getConfig(`${configPrefix}user`),
+      password: getConfig(`${configPrefix}password`),
+      database: getConfig(`${configPrefix}database`),
+      port: getConfig(`${configPrefix}port`),
+    }
+
+    console.log(config);
+
     connectionPool = mysql.createPool(config);
 
     connectionPool.on('error', (err) => {
       console.log(`Lost connection to MySQL server with error: ${err}`);
     });
+
+    connectionPool.isConnected = () => {
+      return new Promise((resolve, reject) => {
+        connectionPool.getConnection((err, connection) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(connection);
+        });
+      });
+    }
 
     return connectionPool;
   };

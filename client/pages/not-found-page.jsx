@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const NotFoundContainer = ({ staticContext = {} }) => {
   staticContext.notFound = true;
@@ -11,7 +11,7 @@ const NotFoundContainer = ({ staticContext = {} }) => {
         <div className="col-12 text-center">
           <h4 className="mt-5">
             Uh oh, you're not supposed to be here. You should probably go back
-            <Link to="/"> home</Link>.
+            <Link href="/"> home</Link>.
           </h4>
         </div>
       </div>

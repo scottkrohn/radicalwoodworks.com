@@ -53,10 +53,10 @@ const HomepageContainer = () => {
       <div className="col-12">
         <PageHeader headerText="Radical Woodworks" showButton={false} />
 
-        {/*<TextBlurb*/}
-        {/*  text="Rustic Handmade Chalkboards and Home Decor"*/}
-        {/*  className="mb-4"*/}
-        {/*/>*/}
+        <TextBlurb
+          text="Rustic Handmade Chalkboards and Home Decor"
+          className="mb-4"
+        />
 
         <HomepageContentGrid homepageContent={homepageContent} />
       </div>

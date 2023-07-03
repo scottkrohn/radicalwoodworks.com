@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { get, isEmpty } from 'lodash';
 
 // Constants
-import IMAGE from 'constants/image-constants';
+import IMAGE from '../../constants/image-constants';
 
 import MissingImage from '@components/missing-image/missing-image';
 import Button from '@components/button/button';
 
 // Styles
-import styles from 'components/product/product-mini.less';
+import styles from '../product/product-mini.scss';
 
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import CurrencyHelper from '@helpers/currency-helper';
 
 const ProductMini = ({ onAddToCart, product }) => {
@@ -82,7 +82,7 @@ const ProductMini = ({ onAddToCart, product }) => {
 
   return (
     <div className={styles.ProductMiniContainer}>
-      <Link to={productPageLink} className={styles.Link}>
+      <Link href={productPageLink} className={styles.Link}>
         {renderImage()}
         {renderTitle()}
         {renderPrice()}

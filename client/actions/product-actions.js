@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 
 // Constants
-import ACTIONS from 'constants/action-constants';
+import ACTIONS from '../constants/action-constants';
 
 export const getProduct = (productId) => {
   return (dispatch, getState, axios) => {

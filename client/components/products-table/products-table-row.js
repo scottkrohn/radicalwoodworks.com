@@ -5,7 +5,7 @@ import classNames from 'classnames';
 // Components
 import TableRow from '@components/table/table-row';
 import TableCell from '@components/table/table-cell';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Modal, { ModalContent, ModalTrigger } from '@components/modal/modal';
@@ -60,7 +60,7 @@ const ProductsTableRow = ({ handleDeleteProduct, product }) => {
         </TableCell>
         <TableCell className={iconClasses}>
           <div className={styles.Icons}>
-            <Link to={`/admin-product/${product.getId()}`}>
+            <Link href={`/admin-product/${product.getId()}`}>
               <FontAwesomeIcon icon={faEdit} className={styles.ActionIcon} />
             </Link>
           </div>

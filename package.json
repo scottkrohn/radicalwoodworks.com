@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "server": "webpack --config webpack.server.js --watch",
+
+    "api-dev": "npm-run-all --parallel dev:*",
+    "dev:build-server": "webpack --config webpack.server.js --watch",
+    "dev:server": "nodemon --watch build --watch public --exec \"node build/bundle.js\""
   },
   "keywords": [],
   "author": "",
@@ -30,7 +35,7 @@
     "node-sass": "9.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
-    "webpack": "^4.19.1",
+    "webpack": "^5.88.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^3.3.0",
     "webpack-livereload-plugin": "^2.1.1"
@@ -96,6 +101,8 @@
     "sass": "^1.63.6",
     "serialize-javascript": "^1.8.0",
     "typeface-roboto": "0.0.54",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "webpack-merge": "^5.9.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }
