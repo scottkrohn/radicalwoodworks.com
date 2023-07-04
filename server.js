@@ -7,6 +7,7 @@ import passportConfig from './server/lib/passport';
 import { getConfig } from './lib/protected';
 import requestLogger from './lib/request-logger';
 import 'babel-polyfill';
+import cors from 'cors';
 
 import connectRedis from 'connect-redis';
 import redis from 'redis';
@@ -22,6 +23,13 @@ const redisClient = redis.createClient(redisOptions);
 
 const app = express();
 var bodyParser = require('body-parser');
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+}
+
+app.use(cors(corsOptions));
 
 // Apply Middleware
 app.use(bodyParser.json());
