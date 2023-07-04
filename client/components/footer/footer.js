@@ -4,7 +4,7 @@ import React from 'react';
 // Components
 import SocialIcons from '@components/social-icons/social-icons';
 // Styles
-import styles from '@components/footer/footer.scss';
+import styles from '@components/footer/footer.module.scss';
 
 const handleBackToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });

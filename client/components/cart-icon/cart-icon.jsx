@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-import styles from './cart-icon.scss';
+import styles from './cart-icon.module.scss';
 
 const CartIcon = ({ itemCount }) => {
 

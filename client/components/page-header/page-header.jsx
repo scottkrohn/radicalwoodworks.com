@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 
 // Styles
-import styles from '@components/page-header/page-header.scss';
+import styles from '@components/page-header/page-header.module.scss';
 
 const PageHeader = ({
   className,

@@ -1,8 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import styles from './spinner.scss';
-
+import styles from './spinner.module.scss';
 
 const Spinner = ({ children, className, spinning }) => {
   

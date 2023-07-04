@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import cx from 'classnames';
 import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
 
-import styles from './drawer.scss';
+import styles from './drawer.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,7 @@ const Drawer = ({ children, className, hide, showing }) => {
     [className]: className,
   });
 
-  return (
+  return showing ? (
     <div
       ref={drawerRef}
       className={drawerClasses}
@@ -42,7 +42,7 @@ const Drawer = ({ children, className, hide, showing }) => {
         <div>{children}</div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default Drawer;

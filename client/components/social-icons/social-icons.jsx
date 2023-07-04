@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 // Styles
-import styles from '@components/social-icons/social-icons.scss';
+import styles from '@components/social-icons/social-icons.module.scss';
 
 // Constants
 import URL from 'client/constants/url-constants';

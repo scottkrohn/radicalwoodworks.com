@@ -6,7 +6,7 @@ import { get, uniqueId } from 'lodash';
 import ProductMini from '@components/product/product-mini';
 
 // Styles
-import styles from '@components/product/product-grid.scss';
+import styles from '@components/product/product-grid.module.scss';
 
 
 // Utils

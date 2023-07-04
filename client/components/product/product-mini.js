@@ -8,7 +8,7 @@ import MissingImage from '@components/missing-image/missing-image';
 import Button from '@components/button/button';
 
 // Styles
-import styles from '../product/product-mini.scss';
+import styles from './product-mini.module.scss';
 
 import Link from 'next/link';
 import CurrencyHelper from '@helpers/currency-helper';

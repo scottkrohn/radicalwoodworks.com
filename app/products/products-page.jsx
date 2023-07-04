@@ -55,16 +55,16 @@ const ProductsContainer = ({
   return (
     <div className="container-fluid">
       <div className="col-12">
-        {/*<Spinner spinning={loading} />*/}
-        {/*<PageHeader*/}
-        {/*  headerText="Radical Woodworks Products"*/}
-        {/*  showButton={false}*/}
-        {/*/>*/}
+        <Spinner spinning={loading} />
+        <PageHeader
+          headerText="Radical Woodworks Products"
+          showButton={false}
+        />
       </div>
 
-      {/*{productsLoaded && (*/}
-      {/*  <ProductGrid products={products} onAddToCart={handleAddToCart} />*/}
-      {/*)}*/}
+      {productsLoaded && (
+        <ProductGrid products={products} onAddToCart={handleAddToCart} />
+      )}
     </div>
   );
 };
