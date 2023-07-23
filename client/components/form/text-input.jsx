@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import styles from './text-input.scss';
+import styles from './text-input.module.scss';
 
 
 const TextInput = ({ value = '', ...props }) => {

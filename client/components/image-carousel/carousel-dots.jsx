@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import styles from './carousel-dots.scss';
+import styles from './carousel-dots.module.scss';
 
 
 const CarouselDots = ({ className, count, currentIndex, onClick }) => {

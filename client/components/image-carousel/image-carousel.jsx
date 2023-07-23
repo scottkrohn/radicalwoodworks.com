@@ -10,7 +10,7 @@ import Button from '@components/button/button';
 // Constants
 import IMAGES from '../../constants/image-constants';
 
-import styles from './image-carousel.scss';
+import styles from './image-carousel.module.scss';
 
 
 const ImageCarousel = ({

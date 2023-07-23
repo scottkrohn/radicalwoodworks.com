@@ -39,7 +39,7 @@ import Product from 'model/product';
 import { withAuthValidation } from 'client/hoc/auth';
 import { withRouter } from 'react-router-dom';
 
-import styles from '@pages/admin-product-page.scss';
+import styles from '@pages/admin-product-page.module.scss';
 
 
 const AdminProductContainer = ({

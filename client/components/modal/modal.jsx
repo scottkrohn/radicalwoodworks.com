@@ -8,7 +8,7 @@ import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import styles from './modal.scss';
+import styles from './modal.module.scss';
 
 import useOutsideClickHandler from '../../utils/hooks/useOutsideClickHandler';
 import useKeyPressHandler from '../../utils/hooks/useKeyPressHandler';

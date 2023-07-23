@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 
-import styles from './carousel-nav-button.scss';
+import styles from './carousel-nav-button.module.scss';
 
 
 const CarouselNavButton = ({ className, onClick, direction }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import styles from './select-input.scss';
+import styles from './select-input.module.scss';
 
 
 const SelectInput = (props) => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import styles from '@components/product/pricing.scss';
+import styles from '@components/product/pricing.module.scss';
 
 import Product from 'model/product';
 import Button from '@components/button/button';

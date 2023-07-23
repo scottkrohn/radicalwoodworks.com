@@ -6,7 +6,7 @@ import { get } from 'lodash';
 import Product from 'model/product';
 
 // Styles
-import styles from '@components/product/item-info.scss';
+import styles from '@components/product/item-info.module.scss';
 
 
 const ItemInfo = ({ product }) => {

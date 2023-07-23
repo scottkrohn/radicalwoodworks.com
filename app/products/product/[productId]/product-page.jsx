@@ -5,18 +5,18 @@ import { get, isEmpty } from 'lodash';
 import cx from 'classnames';
 
 // Actions
-import { getProduct } from 'client/actions/product-actions';
-import { addOrUpdateCartItem, createCart } from 'client/actions/cart-actions';
+import { getProduct } from '@actions/product-actions';
+import { addOrUpdateCartItem, createCart } from '@actions/cart-actions';
 
 // Selectors
 import {
   getProduct as getProductSelector,
   getLoading,
-} from 'client/selectors/product-selectors';
+} from '@selectors//product-selectors';
 import {
   selectCart,
   getLoading as getCartLoading,
-} from 'client/selectors/cart-selectors';
+} from '@selectors//cart-selectors';
 import { selectUser } from '@selectors/user-selectors';
 
 // Component
@@ -26,7 +26,7 @@ import Spinner from '@components/spinner/spinner';
 import ImageCarousel from '@components/image-carousel/image-carousel';
 
 // Styles
-import styles from './product-page.scss';
+import styles from './product-page.module.scss';
 
 
 const ProductContainer = ({
@@ -35,12 +35,10 @@ const ProductContainer = ({
   createCart,
   getProduct,
   loading,
-  match,
   product,
+  productId,
   user,
 }) => {
-  
-  const productId = get(match, 'params.productId');
 
   useEffect(() => {
     if (isEmpty(product) || product.getId() != productId) {
@@ -104,13 +102,15 @@ const mapActionsToProps = {
   getProduct,
 };
 
-export default {
-  component: connect(mapStateToProps, mapActionsToProps)(ProductContainer),
-  loadData: (store, pathParts) => {
-    const productId =
-      pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
-    return productId !== null
-      ? store.dispatch(getProduct(productId))
-      : Promise.resolve();
-  },
-};
+export default connect(mapStateToProps, mapActionsToProps)(ProductContainer);
+
+// export default {
+//   component: connect(mapStateToProps, mapActionsToProps)(ProductContainer),
+//   loadData: (store, pathParts) => {
+//     const productId =
+//       pathParts.length === 3 ? parseInt(pathParts[2], 10) : null;
+//     return productId !== null
+//       ? store.dispatch(getProduct(productId))
+//       : Promise.resolve();
+//   },
+// };

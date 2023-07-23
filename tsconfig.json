@@ -23,6 +23,7 @@
       "@components/*": ["client/components/*"],
       "@constants/*": ["./constants/*"],
       "@constants-client/*": ["client/constants/*"],
+      "@forms/*": ["./client/components/form/*"],
       "@helpers/*": ["./lib/helpers/*"],
       "@models/*": ["./model/*"],
       "@reducers/*": ["client/reducers/*"],
