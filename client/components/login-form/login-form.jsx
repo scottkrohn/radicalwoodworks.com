@@ -15,7 +15,7 @@ import Spinner from '../spinner/spinner';
 import RequiredValidator from '../../utils/validators/required-validator';
 
 // Styles
-import styles from '@components/login-form/login-form.scss';
+import styles from '@components/login-form/login-form.module.scss';
 
 
 const LoginForm = ({ error, errorCode, handleLogin, sending }) => {

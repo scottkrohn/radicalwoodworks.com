@@ -4,18 +4,19 @@ import Cookie from 'js-cookie';
 import AUTH from '@constants/auth-constants';
 
 // Actions
-import { login } from 'client/actions/auth-actions';
+import { login } from '@actions/auth-actions';
 
 // Component
 import LoginForm from '@components/login-form/login-form';
 import PageHeader from '@components/page-header/page-header';
-import { withRouter } from 'react-router-dom';
+import {useRouter} from 'next/navigation';
 import { selectUser } from '@selectors/user-selectors';
 import { verifyLogin } from '@actions/auth-actions';
 
-const LoginContainer = ({ auth, history, login, user, verifyLogin }) => {
+const LoginContainer = ({ auth, login, user, verifyLogin }) => {
   const [error, setError] = useState(false);
   const [errorCode, setErrorCode] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     setError(false);
@@ -23,7 +24,7 @@ const LoginContainer = ({ auth, history, login, user, verifyLogin }) => {
 
   useEffect(() => {
     if (user) {
-      history.push(
+      router.push(
         user.getType() === AUTH.USER_TYPES.ADMIN ? '/admin' : '/account'
       );
     }
@@ -70,9 +71,11 @@ const mapActionsToProps = {
   verifyLogin,
 };
 
-export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(withRouter(LoginContainer)),
-};
+export default connect(mapStateToProps, mapActionsToProps)(LoginContainer);
+
+// export default {
+//   component: connect(
+//     mapStateToProps,
+//     mapActionsToProps
+//   )(withRouter(LoginContainer)),
+// };
