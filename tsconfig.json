@@ -29,6 +29,7 @@
       "@reducers/*": ["client/reducers/*"],
       "@selectors/*": ["client/selectors/*"],
       "@lib/*": ["./lib/*"],
+      "@validators/*": ["./client/utils/validators/*"]
     },
     "plugins": [
       {

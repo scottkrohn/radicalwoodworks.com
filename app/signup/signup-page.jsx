@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useRouter} from 'next/navigation';
 import { connect } from 'react-redux';
 import PageHeader from '@components/page-header/page-header';
 import Form from '@forms/form';
@@ -6,7 +7,7 @@ import Button from '@components/button/button';
 import TextInput from '@forms/text-input';
 import RequiredValidator from '@validators/required-validator';
 
-import styles from './signup-page.scss';
+import styles from './signup-page.module.scss';
 import Spinner from '@components/spinner/spinner';
 import { createAccount } from '@actions/user-actions';
 import {
@@ -15,25 +16,24 @@ import {
   selectErrorMessage,
 } from '@selectors/user-selectors';
 import cx from 'classnames';
-import { withRouter } from 'react-router-dom';
 import { verifyLogin } from '@actions/auth-actions';
 
 const SignupPage = ({
   createAccount,
   error,
-  history,
   loading,
   user,
   verifyLogin,
 }) => {
-  
+  const router = useRouter();
+
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     verifyLogin()
       .then(() => {
         if (user) {
-          history.push('/account');
+          router.push('/account');
         }
       })
       .catch(() => {
@@ -176,9 +176,4 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = { createAccount, verifyLogin };
 
-export default {
-  component: connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(withRouter(SignupPage)),
-};
+export default connect(mapStateToProps, mapActionsToProps)(SignupPage);
