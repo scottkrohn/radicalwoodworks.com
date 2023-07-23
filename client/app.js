@@ -6,7 +6,7 @@ import Navbar from './components/nav/navbar';
 import Footer from './components/footer/footer';
 
 // Styles
-import styles from './styles/app.scss'; // Global app css
+import styles from './styles/app.module.scss'; // Global app css
 import fontAwesomeStyles from 'node_modules/@fortawesome/fontawesome-svg-core/styles.css';
 import bootstrapStyles from 'node_modules/bootstrap/dist/css/bootstrap.min.css';
 

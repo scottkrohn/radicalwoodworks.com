@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // Styles
-import styles from '@components/homepage-content-grid/homepage-content-grid.scss';
+import styles from '@components/homepage-content-grid/homepage-content-grid.module.scss';
 
 // Components
 import Button from '@components/button/button';

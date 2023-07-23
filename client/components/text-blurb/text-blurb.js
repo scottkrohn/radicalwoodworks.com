@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 // Styles
-import styles from '@components/text-blurb/text-blurb.scss';
+import styles from '@components/text-blurb/text-blurb.module.scss';
 
 
 const TextBlurb = ({ className, text }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import styles from './button.scss';
+import styles from './button.module.scss';
 
 const Button = ({ className, children, danger, dark, halfWidth, fullWidth, onClick, primary, save }) => {
 

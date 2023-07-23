@@ -1,0 +1,56 @@
+@import './flex.scss';
+
+.app {
+  :global {
+    .container,
+    .container-fluid {
+      padding-bottom: 120px;
+      width: 80%;
+    }
+  }
+
+  @media (max-width: 992px) {
+    :global {
+      .container-fluid {
+        width: 100%;
+      }
+    }
+  }
+
+  .app-container {
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .page-header {
+    padding: 20px;
+  }
+
+  @media (max-width: 992px) {
+    .ql-editor {
+      font-size: 2.8em;
+    }
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  span[data-tool-tip]::before {
+    content: attr(data-tool-tip);
+    background: gray;
+    border-radius: 5px;
+    position: absolute;
+    top: -15px;
+    left: 5%;
+    padding: 5px;
+    display: block;
+    color: white;
+    transform: scale(0);
+    transition: transform ease-in 150ms, bottom ease-out 150ms;
+  }
+
+  span[data-tool-tip]:hover::before {
+    transform: scale(1);
+  }
+}
